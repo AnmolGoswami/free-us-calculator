@@ -106,6 +106,7 @@ export default function LoanCalculatorClient() {
         {result && (
           <div className="bg-white rounded-3xl shadow-lg p-8 border border-gray-100 sticky top-8">
             <h2 className="text-2xl font-semibold mb-6 text-gray-900">Your Loan Summary</h2>
+
             <div className="space-y-8">
               <div className="flex justify-between items-end border-b pb-6">
                 <div>
