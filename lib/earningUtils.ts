@@ -3,68 +3,60 @@
 // ===============================
 // 🚗 DoorDash Earnings Calculator
 // ===============================
-export function calculateDoorDashEarnings(
-  ordersPerHour: number,
-  earningPerOrder: number,
-  hoursPerDay: number,
-  daysPerWeek: number,
-  milesPerOrder: number = 3,
-  costPerMile: number = 0.67, // IRS standard mileage rate (approx)
-  taxRate: number = 0.153 // 15.3% self-employment tax
-) {
-  // ===== GROSS EARNINGS =====
-  const hourly = ordersPerHour * earningPerOrder;
-  const daily = hourly * hoursPerDay;
-  const weekly = daily * daysPerWeek;
-  const monthly = weekly * 4.33; // US average
-  const yearly = weekly * 52;
+// lib/earningUtils.ts
+// lib/earningUtils.ts
+// lib/earningUtils.ts
+export function calculateDoorDashEarnings({
+  ordersPerHour,
+  earningPerOrder,
+  hoursPerDay,
+  daysPerWeek,
+  milesPerOrder,
+  costPerMile,
+  taxRate,
+}: {
+  ordersPerHour: number;
+  earningPerOrder: number;
+  hoursPerDay: number;
+  daysPerWeek: number;
+  milesPerOrder: number;
+  costPerMile: number;
+  taxRate: number;
+}) {
+  const hoursPerWeek = hoursPerDay * daysPerWeek;
+  const ordersPerWeek = ordersPerHour * hoursPerWeek;
 
-  // ===== EXPENSES =====
-  const totalOrdersPerWeek = ordersPerHour * hoursPerDay * daysPerWeek;
-  const weeklyMiles = totalOrdersPerWeek * milesPerOrder;
+  const weeklyGross = ordersPerWeek * earningPerOrder;
+  const monthlyGross = weeklyGross * 4.345;
+  const yearlyGross = weeklyGross * 52;
 
+  const weeklyMiles = ordersPerWeek * milesPerOrder;
   const weeklyExpenses = weeklyMiles * costPerMile;
-  const monthlyExpenses = weeklyExpenses * 4.33;
+  const monthlyExpenses = weeklyExpenses * 4.345;
   const yearlyExpenses = weeklyExpenses * 52;
 
-  // ===== PROFIT BEFORE TAX =====
-  const weeklyProfit = weekly - weeklyExpenses;
-  const monthlyProfit = monthly - monthlyExpenses;
-  const yearlyProfit = yearly - yearlyExpenses;
+  const weeklyProfit = weeklyGross - weeklyExpenses;
+  const monthlyProfit = monthlyGross - monthlyExpenses;
+  const yearlyProfit = yearlyGross - yearlyExpenses;
 
-  // ===== TAXES =====
-  const weeklyTax = weeklyProfit * taxRate;
-  const monthlyTax = monthlyProfit * taxRate;
-  const yearlyTax = yearlyProfit * taxRate;
+  const weeklyTax = weeklyProfit * (taxRate / 100);
+  const monthlyTax = monthlyProfit * (taxRate / 100);
+  const yearlyTax = yearlyProfit * (taxRate / 100);
 
-  // ===== NET (TAKE HOME) =====
   const weeklyNet = weeklyProfit - weeklyTax;
   const monthlyNet = monthlyProfit - monthlyTax;
   const yearlyNet = yearlyProfit - yearlyTax;
 
+  const hourlyGross = ordersPerHour * earningPerOrder;
+  const hourlyNet = hoursPerWeek > 0 ? weeklyNet / hoursPerWeek : 0;
+
   return {
-    gross: {
-      hourly,
-      daily,
-      weekly,
-      monthly,
-      yearly,
-    },
-    expenses: {
-      weekly: weeklyExpenses,
-      monthly: monthlyExpenses,
-      yearly: yearlyExpenses,
-    },
-    tax: {
-      weekly: weeklyTax,
-      monthly: monthlyTax,
-      yearly: yearlyTax,
-    },
-    net: {
-      weekly: weeklyNet,
-      monthly: monthlyNet,
-      yearly: yearlyNet,
-    },
+    gross: { hourly: hourlyGross, weekly: weeklyGross, monthly: monthlyGross, yearly: yearlyGross },
+    expenses: { weekly: weeklyExpenses, monthly: monthlyExpenses, yearly: yearlyExpenses },
+    tax: { weekly: weeklyTax, monthly: monthlyTax, yearly: yearlyTax },
+    net: { hourly: hourlyNet, weekly: weeklyNet, monthly: monthlyNet, yearly: yearlyNet },
+    ordersPerWeek,
+    milesPerWeek: weeklyMiles,
   };
 }
 
