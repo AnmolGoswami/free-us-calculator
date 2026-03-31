@@ -4,6 +4,7 @@ import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import AdBanner from "@/components/common/AdBanner";
 import { getToolContent } from "@/lib/seo";
 import HourlyToSalaryClient from "./HourlyToSalaryClient";
+import ShareButtons from "@/components/calculators/ShareButtons";
 
 export default function HourlyToSalaryPage() {
   const seoContent = getToolContent("hourly-to-salary-calculator");
@@ -21,6 +22,12 @@ export default function HourlyToSalaryPage() {
       <div
         className="mt-20 max-w-4xl mx-auto prose prose-gray px-6"
         dangerouslySetInnerHTML={{ __html: seoContent }}
+      />
+
+      {/* SHARE */}
+      <ShareButtons
+        title="Hourly to Salary Calculator USA 2026"
+        url="https://freeuscalculator.com/hourly-to-salary-calculator"
       />
 
       <AdBanner />

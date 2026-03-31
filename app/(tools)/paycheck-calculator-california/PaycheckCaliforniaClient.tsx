@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import InputField from "@/components/ui/InputField";
+import ResultBox from "@/components/ui/ResultBox";
+import BreakdownTable from "@/components/calculators/BreakdownTable";
 import { calculateCaliforniaPaycheck } from "@/lib/taxUtils";
 
 export default function PaycheckCaliforniaClient() {
   const [salary, setSalary] = useState(80000);
-  const [payFrequency, setPayFrequency] = useState(12); // monthly default
+  const [payFrequency, setPayFrequency] = useState(12); // monthly
 
   const [result, setResult] = useState<any>(null);
 
@@ -49,58 +51,56 @@ export default function PaycheckCaliforniaClient() {
       </div>
 
       {/* RESULTS */}
-      <div className="bg-gray-50 rounded-3xl p-8 border">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-900">
-          Paycheck Breakdown
-        </h2>
-
+      <div className="space-y-6">
         {result && (
-          <div className="space-y-8">
+          <>
+            {/* MAIN RESULT */}
+            <ResultBox
+              title="Take-Home Pay"
+              value={`$${result.net.toFixed(0)}`}
+              highlight
+              color="green"
+            />
 
-            {/* NET PAY */}
-            <div className="border-b pb-4">
-              <p className="text-sm text-gray-500">Take Home Pay</p>
-              <p className="text-3xl font-bold text-green-600">
-                ${result.net.toFixed(0)}
-              </p>
-            </div>
+            {/* SECONDARY */}
+            <ResultBox
+              title="Gross Pay"
+              value={`$${result.gross.toFixed(0)}`}
+            />
 
             {/* BREAKDOWN */}
-            <div className="grid grid-cols-2 gap-6 text-sm">
+            <BreakdownTable
+              title="Tax Breakdown"
+              data={[
+                {
+                  label: "Federal Tax",
+                  value: `$${result.federalTax.toFixed(0)}`,
+                  color: "red",
+                },
+                {
+                  label: "California State Tax",
+                  value: `$${result.stateTax.toFixed(0)}`,
+                  color: "red",
+                },
+                {
+                  label: "FICA (SS + Medicare)",
+                  value: `$${result.fica.toFixed(0)}`,
+                  color: "red",
+                },
+                {
+                  label: "Net Pay",
+                  value: `$${result.net.toFixed(0)}`,
+                  highlight: true,
+                  color: "green",
+                },
+              ]}
+            />
 
-              <div>
-                <p className="text-gray-500">Gross Pay</p>
-                <p className="font-semibold">
-                  ${result.gross.toFixed(0)}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-gray-500">Federal Tax</p>
-                <p className="font-semibold text-red-600">
-                  ${result.federalTax.toFixed(0)}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-gray-500">California Tax</p>
-                <p className="font-semibold text-red-600">
-                  ${result.stateTax.toFixed(0)}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-gray-500">FICA (SS + Medicare)</p>
-                <p className="font-semibold text-red-600">
-                  ${result.fica.toFixed(0)}
-                </p>
-              </div>
+            {/* INFO */}
+            <div className="bg-gray-50 p-4 rounded-xl text-xs text-gray-500">
+              Includes federal income tax, California state tax, Social Security (6.2%), and Medicare (1.45%). Actual paycheck may vary based on deductions and filing status.
             </div>
-
-            <div className="bg-white p-4 rounded-xl text-xs text-gray-500">
-              Includes federal income tax, California state tax, Social Security (6.2%) and Medicare (1.45%).
-            </div>
-          </div>
+          </>
         )}
       </div>
     </div>

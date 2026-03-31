@@ -1,9 +1,8 @@
-// SERVER COMPONENT
-
 import { getToolContent } from "@/lib/seo";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import DoorDashCalculatorClient from "./DoorDashCalculatorClient";
 import AdBanner from "@/components/common/AdBanner";
+import ShareButtons from "@/components/calculators/ShareButtons";
 
 export default function DoorDashPage() {
   const seoContent = getToolContent("doordash-earnings-calculator");
@@ -21,6 +20,12 @@ export default function DoorDashPage() {
       <div className="max-w-4xl mx-auto px-6 mt-16 prose prose-gray">
         <div dangerouslySetInnerHTML={{ __html: seoContent }} />
       </div>
+
+      {/* SHARE BUTTONS */}
+      <ShareButtons
+        title="DoorDash Earnings Calculator 2026"
+        url="https://freeuscalculator.com/doordash-earnings-calculator"
+      />
 
       <AdBanner />
     </>

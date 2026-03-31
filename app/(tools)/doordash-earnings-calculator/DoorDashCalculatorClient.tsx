@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import InputField from "@/components/ui/InputField";
+import ResultBox from "@/components/ui/ResultBox";
+import BreakdownTable from "@/components/calculators/BreakdownTable";
 import { calculateDoorDashEarnings } from "@/lib/earningUtils";
 
 export default function DoorDashCalculatorClient() {
@@ -32,85 +34,67 @@ export default function DoorDashCalculatorClient() {
           Enter Your Work Details
         </h2>
 
-        <InputField
-          label="Orders per hour"
-          value={ordersPerHour}
-          onChange={setOrdersPerHour}
-        />
-
-        <InputField
-          label="Earning per order ($)"
-          value={earningPerOrder}
-          onChange={setEarningPerOrder}
-        />
-
-        <InputField
-          label="Hours per day"
-          value={hoursPerDay}
-          onChange={setHoursPerDay}
-        />
-
-        <InputField
-          label="Days per week"
-          value={daysPerWeek}
-          onChange={setDaysPerWeek}
-        />
+        <InputField label="Orders per hour" value={ordersPerHour} onChange={setOrdersPerHour} />
+        <InputField label="Earning per order ($)" value={earningPerOrder} onChange={setEarningPerOrder} />
+        <InputField label="Hours per day" value={hoursPerDay} onChange={setHoursPerDay} />
+        <InputField label="Days per week" value={daysPerWeek} onChange={setDaysPerWeek} />
       </div>
 
       {/* RESULTS */}
-      <div className="bg-gray-50 rounded-3xl p-8 border">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-900">
-          Earnings Breakdown
-        </h2>
-
+      <div className="space-y-6">
         {result && (
-          <div className="space-y-8">
-            
-            {/* NET (MAIN) */}
-            <div className="border-b pb-4">
-              <p className="text-sm text-gray-500">Monthly Take-Home</p>
-              <p className="text-3xl font-bold text-green-600">
-                ${result.net.monthly.toFixed(0)}
-              </p>
+          <>
+            {/* MAIN RESULT */}
+            <ResultBox
+              title="Monthly Take-Home"
+              value={`$${result.net.monthly.toFixed(0)}`}
+              highlight
+              color="green"
+            />
+
+            {/* SECONDARY */}
+            <ResultBox
+              title="Weekly Take-Home"
+              value={`$${result.net.weekly.toFixed(0)}`}
+            />
+
+            <ResultBox
+              title="Gross Monthly"
+              value={`$${result.gross.monthly.toFixed(0)}`}
+            />
+
+            {/* BREAKDOWN TABLE */}
+            <BreakdownTable
+              title="Detailed Breakdown"
+              data={[
+                {
+                  label: "Gross Monthly",
+                  value: `$${result.gross.monthly.toFixed(0)}`,
+                },
+                {
+                  label: "Expenses",
+                  value: `$${result.expenses.monthly.toFixed(0)}`,
+                  color: "red",
+                },
+                {
+                  label: "Estimated Tax",
+                  value: `$${result.tax.monthly.toFixed(0)}`,
+                  color: "red",
+                },
+                {
+                  label: "Net Monthly",
+                  value: `$${result.net.monthly.toFixed(0)}`,
+                  highlight: true,
+                  color: "green",
+                },
+              ]}
+            />
+
+            {/* INFO */}
+            <div className="bg-gray-50 p-4 rounded-xl text-xs text-gray-500">
+              Includes fuel cost (IRS mileage rate) and estimated 15.3% self-employment tax.
             </div>
-
-            {/* GRID */}
-            <div className="grid grid-cols-2 gap-6 text-sm">
-              
-              <div>
-                <p className="text-gray-500">Gross Monthly</p>
-                <p className="font-semibold">
-                  ${result.gross.monthly.toFixed(0)}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-gray-500">Expenses</p>
-                <p className="font-semibold text-orange-600">
-                  ${result.expenses.monthly.toFixed(0)}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-gray-500">Estimated Tax</p>
-                <p className="font-semibold text-red-600">
-                  ${result.tax.monthly.toFixed(0)}
-                </p>
-              </div>
-
-              <div>
-                <p className="text-gray-500">Weekly Take-Home</p>
-                <p className="font-semibold">
-                  ${result.net.weekly.toFixed(0)}
-                </p>
-              </div>
-            </div>
-
-            {/* EXTRA INFO */}
-            <div className="bg-white rounded-xl p-4 text-xs text-gray-500">
-              Includes fuel cost (IRS rate) and estimated 15.3% self-employment tax.
-            </div>
-          </div>
+          </>
         )}
       </div>
     </div>

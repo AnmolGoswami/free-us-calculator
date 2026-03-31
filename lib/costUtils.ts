@@ -140,3 +140,4 @@ export function calculateRentVsBuy(
     yearlyDifference: Math.round((totalMortgageOverYears - totalRentOverYears) / years),
   };
 }
+

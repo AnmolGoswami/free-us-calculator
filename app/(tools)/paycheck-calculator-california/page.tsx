@@ -4,6 +4,7 @@ import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import AdBanner from "@/components/common/AdBanner";
 import { getToolContent } from "@/lib/seo";
 import PaycheckCaliforniaClient from "./PaycheckCaliforniaClient";
+import ShareButtons from "@/components/calculators/ShareButtons";
 
 export default function PaycheckCaliforniaPage() {
   const seoContent = getToolContent("paycheck-calculator-california");
@@ -21,6 +22,12 @@ export default function PaycheckCaliforniaPage() {
       <div
         className="mt-20 max-w-4xl mx-auto prose prose-gray px-6"
         dangerouslySetInnerHTML={{ __html: seoContent }}
+      />
+
+      {/* SHARE */}
+      <ShareButtons
+        title="California Paycheck Calculator 2026"
+        url="https://freeuscalculator.com/paycheck-calculator-california"
       />
 
       <AdBanner />
