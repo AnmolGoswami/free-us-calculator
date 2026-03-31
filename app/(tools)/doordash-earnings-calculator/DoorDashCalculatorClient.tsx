@@ -60,32 +60,55 @@ export default function DoorDashCalculatorClient() {
       {/* RESULTS */}
       <div className="bg-gray-50 rounded-3xl p-8 border">
         <h2 className="text-2xl font-semibold mb-6 text-gray-900">
-          Estimated Earnings
+          Earnings Breakdown
         </h2>
 
         {result && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             
+            {/* NET (MAIN) */}
             <div className="border-b pb-4">
-              <p className="text-sm text-gray-500">Hourly Earnings</p>
-              <p className="text-3xl font-bold text-indigo-600">
-                ${result.hourly}
+              <p className="text-sm text-gray-500">Monthly Take-Home</p>
+              <p className="text-3xl font-bold text-green-600">
+                ${result.net.monthly.toFixed(0)}
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 text-lg">
+            {/* GRID */}
+            <div className="grid grid-cols-2 gap-6 text-sm">
+              
               <div>
-                <p className="text-gray-500 text-sm">Daily</p>
-                <p className="font-semibold">${result.daily}</p>
+                <p className="text-gray-500">Gross Monthly</p>
+                <p className="font-semibold">
+                  ${result.gross.monthly.toFixed(0)}
+                </p>
               </div>
+
               <div>
-                <p className="text-gray-500 text-sm">Weekly</p>
-                <p className="font-semibold">${result.weekly}</p>
+                <p className="text-gray-500">Expenses</p>
+                <p className="font-semibold text-orange-600">
+                  ${result.expenses.monthly.toFixed(0)}
+                </p>
               </div>
+
               <div>
-                <p className="text-gray-500 text-sm">Monthly</p>
-                <p className="font-semibold">${result.monthly}</p>
+                <p className="text-gray-500">Estimated Tax</p>
+                <p className="font-semibold text-red-600">
+                  ${result.tax.monthly.toFixed(0)}
+                </p>
               </div>
+
+              <div>
+                <p className="text-gray-500">Weekly Take-Home</p>
+                <p className="font-semibold">
+                  ${result.net.weekly.toFixed(0)}
+                </p>
+              </div>
+            </div>
+
+            {/* EXTRA INFO */}
+            <div className="bg-white rounded-xl p-4 text-xs text-gray-500">
+              Includes fuel cost (IRS rate) and estimated 15.3% self-employment tax.
             </div>
           </div>
         )}
