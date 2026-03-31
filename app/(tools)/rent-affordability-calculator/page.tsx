@@ -4,6 +4,7 @@ import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import AdBanner from "@/components/common/AdBanner";
 import { getToolContent } from "@/lib/seo";
 import RentAffordabilityClient from "./RentAffordabilityClient";
+import ShareButtons from "@/components/calculators/ShareButtons";
 
 export default function RentAffordabilityPage() {
   const seoContent = getToolContent("rent-affordability-calculator");
@@ -21,6 +22,12 @@ export default function RentAffordabilityPage() {
       <div className="mt-20 max-w-4xl mx-auto prose prose-gray px-6">
         <div dangerouslySetInnerHTML={{ __html: seoContent }} />
       </div>
+
+      {/* SHARE */}
+            <ShareButtons
+              title="California Paycheck Calculator 2026"
+              url="https://freeuscalculator.com/paycheck-calculator-california"
+            />
 
       <AdBanner />
     </>

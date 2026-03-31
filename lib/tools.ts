@@ -1,151 +1,176 @@
 // lib/tools.ts
-// Central registry for all calculators - Easy to maintain and scale
+// Central Tools Registry - SEO Optimized & Scalable
 
 export interface Tool {
-  slug: string;                    // Used in URL: /self-employment-tax-calculator-usa
-  title: string;                   // Display title on cards and pages
-  shortTitle?: string;             // Optional shorter version for cards
-  description: string;             // Short description for homepage cards
-  category: "tax" | "earning" | "cost";
-  metaTitle: string;               // SEO-optimized page title
-  metaDescription: string;         // SEO meta description (important for Google)
-  keywords: string[];              // Additional keywords for better ranking
-  lastUpdated: string;             // "2026" or full date
-  popularity?: number;             // Optional: for sorting popular tools (1-10)
+  slug: string;                    // URL-friendly slug
+  title: string;                   // Main display title
+  shortTitle?: string;             // Shorter title for cards
+  description: string;             // Short description for cards
+  longDescription?: string;        // Optional detailed description for tool page
+  category: "tax" | "earning" | "cost" | "retirement";
+  
+  // SEO Fields (Very Important for Google Ranking & AdSense)
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string[];
+  
+  lastUpdated: string;             // "March 2026" or "2026"
+  popularity: number;              // 1-10 scale for sorting
+  featured?: boolean;              // Show on homepage hero or featured section
+  estimatedTime?: string;          // "30 sec", "1 min" etc.
+  
+  // Future proofing
+  icon?: string;                   // Can be used later for custom icons
+  tags?: string[];
 }
 
-// All Tools Registry
 export const allTools: Tool[] = [
+  // ==================== TAX TOOLS ====================
   {
     slug: "self-employment-tax-calculator-usa",
     title: "Self Employment Tax Calculator USA 2026",
     shortTitle: "Self Employment Tax",
-    description: "Calculate your 15.3% self-employment tax including Social Security and Medicare with 2026 rates.",
+    description: "Calculate your full self-employment tax including Social Security and Medicare with latest 2026 rates.",
     category: "tax",
-    metaTitle: "Self Employment Tax Calculator USA 2026 (Free Tool)",
-    metaDescription: "Free self-employment tax calculator for 2026. Instantly calculate SE tax, Social Security, and Medicare for freelancers and small business owners.",
-    keywords: ["self employment tax calculator", "se tax calculator 2026", "self employed tax usa"],
-    lastUpdated: "2026",
+    metaTitle: "Self Employment Tax Calculator 2026 - Free SE Tax Tool",
+    metaDescription: "Free 2026 self-employment tax calculator. Instantly calculate SE tax, Social Security, Medicare, and deductible portion.",
+    keywords: ["self employment tax calculator", "se tax calculator 2026", "self employed tax", "1099 tax calculator"],
+    lastUpdated: "March 2026",
     popularity: 10,
+    featured: true,
+    estimatedTime: "45 sec",
   },
   {
     slug: "salary-after-tax-calculator",
     title: "Salary After Tax Calculator 2026",
     shortTitle: "Salary After Tax",
-    description: "See your take-home pay after federal taxes, FICA, and deductions using 2026 tax brackets.",
+    description: "See exactly how much you'll take home after federal, state, and FICA taxes in 2026.",
     category: "tax",
-    metaTitle: "Salary After Tax Calculator 2026 - Free Take Home Pay Estimator",
-    metaDescription: "Calculate your net salary after federal income tax, Social Security, and Medicare. Updated for 2026 tax brackets.",
-    keywords: ["salary after tax calculator", "take home pay calculator", "net salary calculator 2026"],
-    lastUpdated: "2026",
-    popularity: 9,
+    metaTitle: "Salary After Tax Calculator 2026 - Take Home Pay Estimator",
+    metaDescription: "Calculate your net paycheck after taxes using 2026 federal and state tax brackets.",
+    keywords: ["salary after tax calculator", "take home pay calculator", "net salary calculator"],
+    lastUpdated: "March 2026",
+    popularity: 10,
+    featured: true,
+    estimatedTime: "30 sec",
   },
   {
     slug: "paycheck-calculator-california",
     title: "Paycheck Calculator California 2026",
     shortTitle: "CA Paycheck Calculator",
-    description: "California-specific paycheck estimator with state tax, SDI, and local deductions.",
+    description: "Accurate California paycheck estimator with state tax, SDI, and local deductions.",
     category: "tax",
-    metaTitle: "Paycheck Calculator California 2026 - Free CA Pay Stub Estimator",
-    metaDescription: "Accurate California paycheck calculator for 2026 including state income tax, Social Security, Medicare, and SDI.",
-    keywords: ["paycheck calculator california", "ca paycheck calculator", "california pay stub"],
-    lastUpdated: "2026",
-    popularity: 8,
+    metaTitle: "California Paycheck Calculator 2026 - Free CA Pay Stub Tool",
+    metaDescription: "Best free California paycheck calculator for 2026 with state income tax, SDI, and FICA deductions.",
+    keywords: ["paycheck calculator california", "california paycheck calculator", "ca pay stub calculator"],
+    lastUpdated: "March 2026",
+    popularity: 9,
+    featured: true,
+    estimatedTime: "40 sec",
   },
+
+  // ==================== EARNING TOOLS ====================
   {
     slug: "uber-earnings-calculator",
     title: "Uber Earnings Calculator 2026",
     shortTitle: "Uber Earnings",
-    description: "Estimate weekly and monthly earnings as an Uber driver including tips, bonuses, and expenses.",
+    description: "Estimate real earnings as an Uber driver after expenses, gas, and fees.",
     category: "earning",
-    metaTitle: "Uber Earnings Calculator - Driver Pay Estimator 2026",
-    metaDescription: "Calculate your real Uber driver earnings after expenses, gas, and platform fees. Perfect for Uber drivers in 2026.",
-    keywords: ["uber earnings calculator", "uber driver pay", "uber income calculator"],
-    lastUpdated: "2026",
+    metaTitle: "Uber Earnings Calculator 2026 - Driver Income Estimator",
+    metaDescription: "Calculate your actual Uber driver earnings after expenses, bonuses, and platform fees in 2026.",
+    keywords: ["uber earnings calculator", "uber driver pay calculator", "uber income estimator"],
+    lastUpdated: "March 2026",
     popularity: 9,
+    estimatedTime: "1 min",
   },
   {
     slug: "doordash-earnings-calculator",
     title: "DoorDash Earnings Calculator 2026",
     shortTitle: "DoorDash Earnings",
-    description: "Estimate your DoorDash dasher pay including base pay, tips, promotions, and peak hours.",
+    description: "Estimate your real income as a DoorDash dasher including tips and peak hours.",
     category: "earning",
-    metaTitle: "DoorDash Earnings Calculator - Dasher Pay Estimator 2026",
-    metaDescription: "Free DoorDash earnings calculator. Estimate your weekly and monthly income as a DoorDash driver in 2026.",
-    keywords: ["doordash earnings calculator", "doordash dasher pay", "door dash income"],
-    lastUpdated: "2026",
+    metaTitle: "DoorDash Earnings Calculator 2026 - Dasher Pay Estimator",
+    metaDescription: "Free DoorDash earnings calculator for 2026. Calculate weekly and monthly income accurately.",
+    keywords: ["doordash earnings calculator", "doordash dasher pay", "door dash income calculator"],
+    lastUpdated: "March 2026",
     popularity: 8,
+    estimatedTime: "50 sec",
   },
   {
     slug: "hourly-to-salary-calculator",
     title: "Hourly to Salary Calculator",
     shortTitle: "Hourly to Salary",
-    description: "Convert your hourly wage to annual salary with overtime and benefits consideration.",
+    description: "Convert hourly wage to annual salary with overtime, benefits, and taxes.",
     category: "earning",
-    metaTitle: "Hourly to Salary Calculator - Free Wage Converter",
-    metaDescription: "Easily convert hourly rate to yearly salary. Includes overtime, paid time off, and benefits estimates.",
+    metaTitle: "Hourly to Salary Calculator - Free Wage Converter 2026",
+    metaDescription: "Convert your hourly rate to yearly salary including overtime and benefits.",
     keywords: ["hourly to salary calculator", "hourly wage to salary"],
-    lastUpdated: "2026",
+    lastUpdated: "March 2026",
     popularity: 7,
   },
-  {
-    slug: "salary-to-hourly-calculator",
-    title: "Salary to Hourly Calculator",
-    shortTitle: "Salary to Hourly",
-    description: "Convert your annual salary into equivalent hourly rate for comparison.",
-    category: "earning",
-    metaTitle: "Salary to Hourly Calculator - Free Converter",
-    metaDescription: "Convert yearly salary to hourly rate instantly. Useful for job negotiations and part-time comparisons.",
-    keywords: ["salary to hourly calculator", "annual salary to hourly"],
-    lastUpdated: "2026",
-    popularity: 7,
-  },
+
+  // ==================== COST & SAVINGS TOOLS ====================
   {
     slug: "rent-affordability-calculator",
-    title: "Rent Affordability Calculator",
+    title: "Rent Affordability Calculator 2026",
     shortTitle: "Rent Affordability",
-    description: "Find out how much rent you can realistically afford based on the 30% rule and your income.",
+    description: "Find out how much rent you can safely afford based on your income.",
     category: "cost",
     metaTitle: "Rent Affordability Calculator - How Much Rent Can I Afford?",
-    metaDescription: "Free rent affordability calculator using the 30% rule. See how much monthly rent fits your budget in 2026.",
+    metaDescription: "Free rent affordability calculator using 30% rule and realistic budgeting for 2026.",
     keywords: ["rent affordability calculator", "how much rent can i afford"],
-    lastUpdated: "2026",
-    popularity: 8,
+    lastUpdated: "March 2026",
+    popularity: 9,
   },
   {
     slug: "loan-calculator",
-    title: "Loan Calculator 2026",
+    title: "Loan EMI Calculator 2026",
     shortTitle: "Loan Calculator",
-    description: "Calculate monthly EMI, total interest, and repayment schedule for personal, auto, or home loans.",
+    description: "Calculate monthly EMI, total interest, and full repayment schedule.",
     category: "cost",
-    metaTitle: "Free Loan Calculator - EMI Calculator 2026",
-    metaDescription: "Calculate monthly loan payments, total interest, and amortization schedule. Supports different loan types.",
-    keywords: ["loan calculator", "emi calculator", "monthly loan payment"],
-    lastUpdated: "2026",
+    metaTitle: "Loan Calculator & EMI Calculator 2026",
+    metaDescription: "Free loan EMI calculator for personal, car, and home loans with amortization schedule.",
+    keywords: ["loan calculator", "emi calculator", "monthly loan payment calculator"],
+    lastUpdated: "March 2026",
     popularity: 9,
   },
   {
     slug: "savings-calculator",
-    title: "Savings Calculator 2026",
+    title: "Savings & Compound Interest Calculator 2026",
     shortTitle: "Savings Calculator",
-    description: "Calculate compound interest and future value of your monthly savings with different interest rates.",
+    description: "See how fast your savings will grow with compound interest.",
     category: "cost",
-    metaTitle: "Savings Calculator - Compound Interest & Future Value 2026",
-    metaDescription: "Plan your savings growth with our free compound interest calculator. See how your money grows over time.",
-    keywords: ["savings calculator", "compound interest calculator", "future value calculator"],
-    lastUpdated: "2026",
-    popularity: 7,
+    metaTitle: "Compound Interest & Savings Calculator 2026",
+    metaDescription: "Calculate future savings value with monthly contributions and compound interest.",
+    keywords: ["savings calculator", "compound interest calculator"],
+    lastUpdated: "March 2026",
+    popularity: 8,
+  },
+
+  // Add more high-value tools (Recommended)
+  {
+    slug: "401k-calculator",
+    title: "401(k) Retirement Calculator 2026",
+    shortTitle: "401k Calculator",
+    description: "Plan your retirement savings with employer match and compound growth.",
+    category: "retirement",
+    metaTitle: "401(k) Calculator 2026 - Retirement Savings Planner",
+    metaDescription: "Free 401k calculator to plan your retirement with employer matching and growth projections.",
+    keywords: ["401k calculator", "retirement calculator", "401k savings calculator"],
+    lastUpdated: "March 2026",
+    popularity: 8,
   },
 ];
 
-// Helper functions for easy access
 export const popularTools = allTools
+  .filter(tool => tool.featured || tool.popularity >= 8)
   .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
   .slice(0, 6);
 
 export const taxTools = allTools.filter(tool => tool.category === "tax");
 export const earningTools = allTools.filter(tool => tool.category === "earning");
 export const costTools = allTools.filter(tool => tool.category === "cost");
+export const retirementTools = allTools.filter(tool => tool.category === "retirement");
 
 export const getToolBySlug = (slug: string): Tool | undefined => {
   return allTools.find(tool => tool.slug === slug);
