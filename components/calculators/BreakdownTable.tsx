@@ -1,10 +1,17 @@
 import React from "react";
 
+const colorMap = {
+  green: "text-green-600",
+  red: "text-red-600",
+  indigo: "text-indigo-600",
+  gray: "text-gray-900",
+};
+
 type Row = {
   label: string;
   value: string | number;
   highlight?: boolean;
-  color?: "green" | "red" | "indigo" | "gray";
+  color?: keyof typeof colorMap; // ✅ FIXED
 };
 
 interface BreakdownTableProps {
@@ -16,13 +23,6 @@ export default function BreakdownTable({
   title = "Breakdown",
   data,
 }: BreakdownTableProps) {
-  const colorMap = {
-    green: "text-green-600",
-    red: "text-red-600",
-    indigo: "text-indigo-600",
-    gray: "text-gray-900",
-  };
-
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">

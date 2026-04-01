@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import InputField from "@/components/ui/InputField";
 import ResultBox from "@/components/ui/ResultBox";
 import BreakdownTable from "@/components/calculators/BreakdownTable";
-import { calculateRentAffordability } from "@/lib/costUtils";
+import { calculateRentAffordability } from "@/lib/loanCalculator";
 
 export default function RentAffordabilityClient() {
   const [monthlyIncome, setMonthlyIncome] = useState(5000);

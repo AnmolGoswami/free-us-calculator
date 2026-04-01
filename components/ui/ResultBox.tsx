@@ -8,7 +8,6 @@ interface ResultBoxProps {
   highlight?: boolean;
   color?: "green" | "blue" | "emerald" | "red" | "gray";
   size?: "normal" | "large";
-  showCurrency?: boolean;
 }
 
 export default function ResultBox({
@@ -18,38 +17,22 @@ export default function ResultBox({
   highlight = false,
   color = "blue",
   size = "normal",
-  showCurrency = true,
 }: ResultBoxProps) {
   const colorMap = {
     green: "text-green-600",
     blue: "text-blue-600",
     emerald: "text-emerald-600",
     red: "text-red-600",
-    gray: "text-gray-800",
+    gray: "text-gray-900",
   };
 
-  const bgMap = {
-    green: "bg-green-50 border-green-200",
-    blue: "bg-blue-50 border-blue-200",
-    emerald: "bg-emerald-50 border-emerald-200",
-    red: "bg-red-50 border-red-200",
-    gray: "bg-gray-50 border-gray-200",
-  };
-
-  const textSize = size === "large" 
-    ? "text-5xl md:text-6xl" 
-    : "text-4xl md:text-5xl";
-
-  // Clean value (remove $ if user already added)
-  const cleanValue = typeof value === "string" 
-    ? value.replace(/^\$+/, "") 
-    : value;
+  const textSize = size === "large" ? "text-5xl md:text-6xl" : "text-4xl md:text-5xl";
 
   return (
     <div
       className={`rounded-3xl p-7 md:p-8 border transition-all duration-300 ${
-        highlight 
-          ? `${bgMap[color]} shadow-lg shadow-green-100` 
+        highlight
+          ? "bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg"
           : "bg-white border-gray-200 hover:shadow-md"
       }`}
     >
@@ -58,10 +41,7 @@ export default function ResultBox({
       </p>
 
       <p className={`font-bold tracking-tighter ${textSize} ${colorMap[color]}`}>
-        {showCurrency && "$"}
-        {typeof cleanValue === "number" 
-          ? cleanValue.toLocaleString() 
-          : cleanValue}
+        {typeof value === "string" ? value : value.toLocaleString()}
       </p>
 
       {subtitle && <p className="text-sm text-gray-500 mt-3">{subtitle}</p>}
