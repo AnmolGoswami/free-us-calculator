@@ -63,51 +63,188 @@ export function calculateDoorDashEarnings({
 // ======================================
 // 💼 Hourly → Salary Calculator (US PRO)
 // ======================================
-export function calculateHourlyToSalary(
-  hourlyRate: number,
-  hoursPerWeek: number,
-  weeksPerYear: number = 52,
-  taxRate: number = 0.22 // average US effective tax
-) {
-  // ===== OVERTIME LOGIC =====
-  const regularHours = Math.min(hoursPerWeek, 40);
-  const overtimeHours = Math.max(hoursPerWeek - 40, 0);
+// lib/earningUtils.ts
+// lib/earningUtils.ts
+export function calculateHourlyToSalary({
+  mode,
+  hourlyRate = 0,
+  annualSalary = 0,
+  hoursPerWeek = 40,
+  overtimeEnabled = false,
+  overtimeHours = 0,
+  overtimeMultiplier = 1.5,
+  taxRatePercent = 0,
+  currency = "USD",
+}: {
+  mode:
+    | "hourly-to-salary"
+    | "salary-to-hourly"
+    | "time-and-half"
+    | "overtime";
+  hourlyRate?: number;
+  annualSalary?: number;
+  hoursPerWeek?: number;
+  overtimeEnabled?: boolean;
+  overtimeHours?: number;
+  overtimeMultiplier?: number;
+  taxRatePercent?: number;
+  currency?: string;
+}) {
+  const WEEKS_PER_YEAR = 52;
+  const STANDARD_HOURS = 40;
 
-  const overtimeRate = hourlyRate * 1.5; // US standard
+  const safe = (n: number) => (isNaN(n) ? 0 : n);
 
-  // ===== GROSS =====
-  const weeklyGross =
-    regularHours * hourlyRate +
-    overtimeHours * overtimeRate;
+  let yearlyGross = 0;
+  let weekly = 0;
+  let result: any = {};
+  let overtimeHrs = 0;
 
-  const monthlyGross = weeklyGross * 4.33;
-  const yearlyGross = weeklyGross * weeksPerYear;
+  /* -------------------------------
+  1. Hourly → Salary (REAL LOGIC)
+  --------------------------------*/
+  if (mode === "hourly-to-salary") {
+    const regularHours = Math.min(hoursPerWeek, STANDARD_HOURS);
 
-  // ===== TAX =====
-  const weeklyTax = weeklyGross * taxRate;
-  const monthlyTax = monthlyGross * taxRate;
-  const yearlyTax = yearlyGross * taxRate;
+    // 🔥 IMPORTANT: ignore overtime here (clean UX)
+    weekly = regularHours * hourlyRate;
+    yearlyGross = weekly * WEEKS_PER_YEAR;
 
-  // ===== NET =====
-  const weeklyNet = weeklyGross - weeklyTax;
-  const monthlyNet = monthlyGross - monthlyTax;
-  const yearlyNet = yearlyGross - yearlyTax;
-
-  return {
-    gross: {
-      weekly: weeklyGross,
-      monthly: monthlyGross,
+    result = {
+      hourly: hourlyRate,
+      weekly,
+      monthly: yearlyGross / 12,
       yearly: yearlyGross,
+    };
+  }
+
+  /* -------------------------------
+  2. Salary → Hourly
+  --------------------------------*/
+  if (mode === "salary-to-hourly") {
+    const totalHours = hoursPerWeek * WEEKS_PER_YEAR;
+    const hourly = totalHours > 0 ? annualSalary / totalHours : 0;
+
+    yearlyGross = annualSalary;
+    weekly = annualSalary / WEEKS_PER_YEAR;
+
+    result = {
+      hourly,
+      weekly,
+      monthly: annualSalary / 12,
+      yearly: annualSalary,
+    };
+  }
+
+  /* -------------------------------
+  3. Time and a Half
+  --------------------------------*/
+  if (mode === "time-and-half") {
+    const overtimeRate = hourlyRate * overtimeMultiplier;
+
+    yearlyGross = overtimeRate * STANDARD_HOURS * WEEKS_PER_YEAR;
+    weekly = overtimeRate * STANDARD_HOURS;
+
+    result = {
+      baseRate: hourlyRate,
+      overtimeRate,
+      weekly,
+      yearly: yearlyGross,
+    };
+  }
+
+  /* -------------------------------
+  4. Overtime Only
+  --------------------------------*/
+  if (mode === "overtime") {
+    overtimeHrs = overtimeHours;
+
+    const overtimeRate = hourlyRate * overtimeMultiplier;
+    const overtimePay = overtimeHrs * overtimeRate;
+
+    weekly = overtimePay;
+    yearlyGross = overtimePay * WEEKS_PER_YEAR;
+
+    result = {
+      overtimeHours: overtimeHrs,
+      overtimeRate,
+      overtimePay,
+      weekly,
+      yearly: yearlyGross,
+    };
+  }
+
+  /* -------------------------------
+  COMMON CALCULATIONS (🔥 BIG UPGRADE)
+  --------------------------------*/
+
+  const baseYearly = safe(yearlyGross);
+
+  const monthly = baseYearly / 12;
+  const weeklyCalc = baseYearly / WEEKS_PER_YEAR;
+  const daily = weeklyCalc / 5;
+
+  const hourlyEffective =
+    hoursPerWeek > 0 ? baseYearly / (hoursPerWeek * WEEKS_PER_YEAR) : 0;
+
+  const perMinute = hourlyEffective / 60;
+  const perSecond = perMinute / 60;
+
+  // ⏱ time to earn $100
+  const timeTo100 =
+    hourlyEffective > 0 ? (100 / hourlyEffective) * 60 : 0; // in minutes
+
+  /* -------------------------------
+  TAX
+  --------------------------------*/
+  const yearlyTax = baseYearly * (taxRatePercent / 100);
+  const yearlyNet = baseYearly - yearlyTax;
+
+  /* -------------------------------
+  FINAL RETURN
+  --------------------------------*/
+  return {
+    mode,
+    result,
+
+    // 🔥 MAIN DATA (for cards)
+    summary: {
+      hourly: safe(result.hourly || hourlyRate),
+      weekly: safe(weeklyCalc),
+      monthly: safe(monthly),
+      yearly: safe(baseYearly),
+      daily: safe(daily),
     },
+
+    // 🔥 ENGAGEMENT DATA
+    extras: {
+      perMinute: safe(perMinute),
+      perSecond: safe(perSecond),
+      timeToEarn100Minutes: safe(timeTo100),
+    },
+
+    // 🔥 FINANCIAL
+    gross: {
+      yearly: safe(baseYearly),
+      monthly: safe(monthly),
+      weekly: safe(weeklyCalc),
+    },
+
     tax: {
-      weekly: weeklyTax,
-      monthly: monthlyTax,
-      yearly: yearlyTax,
+      yearly: safe(yearlyTax),
+      monthly: safe(yearlyTax / 12),
+      weekly: safe(yearlyTax / 52),
     },
+
     net: {
-      weekly: weeklyNet,
-      monthly: monthlyNet,
-      yearly: yearlyNet,
+      yearly: safe(yearlyNet),
+      monthly: safe(yearlyNet / 12),
+      weekly: safe(yearlyNet / 52),
     },
+
+    effectiveHourly: safe(hourlyEffective),
+
+    overtimeHours: overtimeHrs,
+    currency,
   };
 }
