@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import InputField from "@/components/ui/InputField";
-import BreakdownTable from "@/components/calculators/BreakdownTable";
+import { Copy, Check, Info, Lightbulb, ChevronDown, ChevronUp, Wallet, Percent as PercentIcon, Landmark } from "lucide-react";
 
 import {
   calculateAdvancedLoan,
@@ -11,381 +11,242 @@ import {
 } from "@/lib/loanCalculator";
 
 import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
+  PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend,
 } from "recharts";
 
 type Currency = "USD" | "INR" | "EUR" | "GBP";
-
-const COLORS = ["#2563eb", "#10b981"];
+const COLORS = ["#2563eb", "#ef4444"]; // Blue for Principal, Red for Interest
 
 export default function AmortizedLoan() {
-  // ================= STATE - NOW IN DISPLAY CURRENCY =================
-  const [principal, setPrincipal] = useState(500000); // default in current currency
+  const [principal, setPrincipal] = useState(500000);
   const [rate, setRate] = useState(7);
   const [years, setYears] = useState(5);
   const [months, setMonths] = useState(0);
-
   const [paymentFrequency, setPaymentFrequency] = useState<PaymentFrequency>("monthly");
   const [compoundFrequency, setCompoundFrequency] = useState<CompoundFrequency>("monthly");
-
   const [extraPayment, setExtraPayment] = useState(0);
   const [balloonPayment, setBalloonPayment] = useState(0);
   const [deferMonths, setDeferMonths] = useState(0);
   const [accrueInterestDuringDefer, setAccrueInterestDuringDefer] = useState(true);
-
   const [currency, setCurrency] = useState<Currency>("INR");
+  const [copied, setCopied] = useState(false);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(true);
 
-  // Live rates: INR per 1 unit of foreign currency (how many INR = 1 EUR/USD/GBP)
+  // Live rates fallback
   const [ratesToINR, setRatesToINR] = useState<Record<Currency, number>>({
-    INR: 1,
-    USD: 93.8,
-    EUR: 108.5,
-    GBP: 124,
+    INR: 1, USD: 93.8, EUR: 108.5, GBP: 124,
   });
-  const [ratesLoading, setRatesLoading] = useState(true);
 
-  // ================= FETCH RATES (Fixed endpoint) =================
-  useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        setRatesLoading(true);
-        const res = await fetch(
-          "https://api.frankfurter.dev/v1/latest?base=INR&symbols=USD,EUR,GBP"
-        );
-        if (!res.ok) throw new Error();
-
-        const data = await res.json();
-        const apiRates = data.rates || {};
-
-        setRatesToINR({
-          INR: 1,
-          USD: apiRates.USD ? 1 / apiRates.USD : 93.8,
-          EUR: apiRates.EUR ? 1 / apiRates.EUR : 108.5,
-          GBP: apiRates.GBP ? 1 / apiRates.GBP : 124,
-        });
-      } catch {
-        console.warn("Using fallback exchange rates");
-      } finally {
-        setRatesLoading(false);
-      }
-    };
-    fetchRates();
-  }, []);
-
-  const rateToINR = ratesToINR[currency] ?? 1;
-
-  const convertToDisplay = (amountInINR: number): number => amountInINR / rateToINR;
-  const convertToINR = (displayAmount: number): number => displayAmount * rateToINR;
-
-  const formatCurrency = (num: number = 0) =>
-    new Intl.NumberFormat(
-      currency === "INR"
-        ? "en-IN"
-        : currency === "USD"
-        ? "en-US"
-        : currency === "EUR"
-        ? "de-DE"
-        : "en-GB",
+  const formatCurrency = (num: number = 0) => {
+    return new Intl.NumberFormat(
+      currency === "INR" ? "en-IN" : currency === "USD" ? "en-US" : currency === "EUR" ? "de-DE" : "en-GB",
       { style: "currency", currency, maximumFractionDigits: 0 }
     ).format(num);
-
-  const currencySymbol =
-    currency === "INR" ? "₹" : currency === "USD" ? "$" : currency === "EUR" ? "€" : "£";
-
-  // ================= INPUT HANDLERS =================
-  const handlePrincipalChange = (displayValue: number) => {
-    setPrincipal(displayValue);
   };
 
-  const handleExtraPaymentChange = (displayValue: number) => {
-    setExtraPayment(displayValue);
-  };
+  const currencySymbol = currency === "INR" ? "₹" : currency === "USD" ? "$" : currency === "EUR" ? "€" : "£";
 
-  const handleBalloonPaymentChange = (displayValue: number) => {
-    setBalloonPayment(displayValue);
-  };
-
-  // ================= CALCULATION (Now uses display currency) =================
   const result = useMemo(() => {
-    return calculateAdvancedLoan({
-      principal: principal,                    // now in display currency
-      annualRate: rate,
-      years: years + months / 12,
-      paymentFrequency,
-      compoundFrequency,
-      extraPayment: extraPayment,
-      balloonPayment: balloonPayment,
-      deferMonths,
-      accrueInterestDuringDefer,
-      includeSchedule: false,
-    });
-  }, [
-    principal,
-    rate,
-    years,
-    months,
-    paymentFrequency,
-    compoundFrequency,
-    extraPayment,
-    balloonPayment,
-    deferMonths,
-    accrueInterestDuringDefer,
-  ]);
+    if (!principal || (years === 0 && months === 0)) return null;
+    try {
+      return calculateAdvancedLoan({
+        principal,
+        annualRate: rate || 0,
+        years: (years || 0) + (months || 0) / 12,
+        paymentFrequency,
+        compoundFrequency,
+        extraPayment: extraPayment || 0,
+        balloonPayment: balloonPayment || 0,
+        deferMonths: deferMonths || 0,
+        accrueInterestDuringDefer,
+        includeSchedule: false,
+      });
+    } catch (e) { return null; }
+  }, [principal, rate, years, months, paymentFrequency, compoundFrequency, extraPayment, balloonPayment, deferMonths, accrueInterestDuringDefer]);
 
-  if (!result) {
-    return <div className="p-8 text-center text-red-600">Invalid calculation parameters</div>;
-  }
+  const handleCopy = () => {
+    if (!result) return;
+    const text = `Loan: ${formatCurrency(principal)} | EMI: ${formatCurrency(result.periodicPayment)} | Total: ${formatCurrency(result.totalPayment)}`;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
-  // All values from result are now already in the selected display currency
-  const displayPrincipal = principal;
-  const displayPeriodicPayment = result.periodicPayment;
-  const displayTotalPayment = result.totalPayment;
-  const displayInterest = result.totalInterest;
-
-  const pieData = [
-    { name: "Principal", value: displayPrincipal },
-    { name: "Total Interest", value: displayInterest },
-  ];
-
-  const breakdownData = [
-    { label: "Loan Amount", value: formatCurrency(displayPrincipal) },
-    { label: "EMI / Periodic Payment", value: formatCurrency(displayPeriodicPayment), highlight: true },
-    { label: "Total Payment", value: formatCurrency(displayTotalPayment), highlight: true },
-    { label: "Total Interest", value: formatCurrency(displayInterest), color: "red" as const },
-    { label: "Effective Rate", value: `${result.effectiveInterestRate.toFixed(2)}%` },
-    { label: "Payoff Date", value: result.payoffDate },
-    { label: "Risk Level", value: result.riskLevel.toUpperCase() },
-  ];
-
-  const formattedInsights = [
-    `Total Interest Paid: ${formatCurrency(displayInterest)}`,
-    `Total Repayment: ${formatCurrency(displayTotalPayment)}`,
-    `You pay ${result.interestToPrincipalRatio.toFixed(1)}% more than principal`,
-    `Loan will be paid off in ${result.totalYears.toFixed(1)} years`,
-  ];
-
-  if (extraPayment > 0 && result.monthsSaved) {
-    formattedInsights.push(
-      `Extra payments saved ${formatCurrency(result.interestSaved || 0)} and reduced tenure by ${result.monthsSaved} periods`
-    );
-  }
-  if (deferMonths > 0) {
-    formattedInsights.push(
-      `Deferred for ${deferMonths} months (${accrueInterestDuringDefer ? "interest accrued" : "no interest"})`
-    );
-  }
-  if (balloonPayment > 0) {
-    formattedInsights.push(`Balloon payment of ${formatCurrency(balloonPayment)} applied at end`);
-  }
-
-  // ================= UI =================
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="grid lg:grid-cols-2 gap-10">
-        {/* LEFT SIDE - INPUTS */}
-        <div className="space-y-6">
-          <div className="flex gap-2 bg-gray-100 p-1 rounded-2xl w-fit">
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 overflow-x-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        
+        {/* INPUTS SECTION */}
+        <div className="space-y-6 w-full">
+          <div className="flex flex-wrap gap-2 bg-gray-100 p-1.5 rounded-2xl w-full sm:w-fit">
             {(["INR", "USD", "EUR", "GBP"] as const).map((cur) => (
-              <button
-                key={cur}
-                onClick={() => setCurrency(cur)}
-                disabled={ratesLoading}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                  currency === cur ? "bg-blue-600 text-white shadow" : "text-gray-600 hover:bg-white"
-                }`}
-              >
+              <button key={cur} onClick={() => setCurrency(cur)} className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all flex-1 sm:flex-none ${currency === cur ? "bg-blue-600 text-white shadow-md" : "text-gray-600 hover:bg-white"}`}>
                 {cur}
               </button>
             ))}
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-3xl p-8 space-y-6 shadow-sm">
-            <InputField
-              label="Loan Amount"
-              value={displayPrincipal}
-              onChange={handlePrincipalChange}
-              prefix={currencySymbol}
-              type="number"
-            />
-
+          <div className="bg-white border border-gray-200 rounded-[2.5rem] p-6 sm:p-10 shadow-sm space-y-6">
+            <InputField label="Loan Amount" value={principal} onChange={setPrincipal} prefix={currencySymbol} type="number" />
             <div className="grid grid-cols-2 gap-4">
               <InputField label="Years" value={years} onChange={setYears} type="number" />
-              <InputField label="Additional Months" value={months} onChange={setMonths} type="number" />
+              <InputField label="Months" value={months} onChange={setMonths} type="number" />
+            </div>
+            <InputField label="Interest Rate (%)" value={rate} onChange={setRate} step={0.1} type="number" />
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-gray-50">
+              <InputField label="Extra / Period" value={extraPayment} onChange={setExtraPayment} prefix={currencySymbol} type="number" />
+              <InputField label="Balloon Payment" value={balloonPayment} onChange={setBalloonPayment} prefix={currencySymbol} type="number" />
             </div>
 
-            <InputField
-              label="Annual Interest Rate (%)"
-              value={rate}
-              onChange={setRate}
-              step={0.01}
-              type="number"
-            />
-
-            <InputField
-              label="Extra Payment (per period)"
-              value={extraPayment}
-              onChange={handleExtraPaymentChange}
-              prefix={currencySymbol}
-              type="number"
-            />
-
-            <InputField
-              label="Balloon Payment (at end)"
-              value={balloonPayment}
-              onChange={handleBalloonPaymentChange}
-              prefix={currencySymbol}
-              type="number"
-            />
-
-            <InputField
-              label="Defer Period (Months)"
-              value={deferMonths}
-              onChange={setDeferMonths}
-              type="number"
-            />
-
-            <div className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={accrueInterestDuringDefer}
-                onChange={(e) => setAccrueInterestDuringDefer(e.target.checked)}
-                className="w-5 h-5 accent-blue-600"
-              />
-              <label className="text-sm text-gray-700">Accrue interest during deferral</label>
-            </div>
-
-            <div className="pt-4 border-t space-y-6">
-              <Select
-                label="Payment Frequency"
-                value={paymentFrequency}
-                onChange={(v) => setPaymentFrequency(v as PaymentFrequency)}
-                options={["monthly", "biweekly", "weekly", "quarterly", "semimonthly", "semiannually", "yearly"]}
-              />
-              <Select
-                label="Compound Frequency"
-                value={compoundFrequency}
-                onChange={(v) => setCompoundFrequency(v as CompoundFrequency)}
-                options={["monthly", "daily", "continuous", "quarterly", "semiannually", "yearly", "weekly", "biweekly", "semimonthly"]}
-              />
+            <div className="pt-6 border-t border-gray-100 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Select label="Frequency" value={paymentFrequency} onChange={(v) => setPaymentFrequency(v as PaymentFrequency)} options={["monthly", "biweekly", "weekly", "quarterly", "yearly"]} />
+                <Select label="Compound" value={compoundFrequency} onChange={(v) => setCompoundFrequency(v as CompoundFrequency)} options={["monthly", "daily", "continuous", "yearly"]} />
+              </div>
+              <div className="flex flex-col sm:flex-row items-end gap-4">
+                <div className="w-full sm:w-1/2">
+                  <InputField label="Defer Months" value={deferMonths} onChange={setDeferMonths} type="number" />
+                </div>
+                <label className="flex items-center gap-3 bg-gray-50 p-4 rounded-2xl w-full cursor-pointer hover:bg-gray-100 transition-all border border-transparent hover:border-blue-200">
+                  <input type="checkbox" checked={accrueInterestDuringDefer} onChange={(e) => setAccrueInterestDuringDefer(e.target.checked)} className="w-5 h-5 accent-blue-600 rounded" />
+                  <span className="text-xs font-bold text-gray-700">Accrue interest while deferred</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* RIGHT SIDE - RESULTS */}
-        <div className="space-y-6">
-          <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-8 rounded-3xl shadow-lg">
-            <p className="text-blue-100 text-sm tracking-wide">YOUR PERIODIC PAYMENT</p>
-            <h2 className="text-5xl font-bold mt-2 tracking-tight">
-              {formatCurrency(displayPeriodicPayment)}
-            </h2>
-            <p className="text-blue-100 text-sm mt-1">
-              {paymentFrequency.charAt(0).toUpperCase() + paymentFrequency.slice(1)} •{" "}
-              {result.totalYears.toFixed(1)} years
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <Card title="Total Repayment" value={formatCurrency(displayTotalPayment)} />
-            <Card title="Total Interest" value={formatCurrency(displayInterest)} color="text-red-600" />
-            <Card title="Payoff Date" value={result.payoffDate} />
-            <Card title="Risk Level" value={result.riskLevel.toUpperCase()} />
-          </div>
-
-          <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
-            <h3 className="font-semibold text-lg mb-6">Principal vs Interest Breakdown</h3>
-            <ResponsiveContainer width="100%" height={280}>
-              <PieChart>
-                <Pie
-                  data={pieData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={75}
-                  outerRadius={110}
-                  dataKey="value"
-                  nameKey="name"
-                >
-                  {pieData.map((_, i) => (
-                    <Cell key={i} fill={COLORS[i]} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  formatter={(value: any, name: any) => {
-                    const num = Number(value ?? 0);
-                    const total = pieData.reduce((s, e) => s + (e.value || 0), 0);
-                    const percent = total > 0 ? ((num / total) * 100).toFixed(1) : "0";
-                    return [`${formatCurrency(num)} (${percent}%)`, name || "Amount"];
-                  }}
-                  contentStyle={{
-                    borderRadius: "14px",
-                    border: "none",
-                    boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
-                    padding: "14px 18px",
-                  }}
-                />
-                <Legend verticalAlign="bottom" height={40} iconType="circle" />
-              </PieChart>
-            </ResponsiveContainer>
-
-            <div className="mt-10">
-              <BreakdownTable title="Detailed Summary" data={breakdownData} />
+        {/* RESULTS SECTION */}
+        <div className="space-y-6 w-full min-w-0">
+          {!result ? (
+            <div className="bg-gray-50 border border-dashed border-gray-300 p-12 rounded-[2.5rem] text-center text-gray-500 font-medium">
+              Enter loan details to see breakdown...
             </div>
-          </div>
+          ) : (
+            <>
+              {/* EMI Hero Card */}
+              <div className="bg-blue-600 text-white p-8 sm:p-12 rounded-[2.5rem] shadow-xl relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="flex justify-between items-center mb-8">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Periodic Payment</p>
+                    <button onClick={handleCopy} className="p-3 bg-white/10 rounded-xl hover:bg-white/20 active:scale-90 transition-all">
+                      {copied ? <Check size={20} /> : <Copy size={20} />}
+                    </button>
+                  </div>
+                  <h2 className="text-4xl sm:text-6xl font-black tracking-tighter break-all">
+                    {formatCurrency(result.periodicPayment)}
+                  </h2>
+                </div>
+                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+              </div>
 
-          <div className="bg-gray-50 border border-gray-200 p-6 rounded-3xl">
-            <h3 className="font-semibold mb-4 flex items-center gap-2">💡 Key Insights</h3>
-            <ul className="space-y-2 text-sm text-gray-700">
-              {formattedInsights.map((insight, idx) => (
-                <li key={idx} className="flex gap-2">
-                  <span className="text-blue-500 mt-1">•</span>
-                  <span>{insight}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+              {/* HIGHLIGHT BOX: PRINCIPAL vs INTEREST */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-white border border-gray-200 p-6 rounded-3xl flex items-center gap-4 shadow-sm">
+                  <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl"><Landmark size={24}/></div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Loan Amount</p>
+                    <p className="text-lg font-bold break-all">{formatCurrency(principal)}</p>
+                  </div>
+                </div>
+                <div className="bg-white border border-gray-200 p-6 rounded-3xl flex items-center gap-4 shadow-sm">
+                  <div className="p-3 bg-red-50 text-red-600 rounded-2xl"><PercentIcon size={24}/></div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Interest</p>
+                    <p className="text-lg font-bold break-all text-red-600">{formatCurrency(result.totalInterest)}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* COLLAPSIBLE DETAILED BREAKDOWN */}
+              <div className="bg-white border border-gray-200 rounded-[2.5rem] shadow-sm overflow-hidden">
+                <button 
+                  onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+                  className="w-full flex items-center justify-between p-6 sm:p-8 hover:bg-gray-50 transition-all border-b border-gray-100"
+                >
+                  <div className="flex items-center gap-3">
+                    <Wallet className="text-blue-600" size={20} />
+                    <h3 className="text-sm font-black uppercase tracking-widest text-gray-900">Detailed Breakdown</h3>
+                  </div>
+                  <div className="bg-gray-100 p-2 rounded-full transition-transform duration-300" style={{ transform: isDetailsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                    <ChevronDown size={20} />
+                  </div>
+                </button>
+
+                {isDetailsOpen && (
+                  <div className="p-6 sm:p-10 space-y-6">
+                    <div className="grid grid-cols-1 gap-2">
+                      <SummaryRow label="Loan Amount" value={formatCurrency(principal)} />
+                      <SummaryRow label="Total Interest" value={formatCurrency(result.totalInterest)} valueClass="text-red-500" />
+                      <SummaryRow label="Total Repayment" value={formatCurrency(result.totalPayment)} valueClass="text-blue-600 font-black text-lg" />
+                      <SummaryRow label="Effective Rate" value={`${result.effectiveInterestRate.toFixed(2)}%`} />
+                      <SummaryRow label="Payoff Date" value={result.payoffDate} />
+                      <SummaryRow label="Risk Assessment" value={result.riskLevel.toUpperCase()} valueClass={result.riskLevel === 'low' ? 'text-green-600' : 'text-orange-600'} isLast />
+                    </div>
+
+                    <div className="h-[250px] w-full pt-6">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie data={[{ name: "Principal", value: principal }, { name: "Interest", value: result.totalInterest }]} cx="50%" cy="50%" innerRadius={60} outerRadius={85} paddingAngle={5} dataKey="value">
+                            {COLORS.map((col, i) => <Cell key={i} fill={col} stroke="none" />)}
+                          </Pie>
+                          <Tooltip contentStyle={{ borderRadius: '15px' }} />
+                          <Legend verticalAlign="bottom" />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* KEY INSIGHTS */}
+              <div className="bg-gray-900 rounded-[2.5rem] p-8 sm:p-10 space-y-6">
+                <div className="flex items-center gap-3 text-blue-400">
+                  <Lightbulb size={24} />
+                  <h4 className="text-xs font-black uppercase tracking-widest">Financial Insights</h4>
+                </div>
+                <ul className="space-y-5">
+                  <li className="flex gap-4 items-start text-sm sm:text-base text-gray-300">
+                    <span className="h-2 w-2 rounded-full bg-blue-500 mt-2 shrink-0" />
+                    <span>The total cost of borrowing is <strong>{result.interestToPrincipalRatio.toFixed(1)}%</strong> of your original loan.</span>
+                  </li>
+                  <li className="flex gap-4 items-start text-sm sm:text-base text-gray-300">
+                    <span className="h-2 w-2 rounded-full bg-blue-500 mt-2 shrink-0" />
+                    <span>Your debt will be officially cleared by <strong>{result.payoffDate}</strong>.</span>
+                  </li>
+                  {extraPayment > 0 && (
+                    <li className="flex gap-4 items-start text-sm sm:text-base text-green-400 bg-green-900/30 p-5 rounded-2xl border border-green-800/50">
+                      <Check size={20} className="shrink-0 mt-0.5" />
+                      <span>Extra payments are saving you money and time! You are finishing <strong>{result.monthsSaved} periods</strong> earlier.</span>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-// Card and Select components
-function Card({ title, value, color = "text-gray-900" }: { title: string; value: string | number; color?: string }) {
+function SummaryRow({ label, value, valueClass = "text-gray-900", isLast = false }: { label: string; value: string; valueClass?: string; isLast?: boolean }) {
   return (
-    <div className="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm hover:shadow transition-shadow">
-      <p className="text-sm text-gray-500">{title}</p>
-      <p className={`text-2xl font-semibold mt-2 ${color}`}>{value}</p>
+    <div className={`flex justify-between items-center py-4 ${!isLast ? "border-b border-gray-50" : ""} gap-4`}>
+      <span className="text-[13px] font-bold text-gray-500 whitespace-nowrap">{label}</span>
+      <span className={`text-sm sm:text-base font-bold text-right break-all ${valueClass}`}>{value}</span>
     </div>
   );
 }
 
-function Select({
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: string[];
-}) {
+function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[] }) {
   return (
-    <div>
-      <label className="text-sm text-gray-600 mb-1.5 block font-medium">{label}</label>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full border border-gray-300 rounded-2xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-      >
+    <div className="w-full">
+      <label className="text-[10px] font-black text-gray-400 uppercase mb-2 block px-1 tracking-widest">{label}</label>
+      <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full border border-gray-200 rounded-xl px-4 py-4 bg-gray-50 text-sm font-bold focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer transition-all hover:bg-white">
         {options.map((op) => (
-          <option key={op} value={op}>
-            {op.charAt(0).toUpperCase() + op.slice(1)}
-          </option>
+          <option key={op} value={op}>{op.charAt(0).toUpperCase() + op.slice(1)}</option>
         ))}
       </select>
     </div>
