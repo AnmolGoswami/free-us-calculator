@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import InputField from "@/components/ui/InputField";
 import ResultBox from "@/components/ui/ResultBox";
 import BreakdownTable from "@/components/calculators/BreakdownTable";
-import { calculateSalaryAfterTax } from "@/lib/taxUtils";
+import { calculateSalaryAfterTax } from "@/lib/salaryTaxUtils";
 
 export default function SalaryAfterTaxClient() {
   const [salary, setSalary] = useState(80000);
