@@ -4,19 +4,18 @@ import { Info } from "lucide-react";
 
 type InputFieldProps = {
   label: string;
-  value: number | string;
-  onChange: (value: number) => void;
+  value: string | number;
+  onChange: (value: string) => void;        // ← Changed to string for smooth typing
   placeholder?: string;
   prefix?: string;
   suffix?: string;
   type?: "number" | "text";
   min?: number;
   max?: number;
-  step?: number;
   className?: string;
   disabled?: boolean;
-  tooltip?: string;           // ← New: Tooltip explanation
-  error?: string;             // ← New: Error message
+  tooltip?: string;
+  error?: string;
 };
 
 export default function InputField({
@@ -26,10 +25,9 @@ export default function InputField({
   placeholder,
   prefix,
   suffix,
-  type = "number",
+  type = "text",           // Default to text for better control
   min = 0,
   max,
-  step = 0.1,
   className = "",
   disabled = false,
   tooltip,
@@ -38,16 +36,33 @@ export default function InputField({
   const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let numValue = e.target.value === "" ? 0 : Number(e.target.value);
+    let inputValue = e.target.value;
 
-    // Strong validation: Prevent negative values
-    if (numValue < 0) numValue = 0;
+    // Allow temporary empty value or just "-" / "." while typing
+    if (inputValue === "" || inputValue === "." || inputValue === "-") {
+      onChange(inputValue);
+      return;
+    }
 
-    // Clamp within min/max if provided
-    if (min !== undefined && numValue < min) numValue = min;
-    if (max !== undefined && numValue > max) numValue = max;
+    // Remove commas for internal handling
+    const cleanValue = inputValue.replace(/,/g, "");
 
-    onChange(numValue);
+    // Convert to number for validation only
+    const numValue = Number(cleanValue);
+
+    // Prevent negative values
+    if (numValue < 0) return;
+
+    // Clamp values
+    if (!isNaN(numValue)) {
+      let finalValue = numValue;
+      if (min !== undefined && finalValue < min) finalValue = min;
+      if (max !== undefined && finalValue > max) finalValue = max;
+
+      onChange(finalValue.toString());
+    } else {
+      onChange(cleanValue); // Allow partial input
+    }
   };
 
   return (
@@ -56,7 +71,7 @@ export default function InputField({
         <label className="block text-sm font-semibold text-gray-700">
           {label}
         </label>
-        
+
         {tooltip && (
           <div className="group relative">
             <Info className="w-4 h-4 text-gray-400 hover:text-gray-600 cursor-help transition-colors" />
@@ -67,7 +82,7 @@ export default function InputField({
         )}
       </div>
 
-      <div className="relative group">
+      <div className="relative">
         {prefix && (
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium pointer-events-none">
             {prefix}
@@ -81,12 +96,11 @@ export default function InputField({
           placeholder={placeholder}
           min={min}
           max={max}
-          step={step}
           disabled={disabled}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           className={`w-full border rounded-2xl px-4 py-4 text-lg transition-all duration-200
-            ${error ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"}
+            ${error ? "border-red-500" : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"}
             ${prefix ? "pl-10" : ""}
             ${suffix ? "pr-12" : ""}
             ${disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"}
@@ -102,10 +116,7 @@ export default function InputField({
         )}
       </div>
 
-      {/* Error Message */}
-      {error && (
-        <p className="text-red-500 text-xs mt-1.5">{error}</p>
-      )}
+      {error && <p className="text-red-500 text-xs mt-1.5">{error}</p>}
     </div>
   );
 }

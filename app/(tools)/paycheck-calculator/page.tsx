@@ -3,8 +3,9 @@
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import AdBanner from "@/components/common/AdBanner";
 import { getToolContent } from "@/lib/seo";
-import PaycheckCaliforniaClient from "./PaycheckCaliforniaClient";
+
 import ShareButtons from "@/components/calculators/ShareButtons";
+import PaycheckCalculator from "./PaycheckCalculatorClient";
 
 export default function PaycheckCaliforniaPage() {
   const seoContent = getToolContent("paycheck-calculator-california");
@@ -15,7 +16,7 @@ export default function PaycheckCaliforniaPage() {
         title="California Paycheck Calculator (2026)"
         description="Calculate your take-home pay in California after federal tax, state tax, and FICA deductions."
       >
-        <PaycheckCaliforniaClient />
+        <PaycheckCalculator />
       </CalculatorContainer>
 
       {/* SEO CONTENT */}
