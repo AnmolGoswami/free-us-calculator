@@ -1,9 +1,5 @@
 // lib/earningUtils.ts
 
-// =============================================
-// 🚀 SaaS-Grade Earnings & Salary Calculator
-// =============================================
-
 export interface CalculationMetadata {
   timestamp: string;
   currency: string;
@@ -32,7 +28,7 @@ export interface EarningsBreakdown {
 }
 
 // =============================================
-// DoorDash / Gig Economy Calculator (FIXED)
+// DoorDash Calculator
 // =============================================
 
 export interface DoorDashInputs {
@@ -42,7 +38,7 @@ export interface DoorDashInputs {
   daysPerWeek: number;
   milesPerOrder: number;
   costPerMile: number;
-  taxRate: number; // e.g. 22 for 22%
+  taxRate: number;
   currency?: string;
 }
 
@@ -51,6 +47,18 @@ const WEEKS_PER_YEAR = 52;
 const AVG_WEEKS_PER_MONTH = 4.345;
 
 export function calculateDoorDashEarnings(inputs: DoorDashInputs): EarningsBreakdown {
+  // Softer validation - prevent crash during typing
+  const safeInputs = {
+    ordersPerHour: Math.max(0, inputs.ordersPerHour || 0),
+    earningPerOrder: Math.max(0, inputs.earningPerOrder || 0),
+    hoursPerDay: Math.max(0, inputs.hoursPerDay || 0),
+    daysPerWeek: Math.max(1, Math.min(7, inputs.daysPerWeek || 5)),
+    milesPerOrder: Math.max(0, inputs.milesPerOrder || 0),
+    costPerMile: Math.max(0, inputs.costPerMile || 0),
+    taxRate: Math.max(0, Math.min(50, inputs.taxRate || 0)),
+    currency: inputs.currency || DEFAULT_CURRENCY,
+  };
+
   const {
     ordersPerHour,
     earningPerOrder,
@@ -59,8 +67,8 @@ export function calculateDoorDashEarnings(inputs: DoorDashInputs): EarningsBreak
     milesPerOrder,
     costPerMile,
     taxRate,
-    currency = DEFAULT_CURRENCY,
-  } = validateDoorDashInputs(inputs);
+    currency,
+  } = safeInputs;
 
   const hoursPerWeek = hoursPerDay * daysPerWeek;
   const ordersPerWeek = ordersPerHour * hoursPerWeek;
@@ -80,7 +88,7 @@ export function calculateDoorDashEarnings(inputs: DoorDashInputs): EarningsBreak
   const dailyExpenses = daysPerWeek > 0 ? weeklyExpenses / daysPerWeek : 0;
   const hourlyExpenses = hoursPerWeek > 0 ? weeklyExpenses / hoursPerWeek : 0;
 
-  // Profit before tax
+  // Profit
   const weeklyProfit = weeklyGross - weeklyExpenses;
   const monthlyProfit = monthlyGross - monthlyExpenses;
   const yearlyProfit = yearlyGross - yearlyExpenses;
@@ -89,16 +97,11 @@ export function calculateDoorDashEarnings(inputs: DoorDashInputs): EarningsBreak
 
   // Tax (only on positive profit)
   const taxableWeekly = Math.max(0, weeklyProfit);
-  const taxableMonthly = Math.max(0, monthlyProfit);
-  const taxableYearly = Math.max(0, yearlyProfit);
-  const taxableDaily = Math.max(0, dailyProfit);
-  const taxableHourly = Math.max(0, hourlyProfit);
-
   const weeklyTax = taxableWeekly * (taxRate / 100);
-  const monthlyTax = taxableMonthly * (taxRate / 100);
-  const yearlyTax = taxableYearly * (taxRate / 100);
-  const dailyTax = taxableDaily * (taxRate / 100);
-  const hourlyTax = taxableHourly * (taxRate / 100);
+  const monthlyTax = (monthlyProfit > 0 ? monthlyProfit : 0) * (taxRate / 100);
+  const yearlyTax = (yearlyProfit > 0 ? yearlyProfit : 0) * (taxRate / 100);
+  const dailyTax = (dailyProfit > 0 ? dailyProfit : 0) * (taxRate / 100);
+  const hourlyTax = (hourlyProfit > 0 ? hourlyProfit : 0) * (taxRate / 100);
 
   // Net
   const weeklyNet = weeklyProfit - weeklyTax;
@@ -108,20 +111,12 @@ export function calculateDoorDashEarnings(inputs: DoorDashInputs): EarningsBreak
   const hourlyNet = hourlyProfit - hourlyTax;
 
   const warnings: string[] = [];
-  if (hoursPerWeek === 0) warnings.push("Hours per week is zero — results may not be meaningful");
-  if (weeklyProfit < 0) warnings.push("Expenses exceed earnings — operating at a loss");
-  if (taxRate > 40) warnings.push("Tax rate is unusually high");
+  if (ordersPerHour <= 0 || earningPerOrder <= 0 || hoursPerDay <= 0) {
+    warnings.push("Some inputs are zero — results may be inaccurate");
+  }
+  if (weeklyProfit < 0) warnings.push("You're currently operating at a loss");
 
-  const metadata: CalculationMetadata = {
-    timestamp: new Date().toISOString(),
-    currency,
-    assumptions: [
-      "Monthly uses 4.345 average weeks",
-      "Tax applied only on positive profit",
-      "No other deductions or benefits included",
-    ],
-    warnings,
-  };
+  const isValid = ordersPerHour > 0 && earningPerOrder > 0 && hoursPerDay > 0;
 
   return {
     gross: createPeriodAmounts(hourlyGross, dailyGross, weeklyGross, monthlyGross, yearlyGross),
@@ -131,14 +126,15 @@ export function calculateDoorDashEarnings(inputs: DoorDashInputs): EarningsBreak
     ordersPerWeek: round(ordersPerWeek),
     milesPerWeek: round(milesPerWeek),
     effectiveHourlyNet: round(hourlyNet),
-    isValid: hoursPerWeek > 0 && ordersPerHour > 0 && earningPerOrder > 0,
-    metadata,
+    isValid,
+    metadata: {
+      timestamp: new Date().toISOString(),
+      currency,
+      assumptions: ["Monthly uses 4.345 average weeks", "Tax only on positive profit"],
+      warnings,
+    },
   };
 }
-
-// =============================================
-// Helper
-// =============================================
 
 function createPeriodAmounts(
   hourly: number,
@@ -158,14 +154,4 @@ function createPeriodAmounts(
 
 function round(num: number): number {
   return isNaN(num) || !isFinite(num) ? 0 : Number(num.toFixed(2));
-}
-
-function validateDoorDashInputs(inputs: DoorDashInputs): Required<DoorDashInputs> {
-  if (inputs.ordersPerHour <= 0 || inputs.earningPerOrder <= 0 || inputs.hoursPerDay <= 0) {
-    throw new Error("ordersPerHour, earningPerOrder, and hoursPerDay must be positive.");
-  }
-  if (inputs.daysPerWeek < 1 || inputs.daysPerWeek > 7) {
-    throw new Error("daysPerWeek must be between 1 and 7.");
-  }
-  return { ...inputs, currency: inputs.currency || DEFAULT_CURRENCY } as Required<DoorDashInputs>;
 }

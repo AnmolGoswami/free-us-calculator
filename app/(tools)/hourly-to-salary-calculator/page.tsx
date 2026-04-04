@@ -1,22 +1,35 @@
 import { Metadata } from "next";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
-import HourlyToSalaryClient from "./HourlyToSalaryClient";
 import FAQ from "@/components/calculators/FAQ";
 import AdBanner from "@/components/common/AdBanner";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import { getToolContent } from "@/lib/seo";
+import SalaryCalculator from "./SalaryCalculator";
 
+// ✅ ADVANCED SEO
 export const metadata: Metadata = {
-  title: "Hourly to Salary Calculator 2026 – With Overtime & Taxes (USA)",
+  title: "Hourly to Salary Calculator 2026 – Convert Hourly Wage to Annual Salary",
   description:
-    "Convert hourly wage to yearly salary including overtime pay and estimated taxes. See your real take-home pay.",
+    "Convert hourly wage to yearly salary instantly. Includes overtime, taxes, and accurate monthly, weekly, and yearly breakdowns.",
   keywords: [
     "hourly to salary calculator",
-    "hourly wage to salary",
+    "hourly wage to annual salary",
+    "convert hourly to yearly salary",
     "salary calculator with overtime",
     "take home pay calculator",
   ],
+  alternates: {
+    canonical: "https://freeuscalculator.com/hourly-to-salary-calculator",
+  },
+  openGraph: {
+    title: "Hourly to Salary Calculator 2026",
+    description:
+      "Convert hourly wage to yearly salary with overtime and tax estimates.",
+    url: "https://freeuscalculator.com/hourly-to-salary-calculator",
+    siteName: "Free US Calculator",
+    type: "website",
+  },
 };
 
 export default function HourlyToSalaryPage() {
@@ -24,42 +37,43 @@ export default function HourlyToSalaryPage() {
 
   const faqs = [
     {
-      q: "Does this calculator include overtime?",
-      a: "Yes. It applies 1.5× overtime after 40 hours per week.",
+      q: "How do I convert hourly wage to salary?",
+      a: "Multiply your hourly rate by hours per week and weeks per year (usually 40 × 52).",
     },
     {
-      q: "How is tax calculated?",
-      a: "We use an estimated tax rate. You can adjust it based on your income.",
+      q: "Does this include overtime?",
+      a: "Yes. You can add overtime hours and see adjusted earnings.",
     },
     {
-      q: "Is monthly salary accurate?",
-      a: "Yes. It uses 52 weeks / 12 months for precise conversion.",
+      q: "Is this after-tax salary?",
+      a: "You can include a tax percentage to estimate your take-home pay.",
     },
   ];
 
   return (
     <div className="bg-gray-50">
 
-      {/* HERO + CALCULATOR */}
+      {/* 🔥 HERO + CALCULATOR */}
       <section className="py-10">
         <CalculatorContainer
           title="Hourly to Salary Calculator 2026"
-          description="Convert your hourly wage into weekly, monthly, and yearly salary instantly with accurate tax and overtime estimates."
+          description="Convert your hourly wage into weekly, monthly, and yearly salary instantly with overtime and tax insights."
           category="Earnings"
-          lastUpdated="March 2026"
+          lastUpdated="April 2026"
         >
-          <HourlyToSalaryClient />
+          {/* ✅ IMPORTANT FIX */}
+          <SalaryCalculator defaultMode="hourly-to-salary" />
         </CalculatorContainer>
       </section>
 
-      {/* TRUST BAR */}
+      {/* 🔥 TRUST BAR */}
       <section className="max-w-6xl mx-auto px-6 mb-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           {[
-            "Accurate US Calculations",
-            "Overtime Included",
-            "Tax Estimation",
-            "Free & Instant",
+            "Accurate Calculations",
+            "Overtime Supported",
+            "Tax Estimates",
+            "Instant Results",
           ].map((item) => (
             <div
               key={item}
@@ -71,7 +85,7 @@ export default function HourlyToSalaryPage() {
         </div>
       </section>
 
-      {/* SHARE (TOP PLACEMENT - IMPORTANT) */}
+      {/* 🔥 SHARE */}
       <section className="max-w-4xl mx-auto px-6 mb-10">
         <ShareButtons
           title="Hourly to Salary Calculator 2026"
@@ -79,24 +93,24 @@ export default function HourlyToSalaryPage() {
         />
       </section>
 
-      {/* SEO CONTENT (🔥 CARD STYLE) */}
+      {/* 🔥 SEO CONTENT */}
       <section className="max-w-5xl mx-auto px-6 py-12">
         <div className="bg-white border rounded-3xl shadow-sm p-8 md:p-10 prose prose-gray prose-lg max-w-none">
           <div dangerouslySetInnerHTML={{ __html: seoContent }} />
         </div>
       </section>
 
-      {/* AD (NATURAL POSITION) */}
+      {/* 🔥 AD */}
       <section className="max-w-5xl mx-auto px-6 mb-12">
         <AdBanner />
       </section>
 
-      {/* FAQ */}
+      {/* 🔥 FAQ */}
       <section className="max-w-4xl mx-auto px-6 mb-16">
         <FAQ title="Frequently Asked Questions" faqs={faqs} />
       </section>
 
-      {/* RELATED TOOLS */}
+      {/* 🔥 RELATED */}
       <section className="max-w-6xl mx-auto px-6 pb-16">
         <RelatedCalculators currentTool="hourly-to-salary-calculator" />
       </section>
