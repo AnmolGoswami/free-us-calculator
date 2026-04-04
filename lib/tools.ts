@@ -2,29 +2,90 @@
 // Central Tools Registry - SEO Optimized & Scalable
 
 export interface Tool {
-  slug: string;                    // URL-friendly slug
+  slug: string;                    // URL-friendly slug (must match folder name)
   title: string;                   // Main display title
   shortTitle?: string;             // Shorter title for cards
   description: string;             // Short description for cards
   longDescription?: string;        // Optional detailed description for tool page
   category: "tax" | "earning" | "cost" | "retirement";
   
-  // SEO Fields (Very Important for Google Ranking & AdSense)
+  // SEO Fields
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
   
-  lastUpdated: string;             // "March 2026" or "2026"
-  popularity: number;              // 1-10 scale for sorting
-  featured?: boolean;              // Show on homepage hero or featured section
-  estimatedTime?: string;          // "30 sec", "1 min" etc.
+  lastUpdated: string;             // "April 2026"
+  popularity: number;              // 1-10 scale
+  featured?: boolean;              // Show on homepage
+  estimatedTime?: string;          // "30 sec", "1 min"
   
-  // Future proofing
-  icon?: string;                   // Can be used later for custom icons
+  icon?: string;
   tags?: string[];
 }
 
 export const allTools: Tool[] = [
+  // ==================== EARNING TOOLS ====================
+
+  {
+    slug: "hourly-to-salary-calculator",
+    title: "Hourly to Salary Calculator 2026",
+    shortTitle: "Hourly to Salary",
+    description: "Convert hourly wage to annual salary with overtime, benefits, and taxes.",
+    category: "earning",
+    metaTitle: "Hourly to Salary Calculator 2026 - Free Wage Converter",
+    metaDescription: "Convert your hourly rate to yearly, monthly, weekly salary including overtime and tax estimates for 2026.",
+    keywords: ["hourly to salary calculator", "hourly wage to salary", "hourly to annual salary", "2026 salary calculator"],
+    lastUpdated: "April 2026",
+    popularity: 9,
+    featured: true,
+    estimatedTime: "30 sec",
+  },
+
+  {
+    slug: "salary-to-hourly",
+    title: "Salary to Hourly Calculator 2026",
+    shortTitle: "Salary to Hourly",
+    description: "Convert annual salary to hourly wage with accurate breakdowns and tax estimates.",
+    category: "earning",
+    metaTitle: "Salary to Hourly Calculator 2026 | Convert Annual to Hourly Wage",
+    metaDescription: "Instantly convert your yearly salary to hourly rate with tax and overtime options for 2026.",
+    keywords: ["salary to hourly calculator", "annual salary to hourly wage", "convert salary to hourly"],
+    lastUpdated: "April 2026",
+    popularity: 9,
+    featured: true,
+    estimatedTime: "30 sec",
+  },
+
+  {
+    slug: "overtime",
+    title: "Overtime Pay Calculator 2026",
+    shortTitle: "Overtime Pay",
+    description: "Calculate 1.5x time and half + 2x double time overtime pay with tax estimates.",
+    category: "earning",
+    metaTitle: "Overtime Pay Calculator 2026 – 1.5x Time & Half + Double Pay",
+    metaDescription: "Free overtime calculator for 1.5x and 2x rates with weekly, monthly, and yearly earnings breakdowns.",
+    keywords: ["overtime calculator", "overtime pay calculator", "1.5x overtime", "time and half calculator", "double time pay"],
+    lastUpdated: "April 2026",
+    popularity: 9,
+    featured: true,
+    estimatedTime: "40 sec",
+  },
+
+  {
+    slug: "time-and-half",
+    title: "Time and a Half Calculator 2026",
+    shortTitle: "Time & Half",
+    description: "Accurate 1.5x overtime pay calculator with tax and full earnings breakdown.",
+    category: "earning",
+    metaTitle: "Time and a Half Calculator 2026 | 1.5x Overtime Pay",
+    metaDescription: "Calculate time and a half (1.5x) overtime earnings instantly with tax estimates for 2026.",
+    keywords: ["time and a half calculator", "1.5x overtime pay", "time and half pay calculator"],
+    lastUpdated: "April 2026",
+    popularity: 8,
+    featured: true,
+    estimatedTime: "35 sec",
+  },
+
   // ==================== TAX TOOLS ====================
   {
     slug: "self-employment-tax-calculator-usa",
@@ -57,56 +118,16 @@ export const allTools: Tool[] = [
   {
     slug: "paycheck-calculator",
     title: "Paycheck Calculator 2026",
-    shortTitle: "CA Paycheck Calculator",
-    description: "Accurate Usa paycheck estimator with state tax, SDI, and local deductions.",
+    shortTitle: "Paycheck Calculator",
+    description: "Accurate USA paycheck estimator with state tax, SDI, and local deductions.",
     category: "tax",
-    metaTitle: "Paycheck Calculator 2026 - Free CA Pay Stub Tool",
-    metaDescription: "Best free California paycheck calculator for 2026 with state income tax, SDI, and FICA deductions.",
-    keywords: ["paycheck calculator usa", "usa paycheck calculator", "ca pay stub calculator"],
+    metaTitle: "Paycheck Calculator 2026 - Free Pay Stub Tool",
+    metaDescription: "Best free paycheck calculator for 2026 with state income tax, SDI, and FICA deductions.",
+    keywords: ["paycheck calculator usa", "usa paycheck calculator"],
     lastUpdated: "March 2026",
     popularity: 9,
     featured: true,
     estimatedTime: "40 sec",
-  },
-
-  // ==================== EARNING TOOLS ====================
-  {
-    slug: "uber-earnings-calculator",
-    title: "Uber Earnings Calculator 2026",
-    shortTitle: "Uber Earnings",
-    description: "Estimate real earnings as an Uber driver after expenses, gas, and fees.",
-    category: "earning",
-    metaTitle: "Uber Earnings Calculator 2026 - Driver Income Estimator",
-    metaDescription: "Calculate your actual Uber driver earnings after expenses, bonuses, and platform fees in 2026.",
-    keywords: ["uber earnings calculator", "uber driver pay calculator", "uber income estimator"],
-    lastUpdated: "March 2026",
-    popularity: 9,
-    estimatedTime: "1 min",
-  },
-  {
-    slug: "doordash-earnings-calculator",
-    title: "DoorDash Earnings Calculator 2026",
-    shortTitle: "DoorDash Earnings",
-    description: "Estimate your real income as a DoorDash dasher including tips and peak hours.",
-    category: "earning",
-    metaTitle: "DoorDash Earnings Calculator 2026 - Dasher Pay Estimator",
-    metaDescription: "Free DoorDash earnings calculator for 2026. Calculate weekly and monthly income accurately.",
-    keywords: ["doordash earnings calculator", "doordash dasher pay", "door dash income calculator"],
-    lastUpdated: "March 2026",
-    popularity: 8,
-    estimatedTime: "50 sec",
-  },
-  {
-    slug: "hourly-to-salary-calculator",
-    title: "Hourly to Salary Calculator",
-    shortTitle: "Hourly to Salary",
-    description: "Convert hourly wage to annual salary with overtime, benefits, and taxes.",
-    category: "earning",
-    metaTitle: "Hourly to Salary Calculator - Free Wage Converter 2026",
-    metaDescription: "Convert your hourly rate to yearly salary including overtime and benefits.",
-    keywords: ["hourly to salary calculator", "hourly wage to salary"],
-    lastUpdated: "March 2026",
-    popularity: 7,
   },
 
   // ==================== COST & SAVINGS TOOLS ====================
@@ -147,7 +168,7 @@ export const allTools: Tool[] = [
     popularity: 8,
   },
 
-  // Add more high-value tools (Recommended)
+  // ==================== RETIREMENT TOOLS ====================
   {
     slug: "401k-calculator",
     title: "401(k) Retirement Calculator 2026",
@@ -160,6 +181,24 @@ export const allTools: Tool[] = [
     lastUpdated: "March 2026",
     popularity: 8,
   },
+  {
+  slug: "doordash-earnings-calculator",
+  title: "DoorDash Earnings Calculator 2026",
+  shortTitle: "DoorDash Calculator",
+  description: "Estimate your DoorDash earnings based on hours, orders, tips, and expenses.",
+  category: "earning",
+  metaTitle: "DoorDash Earnings Calculator 2026 – Driver Income Estimator",
+  metaDescription: "Calculate how much you can earn with DoorDash. Include tips, hourly rate, expenses, and net profit.",
+  keywords: [
+    "doordash calculator",
+    "doordash earnings calculator",
+    "dasher income calculator",
+    "gig economy earnings calculator",
+    "delivery driver earnings"
+  ],
+  lastUpdated: "March 2026",
+  popularity: 9,
+}
 ];
 
 export const popularTools = allTools
