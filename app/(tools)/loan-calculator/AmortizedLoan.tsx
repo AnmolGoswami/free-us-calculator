@@ -87,34 +87,95 @@ export default function AmortizedLoan() {
           </div>
 
           <div className="bg-white border border-gray-200 rounded-[2.5rem] p-6 sm:p-10 shadow-sm space-y-6">
-            <InputField label="Loan Amount" value={principal} onChange={setPrincipal} prefix={currencySymbol} type="number" />
-            <div className="grid grid-cols-2 gap-4">
-              <InputField label="Years" value={years} onChange={setYears} type="number" />
-              <InputField label="Months" value={months} onChange={setMonths} type="number" />
-            </div>
-            <InputField label="Interest Rate (%)" value={rate} onChange={setRate} step={0.1} type="number" />
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-gray-50">
-              <InputField label="Extra / Period" value={extraPayment} onChange={setExtraPayment} prefix={currencySymbol} type="number" />
-              <InputField label="Balloon Payment" value={balloonPayment} onChange={setBalloonPayment} prefix={currencySymbol} type="number" />
-            </div>
+  
+  <InputField
+    label="Loan Amount"
+    value={principal}
+    onChange={(v) => setPrincipal(Number(v) || 0)}
+    prefix={currencySymbol}
+    type="number"
+  />
 
-            <div className="pt-6 border-t border-gray-100 space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Select label="Frequency" value={paymentFrequency} onChange={(v) => setPaymentFrequency(v as PaymentFrequency)} options={["monthly", "biweekly", "weekly", "quarterly", "yearly"]} />
-                <Select label="Compound" value={compoundFrequency} onChange={(v) => setCompoundFrequency(v as CompoundFrequency)} options={["monthly", "daily", "continuous", "yearly"]} />
-              </div>
-              <div className="flex flex-col sm:flex-row items-end gap-4">
-                <div className="w-full sm:w-1/2">
-                  <InputField label="Defer Months" value={deferMonths} onChange={setDeferMonths} type="number" />
-                </div>
-                <label className="flex items-center gap-3 bg-gray-50 p-4 rounded-2xl w-full cursor-pointer hover:bg-gray-100 transition-all border border-transparent hover:border-blue-200">
-                  <input type="checkbox" checked={accrueInterestDuringDefer} onChange={(e) => setAccrueInterestDuringDefer(e.target.checked)} className="w-5 h-5 accent-blue-600 rounded" />
-                  <span className="text-xs font-bold text-gray-700">Accrue interest while deferred</span>
-                </label>
-              </div>
-            </div>
-          </div>
+  <div className="grid grid-cols-2 gap-4">
+    <InputField
+      label="Years"
+      value={years}
+      onChange={(v) => setYears(Number(v) || 0)}
+      type="number"
+    />
+    <InputField
+      label="Months"
+      value={months}
+      onChange={(v) => setMonths(Number(v) || 0)}
+      type="number"
+    />
+  </div>
+
+  <InputField
+    label="Interest Rate (%)"
+    value={rate}
+    onChange={(v) => setRate(Number(v) || 0)}
+    step={0.1}
+    type="number"
+  />
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-gray-50">
+    <InputField
+      label="Extra / Period"
+      value={extraPayment}
+      onChange={(v) => setExtraPayment(Number(v) || 0)}
+      prefix={currencySymbol}
+      type="number"
+    />
+    <InputField
+      label="Balloon Payment"
+      value={balloonPayment}
+      onChange={(v) => setBalloonPayment(Number(v) || 0)}
+      prefix={currencySymbol}
+      type="number"
+    />
+  </div>
+
+  <div className="pt-6 border-t border-gray-100 space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <Select
+        label="Frequency"
+        value={paymentFrequency}
+        onChange={(v) => setPaymentFrequency(v as PaymentFrequency)}
+        options={["monthly", "biweekly", "weekly", "quarterly", "yearly"]}
+      />
+      <Select
+        label="Compound"
+        value={compoundFrequency}
+        onChange={(v) => setCompoundFrequency(v as CompoundFrequency)}
+        options={["monthly", "daily", "continuous", "yearly"]}
+      />
+    </div>
+
+    <div className="flex flex-col sm:flex-row items-end gap-4">
+      <div className="w-full sm:w-1/2">
+        <InputField
+          label="Defer Months"
+          value={deferMonths}
+          onChange={(v) => setDeferMonths(Number(v) || 0)}
+          type="number"
+        />
+      </div>
+
+      <label className="flex items-center gap-3 bg-gray-50 p-4 rounded-2xl w-full cursor-pointer hover:bg-gray-100 transition-all border border-transparent hover:border-blue-200">
+        <input
+          type="checkbox"
+          checked={accrueInterestDuringDefer}
+          onChange={(e) => setAccrueInterestDuringDefer(e.target.checked)}
+          className="w-5 h-5 accent-blue-600 rounded"
+        />
+        <span className="text-xs font-bold text-gray-700">
+          Accrue interest while deferred
+        </span>
+      </label>
+    </div>
+  </div>
+</div>
         </div>
 
         {/* RESULTS SECTION */}

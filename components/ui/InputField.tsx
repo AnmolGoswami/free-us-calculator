@@ -1,17 +1,22 @@
-// components/ui/InputField.tsx
+// =========================
+// components/ui/InputField.tsx (FINAL INDUSTRY VERSION)
+// =========================
 import React, { useState } from "react";
 import { Info } from "lucide-react";
 
 type InputFieldProps = {
   label: string;
   value: string | number;
-  onChange: (value: string) => void;        // ← Changed to string for smooth typing
+  onChange: (value: string) => void;
+  onNumberChange?: (value: number) => void; // ✅ optional number handler
+  parseAsNumber?: boolean; // ✅ flag to control behavior
   placeholder?: string;
   prefix?: string;
   suffix?: string;
   type?: "number" | "text";
   min?: number;
   max?: number;
+  step?: number;
   className?: string;
   disabled?: boolean;
   tooltip?: string;
@@ -22,12 +27,15 @@ export default function InputField({
   label,
   value,
   onChange,
+  onNumberChange,
+  parseAsNumber = false,
   placeholder,
   prefix,
   suffix,
-  type = "text",           // Default to text for better control
+  type = "text",
   min = 0,
   max,
+  step,
   className = "",
   disabled = false,
   tooltip,
@@ -38,31 +46,44 @@ export default function InputField({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
 
-    // Allow temporary empty value or just "-" / "." while typing
+    // Allow temporary states
     if (inputValue === "" || inputValue === "." || inputValue === "-") {
       onChange(inputValue);
       return;
     }
 
-    // Remove commas for internal handling
     const cleanValue = inputValue.replace(/,/g, "");
-
-    // Convert to number for validation only
     const numValue = Number(cleanValue);
 
-    // Prevent negative values
-    if (numValue < 0) return;
+    // Prevent negative numbers
+    if (!isNaN(numValue) && numValue < 0) return;
 
-    // Clamp values
+    // String mode (default)
+    onChange(cleanValue);
+
+    // Optional number mode callback
+    if (parseAsNumber && onNumberChange && !isNaN(numValue)) {
+      onNumberChange(numValue);
+    }
+  };
+
+  const handleBlur = () => {
+    const numValue = Number(value);
+
     if (!isNaN(numValue)) {
       let finalValue = numValue;
+
       if (min !== undefined && finalValue < min) finalValue = min;
       if (max !== undefined && finalValue > max) finalValue = max;
 
       onChange(finalValue.toString());
-    } else {
-      onChange(cleanValue); // Allow partial input
+
+      if (parseAsNumber && onNumberChange) {
+        onNumberChange(finalValue);
+      }
     }
+
+    setIsFocused(false);
   };
 
   return (
@@ -93,12 +114,13 @@ export default function InputField({
           type={type}
           value={value}
           onChange={handleChange}
+          onBlur={handleBlur}
           placeholder={placeholder}
           min={min}
           max={max}
+          step={step}
           disabled={disabled}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
           className={`w-full border rounded-2xl px-4 py-4 text-lg transition-all duration-200
             ${error ? "border-red-500" : "border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"}
             ${prefix ? "pl-10" : ""}
