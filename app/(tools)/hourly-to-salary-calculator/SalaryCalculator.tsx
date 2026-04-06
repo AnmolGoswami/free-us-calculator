@@ -18,21 +18,29 @@ export default function SalaryCalculator({
   defaultHourly = "25" 
 }: SalaryCalculatorProps) {
 
-  // Auto detect mode from current URL (important for /hourly-to-salary-calculator)
-  const getInitialMode = (): ExtendedMode => {
-    if (typeof window === "undefined") return defaultMode;
+  const [isClient, setIsClient] = useState(false);
+  const [showChart, setShowChart] = useState(false); // Prevents early render warning
+  const [mode, setMode] = useState<ExtendedMode>(defaultMode);
+
+  // Detect mode from URL + small delay for chart
+  useEffect(() => {
+    setIsClient(true);
 
     const pathname = window.location.pathname.toLowerCase();
+    let detected: ExtendedMode = "hourly-to-salary";
 
-    if (pathname.includes("salary-to-hourly")) return "salary-to-hourly";
-    if (pathname.includes("overtime")) return "overtime";
-    if (pathname.includes("time-and-half") || pathname.includes("timeandhalf")) return "time-and-half";
+    if (pathname.includes("salary-to-hourly")) detected = "salary-to-hourly";
+    else if (pathname.includes("overtime")) detected = "overtime";
+    else if (pathname.includes("time-and-half") || pathname.includes("timeandhalf")) 
+      detected = "time-and-half";
 
-    // Default for your page: /hourly-to-salary-calculator
-    return "hourly-to-salary";
-  };
+    setMode(detected);
 
-  const [mode, setMode] = useState<ExtendedMode>(getInitialMode());
+    // Small delay so layout stabilizes before chart mounts
+    const timer = setTimeout(() => setShowChart(true), 150);
+    return () => clearTimeout(timer);
+  }, []);
+
   const [hourlyRate, setHourlyRate] = useState(defaultHourly);
   const [annualSalary, setAnnualSalary] = useState("52000");
   const [hoursPerWeek, setHoursPerWeek] = useState("40");
@@ -48,9 +56,7 @@ export default function SalaryCalculator({
   };
 
   useEffect(() => {
-    if (mode === "time-and-half") {
-      setOvertimeMultiplier("1.5");
-    }
+    if (mode === "time-and-half") setOvertimeMultiplier("1.5");
   }, [mode]);
 
   const result = useMemo(() => {
@@ -74,7 +80,7 @@ export default function SalaryCalculator({
         tax: { yearly: 0, monthly: 0, weekly: 0, hourly: 0, daily: 0 },
         net: { yearly: 0, monthly: 0, weekly: 0, hourly: 0, daily: 0 },
         currency: { symbol: "$", locale: "en-US" },
-      } as any;
+      };
     }
   }, [mode, hourlyRate, annualSalary, hoursPerWeek, overtimeHours, overtimeMultiplier, taxRate, currency]);
 
@@ -124,6 +130,14 @@ export default function SalaryCalculator({
     { id: "time-and-half", label: "Time & Half", icon: Star },
   ];
 
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
+        <div className="max-w-7xl mx-auto h-96 bg-white/60 rounded-3xl animate-pulse" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
       <div className="max-w-7xl mx-auto">
@@ -149,9 +163,7 @@ export default function SalaryCalculator({
                 key={c}
                 onClick={() => setCurrency(c as CurrencyCode)}
                 className={`px-8 py-3 rounded-3xl text-sm font-semibold transition-all ${
-                  currency === c 
-                    ? "bg-slate-900 text-white shadow" 
-                    : "text-slate-600 hover:bg-slate-50"
+                  currency === c ? "bg-slate-900 text-white shadow" : "text-slate-600 hover:bg-slate-50"
                 }`}
               >
                 {c}
@@ -169,10 +181,12 @@ export default function SalaryCalculator({
                 {modes.map((m) => {
                   const Icon = m.icon;
                   const isActive = mode === m.id;
+                  const href = `/${m.id}-calculator`;
+
                   return (
                     <a
                       key={m.id}
-                      href={`/${m.id}-calculator`}   // Updated to match your URL pattern
+                      href={href}
                       className={`flex items-center gap-3 px-6 py-5 rounded-2xl text-sm font-medium transition-all duration-200 ${
                         isActive 
                           ? "bg-emerald-600 text-white shadow-md" 
@@ -267,7 +281,7 @@ export default function SalaryCalculator({
             </div>
           </div>
 
-          {/* Results Section - Same as before */}
+          {/* Results Section */}
           <div className="lg:col-span-7 xl:col-span-8 space-y-8">
             {/* Big Net Pay Card */}
             <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-black text-white rounded-3xl p-10 md:p-14 shadow-2xl relative overflow-hidden">
@@ -310,98 +324,88 @@ export default function SalaryCalculator({
               </div>
             </div>
 
-            {/* Pie Chart */}
+            {/* Pie Chart - FIXED */}
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
               <h3 className="font-semibold text-xl mb-8 text-slate-900">Net vs Tax Breakdown</h3>
+              
               <div className="flex justify-center py-6">
-                <div className="w-72 h-72 md:w-80 md:h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={chartData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius="68%"
-                        outerRadius="90%"
-                        dataKey="value"
-                        paddingAngle={5}
-                      >
-                        {chartData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                      <Tooltip />
-                    </PieChart>
-                  </ResponsiveContainer>
+                <div 
+                  className="w-full max-w-[360px] aspect-square md:max-w-[420px]"
+                  style={{ minHeight: "360px" }}
+                >
+                  {showChart && (
+                    <ResponsiveContainer 
+                      width="100%" 
+                      height="100%"
+                      initialDimension={{ width: 360, height: 360 }}  // ← This eliminates the -1 warning
+                    >
+                      <PieChart>
+                        <Pie
+                          data={chartData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius="68%"
+                          outerRadius="90%"
+                          dataKey="value"
+                          paddingAngle={5}
+                        >
+                          {chartData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  )}
                 </div>
               </div>
 
               <div className="flex justify-center gap-8 mt-6">
                 {chartData.map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: item.color }} />
+                    <div 
+                      className="w-4 h-4 rounded-full" 
+                      style={{ backgroundColor: item.color }} 
+                    />
                     <span className="text-sm font-medium text-slate-600">{item.name}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Single Breakdown Card - Monthly, Bi-weekly, Weekly, Hourly */}
+            {/* Pay Breakdown Card */}
             <div className="bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-md transition-all">
               <h3 className="font-semibold text-xl text-slate-900 mb-8">Pay Breakdown (After Taxes)</h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500">Monthly Net</p>
-                    <p className="text-4xl font-black tracking-tighter text-slate-900 mt-2">
-                      {result.currency?.symbol || "$"}{formatSmart(result.net?.monthly || 0)}
-                    </p>
-                    <p className="text-xs text-slate-500 mt-1">After taxes</p>
+                {[
+                  { label: "Monthly Net", value: result.net?.monthly || 0, id: "monthly-net" },
+                  { label: "Bi-weekly Net", value: (result.net?.weekly || 0) * 2, id: "biweekly-net" },
+                  { label: "Weekly Net", value: result.net?.weekly || 0, id: "weekly-net" },
+                  { label: "Effective Hourly", value: result.net?.hourly || 0, id: "effective-hourly" },
+                ].map((item) => (
+                  <div key={item.id} className="flex justify-between items-start">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-500">{item.label}</p>
+                      <p className="text-4xl font-black tracking-tighter text-slate-900 mt-2">
+                        {result.currency?.symbol || "$"}{formatSmart(item.value)}
+                      </p>
+                      <p className="text-xs text-slate-500 mt-1">
+                        {item.label.includes("Hourly") ? "After tax" : ""}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => copyToClipboard(item.value, item.id)}
+                      className="self-start p-2 hover:bg-slate-100 rounded-xl transition-colors"
+                    >
+                      {copiedId === item.id ? (
+                        <Check className="w-5 h-5 text-emerald-600" />
+                      ) : (
+                        <Copy className="w-5 h-5 text-slate-400" />
+                      )}
+                    </button>
                   </div>
-                  <button onClick={() => copyToClipboard(result.net?.monthly || 0, "monthly-net")} className="self-start p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                    {copiedId === "monthly-net" ? <Check className="w-5 h-5 text-emerald-600" /> : <Copy className="w-5 h-5 text-slate-400" />}
-                  </button>
-                </div>
-
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500">Bi-weekly Net</p>
-                    <p className="text-4xl font-black tracking-tighter text-slate-900 mt-2">
-                      {result.currency?.symbol || "$"}{formatSmart((result.net?.weekly || 0) * 2)}
-                    </p>
-                    <p className="text-xs text-slate-500 mt-1">Every 2 weeks</p>
-                  </div>
-                  <button onClick={() => copyToClipboard((result.net?.weekly || 0) * 2, "biweekly-net")} className="self-start p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                    {copiedId === "biweekly-net" ? <Check className="w-5 h-5 text-emerald-600" /> : <Copy className="w-5 h-5 text-slate-400" />}
-                  </button>
-                </div>
-
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500">Weekly Net</p>
-                    <p className="text-4xl font-black tracking-tighter text-slate-900 mt-2">
-                      {result.currency?.symbol || "$"}{formatSmart(result.net?.weekly || 0)}
-                    </p>
-                    <p className="text-xs text-slate-500 mt-1">Per week</p>
-                  </div>
-                  <button onClick={() => copyToClipboard(result.net?.weekly || 0, "weekly-net")} className="self-start p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                    {copiedId === "weekly-net" ? <Check className="w-5 h-5 text-emerald-600" /> : <Copy className="w-5 h-5 text-slate-400" />}
-                  </button>
-                </div>
-
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500">Effective Hourly</p>
-                    <p className="text-4xl font-black tracking-tighter text-slate-900 mt-2">
-                      {result.currency?.symbol || "$"}{formatSmart(result.net?.hourly || 0)}
-                    </p>
-                    <p className="text-xs text-slate-500 mt-1">After tax</p>
-                  </div>
-                  <button onClick={() => copyToClipboard(result.net?.hourly || 0, "effective-hourly")} className="self-start p-2 hover:bg-slate-100 rounded-xl transition-colors">
-                    {copiedId === "effective-hourly" ? <Check className="w-5 h-5 text-emerald-600" /> : <Copy className="w-5 h-5 text-slate-400" />}
-                  </button>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -411,9 +415,11 @@ export default function SalaryCalculator({
               <div>
                 <p className="font-semibold text-lg text-slate-900">Quick Insight</p>
                 <p className="text-slate-600 mt-3 leading-relaxed">
-                  After taxes, you effectively earn <span className="font-semibold text-emerald-700">
+                  After taxes, you effectively earn{" "}
+                  <span className="font-semibold text-emerald-700">
                     {result.currency?.symbol || "$"}{formatSmart(result.net?.hourly || 0)}
-                  </span> per hour — that's what really matters for your time.
+                  </span>{" "}
+                  per hour — that's what really matters for your time.
                 </p>
               </div>
             </div>
@@ -421,7 +427,7 @@ export default function SalaryCalculator({
         </div>
       </div>
 
-      {/* Toast Notification */}
+      {/* Toast */}
       {toast && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 z-50">
           <Check className="w-5 h-5 text-emerald-400" />

@@ -42,7 +42,7 @@ export const allTools: Tool[] = [
   },
 
   {
-    slug: "salary-to-hourly",
+    slug: "salary-to-hourly-calculator",
     title: "Salary to Hourly Calculator 2026",
     shortTitle: "Salary to Hourly",
     description: "Convert annual salary to hourly wage with accurate breakdowns and tax estimates.",
@@ -57,7 +57,7 @@ export const allTools: Tool[] = [
   },
 
   {
-    slug: "overtime",
+    slug: "overtime-calculator",
     title: "Overtime Pay Calculator 2026",
     shortTitle: "Overtime Pay",
     description: "Calculate 1.5x time and half + 2x double time overtime pay with tax estimates.",
@@ -72,7 +72,7 @@ export const allTools: Tool[] = [
   },
 
   {
-    slug: "time-and-half",
+    slug: "time-and-half-calculator",
     title: "Time and a Half Calculator 2026",
     shortTitle: "Time & Half",
     description: "Accurate 1.5x overtime pay calculator with tax and full earnings breakdown.",
