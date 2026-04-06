@@ -8,19 +8,22 @@ import { calculateEarnings, SalaryMode, CurrencyCode } from "@/lib/hourlyEarning
 
 type ExtendedMode = SalaryMode | "time-and-half";
 
+
 interface SalaryCalculatorProps {
   defaultMode?: ExtendedMode;
   defaultHourly?: string;
 }
 
-export default function SalaryCalculator({ 
-  defaultMode = "hourly-to-salary", 
-  defaultHourly = "25" 
+
+export default function SalaryCalculator({
+  defaultMode = "hourly-to-salary",
+  defaultHourly = "25"
 }: SalaryCalculatorProps) {
 
   const [isClient, setIsClient] = useState(false);
-  const [showChart, setShowChart] = useState(false);
   const [mode, setMode] = useState<ExtendedMode>(defaultMode);
+  const [taxMode, setTaxMode] = useState<"flat" | "progressive">("flat");
+
 
   useEffect(() => {
     setIsClient(true);
@@ -30,13 +33,10 @@ export default function SalaryCalculator({
 
     if (pathname.includes("salary-to-hourly")) detected = "salary-to-hourly";
     else if (pathname.includes("overtime")) detected = "overtime";
-    else if (pathname.includes("time-and-half") || pathname.includes("timeandhalf")) 
+    else if (pathname.includes("time-and-half") || pathname.includes("timeandhalf"))
       detected = "time-and-half";
 
     setMode(detected);
-
-    const timer = setTimeout(() => setShowChart(true), 150);
-    return () => clearTimeout(timer);
   }, []);
 
   const [hourlyRate, setHourlyRate] = useState(defaultHourly);
@@ -64,11 +64,12 @@ export default function SalaryCalculator({
         hourlyRate: parseFloat(hourlyRate) || 0,
         annualSalary: parseFloat(annualSalary) || 0,
         hoursPerWeek: parseFloat(hoursPerWeek) || 40,
-        overtimeHours: (mode === "overtime" || mode === "time-and-half") 
-          ? parseFloat(overtimeHours) || 0 
+        overtimeHours: (mode === "overtime" || mode === "time-and-half")
+          ? parseFloat(overtimeHours) || 0
           : 0,
         overtimeMultiplier: parseFloat(overtimeMultiplier) || 1.5,
         taxRatePercent: parseFloat(taxRate) || 0,
+        taxMode,
         currency,
       });
     } catch (err) {
@@ -80,7 +81,17 @@ export default function SalaryCalculator({
         currency: { symbol: "$", locale: "en-US" },
       };
     }
-  }, [mode, hourlyRate, annualSalary, hoursPerWeek, overtimeHours, overtimeMultiplier, taxRate, currency]);
+  }, [
+  mode,
+  hourlyRate,
+  annualSalary,
+  hoursPerWeek,
+  overtimeHours,
+  overtimeMultiplier,
+  taxRate,
+  currency,
+  taxMode, // ✅ THIS IS THE FIX
+]);
 
   const formatSmart = (num: number): string => {
     if (!num || isNaN(num)) return "0";
@@ -130,41 +141,40 @@ export default function SalaryCalculator({
 
   if (!isClient) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4 overflow-x-hidden">
         <div className="max-w-7xl mx-auto h-96 bg-white/60 rounded-3xl animate-pulse" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-6 px-4 sm:py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-6 px-4 sm:py-8 md:py-12 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-10">
-          <div className="inline-flex items-center gap-3 bg-white rounded-full px-6 py-2 shadow-sm mb-4">
-            <DollarSign className="w-6 h-6 text-emerald-600" />
-            <span className="font-semibold text-slate-700">Salary & Earnings Calculator</span>
+          <div className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-2 shadow-sm mb-4">
+            <DollarSign className="w-5 h-5 text-emerald-600" />
+            <span className="font-semibold text-slate-700 text-sm sm:text-base">Salary Calculator</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-slate-900">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter text-slate-900 px-2">
             Know Your Real Take-Home Pay
           </h1>
           <p className="mt-3 text-base sm:text-lg text-slate-600 max-w-md mx-auto">
-            Accurate calculations with tax, overtime & multiple currencies
+            Accurate • Transparent • Multi-currency
           </p>
         </div>
 
         {/* Currency Selector */}
-        <div className="flex justify-center mb-8">
-          <div className="inline-flex bg-white rounded-3xl p-1 shadow-sm border border-slate-100 overflow-hidden">
+        <div className="flex justify-center mb-6 px-2">
+          <div className="flex flex-wrap justify-center gap-2 bg-white rounded-2xl p-1.5 shadow-sm border border-slate-100">
             {["USD", "INR", "EUR", "GBP"].map((c) => (
               <button
                 key={c}
                 onClick={() => setCurrency(c as CurrencyCode)}
-                className={`px-6 sm:px-8 py-3 rounded-3xl text-sm font-semibold transition-all ${
-                  currency === c 
-                    ? "bg-slate-900 text-white shadow" 
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all active:scale-95 ${currency === c
+                    ? "bg-slate-900 text-white shadow-sm"
                     : "text-slate-600 hover:bg-slate-50"
-                }`}
+                  }`}
               >
                 {c}
               </button>
@@ -172,96 +182,122 @@ export default function SalaryCalculator({
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-12">
-          {/* Left Sidebar - Controls */}
-          <div className="lg:col-span-5 xl:col-span-4 space-y-6 lg:space-y-8">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 overflow-x-hidden">
+          {/* Left Controls */}
+          <div className="lg:col-span-5 xl:col-span-4 space-y-6">
             {/* Mode Selector */}
             <div className="bg-white rounded-3xl p-2 shadow-sm border border-slate-100">
-              <div className="grid grid-cols-2 gap-2">
-                {modes.map((m) => {
-                  const Icon = m.icon;
-                  const isActive = mode === m.id;
-                  const href = `/${m.id}-calculator`;
-
-                  return (
-                    <a
-                      key={m.id}
-                      href={href}
-                      className={`flex items-center gap-3 px-4 sm:px-6 py-4 sm:py-5 rounded-2xl text-sm font-medium transition-all duration-200 ${
-                        isActive 
-                          ? "bg-emerald-600 text-white shadow-md" 
-                          : "text-slate-700 hover:bg-slate-50"
-                      }`}
-                    >
-                      <Icon className={`w-5 h-5 ${isActive ? "text-white" : "text-slate-400"}`} />
-                      <span className="text-xs sm:text-sm">{m.label}</span>
-                    </a>
-                  );
-                })}
+              <div className="bg-white rounded-2xl p-2 shadow-sm border border-slate-100">
+                <div className="grid grid-cols-2 gap-2">
+                  {modes.map((m) => {
+                    const Icon = m.icon;
+                    const isActive = mode === m.id;
+                    return (
+                      <a
+                        key={m.id}
+                        href={`/${m.id}-calculator`}
+                        className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-medium transition-all active:scale-[0.97] ${isActive
+                            ? "bg-emerald-600 text-white shadow-sm"
+                            : "text-slate-700 hover:bg-slate-50"
+                          }`}
+                      >
+                        <Icon
+                          className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? "text-white" : "text-slate-400"}`}
+                        />
+                        <span className="truncate leading-tight">{m.label}</span>
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
             {/* Input Parameters */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="font-semibold text-xl sm:text-2xl text-slate-900">Parameters</h3>
+              <div className="flex justify-between items-center mb-8">
+                <h3 className="font-semibold text-xl text-slate-900">Parameters</h3>
                 <button
                   onClick={reset}
-                  className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 transition-colors"
+                  className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 active:scale-95"
                 >
-                  <RotateCcw size={18} />
-                  Reset
+                  <RotateCcw size={18} /> Reset
                 </button>
               </div>
 
               <div className="space-y-7">
                 {mode === "salary-to-hourly" ? (
-                  <InputField 
-                    label="Annual Gross Salary" 
-                    value={annualSalary} 
-                    onChange={handleNumberInput(setAnnualSalary)} 
-                    prefix={result.currency?.symbol || "$"} 
+                  <InputField
+                    label="Annual Gross Salary"
+                    value={annualSalary}
+                    onChange={handleNumberInput(setAnnualSalary)}
+                    prefix={result.currency?.symbol || "$"}
                     className="text-2xl"
                   />
                 ) : (
-                  <InputField 
-                    label="Base Hourly Rate" 
-                    value={hourlyRate} 
-                    onChange={handleNumberInput(setHourlyRate)} 
-                    prefix={result.currency?.symbol || "$"} 
+                  <InputField
+                    label="Base Hourly Rate"
+                    value={hourlyRate}
+                    onChange={handleNumberInput(setHourlyRate)}
+                    prefix={result.currency?.symbol || "$"}
                     className="text-2xl"
                   />
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <InputField 
-                    label="Hours per Week" 
-                    value={hoursPerWeek} 
-                    onChange={handleNumberInput(setHoursPerWeek)} 
-                  />
-                  <InputField 
-                    label="Tax Rate (%)" 
-                    value={taxRate} 
-                    onChange={handleNumberInput(setTaxRate)} 
-                    suffix="%" 
-                  />
-                </div>
+                {/* Tax Mode Toggle */}
+<div className="flex gap-2 mb-2">
+  <button
+    onClick={() => setTaxMode("flat")}
+    className={`flex-1 py-2 rounded-xl text-sm font-medium transition ${
+      taxMode === "flat"
+        ? "bg-slate-900 text-white"
+        : "bg-slate-100 text-slate-600"
+    }`}
+  >
+    Simple Tax
+  </button>
+
+  <button
+    onClick={() => setTaxMode("progressive")}
+    className={`flex-1 py-2 rounded-xl text-sm font-medium transition ${
+      taxMode === "progressive"
+        ? "bg-emerald-600 text-white"
+        : "bg-slate-100 text-slate-600"
+    }`}
+  >
+    Real Tax
+  </button>
+</div>
+
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  <InputField
+    label="Hours per Week"
+    value={hoursPerWeek}
+    onChange={handleNumberInput(setHoursPerWeek)}
+  />
+
+  {taxMode === "flat" ? (
+    <InputField
+      label="Tax Rate (%)"
+      value={taxRate}
+      onChange={handleNumberInput(setTaxRate)}
+      suffix="%"
+    />
+  ) : (
+    <div className="text-sm text-slate-500 flex items-center">
+      Using progressive tax rates
+    </div>
+  )}
+</div>
 
                 {(mode === "overtime" || mode === "time-and-half") && (
-                  <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6 sm:p-7 mt-4">
-                    <p className="uppercase text-emerald-700 text-xs font-bold tracking-widest mb-5">
-                      Overtime Configuration
-                    </p>
+                  <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6">
+                    <p className="uppercase text-emerald-700 text-xs font-bold tracking-widest mb-4">Overtime Configuration</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <InputField 
-                        label="Overtime Hours (per week)" 
-                        value={overtimeHours} 
-                        onChange={handleNumberInput(setOvertimeHours)} 
-                      />
-                      <InputField 
-                        label="Overtime Multiplier" 
-                        value={overtimeMultiplier} 
-                        onChange={handleNumberInput(setOvertimeMultiplier)} 
+                      <InputField label="Overtime Hours (per week)" value={overtimeHours} onChange={handleNumberInput(setOvertimeHours)} />
+                      <InputField
+                        label="Overtime Multiplier"
+                        value={overtimeMultiplier}
+                        onChange={handleNumberInput(setOvertimeMultiplier)}
                         disabled={mode === "time-and-half"}
                       />
                     </div>
@@ -269,12 +305,9 @@ export default function SalaryCalculator({
                 )}
               </div>
 
-              <button 
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                  setToast("Link copied successfully!");
-                }}
-                className="mt-10 w-full py-4 bg-slate-900 hover:bg-black text-white font-semibold rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-[0.985]"
+              <button
+                onClick={() => { navigator.clipboard.writeText(window.location.href); setToast("Link copied!"); }}
+                className="mt-10 w-full py-4 bg-slate-900 hover:bg-black text-white font-semibold rounded-2xl flex items-center justify-center gap-3 active:scale-[0.985]"
               >
                 <Copy size={20} /> Share This Estimate
               </button>
@@ -282,101 +315,110 @@ export default function SalaryCalculator({
           </div>
 
           {/* Results Section */}
-          <div className="lg:col-span-7 xl:col-span-8 space-y-6 lg:space-y-8">
-            {/* Big Net Pay Card */}
-            <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-black text-white rounded-3xl p-8 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-6 right-6 text-emerald-400">
-                <div className="flex items-center gap-2 text-xs font-mono tracking-widest">
+          <div className="lg:col-span-7 xl:col-span-8 space-y-6">
+
+            {/* LIVE Result Card */}
+            <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-black text-white rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative p-5 sm:p-6 md:p-7">
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-black/50 backdrop-blur px-3 py-1 rounded-full border border-white/10">
                   <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                  LIVE
+                  <span className="text-[10px] font-mono tracking-wider text-emerald-400">LIVE</span>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-emerald-400 text-xs font-semibold tracking-wider mb-2 flex items-center justify-center gap-1.5">
+                    <DollarSign className="w-4 h-4" /> NET TAKE-HOME
+                  </div>
+
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight tabular-nums break-all leading-none">
+                      {result.currency?.symbol || "$"}{formatSmart(result.net?.yearly || 0)}
+                    </span>
+
+                    <button
+                      onClick={() => copyToClipboard(result.net?.yearly || 0, "yearly")}
+                      className="p-2 hover:bg-white/10 rounded-lg transition active:scale-90"
+                    >
+                      {copiedId === "yearly" ? <Check className="w-5 h-5 text-emerald-400" /> : <Copy className="w-5 h-5" />}
+                    </button>
+                  </div>
+
+                  <p className="text-slate-400 text-xs sm:text-sm mt-1">
+                    per year • after tax
+                  </p>
+                </div>
+
+                <div className="my-5 h-px bg-white/10" />
+
+                <div className="grid grid-cols-2 gap-4 text-center">
+                  <div>
+                    <p className="text-[10px] text-slate-400 tracking-wider">GROSS</p>
+                    <p className="text-lg sm:text-xl font-semibold mt-1">
+                      {result.currency?.symbol}{formatSmart(result.gross?.yearly || 0)}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-rose-400 tracking-wider">TAX</p>
+                    <p className="text-lg sm:text-xl font-semibold mt-1 text-rose-400">
+                      {result.currency?.symbol}{formatSmart(result.tax?.yearly || 0)}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="mb-8">
-                <p className="text-emerald-400 text-sm font-semibold tracking-widest">YOUR ESTIMATED NET INCOME</p>
-                <div className="flex items-end gap-3 sm:gap-4 mt-4">
-                  <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter break-all">
-                    {result.currency?.symbol || "$"}{formatSmart(result.net?.yearly || 0)}
-                  </span>
-                  <button
-                    onClick={() => copyToClipboard(result.net?.yearly || 0, "yearly")}
-                    className="mb-2 p-2 sm:p-3 hover:bg-white/10 rounded-2xl transition-colors"
-                  >
-                    {copiedId === "yearly" ? <Check className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" /> : <Copy className="w-6 h-6 sm:w-7 sm:h-7" />}
-                  </button>
-                </div>
-                <p className="text-slate-400 text-lg sm:text-xl">per year</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-6 sm:gap-8 pt-8 border-t border-white/10">
-                <div>
-                  <p className="text-slate-400 text-sm">Gross Annual</p>
-                  <p className="text-2xl sm:text-3xl font-semibold mt-1">
-                    {result.currency?.symbol || "$"}{formatSmart(result.gross?.yearly || 0)}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-rose-400 text-sm">Total Tax</p>
-                  <p className="text-2xl sm:text-3xl font-semibold mt-1 text-rose-400">
-                    {result.currency?.symbol || "$"}{formatSmart(result.tax?.yearly || 0)}
-                  </p>
-                </div>
-              </div>
+              <div className="h-[2px] bg-gradient-to-r from-emerald-500 to-teal-400" />
             </div>
 
-            {/* Pie Chart */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100">
-              <h3 className="font-semibold text-xl mb-6 sm:mb-8 text-slate-900">Net vs Tax Breakdown</h3>
-              
-              <div className="flex justify-center py-4 sm:py-6">
-                <div 
-                  className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[400px] aspect-square"
-                  style={{ minHeight: "280px" }}
+            {/* Pie Chart - More Reliable Version */}
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+              <h3 className="font-semibold text-base sm:text-lg mb-6 text-slate-900 text-center">
+                Net vs Tax Breakdown
+              </h3>
+
+              <div className="mx-auto" style={{ width: "100%", maxWidth: "280px", height: "280px" }}>
+                <ResponsiveContainer
+                  width="100%"
+                  height="100%"
+                  initialDimension={{ width: 280, height: 280 }}   // ← This fixes the -1 error
+                  debounce={100}
                 >
-                  {showChart && (
-                    <ResponsiveContainer 
-                      width="100%" 
-                      height="100%"
-                      initialDimension={{ width: 340, height: 340 }}
+                  <PieChart>
+                    <Pie
+                      data={chartData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius="58%"
+                      outerRadius="88%"
+                      dataKey="value"
+                      paddingAngle={4}
+                      isAnimationActive={true}
+                      animationDuration={800}
                     >
-                      <PieChart>
-                        <Pie
-                          data={chartData}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius="68%"
-                          outerRadius="90%"
-                          dataKey="value"
-                          paddingAngle={5}
-                        >
-                          {chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  )}
-                </div>
+                      {chartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
 
-              <div className="flex justify-center gap-6 sm:gap-8 mt-4">
+              <div className="flex justify-center gap-6 mt-8">
                 {chartData.map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <div 
-                      className="w-4 h-4 rounded-full" 
-                      style={{ backgroundColor: item.color }} 
+                  <div key={i} className="flex items-center gap-2">
+                    <div
+                      className="w-3.5 h-3.5 rounded-full"
+                      style={{ backgroundColor: item.color }}
                     />
-                    <span className="text-sm font-medium text-slate-600">{item.name}</span>
+                    <span className="text-sm text-slate-600 font-medium">{item.name}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Pay Breakdown Card */}
-            <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all">
-              <h3 className="font-semibold text-xl text-slate-900 mb-8">Pay Breakdown (After Taxes)</h3>
-              
+            {/* Pay Breakdown */}
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-sm">
+              <h3 className="font-semibold text-xl mb-8 text-slate-900">Pay Breakdown (After Tax)</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
                 {[
                   { label: "Monthly Net", value: result.net?.monthly || 0, id: "monthly-net" },
@@ -390,36 +432,28 @@ export default function SalaryCalculator({
                       <p className="text-3xl sm:text-4xl font-black tracking-tighter text-slate-900 mt-2">
                         {result.currency?.symbol || "$"}{formatSmart(item.value)}
                       </p>
-                      <p className="text-xs text-slate-500 mt-1">
-                        {item.label.includes("Hourly") ? "After tax" : ""}
-                      </p>
                     </div>
                     <button
                       onClick={() => copyToClipboard(item.value, item.id)}
                       className="self-start p-2 hover:bg-slate-100 rounded-xl transition-colors"
                     >
-                      {copiedId === item.id ? (
-                        <Check className="w-5 h-5 text-emerald-600" />
-                      ) : (
-                        <Copy className="w-5 h-5 text-slate-400" />
-                      )}
+                      {copiedId === item.id ? <Check className="w-5 h-5 text-emerald-600" /> : <Copy className="w-5 h-5 text-slate-400" />}
                     </button>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Insight Card */}
-            <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 flex gap-5">
+            {/* Insight */}
+            <div className="bg-white rounded-3xl p-6 sm:p-8 flex gap-5 border border-slate-100">
               <Info className="w-8 h-8 text-emerald-600 flex-shrink-0 mt-1" />
               <div>
                 <p className="font-semibold text-lg text-slate-900">Quick Insight</p>
                 <p className="text-slate-600 mt-3 leading-relaxed">
                   After taxes, you effectively earn{" "}
                   <span className="font-semibold text-emerald-700">
-                    {result.currency?.symbol || "$"}{formatSmart(result.net?.hourly || 0)}
-                  </span>{" "}
-                  per hour — that's what really matters for your time.
+                    {result.currency?.symbol}{formatSmart(result.net?.hourly || 0)}/hr
+                  </span>
                 </p>
               </div>
             </div>
