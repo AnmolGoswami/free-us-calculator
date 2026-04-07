@@ -22,7 +22,14 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function SalaryToHourlyPage() {
+export default function SalaryToHourlyPage(
+  {
+  params,
+}: {
+  params?: Promise<any>; // optional, satisfies validator
+}
+  
+) {
   const faqs = [
     {
       q: "How do I convert annual salary to hourly?",

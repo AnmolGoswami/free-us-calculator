@@ -235,30 +235,32 @@ export default function AmortizedLoan() {
                   </div>
                 </button>
 
-                {isDetailsOpen && (
-                  <div className="p-6 sm:p-10 space-y-6">
-                    <div className="grid grid-cols-1 gap-2">
-                      <SummaryRow label="Loan Amount" value={formatCurrency(principal)} />
-                      <SummaryRow label="Total Interest" value={formatCurrency(result.totalInterest)} valueClass="text-red-500" />
-                      <SummaryRow label="Total Repayment" value={formatCurrency(result.totalPayment)} valueClass="text-blue-600 font-black text-lg" />
-                      <SummaryRow label="Effective Rate" value={`${result.effectiveInterestRate.toFixed(2)}%`} />
-                      <SummaryRow label="Payoff Date" value={result.payoffDate} />
-                      <SummaryRow label="Risk Assessment" value={result.riskLevel.toUpperCase()} valueClass={result.riskLevel === 'low' ? 'text-green-600' : 'text-orange-600'} isLast />
-                    </div>
-
-                    <div className="h-[250px] w-full pt-6">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie data={[{ name: "Principal", value: principal }, { name: "Interest", value: result.totalInterest }]} cx="50%" cy="50%" innerRadius={60} outerRadius={85} paddingAngle={5} dataKey="value">
-                            {COLORS.map((col, i) => <Cell key={i} fill={col} stroke="none" />)}
-                          </Pie>
-                          <Tooltip contentStyle={{ borderRadius: '15px' }} />
-                          <Legend verticalAlign="bottom" />
-                        </PieChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-                )}
+                {isDetailsOpen && result && principal > 0 && result.totalInterest > 0 && (
+  <div className="w-full max-w-full h-[250px] min-h-[250px] pt-6">
+    <ResponsiveContainer width="100%" height={250}>
+      <PieChart>
+        <Pie
+          data={[
+            { name: "Principal", value: principal },
+            { name: "Interest", value: result.totalInterest }
+          ]}
+          cx="50%"
+          cy="50%"
+          innerRadius={60}
+          outerRadius={85}
+          paddingAngle={5}
+          dataKey="value"
+        >
+          {COLORS.map((col, i) => (
+            <Cell key={i} fill={col} stroke="none" />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend verticalAlign="bottom" />
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+)}
               </div>
 
               {/* KEY INSIGHTS */}

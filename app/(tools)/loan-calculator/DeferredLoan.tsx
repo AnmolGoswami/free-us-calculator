@@ -145,23 +145,24 @@ export default function DeferredLoan() {
 
                 <div className="flex flex-col md:flex-row gap-6 items-center">
 
-                  <div className="w-40 h-40">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={[
-                            { name: "Principal", value: principal },
-                            { name: "Interest", value: result.totalInterest },
-                          ]}
-                          dataKey="value"
-                        >
-                          {COLORS.map((c, i) => (
-                            <Cell key={i} fill={c} />
-                          ))}
-                        </Pie>
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
+                  <div className="w-full max-w-[160px] h-[160px] min-h-[160px]">
+  <ResponsiveContainer width="100%" height={160}>
+    <PieChart>
+      <Pie
+        data={[
+          { name: "Principal", value: principal },
+          { name: "Interest", value: result.totalInterest },
+        ]}
+        dataKey="value"
+        outerRadius={70}
+      >
+        {COLORS.map((c, i) => (
+          <Cell key={i} fill={c} />
+        ))}
+      </Pie>
+    </PieChart>
+  </ResponsiveContainer>
+</div>
 
                   <div className="w-full">
                     <SummaryRow label="Initial Loan" value={formatUI(principal)} />
