@@ -1,87 +1,137 @@
 // components/ui/ToolCard.tsx
 import Link from "next/link";
 import { Tool } from "@/types";
+import { 
+  Calculator, 
+  TrendingUp, 
+  DollarSign, 
+  PiggyBank, 
+  ArrowRight, 
+  Zap, 
+  Shield, 
+  Clock 
+} from "lucide-react";
 
 interface ToolCardProps {
   tool: Tool;
-  className?: string; // Added to support layout flexibility
+  className?: string;
 }
 
 export default function ToolCard({ tool, className = "" }: ToolCardProps) {
-  // Mapping categories to specific styles for better visual recognition
-  const categoryStyles = {
-    tax: { emoji: "💰", color: "bg-blue-100 text-blue-700", border: "hover:border-blue-500" },
-    earning: { emoji: "💵", color: "bg-emerald-100 text-emerald-700", border: "hover:border-emerald-500" },
-    cost: { emoji: "📈", color: "bg-indigo-100 text-indigo-700", border: "hover:border-indigo-500" },
-    retirement: { emoji: "🏦", color: "bg-amber-100 text-amber-700", border: "hover:border-amber-500" },
+  
+  const getCategoryStyle = (category: string) => {
+    switch (category.toLowerCase()) {
+      case 'tax':
+        return {
+          icon: Calculator,
+          gradient: "from-blue-600 to-indigo-700",
+          accent: "text-blue-600",
+          light: "bg-blue-50",
+        };
+      case 'earning':
+        return {
+          icon: TrendingUp,
+          gradient: "from-emerald-600 to-teal-700",
+          accent: "text-emerald-600",
+          light: "bg-emerald-50",
+        };
+      case 'cost':
+        return {
+          icon: DollarSign,
+          gradient: "from-amber-600 to-orange-700",
+          accent: "text-amber-600",
+          light: "bg-amber-50",
+        };
+      case 'retirement':
+        return {
+          icon: PiggyBank,
+          gradient: "from-purple-600 to-violet-700",
+          accent: "text-purple-600",
+          light: "bg-purple-50",
+        };
+      default:
+        return {
+          icon: Calculator,
+          gradient: "from-indigo-600 to-blue-700",
+          accent: "text-indigo-600",
+          light: "bg-indigo-50",
+        };
+    }
   };
 
-  const currentStyle = categoryStyles[tool.category as keyof typeof categoryStyles] || categoryStyles.tax;
+  const style = getCategoryStyle(tool.category);
+  const IconComponent = style.icon;
 
   return (
     <Link 
       href={`/${tool.slug}`}
-      className={`group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden transition-all duration-500 flex flex-col h-full hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] ${currentStyle.border} ${className}`}
+      className={`group relative bg-white border border-slate-200 rounded-3xl overflow-hidden flex flex-col h-full transition-all duration-500 hover:shadow-2xl hover:border-slate-300 ${className}`}
     >
-      {/* Visual Header */}
-      <div className="relative h-40 flex items-center justify-center overflow-hidden bg-slate-50">
-        {/* Animated Background Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-slate-100/50 to-slate-200/30 group-hover:scale-110 transition-transform duration-700" />
+      {/* Hero Visual Section */}
+      <div className={`h-52 relative flex items-center justify-center overflow-hidden bg-gradient-to-br ${style.gradient}`}>
         
-        {/* Floating Icon with Shadow */}
-        <div className="relative z-10 text-6xl drop-shadow-xl transition-all duration-500 group-hover:scale-125 group-hover:-rotate-6">
-          {currentStyle.emoji}
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_0.8px,transparent_0.8px)] [background-size:24px_24px]" />
+
+        {/* Main Icon Container */}
+        <div className="relative z-10 w-24 h-24 bg-white/10 backdrop-blur-2xl rounded-3xl flex items-center justify-center border border-white/30 shadow-2xl transition-all duration-700 group-hover:scale-110 group-hover:-rotate-6">
+          <IconComponent className="w-14 h-14 text-white" strokeWidth={1.75} />
         </div>
 
-        {/* Decorative Badge */}
-        <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md border border-white px-3 py-1 rounded-full shadow-sm">
-          <span className="text-[10px] font-bold text-slate-500 tracking-tighter uppercase italic">Verified 2026</span>
+        {/* Verified Badge */}
+        <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-md px-4 py-1.5 rounded-2xl shadow-md flex items-center gap-2 text-xs font-semibold text-slate-700">
+          <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+          2026
         </div>
       </div>
 
-      {/* Content Body */}
-      <div className="p-7 flex-1 flex flex-col">
-        <div className="flex items-center gap-2 mb-4">
-          <span className={`text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-lg ${currentStyle.color}`}>
-            {tool.category}
-          </span>
-          <div className="h-1 w-1 rounded-full bg-slate-300" />
-          <span className="text-[11px] font-bold text-slate-400 uppercase">3 min read</span>
+      {/* Content */}
+      <div className="flex-1 p-7 flex flex-col">
+        {/* Category */}
+        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-semibold w-fit ${style.light} ${style.accent}`}>
+          <IconComponent className="w-4 h-4" />
+          {tool.category.toUpperCase()}
         </div>
 
-        {/* SEO Title: Using h3 is crucial for page hierarchy */}
-        <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-tight mb-3">
+        {/* Title - SEO Friendly */}
+        <h3 className="mt-5 text-2xl font-semibold leading-tight text-slate-900 group-hover:text-slate-700 transition-colors line-clamp-2 min-h-[3.2rem]">
           {tool.title}
         </h3>
 
-        <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-6">
+        {/* Description */}
+        <p className="mt-4 text-slate-600 text-[15.2px] leading-relaxed line-clamp-3 flex-1">
           {tool.description}
         </p>
 
-        {/* Features Preview (Small visual cues for utility) */}
-        <div className="mt-auto flex flex-wrap gap-2">
-           <div className="flex items-center gap-1 text-[10px] font-semibold text-slate-400 bg-slate-50 px-2 py-1 rounded-md">
-             ⚡ FAST
-           </div>
-           <div className="flex items-center gap-1 text-[10px] font-semibold text-slate-400 bg-slate-50 px-2 py-1 rounded-md">
-             🛡️ PRIVATE
-           </div>
+        {/* Features Bar */}
+        <div className="mt-8 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-1.5 text-slate-500">
+              <Zap className="w-4 h-4 text-amber-500" />
+              <span>Instant</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-slate-500">
+              <Shield className="w-4 h-4 text-emerald-500" />
+              <span>Private</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1 text-slate-400">
+            <Clock className="w-3.5 h-3.5" />
+            <span>30 sec</span>
+          </div>
         </div>
       </div>
 
-      {/* Action Footer */}
-      <div className="px-7 py-5 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between group-hover:bg-white transition-colors duration-300">
-        <span className="text-sm font-bold text-slate-900 flex items-center gap-2">
-          Calculate Now
-          <svg 
-            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-2 text-blue-600" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+      {/* Footer Action */}
+      <div className="px-7 py-6 border-t border-slate-100 bg-slate-50 group-hover:bg-slate-100 transition-colors flex items-center justify-between">
+        <span className="font-semibold text-slate-900 group-hover:text-indigo-600 flex items-center gap-2 transition-colors">
+          Open Calculator
         </span>
+        
+        <div className="flex items-center justify-center w-9 h-9 rounded-2xl bg-white shadow group-hover:bg-indigo-600 group-hover:text-white transition-all">
+          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+        </div>
       </div>
     </Link>
   );

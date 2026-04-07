@@ -4,137 +4,179 @@ import ToolCard from "@/components/ui/ToolCard";
 import AdBanner from "@/components/common/AdBanner";
 import { popularTools } from "@/lib/tools";
 import Script from "next/script";
+import { ArrowRight, ShieldCheck, Zap, Smartphone, Users, TrendingUp, CheckCircle2, Star, Award } from "lucide-react";
 
 export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "FreeUSCalculator",
+    alternateName: "Free US Financial Calculators 2026",
     url: "https://freeuscalculator.com",
-    description: "Free accurate 2026 US tax calculators, paycheck estimators, gig worker tools, and financial calculators. No signup required.",
+    description: "Free accurate 2026 US tax calculators, gig economy earnings tools, paycheck estimators, loan EMI, rent affordability and cost calculators. No signup required.",
     publisher: {
       "@type": "Organization",
       name: "FreeUSCalculator",
       logo: "https://freeuscalculator.com/logo.png"
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://freeuscalculator.com/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
     }
   };
 
   return (
     <>
-      <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <Script 
+        id="json-ld" 
+        type="application/ld+json" 
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} 
+      />
 
-      {/* ====================== HERO SECTION ====================== */}
-      <section className="relative bg-gradient-to-br from-blue-600 to-blue-700 text-white overflow-hidden min-h-[85vh] flex items-center">
-        <div className="absolute inset-0 bg-[radial-gradient(at_50%_30%,rgba(255,255,255,0.18)_0%,transparent_70%)]"></div>
+      {/* HERO SECTION - Premium & Bold */}
+      <section className="relative bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white overflow-hidden pt-20 pb-28 lg:pt-32 lg:pb-40">
+        <div className="absolute inset-0 bg-[radial-gradient(at_top_right,#4f46e520_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(at_bottom_left,#6366f120_0%,transparent_60%)]" />
 
-        <div className="max-w-7xl mx-auto px-6 pt-20 pb-16 md:pb-24 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-block bg-white/20 backdrop-blur-md px-6 py-3 rounded-full text-sm font-medium mb-8 border border-white/30">
-              ✅ Updated for Tax Year 2026 • 100% Free • No Signup • No Ads Inside Tools
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center max-w-5xl mx-auto">
+            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-2xl px-6 py-2.5 rounded-3xl border border-white/10 mb-8">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+              <span className="uppercase text-xs tracking-[2px] font-semibold text-emerald-300">Updated for Tax Year 2026</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-tight mb-6">
-              Free 2026 US Tax &amp;<br className="hidden sm:block" /> Paycheck Calculators
+            <h1 className="text-6xl md:text-7xl lg:text-[86px] font-black tracking-tighter leading-none mb-8">
+              Smart Money Decisions.<br />
+              <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent">Made Simple.</span>
             </h1>
 
-            <p className="text-lg md:text-2xl text-blue-100 max-w-3xl mx-auto mb-10 leading-relaxed">
-              Accurate, fast, and easy-to-use financial calculators trusted by thousands of Americans.
+            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-14 leading-relaxed">
+              85+ free, accurate, and beautifully designed financial calculators. 
+              Built for gig workers, families, and smart Americans in 2026.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/tax-calculators"
-                className="bg-white text-blue-700 hover:bg-blue-50 font-semibold text-xl md:text-2xl px-10 md:px-14 py-5 md:py-7 rounded-3xl transition-all shadow-xl active:scale-95"
-              >
-                Start Calculating Now →
-              </Link>
-              <Link
-                href="#popular-tools"
-                className="border-2 border-white/70 hover:bg-white/10 font-semibold text-xl md:text-2xl px-10 md:px-12 py-5 md:py-7 rounded-3xl transition-all"
-              >
-                Browse All Tools
-              </Link>
+            {/* Popular Quick Links - Unique Pill Style */}
+            <div className="max-w-4xl mx-auto mb-16">
+              <div className="text-sm uppercase tracking-widest text-indigo-300 mb-5 font-medium">Popular This Year</div>
+              <div className="flex flex-wrap justify-center gap-3">
+                {[
+                  { label: "Self Employment Tax", href: "/tax-calculators" },
+                  { label: "Uber Earnings", href: "/earning-calculators" },
+                  { label: "DoorDash Pay", href: "/earning-calculators" },
+                  { label: "Take Home Pay", href: "/tax-calculators" },
+                  { label: "Rent Affordability", href: "/cost-calculators" },
+                  { label: "Loan EMI", href: "/cost-calculators" },
+                ].map((item, i) => (
+                  <Link
+                    key={i}
+                    href={item.href}
+                    className="group px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/10 hover:border-white/30 backdrop-blur-xl rounded-full text-sm font-medium text-white transition-all hover:scale-105"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
 
-            <div className="mt-14 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm md:text-base opacity-90">
-              <div>⚡ Instant Results</div>
-              <div>🔒 100% Private</div>
-              <div>📱 Fully Responsive</div>
-              <div>🇺🇸 IRS Updated 2026</div>
+            <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 text-sm opacity-90">
+              <div className="flex items-center gap-2"><ShieldCheck className="text-emerald-400" size={22} /> 100% Free & Private</div>
+              <div className="flex items-center gap-2"><Zap className="text-amber-400" size={22} /> Real 2026 Rates</div>
+              <div className="flex items-center gap-2"><Smartphone className="text-sky-400" size={22} /> Mobile Optimized</div>
+              <div className="flex items-center gap-2"><Users className="text-violet-400" size={22} /> 75,000+ Users</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <div className="bg-white py-7 border-b">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div className="text-4xl font-bold text-blue-600">50,000+</div>
-            <div className="text-gray-600 mt-1">Monthly Users</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-blue-600">85+</div>
-            <div className="text-gray-600 mt-1">Free Tools</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-blue-600">4.9/5</div>
-            <div className="text-gray-600 mt-1">Average Rating</div>
-          </div>
-          <div>
-            <div className="text-4xl font-bold text-blue-600">2026</div>
-            <div className="text-gray-600 mt-1">Latest Tax Rules</div>
-          </div>
-        </div>
-      </div>
-
       <AdBanner />
 
-      {/* Popular Tools */}
-      <section id="popular-tools" className="py-20 md:py-28 bg-white">
+      {/* ==================== UNIQUE POPULAR TOOLS SECTION ==================== */}
+      <section id="popular-tools" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">Most Popular Calculators</h2>
-            <p className="text-gray-600 mt-4 text-lg">Instantly used by thousands of Americans daily</p>
+          <div className="flex items-end justify-between mb-16">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <Award className="text-amber-500" size={28} />
+                <span className="uppercase tracking-[3px] text-indigo-600 font-semibold text-sm">Most Used in 2026</span>
+              </div>
+              <h2 className="text-5xl font-bold tracking-tight text-slate-900">Popular Calculators</h2>
+            </div>
+            <Link 
+              href="/tax-calculators" 
+              className="hidden md:flex items-center gap-3 font-semibold text-lg text-indigo-600 hover:text-indigo-700 group"
+            >
+              Explore All Tools 
+              <ArrowRight className="group-hover:translate-x-1 transition" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {popularTools.map((tool) => (
-              <ToolCard key={tool.slug} tool={tool} />
+          {/* Clean Responsive Grid - No Horizontal Scroll */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {popularTools.map((tool, index) => (
+              <div 
+                key={tool.slug} 
+                className={`transition-all duration-500 ${index === 0 || index === 3 ? 'lg:col-span-1' : ''}`}
+              >
+                <ToolCard tool={tool} />
+              </div>
             ))}
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/tax-calculators" className="text-blue-600 hover:text-blue-700 font-semibold text-lg inline-flex items-center gap-2">
-              View All Tools →
+            <Link 
+              href="/tax-calculators" 
+              className="inline-flex items-center gap-3 font-semibold text-lg text-indigo-600 hover:text-indigo-700 group"
+            >
+              See All 85+ Tools <ArrowRight className="group-hover:translate-x-1 transition" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-20 md:py-28 bg-gray-50">
+      {/* Categories Section - Unique Cards */}
+      <section className="py-28 bg-zinc-50">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Choose Your Category</h2>
-          <p className="text-center text-gray-600 mb-16 text-lg">Find the perfect tool for your needs</p>
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold tracking-tight mb-6">Built for Every Situation</h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Whether you're driving for Uber, filing taxes, or planning your future — we have the right tool for you.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
-              { href: "/tax-calculators", emoji: "💰", title: "Tax Calculators", desc: "Federal, State, Self-Employment, W-2 & 1099 taxes" },
-              { href: "/earning-calculators", emoji: "💵", title: "Earnings Calculators", desc: "Gig economy, Uber, DoorDash, salary tools" },
-              { href: "/cost-calculators", emoji: "📈", title: "Cost & Planning", desc: "Rent, loans, savings, retirement & more" }
-            ].map((cat) => (
-              <Link key={cat.title} href={cat.href} className="group">
-                <div className="bg-white p-10 rounded-3xl shadow hover:shadow-2xl transition-all hover:-translate-y-2 h-full border border-gray-100">
-                  <div className="text-7xl mb-8 transition-transform group-hover:scale-110">{cat.emoji}</div>
-                  <h3 className="text-3xl font-semibold mb-4">{cat.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{cat.desc}</p>
-                  <div className="mt-8 text-blue-600 font-medium group-hover:underline">Explore Tools →</div>
+              {
+                href: "/tax-calculators",
+                title: "Tax Calculators",
+                desc: "Self-employment tax, paycheck estimators, federal & state tools updated for 2026.",
+                iconColor: "from-blue-500 to-indigo-600",
+                count: "25+ Tools"
+              },
+              {
+                href: "/earning-calculators",
+                title: "Earnings & Gig Tools",
+                desc: "Uber, DoorDash, Lyft earnings and salary calculators. Know your real income.",
+                iconColor: "from-emerald-500 to-teal-600",
+                count: "18+ Tools"
+              },
+              {
+                href: "/cost-calculators",
+                title: "Cost & Planning Tools",
+                desc: "Loan EMI, rent affordability, savings growth, and smart budget planners.",
+                iconColor: "from-amber-500 to-orange-600",
+                count: "22+ Tools"
+              },
+            ].map((category) => (
+              <Link key={category.title} href={category.href} className="group">
+                <div className="h-full bg-white border border-slate-100 rounded-3xl p-10 hover:border-indigo-200 hover:shadow-2xl transition-all duration-500">
+                  <div className={`w-20 h-20 bg-gradient-to-br ${category.iconColor} rounded-2xl mb-8 flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform`}>
+                    <CheckCircle2 size={38} />
+                  </div>
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-3xl font-bold text-slate-900">{category.title}</h3>
+                    <span className="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full text-slate-500">{category.count}</span>
+                  </div>
+                  <p className="text-slate-600 leading-relaxed text-[17px]">{category.desc}</p>
+                  
+                  <div className="mt-10 text-indigo-600 font-semibold inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                    Explore Category <ArrowRight size={20} />
+                  </div>
                 </div>
               </Link>
             ))}
@@ -142,16 +184,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Why Choose Us */}
+      <section className="py-24 bg-zinc-900 text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-5xl font-bold tracking-tight mb-8">Why Americans Love FreeUSCalculator</h2>
+              <div className="space-y-8 text-lg text-slate-300">
+                <div className="flex gap-6">
+                  <CheckCircle2 className="text-emerald-400 mt-1 flex-shrink-0" size={28} />
+                  <div>
+                    <p className="font-semibold text-white">Always Updated for 2026</p>
+                    <p className="mt-2">Latest tax brackets, rates, and rules.</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <CheckCircle2 className="text-emerald-400 mt-1 flex-shrink-0" size={28} />
+                  <div>
+                    <p className="font-semibold text-white">No Signup • No Ads</p>
+                    <p className="mt-2">Completely free and private.</p>
+                  </div>
+                </div>
+                <div className="flex gap-6">
+                  <CheckCircle2 className="text-emerald-400 mt-1 flex-shrink-0" size={28} />
+                  <div>
+                    <p className="font-semibold text-white">Accurate Calculations</p>
+                    <p className="mt-2">Built with real financial formulas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-3xl p-10">
+              <TrendingUp className="text-emerald-400 mb-6" size={48} />
+              <h3 className="text-3xl font-bold mb-6">Join 75,000+ Smart Americans</h3>
+              <p className="text-slate-400 leading-relaxed">
+                From gig economy workers to families planning their future — our tools help real people every single day.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
-      <section className="py-24 bg-blue-600 text-white text-center">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Stop Guessing. Start Calculating.</h2>
-          <p className="text-xl text-blue-100 mb-10">Get accurate answers instantly with our free tools.</p>
+      <section className="py-28 bg-gradient-to-br from-indigo-600 to-violet-700 text-white">
+        <div className="max-w-4xl mx-auto text-center px-6">
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-8">
+            Ready to Take Control of Your Finances?
+          </h2>
+          <p className="text-xl text-indigo-100 mb-12">Start calculating instantly — no account needed.</p>
           <Link
             href="/tax-calculators"
-            className="inline-block bg-white text-blue-700 font-semibold px-14 py-7 rounded-3xl text-2xl hover:bg-blue-50 transition-all shadow-xl"
+            className="inline-flex items-center gap-4 bg-white text-indigo-700 font-bold text-xl px-14 py-6 rounded-3xl hover:bg-amber-300 hover:text-indigo-900 transition-all shadow-2xl"
           >
-            Browse All Free Tools →
+            Browse All Tools Now <Zap className="w-7 h-7" />
           </Link>
         </div>
       </section>
