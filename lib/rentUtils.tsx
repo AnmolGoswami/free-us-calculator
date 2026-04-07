@@ -4,7 +4,7 @@ export interface RentInputs {
   incomeValue: string | number;
   incomeType: "monthly" | "yearly";
   monthlyDebt?: string | number;
-  taxRate?: number;
+  taxRate?: number; // optional override
 }
 
 export interface RentResult {
@@ -19,18 +19,20 @@ export interface RentResult {
   recommendedRent: number;
   conservativeRent: number;
   aggressiveRent: number;
+  optimizedRent: number; // 🔥 NEW (smart suggestion)
 
   frontEndDTI: number;
   backEndDTI: number;
 
   status: "excellent" | "comfortable" | "stretch" | "risky";
   statusColor: "emerald" | "amber" | "red";
+
+  improvementPotential: number; // 🔥 NEW
   suggestedAction: string;
 }
 
 /**
- * Production-grade Rent Affordability Calculator
- * Based on real 2026 lending standards (28/36 rule + DTI logic)
+ * SaaS-grade Rent Affordability Engine (2026+)
  */
 export function calculateRentAffordability(inputs: RentInputs): RentResult {
   const toNumber = (val: any): number => {
@@ -38,71 +40,99 @@ export function calculateRentAffordability(inputs: RentInputs): RentResult {
     return isNaN(num) ? 0 : num;
   };
 
-  // Input Sanitization
+  // ================= INPUT SANITIZATION =================
   const safeIncome = Math.max(0, toNumber(inputs.incomeValue));
   const safeDebt = Math.max(0, toNumber(inputs.monthlyDebt ?? 0));
-  const safeTax = Math.min(Math.max(toNumber(inputs.taxRate ?? 0.25), 0), 0.6);
 
-  // ====================== INCOME NORMALIZATION ======================
-  const yearlyGross = inputs.incomeType === "yearly" ? safeIncome : safeIncome * 12;
-  const monthlyGross = inputs.incomeType === "yearly" ? safeIncome / 12 : safeIncome;
+  // Smart default tax (real-world adaptive)
+  const inferredTax =
+    safeIncome > 120000 ? 0.30 :
+    safeIncome > 60000 ? 0.25 :
+    0.20;
 
-  if (monthlyGross <= 0) {
-    return getEmptyResult();
-  }
+  const safeTax = Math.min(
+    Math.max(toNumber(inputs.taxRate ?? inferredTax), 0),
+    0.6
+  );
+
+  // ================= INCOME NORMALIZATION =================
+  const yearlyGross =
+    inputs.incomeType === "yearly" ? safeIncome : safeIncome * 12;
+
+  const monthlyGross =
+    inputs.incomeType === "yearly" ? safeIncome / 12 : safeIncome;
+
+  if (monthlyGross <= 0) return getEmptyResult();
 
   const monthlyNet = monthlyGross * (1 - safeTax);
   const yearlyNet = yearlyGross * (1 - safeTax);
 
-  // ====================== LENDER RULES ======================
+  // ================= CORE LENDING RULES =================
   const rent28 = monthlyGross * 0.28;
-  const rent36 = Math.max(0, monthlyGross * 0.36 - safeDebt);
+
+  const rent36 = Math.max(
+    0,
+    monthlyGross * 0.36 - safeDebt
+  );
 
   const recommendedRent = Math.min(rent28, rent36);
 
+  // ================= SMART RENT TIERS =================
   const conservativeRent = Math.min(
     monthlyGross * 0.20,
-    monthlyNet * 0.35
+    monthlyNet * 0.30
   );
 
-  const aggressiveRent = Math.max(
-    recommendedRent,
-    Math.min(
-      monthlyGross * 0.32,
-      monthlyNet * 0.45,
-      Math.max(0, monthlyGross * 0.40 - safeDebt)
-    )
+  const aggressiveRent = Math.min(
+    monthlyGross * 0.32,
+    monthlyNet * 0.45,
+    Math.max(0, monthlyGross * 0.40 - safeDebt)
   );
 
-  // ====================== DTI RATIOS ======================
-  const frontEndDTI = monthlyGross > 0 ? (recommendedRent / monthlyGross) * 100 : 0;
-  const backEndDTI = monthlyGross > 0 ? ((recommendedRent + safeDebt) / monthlyGross) * 100 : 0;
+  // 🔥 NEW: Optimized rent (AI-like suggestion)
+  const optimizedRent =
+    backsolveOptimalRent(monthlyGross, safeDebt);
 
-  // ====================== STATUS ENGINE ======================
-  let status: RentResult["status"] = "comfortable";
-  let statusColor: RentResult["statusColor"] = "emerald";
-  let suggestedAction = "Healthy financial position.";
+  // ================= DTI CALCULATIONS =================
+  const frontEndDTI = (recommendedRent / monthlyGross) * 100;
+  const backEndDTI =
+    ((recommendedRent + safeDebt) / monthlyGross) * 100;
+
+  // ================= STATUS ENGINE =================
+  let status: RentResult["status"];
+  let statusColor: RentResult["statusColor"];
+  let suggestedAction: string;
 
   if (backEndDTI < 25) {
     status = "excellent";
     statusColor = "emerald";
-    suggestedAction = "Excellent — strong lender approval odds and great savings potential.";
+    suggestedAction = "Excellent — you can safely save or invest more.";
   } else if (backEndDTI < 30) {
     status = "comfortable";
     statusColor = "emerald";
-    suggestedAction = "Comfortable — well within safe lending limits.";
+    suggestedAction = "Comfortable — strong financial balance.";
   } else if (backEndDTI < 36) {
     status = "stretch";
     statusColor = "amber";
-    suggestedAction = "Stretch zone — consider lowering debt or increasing income.";
+    suggestedAction =
+      `You're slightly above ideal limits. Reducing ~$${Math.round(safeDebt * 0.2)} debt improves safety.`;
   } else {
     status = "risky";
     statusColor = "red";
-    suggestedAction = "Risky — high chance of lender rejection and financial stress.";
+    suggestedAction =
+      "High financial risk — consider reducing rent or debt immediately.";
   }
 
-  // ====================== FINAL ROUNDING ======================
-  const round = (n: number) => Math.round(n * 100) / 100;
+  // ================= IMPROVEMENT ENGINE =================
+  const idealBackEnd = 30;
+  const improvementPotential = Math.max(
+    0,
+    ((backEndDTI - idealBackEnd) / 100) * monthlyGross
+  );
+
+  // ================= ROUNDING =================
+  const round = (n: number) =>
+    Math.round((n + Number.EPSILON) * 100) / 100;
 
   return {
     monthlyGross: round(monthlyGross),
@@ -116,6 +146,7 @@ export function calculateRentAffordability(inputs: RentInputs): RentResult {
     recommendedRent: round(recommendedRent),
     conservativeRent: round(conservativeRent),
     aggressiveRent: round(aggressiveRent),
+    optimizedRent: round(optimizedRent),
 
     frontEndDTI: round(frontEndDTI),
     backEndDTI: round(backEndDTI),
@@ -123,10 +154,16 @@ export function calculateRentAffordability(inputs: RentInputs): RentResult {
     status,
     statusColor,
     suggestedAction,
+    improvementPotential: round(improvementPotential),
   };
 }
 
-// Empty state handler
+// 🔥 Smart optimizer (differentiator)
+function backsolveOptimalRent(monthlyIncome: number, debt: number) {
+  const targetDTI = 0.30;
+  return Math.max(0, monthlyIncome * targetDTI - debt);
+}
+
 function getEmptyResult(): RentResult {
   return {
     monthlyGross: 0,
@@ -138,10 +175,12 @@ function getEmptyResult(): RentResult {
     recommendedRent: 0,
     conservativeRent: 0,
     aggressiveRent: 0,
+    optimizedRent: 0,
     frontEndDTI: 0,
     backEndDTI: 0,
+    improvementPotential: 0,
     status: "comfortable",
     statusColor: "emerald",
-    suggestedAction: "Enter your income to see personalized results.",
+    suggestedAction: "Enter income to unlock insights.",
   };
 }
