@@ -137,7 +137,7 @@ export default function PaycheckCalculatorClient() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 pb-20">
-        <div className="grid lg:grid-cols-12 gap-8">
+        <div className="grid lg:grid-cols-12 gap-8 w-full">
 
           {/* ==================== INPUTS ==================== */}
           <section className="lg:col-span-5 space-y-6">
@@ -402,7 +402,7 @@ export default function PaycheckCalculatorClient() {
           </section>
 
           {/* ==================== RESULTS ==================== */}
-          <section className="lg:col-span-7 space-y-6 lg:sticky lg:top-8">
+          <section className="lg:col-span-7 space-y-6 lg:sticky lg:top-8 min-w-0">
             <div className="bg-slate-100 p-1.5 rounded-3xl flex gap-1 text-sm">
               {["paycheck", "monthly", "annual"].map((m) => (
                 <button
@@ -426,80 +426,206 @@ export default function PaycheckCalculatorClient() {
                   className="space-y-6"
                 >
                   {/* Net Pay */}
-                  <div className="bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl p-10 text-white shadow-2xl">
-                    <div className="uppercase text-blue-400 text-xs font-bold tracking-widest">
-                      {viewMode.toUpperCase()} NET PAY
-                    </div>
-                    <div className="flex items-baseline gap-4 mt-3">
-                      <h2 className="text-6xl md:text-7xl font-black tracking-tighter">
-                        ${(viewMode === 'annual'
-                          ? result.annual.net
-                          : viewMode === 'monthly'
-                            ? result.annual.net / 12
-                            : result.perPaycheck.net
-                        ).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                      </h2>
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText(result.perPaycheck.net.toFixed(2));
-                          setCopied(true);
-                          setTimeout(() => setCopied(false), 2000);
-                        }}
-                        className="p-3 hover:bg-white/10 rounded-2xl transition"
-                      >
-                        {copied ? <Check className="text-emerald-400" size={28} /> : <Copy size={28} className="text-slate-400" />}
-                      </button>
-                    </div>
+                  <div className="bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl p-6 sm:p-8 md:p-10 text-white shadow-2xl w-full max-w-full overflow-hidden">
 
-                    <div className="mt-8 flex flex-wrap gap-x-10 text-sm">
-                      <div>Retention: <span className="font-bold text-emerald-400">{netPercentage}%</span></div>
-                      <div>Effective Tax Rate: <span className="font-bold text-orange-400">{effectiveTaxRate}%</span></div>
-                    </div>
-                  </div>
+  {/* LABEL */}
+  <div className="uppercase text-blue-400 text-xs font-bold tracking-widest">
+    {viewMode.toUpperCase()} NET PAY
+  </div>
+
+  {/* VALUE + COPY */}
+  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mt-4 min-w-0">
+
+    {/* ✅ RESPONSIVE NUMBER */}
+    <h2 className="
+      font-black tracking-tight leading-tight
+      text-3xl sm:text-5xl md:text-6xl
+      break-words whitespace-normal
+      min-w-0
+    ">
+      {(
+        viewMode === "annual"
+          ? result.annual.net
+          : viewMode === "monthly"
+          ? result.annual.net / 12
+          : result.perPaycheck.net
+      ).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}
+    </h2>
+
+    {/* COPY BUTTON */}
+    <button
+      onClick={() => {
+        navigator.clipboard.writeText(result.perPaycheck.net.toFixed(2));
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }}
+      className="self-start sm:self-auto shrink-0 p-3 hover:bg-white/10 rounded-2xl transition"
+    >
+      {copied ? (
+        <Check className="text-emerald-400" size={24} />
+      ) : (
+        <Copy size={24} className="text-slate-400" />
+      )}
+    </button>
+  </div>
+
+  {/* STATS */}
+  <div className="mt-6 flex flex-col sm:flex-row sm:gap-10 gap-2 text-sm">
+    <div>
+      Retention:{" "}
+      <span className="font-bold text-emerald-400">
+        {netPercentage}%
+      </span>
+    </div>
+    <div>
+      Effective Tax Rate:{" "}
+      <span className="font-bold text-orange-400">
+        {effectiveTaxRate}%
+      </span>
+    </div>
+  </div>
+
+</div>
 
                   {/* Chart + Breakdown */}
                   <div className="bg-white rounded-3xl p-8 border border-slate-200">
-                    <div className="grid md:grid-cols-5 gap-10">
-                      <div className="md:col-span-3 h-80">
-                        {mounted && (
-                          <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                              <Pie
-                                data={pieData}
-                                innerRadius={70}
-                                outerRadius={105}
-                                dataKey="value"
-                                paddingAngle={4}
-                              >
-                                {pieData.map((entry, i) => (
-                                  <Cell key={`cell-${i}`} fill={entry.color} />
-                                ))}
-                              </Pie>
-                              <Tooltip
-                                formatter={(value) => [
-                                  `$${Number(value).toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  })}`,
-                                  ""
-                                ]}
-                                contentStyle={{ borderRadius: "12px", border: "none" }}
-                              />
-                            </PieChart>
-                          </ResponsiveContainer>
-                        )}
-                      </div>
+  <div className="grid md:grid-cols-5 gap-10">
 
-                      <div className="md:col-span-2 space-y-5 pt-2">
-                        <BreakdownRow label="Federal Income Tax" value={result.perPaycheck.federal} color={CHART_COLORS[0]} />
-                        <BreakdownRow label="FICA (Social Security + Medicare)" value={result.perPaycheck.fica} color={CHART_COLORS[1]} />
-                        <BreakdownRow label="State Income Tax" value={result.perPaycheck.state} color={CHART_COLORS[2]} />
-                        {result.perPaycheck.local > 0 && (
-                          <BreakdownRow label="Local/City Tax" value={result.perPaycheck.local} color={CHART_COLORS[3]} />
-                        )}
-                      </div>
-                    </div>
-                  </div>
+    {/* ✅ CHART (FIXED) */}
+    <div className="md:col-span-3 w-full max-w-full h-[320px] min-h-[320px]">
+      {mounted && pieData.length > 0 && (
+        <ResponsiveContainer width="100%" height={320}>
+          <PieChart>
+            <Pie
+              data={pieData}
+              innerRadius={70}
+              outerRadius={105}
+              dataKey="value"
+              paddingAngle={4}
+              isAnimationActive={false} // ✅ prevents layout timing bugs
+            >
+              {pieData.map((entry, i) => (
+                <Cell key={`cell-${i}`} fill={entry.color} />
+              ))}
+            </Pie>
+
+            <Tooltip
+              formatter={(value) => [
+                `$${Number(value).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}`,
+                ""
+              ]}
+              contentStyle={{
+                borderRadius: "12px",
+                border: "none",
+              }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      )}
+    </div>
+
+    {/* ✅ BREAKDOWN */}
+    <div className="md:col-span-2 space-y-5 pt-2">
+      <BreakdownRow
+        label="Federal Income Tax"
+        value={result.perPaycheck.federal}
+        color={CHART_COLORS[0]}
+      />
+
+      <BreakdownRow
+        label="FICA (Social Security + Medicare)"
+        value={result.perPaycheck.fica}
+        color={CHART_COLORS[1]}
+      />
+
+      <BreakdownRow
+        label="State Income Tax"
+        value={result.perPaycheck.state}
+        color={CHART_COLORS[2]}
+      />
+
+      {result.perPaycheck.local > 0 && (
+        <BreakdownRow
+          label="Local/City Tax"
+          value={result.perPaycheck.local}
+          color={CHART_COLORS[3]}
+        />
+      )}
+    </div>
+
+  </div>
+</div>
+<div className="mt-8 space-y-6">
+
+  {/* KEY TAKEAWAYS */}
+  <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5">
+    <h3 className="text-sm font-black uppercase tracking-widest text-blue-700 mb-3">
+      Key Takeaways
+    </h3>
+
+    <ul className="space-y-2 text-sm text-blue-900">
+      <li>• You take home <strong>{netPercentage}%</strong> of your income after taxes.</li>
+      <li>• Your effective tax rate is <strong>{effectiveTaxRate}%</strong>.</li>
+      <li>• Federal tax is your largest deduction.</li>
+      <li>• FICA taxes are fixed and unavoidable.</li>
+    </ul>
+  </div>
+
+  {/* TAX BREAKDOWN EXPLANATION */}
+  <div className="bg-white border border-slate-200 rounded-2xl p-5">
+    <h3 className="text-sm font-black uppercase tracking-widest text-slate-700 mb-3">
+      Tax Breakdown Explained
+    </h3>
+
+    <p className="text-sm text-slate-600 leading-relaxed">
+      Your paycheck is reduced by multiple taxes including federal income tax,
+      Social Security and Medicare (FICA), and state income tax. Federal tax is
+      progressive, meaning higher income is taxed at higher rates. FICA taxes are
+      fixed percentages, while state taxes vary depending on your location.
+    </p>
+  </div>
+
+  {/* SMART TIPS */}
+  <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-5">
+    <h3 className="text-sm font-black uppercase tracking-widest text-emerald-700 mb-3">
+      Ways to Increase Your Take-Home Pay
+    </h3>
+
+    <ul className="space-y-2 text-sm text-emerald-900">
+      <li>• Contribute to 401(k) to reduce taxable income</li>
+      <li>• Use pre-tax benefits like health insurance</li>
+      <li>• Adjust withholding to avoid overpaying taxes</li>
+      <li>• Consider tax-advantaged accounts (HSA, IRA)</li>
+    </ul>
+  </div>
+
+</div>
+<div className="bg-white border border-slate-200 rounded-2xl p-5">
+  <h3 className="text-sm font-black uppercase tracking-widest text-slate-700 mb-4">
+    Where Your Money Goes
+  </h3>
+
+  <div className="space-y-3 text-sm">
+    <div className="flex justify-between">
+      <span>Take Home Pay</span>
+      <span className="font-bold text-green-600">{netPercentage}%</span>
+    </div>
+    <div className="flex justify-between">
+      <span>Total Taxes</span>
+      <span className="font-bold text-red-600">{effectiveTaxRate}%</span>
+    </div>
+  </div>
+
+  <p className="text-xs text-slate-500 mt-4">
+    This breakdown shows how much of your salary is kept versus paid in taxes including federal, state, and FICA contributions.
+  </p>
+</div>
 
                   {/* Employer Match */}
                   {inputs.employer401kMatch > 0 && (
