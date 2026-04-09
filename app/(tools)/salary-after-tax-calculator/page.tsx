@@ -1,33 +1,225 @@
-// app/(tools)/salary-after-tax-calculator/page.tsx
-
+import { Metadata } from "next";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import AdBanner from "@/components/common/AdBanner";
-import { getToolContent } from "@/lib/seo";
 import SalaryAfterTaxClient from "./SalaryAfterTaxClient";
+import FAQ from "@/components/calculators/FAQ";
+import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import ShareButtons from "@/components/calculators/ShareButtons";
+import { getToolContent } from "@/lib/seo";
+import { Sparkles, BookOpen, Target, ShieldCheck } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Salary After Tax Calculator 2026: Real Take-Home Pay",
+  description:
+    "Calculate your true take-home salary after federal, state, and FICA taxes in 2026.",
+  keywords: [
+    "salary after tax calculator 2026",
+    "take home pay calculator",
+    "net salary calculator",
+  ],
+};
 
 export default function SalaryAfterTaxPage() {
   const seoContent = getToolContent("salary-after-tax-calculator");
 
+  const faqs = [
+    {
+      q: "How accurate is this salary calculator?",
+      a: "It uses updated 2026 federal tax brackets, FICA rates, and state-level estimates.",
+    },
+    {
+      q: "Does it include state tax?",
+      a: "Yes, state tax is included based on your selected state.",
+    },
+    {
+      q: "What is FICA tax?",
+      a: "FICA includes Social Security and Medicare taxes applied to your income.",
+    },
+  ];
+
   return (
-    <>
+    <main className="bg-[#fcfcfd] w-full overflow-x-hidden relative">
+
+      {/* ================= HERO ================= */}
+      <section className="relative pt-8 pb-10 md:pt-14 md:pb-16">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[400px] bg-gradient-to-b from-green-50/50 to-transparent -z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-100 text-green-600 text-xs font-bold uppercase tracking-wider mb-5">
+            <Sparkles size={14} /> 2026 Tax Engine
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-4">
+            Salary <span className="text-green-600">After Tax</span> Pro
+          </h1>
+
+          <p className="text-slate-500 text-sm sm:text-lg max-w-2xl mx-auto">
+            Calculate your real take-home pay after{" "}
+            <span className="font-bold text-slate-900 underline decoration-green-300">
+              federal, state, and FICA taxes
+            </span>
+          </p>
+        </div>
+      </section>
+
+      {/* ================= CALCULATOR (UNCHANGED SIZE) ================= */}
       <CalculatorContainer
-        title="Salary After Tax Calculator (USA 2026)"
-        description="Calculate your take-home salary after federal, state, and FICA taxes in the United States."
+        title="Salary After Tax Calculator USA"
+        description="Calculate your exact take-home pay for 2026 with full tax breakdown."
+        category="Financial"
+        lastUpdated="April 2026"
+        backLink="/earning-calculators"
+        keywords="Salary Calculator 2026, Take home pay, Tax brackets"
       >
-        <SalaryAfterTaxClient />
+        <div className="p-1 md:p-4">
+          <SalaryAfterTaxClient />
+        </div>
       </CalculatorContainer>
 
-      {/* SEO CONTENT */}
-      <div className="mt-20 max-w-4xl mx-auto px-6 prose prose-gray">
-        <div dangerouslySetInnerHTML={{ __html: seoContent }} />
+      {/* ================= SHARE ================= */}
+      <section className="max-w-5xl mx-auto px-6 my-12">
+        <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-8 text-center text-white shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">
+            Plan Your Finances Better
+          </h2>
+          <p className="text-green-100 mb-6 max-w-xl mx-auto">
+            Share this tool to help others understand their real income.
+          </p>
+
+          <ShareButtons
+            title="Check your real take-home salary for 2026!"
+            url="https://freeuscalculator.com/salary-after-tax-calculator"
+          />
+        </div>
+      </section>
+
+      {/* ================= SEO SECTION (DOORDASH STYLE) ================= */}
+      <section className="py-12 md:py-24 bg-white border-t border-slate-100">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+
+      {/* LEFT SIDEBAR */}
+      <div className="lg:col-span-4 hidden lg:block sticky top-24 space-y-8">
+        <h2 className="text-3xl font-extrabold flex items-center gap-3">
+          <BookOpen className="text-green-600" /> Deep Insights
+        </h2>
+
+        {[
+          {
+            icon: <Target className="text-blue-600" />,
+            title: "Accurate Tax Engine",
+            desc: "Built using 2026 IRS tax brackets.",
+          },
+          {
+            icon: <ShieldCheck className="text-emerald-600" />,
+            title: "Real Take-Home",
+            desc: "Includes FICA + state taxes.",
+          },
+        ].map((item, i) => (
+          <div
+            key={i}
+            className="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-md transition-all"
+          >
+            <div className="mb-3">{item.icon}</div>
+            <h4 className="font-bold text-slate-900">{item.title}</h4>
+            <p className="text-sm text-slate-500">{item.desc}</p>
+          </div>
+        ))}
       </div>
 
-    <ShareButtons
-        title="Salary After Tax Calculator 2026"
-        url="https://freeuscalculator.com/salary-after-tax-calculator"
-      />
-      <AdBanner />
-    </>
+      {/* RIGHT CONTENT (FIXED) */}
+      <div className="lg:col-span-8 w-full min-w-0">
+        <div className="w-full max-w-full bg-white border border-slate-200 rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden">
+          
+          {/* HEADER */}
+          <div className="px-5 sm:px-8 py-6 sm:py-8 border-b border-slate-100 bg-slate-50">
+            <h2 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight">
+              Complete Salary After Tax Guide 2026
+            </h2>
+            <p className="text-slate-500 mt-2 text-xs sm:text-[15px]">
+              Everything you need to understand your net income
+            </p>
+          </div>
+
+          {/* CONTENT WRAPPER (CRITICAL FIX) */}
+          <div className="w-full max-w-full overflow-hidden">
+            <div className="p-4 sm:p-8 md:p-10 overflow-x-auto">
+
+              <article
+                className="
+                  prose prose-slate 
+                  prose-sm sm:prose-base 
+                  max-w-none w-full
+
+                  prose-headings:font-bold 
+                  prose-headings:tracking-tight
+                  prose-h1:text-2xl sm:prose-h1:text-3xl
+                  prose-h2:text-xl sm:prose-h2:text-2xl
+
+                  prose-p:text-slate-600 
+                  prose-p:leading-relaxed
+
+                  prose-ul:list-disc prose-ul:pl-5
+                  prose-li:my-1
+
+                  prose-strong:text-slate-900
+                  prose-a:text-green-600 hover:prose-a:underline
+
+                  break-words
+                "
+              >
+                <div
+                  dangerouslySetInnerHTML={{ __html: seoContent }}
+                  className="
+                    w-full max-w-full
+
+                    [&_*]:max-w-full
+                    [&_table]:block
+                    [&_table]:overflow-x-auto
+                    [&_pre]:overflow-x-auto
+                    [&_code]:break-words
+                  "
+                />
+              </article>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+      {/* ================= FAQ ================= */}
+      <section className="py-16 md:py-24 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-black">Common Questions</h2>
+          </div>
+
+          <div className="bg-white rounded-3xl p-6 shadow-sm border">
+            <FAQ title="" faqs={faqs} />
+          </div>
+        </div>
+      </section>
+
+      {/* ================= RELATED ================= */}
+      <section className="pb-16 pt-10 border-t">
+        <div className="max-w-7xl mx-auto px-4">
+          <RelatedCalculators
+            currentTool="salary-after-tax-calculator"
+            title="Explore More Financial Tools"
+          />
+        </div>
+      </section>
+
+      {/* ================= ADS ================= */}
+      <div className="max-w-5xl mx-auto px-4 py-10">
+        <AdBanner />
+      </div>
+
+    </main>
   );
 }
