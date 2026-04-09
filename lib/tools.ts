@@ -170,17 +170,23 @@ export const allTools: Tool[] = [
 
   // ==================== RETIREMENT TOOLS ====================
   {
-    slug: "401k-calculator",
-    title: "401(k) Retirement Calculator 2026",
-    shortTitle: "401k Calculator",
-    description: "Plan your retirement savings with employer match and compound growth.",
-    category: "retirement",
-    metaTitle: "401(k) Calculator 2026 - Retirement Savings Planner",
-    metaDescription: "Free 401k calculator to plan your retirement with employer matching and growth projections.",
-    keywords: ["401k calculator", "retirement calculator", "401k savings calculator"],
-    lastUpdated: "March 2026",
-    popularity: 8,
-  },
+  slug: "uber-earnings-calculator",
+  title: "Uber Earnings Calculator 2026",
+  shortTitle: "Uber Calculator",
+  description: "Estimate your Uber driver earnings after expenses, taxes, and platform fees.",
+  category: "earning",
+  metaTitle: "Uber Earnings Calculator 2026 - Driver Income Estimator",
+  metaDescription: "Calculate your Uber earnings, expenses, and net profit with our free Uber driver calculator.",
+  keywords: [
+    "uber earnings calculator",
+    "uber driver income",
+    "uber profit calculator",
+    "rideshare earnings calculator",
+    "uber salary estimator"
+  ],
+  lastUpdated: "March 2026",
+  popularity: 9,
+},
   {
   slug: "doordash-earnings-calculator",
   title: "DoorDash Earnings Calculator 2026",
