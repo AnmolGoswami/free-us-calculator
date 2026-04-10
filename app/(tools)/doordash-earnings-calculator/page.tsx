@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 export const metadata: Metadata = {
 
   title: "DoorDash Earnings Calculator 2026 – Real Profit After Gas, Mileage & Taxes",
