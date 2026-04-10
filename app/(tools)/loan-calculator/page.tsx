@@ -11,9 +11,96 @@ import {
   Calculator, Landmark, ArrowUpRight, Home, Wallet, Briefcase, Activity
 } from "lucide-react";
 
+
+
 export const metadata: Metadata = {
-  title: "Loan Precision Calculator 2026 – Advanced EMI & Amortization",
-  description: "Institutional-grade loan calculator for 2026. Calculate monthly payments, interest totals, and full amortization schedules with banking-level precision.",
+  title:
+    "Advanced Loan & Finance Calculator 2026 – EMI, Amortization, Bonds & Deferred Payments",
+
+  description:
+    "Free advanced financial calculator for 2026. Calculate loan EMI, amortization schedules, deferred payments, bond valuation, interest breakdown, and investment returns with high-precision results. Built for personal, business, and institutional finance analysis.",
+
+  keywords: [
+    "finance calculator 2026",
+    "loan calculator emi amortization",
+    "amortization schedule calculator",
+    "deferred payment calculator",
+    "bond calculator",
+    "bond yield calculator",
+    "loan interest calculator",
+    "investment calculator",
+    "financial planning calculator",
+    "business loan calculator",
+    "mortgage calculator 2026",
+    "present value calculator",
+    "future value calculator",
+    "discounted cash flow calculator",
+    "interest compounding calculator",
+    "repayment schedule calculator",
+    "advanced finance tools",
+    "free financial calculator online"
+  ],
+
+  authors: [
+    {
+      name: "FreeUSCalculator",
+      url: "https://freeuscalculator.com",
+    },
+  ],
+
+  creator: "FreeUSCalculator",
+  publisher: "FreeUSCalculator",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/finance-calculator",
+  },
+
+  openGraph: {
+    title:
+      "Advanced Finance Calculator 2026 – Loans, Bonds, Amortization & Investment Tools",
+
+    description:
+      "All-in-one financial calculator for 2026. Compute EMI, amortization schedules, deferred payments, bond valuation, and investment returns instantly with professional-grade accuracy.",
+
+    url: "https://freeuscalculator.com/finance-calculator",
+
+    siteName: "FreeUSCalculator",
+
+    type: "website",
+
+    images: [
+      {
+        url: "/images/finance-calculator-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Advanced Finance Calculator 2026 Dashboard",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title:
+      "Advanced Finance Calculator 2026 – EMI, Bonds & Amortization Tool",
+
+    description:
+      "Calculate loans, amortization schedules, deferred payments, bonds, and investment returns instantly.",
+
+    images: ["/images/finance-calculator-og.jpg"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function LoanCalculatorPage() {
