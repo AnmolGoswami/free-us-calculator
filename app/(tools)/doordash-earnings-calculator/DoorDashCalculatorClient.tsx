@@ -1,32 +1,52 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { calculateDoorDashEarnings, type DoorDashInputs } from "@/lib/earningUtils";
 import { RotateCcw, Copy, AlertTriangle, ChevronRight, Info } from "lucide-react";
 import CalculationInputField from "@/components/ui/CalculationInputField";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 export default function DoorDashCalculatorClient() {
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   // ================= STATE =================
-  const [ordersPerHour, setOrdersPerHour] = useState<number>(() => Number(searchParams.get("oph")) || 2.2);
-  const [earningPerOrder, setEarningPerOrder] = useState<number>(() => Number(searchParams.get("epo")) || 11.0);
-  const [hoursPerDay, setHoursPerDay] = useState<number>(() => Number(searchParams.get("hpd")) || 7);
-  const [daysPerWeek, setDaysPerWeek] = useState<number>(() => Number(searchParams.get("dpw")) || 6);
-  const [milesPerOrder, setMilesPerOrder] = useState<number>(() => Number(searchParams.get("mpo")) || 3.5);
-  const [costPerMile, setCostPerMile] = useState<number>(() => Number(searchParams.get("cpm")) || 0.85);
-  const [taxRate, setTaxRate] = useState<number>(() => Number(searchParams.get("tr")) || 18);
-  const [region, setRegion] = useState<'US' | 'IN' | 'OTHER'>(
-    () => (searchParams.get("region") as 'US' | 'IN' | 'OTHER') || 'IN'
-  );
+  const [ordersPerHour, setOrdersPerHour] = useState<number>(2.2);
+  const [earningPerOrder, setEarningPerOrder] = useState<number>(11.0);
+  const [hoursPerDay, setHoursPerDay] = useState<number>(7);
+  const [daysPerWeek, setDaysPerWeek] = useState<number>(6);
+  const [milesPerOrder, setMilesPerOrder] = useState<number>(3.5);
+  const [costPerMile, setCostPerMile] = useState<number>(0.85);
+  const [taxRate, setTaxRate] = useState<number>(18);
+  const [region, setRegion] = useState<'US' | 'IN' | 'OTHER'>('IN');
 
   const [toast, setToast] = useState("");
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => setIsMounted(true), []);
+  // Load initial values from URL on mount (client-side only)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    
+    const oph = Number(params.get("oph"));
+    const epo = Number(params.get("epo"));
+    const hpd = Number(params.get("hpd"));
+    const dpw = Number(params.get("dpw"));
+    const mpo = Number(params.get("mpo"));
+    const cpm = Number(params.get("cpm"));
+    const tr = Number(params.get("tr"));
+    const reg = params.get("region") as 'US' | 'IN' | 'OTHER' | null;
+
+    if (!isNaN(oph) && oph > 0) setOrdersPerHour(oph);
+    if (!isNaN(epo) && epo > 0) setEarningPerOrder(epo);
+    if (!isNaN(hpd) && hpd > 0) setHoursPerDay(hpd);
+    if (!isNaN(dpw) && dpw > 0) setDaysPerWeek(dpw);
+    if (!isNaN(mpo) && mpo > 0) setMilesPerOrder(mpo);
+    if (!isNaN(cpm) && cpm > 0) setCostPerMile(cpm);
+    if (!isNaN(tr) && tr >= 0) setTaxRate(tr);
+    if (reg && ['US', 'IN', 'OTHER'].includes(reg)) setRegion(reg);
+
+    setIsMounted(true);
+  }, []);
 
   // ================= INPUTS & CALCULATION =================
   const inputs: DoorDashInputs = {
@@ -93,6 +113,7 @@ export default function DoorDashCalculatorClient() {
       params.set("cpm", costPerMile.toFixed(2));
       params.set("tr", taxRate.toFixed(1));
       params.set("region", region);
+
       router.replace(`?${params.toString()}`, { scroll: false });
     }, 600);
 
@@ -349,8 +370,7 @@ export default function DoorDashCalculatorClient() {
               )}
             </div>
 
-            {/* Detailed Breakdown */}
-            {/* Full Business Breakdown - Attractive & Responsive */}
+            {/* Full Business Breakdown */}
             <div className="bg-zinc-900 text-white p-7 sm:p-8 rounded-3xl shadow-xl border border-zinc-800">
               <h3 className="font-semibold text-lg flex items-center gap-3 mb-6">
                 Full Business Breakdown
@@ -395,7 +415,6 @@ export default function DoorDashCalculatorClient() {
                 <div className="pt-4 border-t border-zinc-800 text-sm">
                   <div className="space-y-3">
 
-                    {/* Row */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 p-3 rounded-xl bg-zinc-900/40 hover:bg-zinc-900/60 transition">
                       <span className="text-zinc-400 text-xs sm:text-sm">
                         Annual Gross Revenue
@@ -405,7 +424,6 @@ export default function DoorDashCalculatorClient() {
                       </span>
                     </div>
 
-                    {/* Row */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 p-3 rounded-xl bg-zinc-900/40 hover:bg-zinc-900/60 transition">
                       <span className="text-zinc-400 text-xs sm:text-sm">
                         Total Operating Expenses
@@ -415,7 +433,6 @@ export default function DoorDashCalculatorClient() {
                       </span>
                     </div>
 
-                    {/* Row */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 p-3 rounded-xl bg-zinc-900/40 hover:bg-zinc-900/60 transition">
                       <span className="text-zinc-400 text-xs sm:text-sm">
                         Estimated Tax Liability
@@ -425,10 +442,8 @@ export default function DoorDashCalculatorClient() {
                       </span>
                     </div>
 
-                    {/* Divider */}
                     <div className="h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent my-2" />
 
-                    {/* Net Profit */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-emerald-400/5 border border-emerald-500/20">
                       <span className="text-white text-sm sm:text-base font-medium">
                         Net Annual Profit
