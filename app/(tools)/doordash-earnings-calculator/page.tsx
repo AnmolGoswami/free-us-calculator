@@ -7,9 +7,114 @@ import { getToolContent } from "@/lib/seo";
 import { Sparkles, BookOpen, Target, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "DoorDash Earnings Calculator 2026: Real Take-Home Pay (After Tax & Gas)",
-  description: "Calculate your TRUE DoorDash profit. Our 2026 estimator accounts for IRS mileage rates, self-employment tax, and peak pay. Stop guessing, start earning.",
-  keywords: ["doordash earnings calculator 2026", "doordash profit estimator", "doordash pay after taxes", "dasher income calculator"],
+  title: "DoorDash Earnings Calculator 2026 – Real Profit After Gas, Mileage & Taxes",
+
+  description:
+    "Free DoorDash earnings calculator for 2026. Estimate your real profit after gas, mileage, IRS deductions, and self-employment tax. Calculate hourly, weekly, and monthly Dasher income instantly.",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/doordash-earnings-calculator",
+  },
+
+  keywords: [
+    // 🔥 PRIMARY (HIGH TRAFFIC)
+    "doordash earnings calculator",
+    "doordash profit calculator",
+    "doordash pay calculator",
+    "dasher income calculator",
+    "doordash salary calculator",
+
+    // ⚡ LONG-TAIL (FAST RANKING)
+    "doordash earnings calculator after gas",
+    "doordash earnings calculator after taxes",
+    "real doordash profit calculator 2026",
+    "doordash hourly pay calculator",
+    "doordash weekly earnings calculator",
+
+    // 💰 HIGH INTENT (USER READY TO USE TOOL)
+    "how much do doordash drivers make after expenses",
+    "doordash net income calculator",
+    "true doordash earnings after mileage",
+    "calculate doordash income after tax",
+    "real take home doordash pay",
+
+    // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
+    "doordash earnings per hour after gas",
+    "how much is 1000 doordash income after tax",
+    "doordash profit per delivery calculator",
+    "is doordash worth it after expenses",
+    "doordash earnings breakdown example",
+
+    // 🧠 SEMANTIC SEO (AI + GOOGLE SGE)
+    "gig economy earnings calculator",
+    "delivery driver income calculator",
+    "1099 contractor earnings calculator",
+    "self employment tax doordash calculator",
+    "mileage deduction calculator doordash",
+
+    // 📈 FEATURE-BASED (BOOST CTR)
+    "doordash calculator with mileage",
+    "doordash calculator with IRS rate",
+    "doordash calculator with expenses",
+    "doordash calculator with tax estimate",
+    "doordash earnings breakdown calculator",
+
+    // 🎯 NICHE TARGETING (EASY WINS)
+    "uber eats vs doordash earnings calculator",
+    "gig worker income calculator 2026",
+    "delivery driver profit calculator",
+    "part time doordash earnings calculator",
+    "full time dasher income estimator",
+
+    // 🔥 REAL USER SEARCHES
+    "how much do doordash drivers make 2026",
+    "average doordash earnings per hour",
+    "doordash income after gas and maintenance",
+    "doordash pay per delivery calculator",
+    "doordash tip income calculator",
+
+    // 🧩 FORMULA + EDUCATIONAL
+    "doordash profit formula",
+    "net earnings = income minus expenses doordash",
+    "how to calculate delivery profit",
+    "doordash cost per mile calculation",
+    "earnings after self employment tax calculator",
+
+    // 🏆 LONG-TAIL CLUSTER DOMINATION
+    "best doordash earnings calculator 2026 free online",
+    "calculate doordash profit after gas mileage and taxes",
+    "accurate doordash income calculator with full breakdown",
+    "real hourly rate doordash after expenses calculator",
+    "complete doordash earnings breakdown weekly monthly yearly",
+  ],
+
+  openGraph: {
+    title: "DoorDash Earnings Calculator 2026 – Calculate Real Profit",
+    description:
+      "Estimate your real DoorDash income after gas, mileage, and taxes instantly.",
+    url: "https://freeuscalculator.com/doordash-earnings-calculator",
+    siteName: "Free US Calculator",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "DoorDash Earnings Calculator (2026)",
+    description:
+      "Find your real DoorDash profit after expenses and taxes.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function DoorDashPage() {

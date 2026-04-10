@@ -9,14 +9,100 @@ import { getToolContent } from "@/lib/seo";
 import { Sparkles, BookOpen, Target, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Salary After Tax Calculator 2026: Real Take-Home Pay",
+  title: "Salary After Tax Calculator (2026) – Take Home Pay, Net Income & Tax Breakdown",
+
   description:
-    "Calculate your true take-home salary after federal, state, and FICA taxes in 2026.",
+    "Free salary after tax calculator to estimate your real take-home pay. Calculate federal, state, and FICA taxes with accurate 2026 net income breakdowns instantly.",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/salary-after-tax-calculator",
+  },
+
   keywords: [
-    "salary after tax calculator 2026",
+    // 🔥 PRIMARY (HIGH TRAFFIC)
+    "salary after tax calculator",
     "take home pay calculator",
     "net salary calculator",
+    "after tax income calculator",
+    "salary calculator after tax 2026",
+
+    // ⚡ LONG-TAIL (FAST RANKING)
+    "how much salary after tax calculator",
+    "take home pay after tax calculator USA",
+    "net income after tax calculator with deductions",
+    "salary after tax per month calculator",
+    "annual salary after tax calculator",
+
+    // 💰 HIGH INTENT (MONEY KEYWORDS)
+    "real take home pay calculator",
+    "true net salary calculator",
+    "income after tax breakdown calculator",
+    "paycheck after tax calculator",
+    "salary after tax with benefits",
+
+    // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
+    "what is 60000 salary after tax",
+    "70000 salary after tax monthly take home",
+    "80000 after tax income calculator",
+    "how much tax on 100k salary",
+    "salary after tax per paycheck calculator",
+
+    // 🧠 SEMANTIC SEO (AI + GOOGLE SGE)
+    "federal state fica tax calculator",
+    "income tax estimator 2026",
+    "payroll tax calculator",
+    "net vs gross salary calculator",
+    "tax deduction salary calculator",
+
+    // 📈 BROAD TRAFFIC EXPANSION
+    "paycheck calculator",
+    "income calculator",
+    "salary breakdown calculator",
+    "earnings after tax calculator",
+    "monthly take home calculator",
+
+    // 🎯 NICHE TARGETING (EASY WINS)
+    "freelancer salary after tax calculator",
+    "contractor take home pay calculator",
+    "remote job salary after tax",
+    "self employed take home calculator",
+    "hourly to salary after tax calculator",
+
+    // 🔥 LONG-TAIL CLUSTER DOMINATION
+    "how to calculate salary after tax step by step",
+    "best salary after tax calculator 2026 free online",
+    "calculate net salary after federal state and fica taxes",
+    "accurate take home pay calculator with deductions and benefits",
+    "real paycheck calculator after tax monthly yearly breakdown",
   ],
+
+  openGraph: {
+    title: "Salary After Tax Calculator 2026 – Calculate Real Take Home Pay",
+    description:
+      "Estimate your net salary after federal, state, and FICA taxes instantly with our free calculator.",
+    url: "https://freeuscalculator.com/salary-after-tax-calculator",
+    siteName: "Free US Calculator",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Take Home Pay Calculator (2026)",
+    description:
+      "Find your real salary after tax with accurate breakdowns.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function SalaryAfterTaxPage() {

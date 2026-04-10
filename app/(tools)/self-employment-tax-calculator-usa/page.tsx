@@ -9,14 +9,104 @@ import SelfEmploymentTaxClient from "./SelfEmploymentTaxClient";
 import { Sparkles, Briefcase, Calculator, ShieldCheck, DollarSign, RefreshCw, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Self-Employment Tax Calculator 2026 | SE Tax & Quarterly Estimator",
-  description: "Accurately calculate your self-employment tax, Social Security, Medicare, and estimated federal income tax for 2026. Perfect for freelancers, contractors, and small business owners.",
-  alternates: { canonical: "https://freeuscalculator.com/self-employment-tax-calculator" },
-  keywords: ["self employment tax calculator", "SE tax calculator 2026", "quarterly estimated tax", "freelancer tax calculator", "self employed tax estimator", "1099 tax calculator"],
+  title: "Self-Employment Tax Calculator (2026) – Estimate SE Tax, 1099, Quarterly & Income Tax",
+
+  description:
+    "Free self-employment tax calculator to estimate SE tax (15.3%), Social Security, Medicare, and quarterly taxes. Perfect for freelancers, 1099 workers, and small business owners in 2026.",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/self-employment-tax-calculator",
+  },
+
+  keywords: [
+    // 🔥 PRIMARY (HIGH VOLUME + EASY RANK)
+    "self employment tax calculator",
+    "self employed tax calculator",
+    "freelancer tax calculator",
+    "1099 tax calculator",
+    "SE tax calculator 2026",
+
+    // ⚡ LONG-TAIL (FAST RANKING)
+    "how to calculate self employment tax",
+    "self employment tax calculator after expenses",
+    "quarterly estimated tax calculator 2026",
+    "1099 income tax calculator with deductions",
+    "freelance income tax calculator USA",
+
+    // 💰 HIGH INTENT (MONEY KEYWORDS)
+    "calculate self employment tax 15.3 percent",
+    "real freelance tax estimator",
+    "small business tax calculator",
+    "independent contractor tax calculator",
+    "net income after tax freelancer",
+
+    // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
+    "how much tax do freelancers pay in 2026",
+    "self employment tax per $1000 calculator",
+    "estimate quarterly taxes for self employed",
+    "self employed tax return calculator free",
+    "1099 quarterly tax estimator online",
+
+    // 🧠 SEMANTIC SEO (AI + GOOGLE SGE)
+    "social security medicare tax calculator",
+    "gig worker tax calculator",
+    "contractor tax planning calculator",
+    "tax deduction calculator self employed",
+    "business expense tax calculator",
+
+    // 📈 BROAD TRAFFIC EXPANSION
+    "tax calculator",
+    "income tax calculator freelancer",
+    "tax return estimator 2026",
+    "tax planning tool self employed",
+    "paycheck vs self employment tax",
+
+    // 🎯 NICHE TARGETING (VERY EASY TO RANK)
+    "uber driver tax calculator",
+    "doordash tax calculator",
+    "etsy seller tax calculator",
+    "creator income tax calculator",
+    "youtube income tax calculator",
+
+    // 🔥 EXTRA LONG-TAIL CLUSTERS (DOMINATE SEO)
+    "how to estimate self employment tax and income tax together",
+    "best self employment tax calculator online free 2026",
+    "calculate freelance taxes with deductions and expenses",
+    "self employment tax breakdown calculator social security medicare",
+    "accurate 1099 tax calculator with quarterly payments",
+  ],
+
+  openGraph: {
+    title: "Self-Employment Tax Calculator 2026 – Estimate SE Tax & Quarterly Payments",
+    description:
+      "Calculate your self-employment tax, Social Security, Medicare, and quarterly taxes instantly. Built for freelancers and 1099 workers.",
+    url: "https://freeuscalculator.com/self-employment-tax-calculator",
+    siteName: "Free US Calculator",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Self-Employment Tax Calculator (2026)",
+    description:
+      "Estimate your freelance taxes, SE tax (15.3%), and quarterly payments instantly.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function SelfEmploymentTaxPage() {
-  const seoContent = getToolContent("self-employment-tax-calculator");
+  const seoContent = getToolContent("self-employment-tax-calculator-usa");
 
   const faqs = [
     { 

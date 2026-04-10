@@ -207,9 +207,16 @@ export default function SelfEmploymentTaxClient() {
                           ))}
                         </Pie>
                         <Tooltip 
-                          formatter={(val: number) => [`$${formatMoney(val)}`, '']}
-                          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
-                        />
+  formatter={(val, name) => {
+    const num = typeof val === "number" ? val : Number(val) || 0;
+    return [`$${formatMoney(num)}`, name || ""];
+  }}
+  contentStyle={{
+    borderRadius: "12px",
+    border: "none",
+    boxShadow: "0 10px 15px -3px rgba(0,0,0,0.1)",
+  }}
+/>
                         <Legend verticalAlign="bottom" iconType="circle" />
                       </PieChart>
                     </ResponsiveContainer>
@@ -225,49 +232,56 @@ export default function SelfEmploymentTaxClient() {
                   {/* Enhanced Detailed Table */}
                   <div className="relative">
                     <BreakdownTable
-                      title="Itemized Tax Breakdown"
-                      data={[
-                        { 
-                          label: "Gross Business Income", 
-                          value: (
-                            <div className="flex items-center gap-2">
-                                ${formatMoney(result.grossIncome)}
-                                <button onClick={() => copyToClipboard(result.grossIncome, 'gross')} className="text-slate-300 hover:text-amber-600 transition-colors">
-                                    {copiedField === 'gross' ? <Check size={14}/> : <Copy size={14}/>}
-                                </button>
-                            </div>
-                          ) 
-                        },
-                        { label: "Business Expenses", value: `-$${formatMoney(result.businessExpenses)}` },
-                        { label: "Net Taxable Profit", value: `$${formatMoney(result.netProfit)}`, highlight: true },
-                        { label: "Social Security (12.4%)", value: `$${formatMoney(result.socialSecurityTax)}`, color: "red" },
-                        { label: "Medicare (2.9%)", value: `$${formatMoney(result.medicareTax)}`, color: "red" },
-                        { label: "Total SE Tax", value: `$${formatMoney(result.seTax)}`, highlight: true, color: "red" },
-                        { 
-                          label: "Fed Income Tax (Est.)", 
-                          value: (
-                            <div className="flex items-center gap-2">
-                                ${formatMoney(result.estimatedIncomeTax)}
-                                <button onClick={() => copyToClipboard(result.estimatedIncomeTax, 'fed')} className="text-slate-300 hover:text-amber-600 transition-colors">
-                                    {copiedField === 'fed' ? <Check size={14}/> : <Copy size={14}/>}
-                                </button>
-                            </div>
-                          ),
-                          color: "red" 
-                        },
-                        { 
-                          label: "Total Tax Burden", 
-                          value: `$${formatMoney(result.totalTaxBurden)}`, 
-                          highlight: true, 
-                          color: "red" 
-                        },
-                        { 
-                          label: "Quarterly Estimated Payment", 
-                          value: `$${formatMoney(result.quarterlyEstimatedTax)}`, 
-                          color: "indigo" 
-                        },
-                      ]}
-                    />
+  title="Itemized Tax Breakdown"
+  data={[
+    {
+      label: "Gross Business Income",
+      value: `$${formatMoney(result.grossIncome)}`,
+    },
+    {
+      label: "Business Expenses",
+      value: `-$${formatMoney(result.businessExpenses)}`,
+      color: "red",
+    },
+    {
+      label: "Net Taxable Profit",
+      value: `$${formatMoney(result.netProfit)}`,
+      highlight: true,
+    },
+    {
+      label: "Social Security (12.4%)",
+      value: `-$${formatMoney(result.socialSecurityTax)}`,
+      color: "red",
+    },
+    {
+      label: "Medicare (2.9%)",
+      value: `-$${formatMoney(result.medicareTax)}`,
+      color: "red",
+    },
+    {
+      label: "Total SE Tax",
+      value: `-$${formatMoney(result.seTax)}`,
+      highlight: true,
+      color: "red",
+    },
+    {
+      label: "Fed Income Tax (Est.)",
+      value: `-$${formatMoney(result.estimatedIncomeTax)}`,
+      color: "red",
+    },
+    {
+      label: "Total Tax Burden",
+      value: `-$${formatMoney(result.totalTaxBurden)}`,
+      highlight: true,
+      color: "red",
+    },
+    {
+      label: "Quarterly Estimated Payment",
+      value: `$${formatMoney(result.quarterlyEstimatedTax)}`,
+      color: "indigo",
+    },
+  ]}
+/>
                     
                     <div className="mt-4 p-4 bg-amber-50 rounded-xl border border-amber-100 flex gap-3">
                         <Info size={18} className="text-amber-600 shrink-0" />

@@ -9,16 +9,65 @@ import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 
 // ✅ SEO Optimized for /overtime
 export const metadata: Metadata = {
-  title: "Overtime Pay Calculator 2026 – 1.5x Time & Half + Double Pay",
+  title: "Overtime Pay Calculator 2026 | Time and a Half (1.5x) & Double Time Pay",
   description:
-    "Calculate overtime pay with 1.5x (time and half) or 2x rates. Get instant weekly, monthly, and yearly earnings with tax estimates for 2026.",
+    "Free overtime pay calculator for 2026. Calculate time and a half (1.5x), double time (2x), and total overtime earnings instantly. Includes weekly, monthly, yearly pay breakdowns and tax estimates for accurate take-home pay.",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/overtime-pay-calculator",
+  },
+
   keywords: [
-    "overtime calculator",
+    // PRIMARY HIGH-VOLUME KEYWORDS
     "overtime pay calculator",
+    "overtime calculator",
     "time and a half calculator",
-    "1.5x overtime pay",
+    "1.5x overtime calculator",
     "double time calculator",
-    "overtime pay 2026",
+
+    // HIGH-INTENT LONG-TAIL (LOW COMPETITION → FAST RANK)
+    "how to calculate overtime pay",
+    "overtime pay formula 1.5",
+    "overtime pay calculator after tax",
+    "weekly overtime pay calculator",
+    "hourly overtime pay calculator",
+    "overtime pay calculator USA 2026",
+
+    // VARIATIONS (GOOGLE LOVES THIS)
+    "time and half pay calculator",
+    "1.5 times hourly rate calculator",
+    "double pay overtime calculator",
+    "extra hours pay calculator",
+    "overtime wages calculator",
+
+    // FEATURE-BASED KEYWORDS (BOOST CTR)
+    "overtime calculator with taxes",
+    "net overtime pay calculator",
+    "gross vs net overtime pay",
+    "overtime pay breakdown calculator",
+
+    // USER QUESTIONS (RANK IN FEATURED SNIPPETS)
+    "how much overtime pay will i get",
+    "what is time and a half pay",
+    "how to calculate double time pay",
+    "overtime pay per hour formula",
+
+    // NICHE + PROGRAMMATIC TRAFFIC
+    "construction overtime calculator",
+    "nurse overtime pay calculator",
+    "truck driver overtime calculator",
+    "gig worker overtime calculator",
+
+    // YEAR + TREND KEYWORDS
+    "overtime pay calculator 2026",
+    "latest overtime pay rules USA",
+    "federal overtime calculator",
+
+    // SEMANTIC SEO BOOST (VERY IMPORTANT)
+    "extra pay calculator",
+    "salary overtime calculator",
+    "paycheck overtime estimator",
+    "earnings with overtime calculator"
   ],
 };
 

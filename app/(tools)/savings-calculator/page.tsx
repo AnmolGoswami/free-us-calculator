@@ -9,10 +9,100 @@ import SavingsCalculatorClient from "./SavingsCalculatorClient";
 import { Sparkles, Target, TrendingUp, Calendar, ShieldCheck, RefreshCw, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Savings Goal Calculator 2026 | Compound Interest & Retirement Planner",
-  description: "Plan your savings goals with accurate compound interest calculations. See how much you need to save monthly to reach your target in 2026.",
-  alternates: { canonical: "https://freeuscalculator.com/savings-calculator" },
-  keywords: ["savings goal calculator", "compound interest calculator", "retirement savings calculator", "monthly savings planner", "2026 savings calculator"],
+  title: "Savings Calculator (2026) – Compound Interest, Monthly Savings & Retirement Planner",
+
+  description:
+    "Free savings calculator to estimate compound interest, monthly contributions, and retirement goals. Plan how much to save and grow your money faster in 2026.",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/savings-calculator",
+  },
+
+  keywords: [
+    // 🔥 PRIMARY (HIGH TRAFFIC)
+    "savings calculator",
+    "compound interest calculator",
+    "savings goal calculator",
+    "retirement savings calculator",
+    "monthly savings calculator",
+
+    // ⚡ LONG-TAIL (FAST RANKING)
+    "how much should i save per month calculator",
+    "compound interest savings calculator with monthly contributions",
+    "how to calculate savings growth over time",
+    "monthly savings goal calculator 2026",
+    "future savings calculator with interest",
+
+    // 💰 HIGH INTENT (MONEY KEYWORDS)
+    "calculate savings with compound interest",
+    "investment growth calculator",
+    "real savings growth calculator",
+    "financial planning calculator savings",
+    "wealth growth calculator",
+
+    // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
+    "how much will my savings grow in 10 years",
+    "save $1000 per month how much in 10 years",
+    "savings calculator with inflation and interest",
+    "simple savings calculator online free",
+    "calculate future value of savings account",
+
+    // 🧠 SEMANTIC SEO (AI + GOOGLE SGE)
+    "future value calculator",
+    "compound interest formula savings",
+    "financial independence calculator",
+    "retirement planning tool",
+    "personal finance calculator",
+
+    // 📈 BROAD TRAFFIC EXPANSION
+    "investment calculator",
+    "interest calculator savings",
+    "money growth calculator",
+    "wealth planner calculator",
+    "passive income calculator",
+
+    // 🎯 NICHE TARGETING (EASY RANK)
+    "student savings calculator",
+    "family savings planner",
+    "early retirement savings calculator",
+    "fire calculator savings",
+    "goal based savings calculator",
+
+    // 🔥 LONG-TAIL CLUSTER DOMINATION
+    "how to calculate compound interest on monthly savings",
+    "best savings calculator with compound interest 2026",
+    "calculate how long to reach savings goal",
+    "how much savings needed for retirement calculator",
+    "accurate savings projection calculator online free",
+  ],
+
+  openGraph: {
+    title: "Savings Calculator 2026 – Plan Your Money Growth with Compound Interest",
+    description:
+      "Estimate your savings growth, monthly contributions, and retirement goals with our free calculator.",
+    url: "https://freeuscalculator.com/savings-calculator",
+    siteName: "Free US Calculator",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Savings & Compound Interest Calculator (2026)",
+    description:
+      "Plan your savings goals and calculate future value with compound interest.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function SavingsCalculatorPage() {

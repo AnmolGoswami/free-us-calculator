@@ -9,17 +9,100 @@ import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 
 // ✅ SEO Optimized for /salary-to-hourly
 export const metadata: Metadata = {
-  title: "Salary to Hourly Calculator 2026 | Convert Annual Salary to Hourly Wage",
+  title: "Salary to Hourly Calculator (2026) – Convert Annual, Monthly & Weekly Pay to Hourly Rate",
+
   description:
-    "Convert your yearly salary to an hourly wage instantly. Accurate 2026 breakdowns for weekly, bi-weekly, monthly income with tax estimates.",
+    "Free salary to hourly calculator to convert annual salary into hourly wage. See weekly, biweekly, and monthly breakdowns with accurate 2026 estimates and tax calculations.",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/salary-to-hourly-calculator",
+  },
+
   keywords: [
+    // 🔥 PRIMARY (HIGH TRAFFIC)
     "salary to hourly calculator",
     "annual salary to hourly wage",
     "convert salary to hourly",
-    "hourly rate from salary",
+    "hourly rate calculator from salary",
     "salary to hourly 2026",
+
+    // ⚡ LONG-TAIL (FAST RANKING)
+    "how to convert salary to hourly wage",
+    "salary to hourly calculator after tax",
+    "yearly salary to hourly pay calculator",
+    "convert yearly income to hourly rate",
+    "salary breakdown per hour calculator",
+
+    // 💰 HIGH INTENT (MONEY KEYWORDS)
+    "real hourly wage calculator",
+    "net hourly pay from salary",
+    "salary vs hourly calculator",
+    "income per hour calculator",
+    "true hourly rate calculator",
+
+    // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
+    "what is $60000 a year hourly",
+    "70000 salary to hourly wage",
+    "50000 per year hourly rate calculator",
+    "how much is 80000 salary per hour",
+    "convert salary to hourly instantly",
+
+    // 🧠 SEMANTIC SEO (AI + GOOGLE SGE)
+    "paycheck calculator hourly conversion",
+    "income breakdown calculator",
+    "work hours salary calculator",
+    "monthly to hourly wage calculator",
+    "weekly salary to hourly rate",
+
+    // 📈 BROAD TRAFFIC EXPANSION
     "paycheck calculator",
+    "salary calculator",
+    "hourly wage calculator",
+    "income calculator",
+    "earnings calculator",
+
+    // 🎯 NICHE TARGETING (EASY WINS)
+    "part time salary to hourly calculator",
+    "full time salary hourly conversion",
+    "contractor hourly rate calculator",
+    "freelancer hourly rate from salary",
+    "remote job hourly pay calculator",
+
+    // 🔥 LONG-TAIL CLUSTER DOMINATION
+    "how to calculate hourly rate from annual salary formula",
+    "best salary to hourly calculator 2026 free online",
+    "convert salary into hourly wage with taxes and deductions",
+    "accurate salary to hourly breakdown weekly monthly yearly",
+    "how much do i earn per hour from my salary",
   ],
+
+  openGraph: {
+    title: "Salary to Hourly Calculator 2026 – Convert Pay Instantly",
+    description:
+      "Convert your annual salary into hourly wage instantly. Includes weekly, monthly, and tax-adjusted calculations.",
+    url: "https://freeuscalculator.com/salary-to-hourly-calculator",
+    siteName: "Free US Calculator",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Salary to Hourly Calculator (2026)",
+    description:
+      "Find your real hourly wage from salary with accurate breakdowns.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function SalaryToHourlyPage(

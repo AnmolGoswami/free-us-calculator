@@ -8,17 +8,76 @@ import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 
 // ✅ Clean SEO for /time-and-half
 export const metadata: Metadata = {
-  title: "Time and a Half Calculator 2026 | 1.5x Overtime Pay Calculator",
+  title: "Time and a Half Calculator (2026) – Overtime Pay Calculator (1.5x, Weekly & Hourly)",
+
   description:
-    "Calculate time and a half (1.5x) overtime pay instantly. See weekly, monthly, and yearly earnings with tax estimates for 2026.",
+    "Free time and a half calculator to compute overtime pay (1.5x). Calculate hourly, weekly, and yearly overtime earnings with taxes. Best overtime pay calculator for 2026.",
+
+  alternates: {
+    canonical: "https://freeuscalculator.com/time-and-a-half-calculator",
+  },
+
   keywords: [
+    // 🔥 PRIMARY (HIGH TRAFFIC)
     "time and a half calculator",
-    "1.5x overtime calculator",
     "overtime pay calculator",
-    "time and half pay",
-    "1.5 times hourly rate",
-    "2026 overtime calculator",
+    "1.5x overtime calculator",
+    "time and a half pay calculator",
+    "overtime calculator 2026",
+
+    // ⚡ LONG-TAIL (FAST RANKING)
+    "how to calculate time and a half pay",
+    "overtime pay after 40 hours calculator",
+    "1.5 times hourly rate calculator",
+    "overtime hourly rate calculator free",
+    "weekly overtime pay calculator",
+
+    // 💰 HIGH INTENT (MONEY KEYWORDS)
+    "calculate overtime pay after tax",
+    "real overtime earnings calculator",
+    "employee overtime pay calculator",
+    "salary overtime calculator 2026",
+
+    // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
+    "how much is time and a half for $20 an hour",
+    "overtime pay per hour calculator",
+    "time and a half formula calculator",
+    "calculate overtime pay instantly online",
+
+    // 🧠 SEMANTIC SEO (AI + GOOGLE)
+    "labor law overtime calculation",
+    "paycheck overtime estimator",
+    "work hours overtime calculator",
+    "payroll overtime calculator",
   ],
+
+  openGraph: {
+    title: "Time and a Half Calculator 2026 – Calculate Overtime Pay Instantly",
+    description:
+      "Calculate your overtime pay (1.5x) with our free calculator. Get accurate hourly, weekly, and yearly earnings instantly.",
+    url: "https://freeuscalculator.com/time-and-a-half-calculator",
+    siteName: "Free US Calculator",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Overtime Pay Calculator (1.5x)",
+    description:
+      "Instantly calculate time and a half overtime pay, hourly rate, and earnings.",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function TimeAndHalfPage() {
