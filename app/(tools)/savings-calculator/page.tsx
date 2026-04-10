@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
-import AdBanner from "@/components/common/AdBanner";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import { getToolContent } from "@/lib/seo";
@@ -225,7 +224,7 @@ export default function SavingsCalculatorPage() {
               {/* Ad Banner */}
               <div className="bg-white rounded-[2rem] p-4 border border-slate-200 shadow-sm flex flex-col items-center">
                 <span className="text-[9px] font-black text-slate-300 uppercase mb-3">Advertisement</span>
-                <AdBanner />
+                
               </div>
 
               {/* Share Buttons */}

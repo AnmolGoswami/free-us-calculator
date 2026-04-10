@@ -3,7 +3,6 @@ import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
-import AdBanner from "@/components/common/AdBanner";
 import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 // ← Clean import
 
@@ -220,7 +219,7 @@ export default function SalaryToHourlyPage(
           {/* Sticky Ad Sidebar */}
           <aside className="w-full lg:w-80 shrink-0 sticky top-24">
             <div className="bg-slate-100 rounded-3xl overflow-hidden min-h-[400px] flex items-center justify-center border border-slate-200">
-              <AdBanner />
+              
             </div>
           </aside>
         </div>

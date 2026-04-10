@@ -3,7 +3,7 @@ import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
-import AdBanner from "@/components/common/AdBanner";
+
 import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 
 
@@ -189,7 +189,7 @@ export default function OvertimePage() {
                   can vary significantly when you hit high-earning weeks.
                 </p>
               </div>
-              <AdBanner />
+              
             </div>
           </aside>
         </div>

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
-import AdBanner from "@/components/common/AdBanner";
+
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import { getToolContent } from "@/lib/seo";
@@ -236,7 +236,7 @@ export default function RentAffordabilityPage() {
               {/* Advertisement */}
               <div className="bg-white rounded-[2rem] p-6 border border-slate-200 shadow-sm text-center">
                 <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest block mb-4">Advertisement</span>
-                <AdBanner />
+                
               </div>
 
               {/* Share Interaction */}

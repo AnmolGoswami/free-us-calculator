@@ -3,7 +3,6 @@ import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
-import AdBanner from "@/components/common/AdBanner";
 import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 
 // ✅ Clean SEO for /time-and-half
@@ -177,7 +176,7 @@ export default function TimeAndHalfPage() {
           {/* Side Ad */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="sticky top-24">
-              <AdBanner />
+              
             </div>
           </aside>
         </div>

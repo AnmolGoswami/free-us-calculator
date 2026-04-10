@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
-import AdBanner from "@/components/common/AdBanner";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import { getToolContent } from "@/lib/seo";
@@ -218,7 +217,7 @@ export default function UberEarningsPage() {
               {/* Ad Widget */}
               <div className="bg-white rounded-[32px] p-8 border border-slate-200 shadow-sm text-center">
                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-6">Partner Advertisement</span>
-                <AdBanner />
+            
               </div>
 
               {/* Social Share */}

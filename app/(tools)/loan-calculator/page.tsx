@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import AdBanner from "@/components/common/AdBanner";
+
 import { getToolContent } from "@/lib/seo";
 import LoanCalculatorClient from "./LoanCalculatorClient";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
@@ -221,7 +221,7 @@ export default function LoanCalculatorPage() {
 
             <div className="bg-white border border-slate-200 rounded-3xl p-7 shadow-sm">
               <p className="text-xs font-bold uppercase tracking-widest text-slate-400 text-center mb-5">Advertisement</p>
-              <AdBanner />
+              
             </div>
 
             <div className="bg-white border border-slate-200 rounded-3xl p-7 shadow-sm">
@@ -261,7 +261,7 @@ export default function LoanCalculatorPage() {
       {/* Footer */}
       <footer className="bg-slate-950 py-16 px-4 text-white text-center">
         <div className="max-w-4xl mx-auto space-y-8">
-          <AdBanner />
+          
           <p className="text-xs opacity-60 tracking-widest font-medium">
             Precision Calculation Suite — Legal & Financial Compliance 2026
           </p>

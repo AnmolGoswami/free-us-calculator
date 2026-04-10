@@ -1,7 +1,6 @@
 // app/page.tsx
 import Link from "next/link";
 import ToolCard from "@/components/ui/ToolCard";
-import AdBanner from "@/components/common/AdBanner";
 import { popularTools } from "@/lib/tools";
 import Script from "next/script";
 import { ArrowRight, ShieldCheck, Zap, Smartphone, Users, TrendingUp, CheckCircle2, Star, Award } from "lucide-react";
@@ -84,7 +83,7 @@ export default function Home() {
         </div>
       </section>
 
-      <AdBanner />
+      
 
       {/* ==================== UNIQUE POPULAR TOOLS SECTION ==================== */}
       <section id="popular-tools" className="py-24 bg-white">

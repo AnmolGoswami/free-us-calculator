@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import AdBanner from "@/components/common/AdBanner";
+
 import FAQ from "@/components/calculators/FAQ";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import SalaryCalculator from "@/app/(tools)/hourly-to-salary-calculator/SalaryCalculator";
@@ -105,7 +105,7 @@ export default function HourlyToSalaryPage({ params }: { params: { rate: string 
 
       {/* AD */}
       <section className="max-w-5xl mx-auto px-6 mb-12">
-        <AdBanner />
+        
       </section>
 
       {/* FAQ */}

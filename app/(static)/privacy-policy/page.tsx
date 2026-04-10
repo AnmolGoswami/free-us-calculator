@@ -1,100 +1,168 @@
-// app/privacy-policy/page.tsx
 import Script from "next/script";
 
 export const metadata = {
-  title: "Privacy Policy | FreeUSCalculator",
-  description: "Read our Privacy Policy. FreeUSCalculator is committed to protecting your privacy. We do not collect, store, or share any personal data.",
-  keywords: ["privacy policy", "freeuscalculator privacy", "data protection", "financial calculator privacy"],
+  title: "Privacy Policy | FreeUSCalculator – Data Protection & User Privacy",
+  description:
+    "Read the Privacy Policy for FreeUSCalculator. Learn how we handle data, cookies, analytics, and user privacy. We prioritize transparency and do not collect sensitive personal information.",
+
+  keywords: [
+    "privacy policy",
+    "free calculator privacy policy",
+    "data protection policy",
+    "no data collection calculator",
+    "financial calculator privacy",
+    "cookie policy",
+    "ad sense privacy policy",
+    "user data protection",
+  ],
+
   alternates: {
     canonical: "https://freeuscalculator.com/privacy-policy",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
 export default function PrivacyPolicy() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "PrivacyPolicy",
+    "@type": "WebPage",
     name: "Privacy Policy",
+    description: "Privacy Policy of FreeUSCalculator describing data handling, cookies, and analytics usage.",
     url: "https://freeuscalculator.com/privacy-policy",
     publisher: {
       "@type": "Organization",
-      name: "FreeUSCalculator"
-    }
+      name: "FreeUSCalculator",
+      url: "https://freeuscalculator.com",
+    },
   };
 
   return (
     <>
-      <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <Script
+        id="json-ld-privacy"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-      <div className="min-h-screen bg-zinc-50 py-16">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="mb-12 text-center">
-            <h1 className="text-5xl font-bold tracking-tight mb-4">Privacy Policy</h1>
-            <p className="text-slate-500">Last updated: April 2026</p>
-          </div>
+      <div className="min-h-screen bg-white py-14 sm:py-20">
+        <div className="max-w-4xl mx-auto px-5 sm:px-6">
 
-          <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
-            <p className="text-xl">
-              At FreeUSCalculator, your privacy is our top priority. We are committed to protecting your personal information 
-              and ensuring complete transparency in how we handle data.
+          {/* HEADER */}
+          <header className="text-center mb-12 sm:mb-16">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900">
+              Privacy Policy
+            </h1>
+            <p className="mt-3 text-sm sm:text-base text-zinc-500">
+              Last updated: April 2026
             </p>
+          </header>
 
-            <h2>1. Information We Do NOT Collect</h2>
+          {/* CONTENT */}
+          <article className="prose prose-zinc max-w-none prose-h2:text-xl prose-h2:font-semibold prose-p:leading-relaxed">
+
             <p>
-              Unlike most online tools, FreeUSCalculator does <strong>not</strong> collect any personal information. 
-              This includes:
+              This Privacy Policy explains how <strong>FreeUSCalculator</strong> ("we", "our", or "us") collects, uses,
+              and protects information when you use our website and financial calculator tools.
             </p>
+
+            <h2>1. Information We Collect</h2>
+            <p>
+              We aim to provide privacy-focused financial tools. In most cases, we do not collect personally identifiable information.
+              However, we may collect limited technical and usage data to improve performance and user experience.
+            </p>
+
+            <h3>1.1 Information You Do NOT Provide</h3>
             <ul>
-              <li>No email addresses</li>
-              <li>No names or contact details</li>
-              <li>No IP addresses stored</li>
-              <li>No financial or tax data</li>
-              <li>No cookies for tracking</li>
+              <li>We do not require account registration</li>
+              <li>We do not collect names, phone numbers, or addresses</li>
+              <li>We do not collect financial or tax input data from calculations</li>
             </ul>
 
-            <h2>2. How Our Calculators Work</h2>
+            <h2>2. How Calculators Work</h2>
             <p>
-              All calculations happen directly in your browser (client-side). Your inputs never leave your device and are 
-              not sent to our servers. This means we have zero access to the numbers you enter.
+              All calculations are performed locally in your browser (client-side processing). This means:
+            </p>
+            <ul>
+              <li>Your inputs remain on your device</li>
+              <li>No calculation data is transmitted to our servers</li>
+              <li>We cannot view or store your financial inputs</li>
+            </ul>
+
+            <h2>3. Cookies & Tracking</h2>
+            <p>
+              We may use basic cookies or similar technologies for:
+            </p>
+            <ul>
+              <li>Website performance optimization</li>
+              <li>Anonymous usage analytics</li>
+              <li>Preventing abuse or spam</li>
+            </ul>
+            <p>
+              These cookies do not personally identify users.
             </p>
 
-            <h2>3. Anonymous Usage Data</h2>
+            <h2>4. Analytics</h2>
             <p>
-              We may collect very basic, anonymized analytics (such as which tools are most popular) to improve our service. 
-              This data cannot be linked back to any individual user.
+              We may use privacy-friendly analytics tools to understand:
+            </p>
+            <ul>
+              <li>Most used calculators</li>
+              <li>Page performance</li>
+              <li>General traffic trends</li>
+            </ul>
+            <p>
+              All analytics data is aggregated and anonymized.
             </p>
 
-            <h2>4. Third-Party Services</h2>
+            <h2>5. Third-Party Services</h2>
             <p>
-              We use minimal third-party services only for essential functionality (such as hosting and basic analytics). 
-              These services are privacy-friendly and do not receive any personal data from our users.
+              We may use trusted third-party services such as hosting providers, analytics tools, or advertising platforms
+              (e.g., Google AdSense). These services may collect limited non-personal data as required for functionality.
             </p>
 
-            <h2>5. Children’s Privacy</h2>
+            <h2>6. Advertising (Google AdSense)</h2>
             <p>
-              Our website is not directed at children under 13. We do not knowingly collect data from children.
+              We may display ads provided by Google AdSense. Google may use cookies to show relevant ads based on user activity.
+              You can manage ad personalization through Google Ads Settings.
             </p>
 
-            <h2>6. Changes to This Policy</h2>
+            <h2>7. Data Security</h2>
             <p>
-              We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated 
-              "Last updated" date.
+              We implement standard security measures to protect our website. However, since we do not store personal user data,
+              risk of data exposure is minimal.
             </p>
 
-            <h2>7. Contact Us</h2>
+            <h2>8. Children’s Privacy</h2>
             <p>
-              If you have any questions about this Privacy Policy, please contact us at{' '}
-              <a href="mailto:support@freeuscalculator.com" className="text-indigo-600 hover:underline">
+              Our services are not intended for children under 13. We do not knowingly collect data from children.
+            </p>
+
+            <h2>9. Changes to This Policy</h2>
+            <p>
+              We may update this Privacy Policy periodically. Updates will be posted on this page with a revised date.
+            </p>
+
+            <h2>10. Contact Us</h2>
+            <p>
+              If you have any questions, contact us at{" "}
+              <a className="text-indigo-600 hover:underline" href="mailto:support@freeuscalculator.com">
                 support@freeuscalculator.com
               </a>.
             </p>
 
-            <div className="mt-16 p-8 bg-emerald-50 border border-emerald-100 rounded-3xl">
-              <p className="text-center font-medium text-emerald-700">
-                ✅ Your privacy is protected. We built FreeUSCalculator to be one of the most private financial tools on the internet.
-              </p>
-            </div>
+          </article>
+
+          {/* TRUST BOX */}
+          <div className="mt-14 p-6 sm:p-8 bg-zinc-50 border border-zinc-200 rounded-2xl text-center">
+            <p className="text-sm sm:text-base text-zinc-700 font-medium">
+              ✔ We prioritize user privacy and transparency. No personal financial data is stored or sold.
+            </p>
           </div>
+
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
-import AdBanner from "@/components/common/AdBanner";
+
 import SalaryAfterTaxClient from "./SalaryAfterTaxClient";
 import FAQ from "@/components/calculators/FAQ";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
@@ -303,7 +303,7 @@ export default function SalaryAfterTaxPage() {
 
       {/* ================= ADS ================= */}
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <AdBanner />
+        
       </div>
 
     </main>
