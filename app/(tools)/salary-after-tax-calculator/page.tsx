@@ -8,6 +8,8 @@ import ShareButtons from "@/components/calculators/ShareButtons";
 import { getToolContent } from "@/lib/seo";
 import { Sparkles, BookOpen, Target, ShieldCheck } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Salary After Tax Calculator (2026) – Take Home Pay, Net Income & Tax Breakdown",
 

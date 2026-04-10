@@ -19,6 +19,7 @@ export const metadata = {
     canonical: "https://freeuscalculator.com/about",
   },
 };
+export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
   const jsonLd = {

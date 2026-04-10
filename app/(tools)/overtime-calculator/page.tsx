@@ -7,6 +7,8 @@ import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 
 
+export const dynamic = "force-dynamic";
+
 // ✅ SEO Optimized for /overtime
 export const metadata: Metadata = {
   title: "Overtime Pay Calculator 2026 | Time and a Half (1.5x) & Double Time Pay",

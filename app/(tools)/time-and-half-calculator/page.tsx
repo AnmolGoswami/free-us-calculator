@@ -5,6 +5,7 @@ import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 
+export const dynamic = "force-dynamic";
 // ✅ Clean SEO for /time-and-half
 export const metadata: Metadata = {
   title: "Time and a Half Calculator (2026) – Overtime Pay Calculator (1.5x, Weekly & Hourly)",

@@ -8,6 +8,8 @@ import { getToolContent } from "@/lib/seo";
 import RentAffordabilityClient from "./RentAffordabilityClient";
 import { Sparkles, Home, Wallet, Calculator, ShieldCheck, MapPin, BookOpen, Landmark } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Rent Affordability Calculator (2026) – How Much Rent Can I Afford Based on Salary?",
 

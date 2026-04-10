@@ -7,6 +7,8 @@ import { getToolContent } from "@/lib/seo";
 import SavingsCalculatorClient from "./SavingsCalculatorClient";
 import { Sparkles, Target, TrendingUp, Calendar, ShieldCheck, RefreshCw, BookOpen } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Savings Calculator (2026) – Compound Interest, Monthly Savings & Retirement Planner",
 

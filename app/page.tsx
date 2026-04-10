@@ -5,6 +5,7 @@ import { popularTools } from "@/lib/tools";
 import Script from "next/script";
 import { ArrowRight, ShieldCheck, Zap, Smartphone, Users, TrendingUp, CheckCircle2, Star, Award } from "lucide-react";
 
+export const dynamic = "force-dynamic";
 export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",

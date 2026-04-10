@@ -7,6 +7,7 @@ import { Sparkles, BookOpen, Target, ShieldCheck, Activity, Landmark, PieChart }
 import { Metadata } from "next";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
 
   title: "DoorDash Earnings Calculator 2026 – Real Profit After Gas, Mileage & Taxes",

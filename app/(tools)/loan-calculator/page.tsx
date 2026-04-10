@@ -13,6 +13,7 @@ import {
 
 
 
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title:
     "Advanced Loan & Finance Calculator 2026 – EMI, Amortization, Bonds & Deferred Payments",

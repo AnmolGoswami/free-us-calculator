@@ -8,6 +8,7 @@ import { getToolContent } from "@/lib/seo";
 import SelfEmploymentTaxClient from "./SelfEmploymentTaxClient";
 import { Sparkles, Briefcase, Calculator, ShieldCheck, DollarSign, RefreshCw, BookOpen } from "lucide-react";
 
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Self-Employment Tax Calculator (2026) – Estimate SE Tax, 1099, Quarterly & Income Tax",
 

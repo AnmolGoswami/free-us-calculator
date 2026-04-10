@@ -7,6 +7,7 @@ import { getToolContent } from "@/lib/seo";
 import UberEarningsClient from "./UberEarningsClient";
 import { Sparkles, Car, TrendingUp, DollarSign, Clock, ShieldCheck, BookOpen, MapPin, Gauge, Fuel } from "lucide-react";
 
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Uber Earnings Calculator (2026) – Calculate Real Profit After Expenses, Gas & Taxes",
   

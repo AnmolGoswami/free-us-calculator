@@ -4,6 +4,8 @@ import FAQ from "@/components/calculators/FAQ";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import SalaryCalculator from "@/app/(tools)/hourly-to-salary-calculator/SalaryCalculator";
 
+
+export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {

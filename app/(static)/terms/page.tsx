@@ -1,6 +1,7 @@
 // app/terms/page.tsx
 import Script from "next/script";
 
+export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Terms of Service | FreeUSCalculator",
   description: "Read the Terms of Service for using FreeUSCalculator. Our free 2026 financial calculators are provided as-is for estimation purposes only.",

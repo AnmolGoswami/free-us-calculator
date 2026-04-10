@@ -7,6 +7,7 @@ import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
 // ← Clean import
 
 // ✅ SEO Optimized for /salary-to-hourly
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Salary to Hourly Calculator (2026) – Convert Annual, Monthly & Weekly Pay to Hourly Rate",
 

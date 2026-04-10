@@ -6,6 +6,7 @@ import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import { getToolContent } from "@/lib/seo";
 import PaycheckCalculatorClient from "./PaycheckCalculatorClient";
 import { Sparkles, Landmark, Wallet, Calculator, ShieldCheck, Sun, BookOpen, FileText } from "lucide-react";
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "USA Paycheck Calculator (2026) – Take Home Pay, Federal & State Tax Estimator",
