@@ -1,10 +1,11 @@
-import { Metadata } from "next";
 import DoorDashCalculatorClient from "./DoorDashCalculatorClient";
 import FAQ from "@/components/calculators/FAQ";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import { getToolContent } from "@/lib/seo";
 import { Sparkles, BookOpen, Target, ShieldCheck, Activity, Landmark, PieChart } from "lucide-react";
+import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
 
@@ -266,7 +267,9 @@ export default function DoorDashPage() {
         {/* CALCULATOR MOUNT */}
         <div className="w-full max-w-6xl mx-auto px-4 box-border">
           <div className="w-full bg-white rounded-[3rem] shadow-2xl shadow-blue-900/10 border border-slate-200 p-2">
-            <DoorDashCalculatorClient />
+            <Suspense fallback={<div className="p-10 text-center">Loading calculator...</div>}>
+              <DoorDashCalculatorClient />
+            </Suspense>
           </div>
         </div>
       </section>
