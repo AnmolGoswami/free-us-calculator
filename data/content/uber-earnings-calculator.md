@@ -6,7 +6,7 @@ Whether you drive full-time, part-time, or just weekends, this Uber pay calculat
 
 **Targeted for 2024–2025 tax year** • Built on real IRS brackets • Supports single, married filing jointly, head of household, and more.
 
----
+
 
 ## Why You Need an Accurate Uber Earnings Calculator
 
@@ -21,7 +21,7 @@ Our **Uber earnings calculator** uses the exact same logic professional tax soft
 **Primary keyword focus**: Uber earnings calculator  
 **Secondary keywords**: Uber driver earnings calculator, Uber pay calculator, how much do Uber drivers make after taxes, Uber hourly rate calculator, Uber net pay calculator.
 
----
+
 
 ## How Our Uber Earnings Calculator Works (Industry-Grade v2)
 
@@ -44,7 +44,7 @@ This calculator was built from the ground up as production-ready TypeScript logi
 The tool returns **19+ data points** including:
 
 | Metric                        | What It Means                                      | Why It Matters |
-|-------------------------------|----------------------------------------------------|----------------|
+|-|-|-|
 | Gross Earnings                | After Uber commission                              | Base revenue |
 | Total Revenue                 | Gross + Tips                                       | True income |
 | Total Expenses                | Expenses + mileage deduction                       | Real cost of driving |
@@ -61,7 +61,7 @@ The tool returns **19+ data points** including:
 
 Plus a full **Breakdown** section with per-hour averages and tax percentages.
 
----
+
 
 ## Sample Uber Earnings Calculator Results (Real Calculations)
 
@@ -69,7 +69,7 @@ Plus a full **Breakdown** section with per-hour averages and tax percentages.
 **Inputs**: $1,200 gross • $250 tips • $150 expenses • 800 miles • 25% Uber commission • Single filer
 
 | Metric                        | Amount      |
-|-------------------------------|-------------|
+|-|-|
 | Gross Earnings (after commission) | $900.00    |
 | Total Tips                    | $250.00    |
 | Total Revenue                 | $1,150.00  |
@@ -96,7 +96,7 @@ Plus a full **Breakdown** section with per-hour averages and tax percentages.
 **Inputs**: $900 gross • $180 tips • $120 expenses • 600 miles • Married Joint
 
 | Metric                        | Amount      |
-|-------------------------------|-------------|
+|-|-|
 | Gross Earnings (after commission) | $675.00    |
 | Total Tips                    | $180.00    |
 | Total Revenue                 | $855.00    |
@@ -111,7 +111,7 @@ Plus a full **Breakdown** section with per-hour averages and tax percentages.
 **Inputs**: $600 gross • $100 tips • $80 expenses • 700 miles
 
 | Metric                        | Amount      |
-|-------------------------------|-------------|
+|-|-|
 | Total Expenses                | $549.00    |
 | Net Profit Before Tax         | $1.00      |
 | **Take-Home Pay**             | **$0.86**  |
@@ -124,7 +124,7 @@ Plus a full **Breakdown** section with per-hour averages and tax percentages.
 **Inputs**: $1,000 gross • $200 tips • $400 actual expenses • 35 hours
 
 | Metric                        | Amount      |
-|-------------------------------|-------------|
+|-|-|
 | Total Expenses                | $400.00    |
 | Net Profit Before Tax         | $550.00    |
 | **Take-Home Pay**             | **$472.29** |
@@ -133,18 +133,18 @@ Plus a full **Breakdown** section with per-hour averages and tax percentages.
 
 **Pro tip**: Using the IRS standard mileage rate (67¢/mile) almost always beats actual expenses unless your car is extremely efficient.
 
----
+
 
 ## Comparison Table: Different Scenarios Side-by-Side
 
 | Scenario                  | Hours | Gross | Tips | Expenses | Take-Home Pay | Effective Hourly | Profit Margin |
-|---------------------------|-------|-------|------|----------|---------------|------------------|---------------|
+||-|-||-||||
 | Single – Moderate         | 40    | $1,200 | $250 | $686    | $398.44      | $9.96/hr        | 34.65%       |
 | Married Joint             | 30    | $900  | $180 | $522    | $285.95      | $9.53/hr        | 33.44%       |
 | Head of Household (High Mileage) | 25 | $600 | $100 | $549    | $0.86        | $0.03/hr        | 0.16%        |
 | No Mileage Deduction      | 35    | $1,000 | $200 | $400    | $472.29      | $13.49/hr       | 49.71%       |
 
----
+
 
 ## Complete Field-by-Field Explanation (SEO Deep Dive)
 
@@ -154,7 +154,7 @@ Plus a full **Breakdown** section with per-hour averages and tax percentages.
 - **SE Tax Percentage** → Always ~14.13% after the 92.35% deduction.
 - **Profit Margin** → Healthy Uber drivers aim for 35%+ after everything.
 
----
+
 
 ## Uber Driver Tax Guide 2025 – What Every Driver Must Know
 
@@ -166,7 +166,7 @@ Plus a full **Breakdown** section with per-hour averages and tax percentages.
 
 This Uber earnings calculator automatically applies all these rules for you.
 
----
+
 
 ## 10 Pro Tips to Maximize Your Uber Earnings & Take-Home Pay
 
@@ -181,7 +181,7 @@ This Uber earnings calculator automatically applies all these rules for you.
 9. Use our calculator weekly to stay profitable.
 10. File Schedule C + Form 8995 if eligible for QBI deduction.
 
----
+
 
 ## Frequently Asked Questions (FAQ)
 
@@ -215,7 +215,7 @@ A: Yes – just select tax year 2025 in advanced settings.
 **Q: Is this calculator free?**  
 A: 100% free forever. No email required.
 
----
+
 
 ## Ready to Know Your Real Uber Earnings?
 
