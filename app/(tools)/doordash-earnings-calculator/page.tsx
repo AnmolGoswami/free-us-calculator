@@ -7,226 +7,115 @@ import { Sparkles, BookOpen, Target, ShieldCheck, Activity, Landmark, PieChart }
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
 export const metadata: Metadata = {
-
   title: "DoorDash Earnings Calculator 2026 – Real Profit After Gas, Mileage & Taxes",
 
-
-
   description:
-
     "Free DoorDash earnings calculator for 2026. Estimate your real profit after gas, mileage, IRS deductions, and self-employment tax. Calculate hourly, weekly, and monthly Dasher income instantly.",
 
-
-
   alternates: {
-
     canonical: "https://freeuscalculator.com/doordash-earnings-calculator",
-
   },
-
-
 
   keywords: [
-
     // 🔥 PRIMARY (HIGH TRAFFIC)
-
     "doordash earnings calculator",
-
     "doordash profit calculator",
-
     "doordash pay calculator",
-
     "dasher income calculator",
-
     "doordash salary calculator",
 
-
-
     // ⚡ LONG-TAIL (FAST RANKING)
-
     "doordash earnings calculator after gas",
-
     "doordash earnings calculator after taxes",
-
     "real doordash profit calculator 2026",
-
     "doordash hourly pay calculator",
-
     "doordash weekly earnings calculator",
 
-
-
     // 💰 HIGH INTENT (USER READY TO USE TOOL)
-
     "how much do doordash drivers make after expenses",
-
     "doordash net income calculator",
-
     "true doordash earnings after mileage",
-
     "calculate doordash income after tax",
-
     "real take home doordash pay",
 
-
-
     // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
-
     "doordash earnings per hour after gas",
-
     "how much is 1000 doordash income after tax",
-
     "doordash profit per delivery calculator",
-
     "is doordash worth it after expenses",
-
     "doordash earnings breakdown example",
 
-
-
     // 🧠 SEMANTIC SEO (AI + GOOGLE SGE)
-
     "gig economy earnings calculator",
-
     "delivery driver income calculator",
-
     "1099 contractor earnings calculator",
-
     "self employment tax doordash calculator",
-
     "mileage deduction calculator doordash",
 
-
-
     // 📈 FEATURE-BASED (BOOST CTR)
-
     "doordash calculator with mileage",
-
     "doordash calculator with IRS rate",
-
     "doordash calculator with expenses",
-
     "doordash calculator with tax estimate",
-
     "doordash earnings breakdown calculator",
 
-
-
     // 🎯 NICHE TARGETING (EASY WINS)
-
     "uber eats vs doordash earnings calculator",
-
     "gig worker income calculator 2026",
-
     "delivery driver profit calculator",
-
     "part time doordash earnings calculator",
-
     "full time dasher income estimator",
 
-
-
     // 🔥 REAL USER SEARCHES
-
     "how much do doordash drivers make 2026",
-
     "average doordash earnings per hour",
-
     "doordash income after gas and maintenance",
-
     "doordash pay per delivery calculator",
-
     "doordash tip income calculator",
 
-
-
     // 🧩 FORMULA + EDUCATIONAL
-
     "doordash profit formula",
-
     "net earnings = income minus expenses doordash",
-
     "how to calculate delivery profit",
-
     "doordash cost per mile calculation",
-
     "earnings after self employment tax calculator",
 
-
-
     // 🏆 LONG-TAIL CLUSTER DOMINATION
-
     "best doordash earnings calculator 2026 free online",
-
     "calculate doordash profit after gas mileage and taxes",
-
     "accurate doordash income calculator with full breakdown",
-
     "real hourly rate doordash after expenses calculator",
-
     "complete doordash earnings breakdown weekly monthly yearly",
-
   ],
 
-
-
   openGraph: {
-
     title: "DoorDash Earnings Calculator 2026 – Calculate Real Profit",
-
     description:
-
       "Estimate your real DoorDash income after gas, mileage, and taxes instantly.",
-
     url: "https://freeuscalculator.com/doordash-earnings-calculator",
-
     siteName: "Free US Calculator",
-
     type: "website",
-
   },
-
-
 
   twitter: {
-
     card: "summary_large_image",
-
     title: "DoorDash Earnings Calculator (2026)",
-
     description:
-
       "Find your real DoorDash profit after expenses and taxes.",
-
   },
-
-
 
   robots: {
-
     index: true,
-
     follow: true,
-
     googleBot: {
-
       index: true,
-
       follow: true,
-
       "max-snippet": -1,
-
       "max-image-preview": "large",
-
       "max-video-preview": -1,
-
     },
-
   },
-
 };
 
 export default function DoorDashPage() {
@@ -246,7 +135,7 @@ export default function DoorDashPage() {
   return (
     <main className="bg-[#f8fafc] w-full overflow-x-hidden relative selection:bg-blue-500/20">
 
-      {/* 1. HERO SECTION: DATA-CENTRIC DESIGN */}
+      {/* 1. HERO SECTION */}
       <section className="relative pt-12 pb-16 md:pt-24 md:pb-32 overflow-hidden border-b border-slate-200">
         {/* Abstract Data Grid Background */}
         <div className="absolute inset-0 -z-10 opacity-[0.03]"
@@ -276,13 +165,12 @@ export default function DoorDashPage() {
         </div>
       </section>
 
-      {/* 2. ANALYTICS & INSIGHTS (SEO) */}
-      {/* 2. ANALYTICS & STRATEGY (SEO CONTENT) */}
+      {/* 2. ANALYTICS & INSIGHTS */}
       <section className="py-12 md:py-32 bg-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-20 items-start">
 
-            {/* LEFT: STRATEGIC BENCHMARKS - Stays contained */}
+            {/* LEFT: STRATEGIC BENCHMARKS */}
             <aside className="lg:col-span-4 lg:sticky lg:top-24 space-y-6 md:space-y-8 min-w-0">
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-blue-600">
@@ -294,7 +182,6 @@ export default function DoorDashPage() {
                 </h2>
               </div>
 
-              {/* Scrollable on mobile to prevent "Cutting" */}
               <div className="flex flex-row lg:flex-col gap-3 md:gap-4 overflow-x-auto pb-4 lg:pb-0 scrollbar-hide touch-pan-x">
                 {[
                   { icon: <Target size={18} />, title: "IRS COMPLIANCE", value: "2026 Standard", color: "text-blue-600" },
@@ -310,9 +197,8 @@ export default function DoorDashPage() {
               </div>
             </aside>
 
-            {/* RIGHT: THE ARTICLE CARD - Fixed width logic to prevent right-side cutting */}
+            {/* RIGHT: THE ARTICLE CARD */}
             <div className="lg:col-span-8 w-full min-w-0">
-              {/* min-w-0 is critical here to stop the flex child from expanding beyond the screen */}
               <div className="relative bg-white border border-slate-900/10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl shadow-slate-200/50">
 
                 {/* Institutional Header Strip */}
@@ -332,16 +218,16 @@ export default function DoorDashPage() {
                   </h2>
                 </div>
 
-                {/* Article Body - break-words and overflow-hidden prevent horizontal overflow */}
+                {/* Article Body */}
                 <div className="p-6 sm:p-10 md:p-16 overflow-hidden">
                   <article
                     className="prose prose-slate max-w-none break-words
-              prose-headings:text-slate-900 prose-headings:font-black prose-headings:tracking-tighter
-              prose-h2:text-lg sm:prose-h2:text-2xl prose-h2:border-l-4 prose-h2:border-blue-600 prose-h2:pl-4 prose-h2:mt-8
-              prose-p:text-slate-600 prose-p:text-sm sm:prose-p:text-lg prose-p:leading-relaxed prose-p:font-medium
-              prose-strong:text-slate-900 prose-strong:font-black
-              prose-ul:list-none prose-ul:pl-0
-              prose-li:text-sm sm:prose-li:text-base prose-li:relative prose-li:pl-6 prose-li:before:content-['→'] prose-li:before:absolute prose-li:before:left-0 prose-li:before:text-blue-600"
+                      prose-headings:text-slate-900 prose-headings:font-black prose-headings:tracking-tighter
+                      prose-h2:text-lg sm:prose-h2:text-2xl prose-h2:border-l-4 prose-h2:border-blue-600 prose-h2:pl-4 prose-h2:mt-8
+                      prose-p:text-slate-600 prose-p:text-sm sm:prose-p:text-lg prose-p:leading-relaxed prose-p:font-medium
+                      prose-strong:text-slate-900 prose-strong:font-black
+                      prose-ul:list-none prose-ul:pl-0
+                      prose-li:text-sm sm:prose-li:text-base prose-li:relative prose-li:pl-6 prose-li:before:content-['→'] prose-li:before:absolute prose-li:before:left-0 prose-li:before:text-blue-600"
                   >
                     <div
                       dangerouslySetInnerHTML={{ __html: seoContent }}
@@ -371,7 +257,7 @@ export default function DoorDashPage() {
         </div>
       </section>
 
-      {/* 3. FAQ: CLEANER ACCORDION */}
+      {/* 3. FAQ */}
       <section className="py-24 bg-slate-950 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
@@ -384,7 +270,7 @@ export default function DoorDashPage() {
         </div>
       </section>
 
-      {/* 4. SHARE: THE "ACTION" BLOCK */}
+      {/* 4. SHARE */}
       <section className="py-24 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="bg-blue-600 rounded-[3rem] p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
@@ -400,7 +286,6 @@ export default function DoorDashPage() {
                 />
               </div>
             </div>
-            {/* Visual Flare */}
             <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
           </div>
         </div>
