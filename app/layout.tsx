@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import DisclaimerToast from "@/components/common/DisclaimerToast";
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <DisclaimerToast/>
+        <Analytics/>
       </body>
     </html>
   );
