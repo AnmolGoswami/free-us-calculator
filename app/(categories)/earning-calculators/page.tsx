@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { TrendingUp, Users, DollarSign, Clock, Award, ShieldCheck, MoveRight, CheckCircle2 } from "lucide-react";
 import ToolCard from "@/components/ui/ToolCard";
-import AdBanner from "@/components/common/AdBanner";
+
 import { earningTools } from "@/lib/tools";
 
 export const metadata = {
@@ -124,7 +124,7 @@ export default function EarningCalculatorsPage() {
         </div>
 
         <div className="my-20">
-          <AdBanner />
+          
         </div>
 
         {/* Scenario Cards */}
@@ -200,7 +200,7 @@ export default function EarningCalculatorsPage() {
               </div>
             </div>
 
-            <AdBanner />
+            
 
             {/* FAQ for SEO */}
             <div className="pt-8">

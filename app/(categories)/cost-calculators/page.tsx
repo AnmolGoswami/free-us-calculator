@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MoveRight, TrendingUp, Home, DollarSign, Target, CheckCircle2, Users, Clock, ShieldCheck, Award } from "lucide-react";
 import ToolCard from "@/components/ui/ToolCard";
-import AdBanner from "@/components/common/AdBanner";
+
 import { costTools } from "@/lib/tools";
 
 export const metadata = {
@@ -125,7 +125,7 @@ export default function CostCalculatorsPage() {
         </div>
 
         <div className="my-20">
-          <AdBanner />
+          
         </div>
 
         {/* Scenario Cards */}
@@ -200,7 +200,7 @@ export default function CostCalculatorsPage() {
               </div>
             </div>
 
-            <AdBanner />
+            
 
             {/* FAQ Section for SEO */}
             <div className="pt-8">
