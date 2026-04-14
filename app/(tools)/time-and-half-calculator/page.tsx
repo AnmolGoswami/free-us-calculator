@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Free time and a half calculator to compute overtime pay (1.5x). Calculate hourly, weekly, and yearly overtime earnings with taxes. Best overtime pay calculator for 2026.",
 
   alternates: {
-    canonical: "https://freeuscalculator.com/time-and-a-half-calculator",
+    canonical: "https://freeuscalculator.in/time-and-a-half-calculator",
   },
 
   keywords: [
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Time and a Half Calculator 2026 – Calculate Overtime Pay Instantly",
     description:
       "Calculate your overtime pay (1.5x) with our free calculator. Get accurate hourly, weekly, and yearly earnings instantly.",
-    url: "https://freeuscalculator.com/time-and-a-half-calculator",
+    url: "https://freeuscalculator.in/time-and-a-half-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -142,7 +142,7 @@ export default function TimeAndHalfPage() {
           <p className="text-sm font-medium text-slate-500 italic">Found this useful? Share with your team:</p>
           <ShareButtons
             title="Accurate 2026 Time and a Half Calculator"
-            url="https://freeuscalculator.com/time-and-half"   // ← Clean URL
+            url="https://freeuscalculator.in/time-and-half"   // ← Clean URL
           />
         </div>
       </section>
