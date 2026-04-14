@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "Free salary after tax calculator to estimate your real take-home pay. Calculate federal, state, and FICA taxes with accurate 2026 net income breakdowns instantly.",
 
   alternates: {
-    canonical: "https://freeuscalculator.com/salary-after-tax-calculator",
+    canonical: "https://freeuscalculator.in/salary-after-tax-calculator",
   },
 
   keywords: [
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     title: "Salary After Tax Calculator 2026 – Calculate Real Take Home Pay",
     description:
       "Estimate your net salary after federal, state, and FICA taxes instantly with our free calculator.",
-    url: "https://freeuscalculator.com/salary-after-tax-calculator",
+    url: "https://freeuscalculator.in/salary-after-tax-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -176,7 +176,7 @@ export default function SalaryAfterTaxPage() {
 
           <ShareButtons
             title="Check your real take-home salary for 2026!"
-            url="https://freeuscalculator.com/salary-after-tax-calculator"
+            url="https://freeuscalculator.in/salary-after-tax-calculator"
           />
         </div>
       </section>

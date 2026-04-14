@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "FreeUSCalculator - Smart Money Decisions Made Simple (2026)",
     description: "85+ free, accurate financial calculators updated for Tax Year 2026. No signup required.",
-    images: [{ url: "https://freeuscalculator.com/og-image.jpg" }],
+    images: [{ url: "https://freeuscalculator.in/og-image.jpg" }],
   },
 };
 export default function Home() {
@@ -31,12 +31,12 @@ export default function Home() {
     "@type": "WebSite",
     name: "FreeUSCalculator",
     alternateName: "Free US Financial Calculators 2026",
-    url: "https://freeuscalculator.com",
+    url: "https://freeuscalculator.in",
     description: "Free accurate 2026 US tax calculators, gig economy earnings tools, paycheck estimators, loan EMI, rent affordability and cost calculators. No signup required.",
     publisher: {
       "@type": "Organization",
       name: "FreeUSCalculator",
-      logo: "https://freeuscalculator.com/logo.png"
+      logo: "https://freeuscalculator.in/logo.png"
     }
   };
 

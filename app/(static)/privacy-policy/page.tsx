@@ -18,7 +18,7 @@ export const metadata = {
   ],
 
   alternates: {
-    canonical: "https://freeuscalculator.com/privacy-policy",
+    canonical: "https://freeuscalculator.in/privacy-policy",
   },
 
   robots: {
@@ -33,11 +33,11 @@ export default function PrivacyPolicy() {
     "@type": "WebPage",
     name: "Privacy Policy",
     description: "Privacy Policy of FreeUSCalculator describing data handling, cookies, and analytics usage.",
-    url: "https://freeuscalculator.com/privacy-policy",
+    url: "https://freeuscalculator.in/privacy-policy",
     publisher: {
       "@type": "Organization",
       name: "FreeUSCalculator",
-      url: "https://freeuscalculator.com",
+      url: "https://freeuscalculator.in",
     },
   };
 

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Free Uber earnings calculator to estimate real take-home pay after gas, expenses, and taxes. Calculate hourly rate, profit, and break-even for Uber, Lyft, and DoorDash drivers in 2026.",
 
   alternates: {
-    canonical: "https://freeuscalculator.com/uber-earnings-calculator",
+    canonical: "https://freeuscalculator.in/uber-earnings-calculator",
   },
 
   keywords: [
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Uber Earnings Calculator 2026 – Real Driver Profit After Expenses",
     description:
       "Find your real Uber income after gas, taxes, and expenses. Free calculator for Uber, Lyft & DoorDash drivers.",
-    url: "https://freeuscalculator.com/uber-earnings-calculator",
+    url: "https://freeuscalculator.in/uber-earnings-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -228,7 +228,7 @@ export default function UberEarningsPage() {
                 </h4>
                 <ShareButtons 
                   title="Uber Real Earnings Calculator 2026" 
-                  url="https://freeuscalculator.com/uber-earnings-calculator" 
+                  url="https://freeuscalculator.in/uber-earnings-calculator" 
                 />
               </div>
             </aside>

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Free hourly to salary calculator for 2026. Convert hourly wage to annual salary instantly. Includes overtime (1.5x), weekly, biweekly, monthly breakdowns, and tax estimates for accurate take-home pay.",
 
   alternates: {
-    canonical: "https://freeuscalculator.com/hourly-to-salary-calculator",
+    canonical: "https://freeuscalculator.in/hourly-to-salary-calculator",
   },
 
   keywords: [
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     title: "Hourly to Salary Calculator 2026 – Convert Your Wage Instantly",
     description:
       "Convert hourly pay to annual salary with overtime and tax estimates.",
-    url: "https://freeuscalculator.com/hourly-to-salary-calculator",
+    url: "https://freeuscalculator.in/hourly-to-salary-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -227,7 +227,7 @@ export default function HourlyToSalaryPage() {
               {/* Social Share Card */}
               <div className="bg-blue-50/50 rounded-[2rem] p-6 border border-blue-100/50">
                 <h4 className="text-xs font-black text-blue-900 uppercase tracking-widest mb-4 text-center">Share Engine</h4>
-                <ShareButtons title="2026 Hourly to Salary" url="https://freeuscalculator.com/hourly-to-salary-calculator" />
+                <ShareButtons title="2026 Hourly to Salary" url="https://freeuscalculator.in/hourly-to-salary-calculator" />
               </div>
 
             </aside>

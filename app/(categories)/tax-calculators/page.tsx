@@ -22,7 +22,7 @@ export const metadata = {
     "us tax calculator free",
   ],
   alternates: {
-    canonical: "https://freeuscalculator.com/tax-calculators",
+    canonical: "https://freeuscalculator.in/tax-calculators",
   },
   openGraph: {
     title: "Free US Tax Calculators 2026 | Paycheck & Self-Employment Tools",

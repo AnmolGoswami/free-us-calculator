@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "FreeUSCalculator",
-      url: "https://freeuscalculator.com",
+      url: "https://freeuscalculator.in",
     },
   ],
 
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   publisher: "FreeUSCalculator",
 
   alternates: {
-    canonical: "https://freeuscalculator.com/finance-calculator",
+    canonical: "https://freeuscalculator.in/finance-calculator",
   },
 
   openGraph: {
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     description:
       "All-in-one financial calculator for 2026. Compute EMI, amortization schedules, deferred payments, bond valuation, and investment returns instantly with professional-grade accuracy.",
 
-    url: "https://freeuscalculator.com/finance-calculator",
+    url: "https://freeuscalculator.in/finance-calculator",
 
     siteName: "FreeUSCalculator",
 
@@ -205,7 +205,7 @@ export default function LoanCalculatorPage() {
               </div>
               <ShareButtons 
                 title="Loan Precision Calculator 2026" 
-                url="https://freeuscalculator.com/loan-calculator" 
+                url="https://freeuscalculator.in/loan-calculator" 
               />
             </div>
           </div>

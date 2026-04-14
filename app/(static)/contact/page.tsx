@@ -14,7 +14,7 @@ export const metadata = {
     "gig economy calculator feedback",
   ],
   alternates: {
-    canonical: "https://freeuscalculator.com/contact",
+    canonical: "https://freeuscalculator.in/contact",
   },
 };
 
@@ -24,7 +24,7 @@ export default function ContactPage() {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     name: "Contact FreeUSCalculator",
-    url: "https://freeuscalculator.com/contact",
+    url: "https://freeuscalculator.in/contact",
     description: "Get in touch with the FreeUSCalculator team for support, feedback, or inquiries about our free 2026 financial calculators.",
     contactPoint: {
       "@type": "ContactPoint",

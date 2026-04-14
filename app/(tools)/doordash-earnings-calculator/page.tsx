@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Free DoorDash earnings calculator for 2026. Estimate your real profit after gas, mileage, IRS deductions, and self-employment tax. Calculate hourly, weekly, and monthly Dasher income instantly.",
 
   alternates: {
-    canonical: "https://freeuscalculator.com/doordash-earnings-calculator",
+    canonical: "https://freeuscalculator.in/doordash-earnings-calculator",
   },
 
   keywords: [
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     title: "DoorDash Earnings Calculator 2026 – Calculate Real Profit",
     description:
       "Estimate your real DoorDash income after gas, mileage, and taxes instantly.",
-    url: "https://freeuscalculator.com/doordash-earnings-calculator",
+    url: "https://freeuscalculator.in/doordash-earnings-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -344,7 +344,7 @@ const faqs = Array.from(faqsMap.values());
               <div className="flex justify-center">
                 <ShareButtons
                   title="2026 Institutional DoorDash Profit Calculator"
-                  url="https://freeuscalculator.com/doordash-earnings-calculator"
+                  url="https://freeuscalculator.in/doordash-earnings-calculator"
                 />
               </div>
             </div>

@@ -83,7 +83,7 @@ export default function HourlyToSalaryPage({ params }: { params: { rate: string 
       <section className="max-w-4xl mx-auto px-6 mb-12">
         <ShareButtons
           title={`${rate} an hour salary`}
-          url={`https://freeuscalculator.com/hourly/${rate}`}
+          url={`https://freeuscalculator.in/hourly/${rate}`}
         />
       </section>
 

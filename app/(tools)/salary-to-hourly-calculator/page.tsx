@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Free salary to hourly calculator to convert annual salary into hourly wage. See weekly, biweekly, and monthly breakdowns with accurate 2026 estimates and tax calculations.",
 
   alternates: {
-    canonical: "https://freeuscalculator.com/salary-to-hourly-calculator",
+    canonical: "https://freeuscalculator.in/salary-to-hourly-calculator",
   },
 
   keywords: [
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: "Salary to Hourly Calculator 2026 – Convert Pay Instantly",
     description:
       "Convert your annual salary into hourly wage instantly. Includes weekly, monthly, and tax-adjusted calculations.",
-    url: "https://freeuscalculator.com/salary-to-hourly-calculator",
+    url: "https://freeuscalculator.in/salary-to-hourly-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -173,7 +173,7 @@ export default function SalaryToHourlyPage(
           <p className="text-sm font-semibold text-slate-600">Share this conversion tool:</p>
           <ShareButtons
             title="Salary to Hourly Calculator 2026"
-            url="https://freeuscalculator.com/salary-to-hourly"   // ← Clean URL
+            url="https://freeuscalculator.in/salary-to-hourly"   // ← Clean URL
           />
         </div>
       </section>
