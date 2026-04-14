@@ -2,7 +2,7 @@ import DoorDashCalculatorClient from "./DoorDashCalculatorClient";
 import FAQ from "@/components/calculators/FAQ";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import ShareButtons from "@/components/calculators/ShareButtons";
-import { getToolContent } from "@/lib/seo";
+import {  getToolContentAdvanced } from "@/lib/seo";
 import { Sparkles, BookOpen, Target, ShieldCheck, Activity, Landmark, PieChart } from "lucide-react";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -119,9 +119,9 @@ export const metadata: Metadata = {
 };
 
 export default function DoorDashPage() {
-  const seoContent = getToolContent("doordash-earnings-calculator");
+  const { html: seoContent, toc, faqs: autoFaqs } = getToolContentAdvanced("doordash-earnings-calculator");
 
-  const faqs = [
+  const manualFaqs  = [
     {
       q: "How accurate is this DoorDash earnings calculator?",
       a: "This tool utilizes the 2026 IRS standard mileage rate and localized tax logic to provide institutional-grade net income projections.",
@@ -130,10 +130,58 @@ export default function DoorDashPage() {
       q: "Does this include gas and vehicle maintenance?",
       a: "Yes. The 'Operating Cost' field integrates fuel, insurance, and depreciation based on current 2026 market volatility.",
     },
+
+    
   ];
+  function normalize(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, "") // remove punctuation
+    .replace(/\s+/g, " ")    // normalize spaces
+    .trim();
+}
+
+const combinedFaqs = [
+  ...manualFaqs,
+  ...autoFaqs.map((f) => ({
+    q: f.question,
+    a: f.answer,
+  })),
+];
+
+const faqsMap = new Map();
+
+combinedFaqs.forEach((f) => {
+  const key = normalize(f.q);
+  if (!faqsMap.has(key)) {
+    faqsMap.set(key, f);
+  }
+});
+
+const faqs = Array.from(faqsMap.values());
 
   return (
     <main className="bg-[#f8fafc] w-full overflow-x-hidden relative selection:bg-blue-500/20">
+      {faqs.length > 0 && (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: f.a,
+          },
+        })),
+      }),
+    }}
+  />
+)}
+
 
       {/* 1. HERO SECTION */}
       <section className="relative pt-12 pb-16 md:pt-24 md:pb-32 overflow-hidden border-b border-slate-200">
@@ -220,6 +268,20 @@ export default function DoorDashPage() {
 
                 {/* Article Body */}
                 <div className="p-6 sm:p-10 md:p-16 overflow-hidden">
+                  {toc.length > 0 && (
+  <div className="mb-10 p-6 bg-slate-50 rounded-2xl">
+    <h3 className="font-bold mb-4">Contents</h3>
+    <ul className="space-y-2">
+      {toc.map((item) => (
+        <li key={item.id}>
+          <a href={`#${item.id}`} className="text-blue-600 hover:underline">
+            {item.text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
                   <article
                     className="prose prose-slate max-w-none break-words
                       prose-headings:text-slate-900 prose-headings:font-black prose-headings:tracking-tighter
@@ -273,7 +335,7 @@ export default function DoorDashPage() {
       {/* 4. SHARE */}
       <section className="py-24 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-blue-600 rounded-[3rem] p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
+          <div className="bg-blue-400 rounded-[3rem] p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
             <div className="relative z-10">
               <h3 className="text-3xl font-black mb-4 tracking-tight">Distribute Reports</h3>
               <p className="text-blue-100 mb-10 max-w-md mx-auto font-medium">

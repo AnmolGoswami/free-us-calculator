@@ -4,176 +4,239 @@ import path from "path";
 
 const contentDir = path.join(process.cwd(), "data/content");
 
-/**
- * Convert Markdown → Beautiful Styled HTML for SEO Content
- * Optimized for mobile, tables, readability, and no right-side cutoff
- */
-export function getToolContent(slug: string): string {
+/* -----------------------------------
+UTILS
+----------------------------------- */
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+/* -----------------------------------
+CORE PARSER
+----------------------------------- */
+function parseContent(slug: string) {
   try {
     const filePath = path.join(contentDir, `${slug}.md`);
+
     if (!fs.existsSync(filePath)) {
-      return `<p>Content for this calculator is being updated. Please check back soon.</p>`;
+      return {
+        html: `<p>Content is being updated.</p>`,
+        toc: [],
+        faqs: [],
+      };
     }
 
     let content = fs.readFileSync(filePath, "utf8");
     let html = content;
 
-    /* -------------------------------
-    HEADINGS
-    --------------------------------*/
-    html = html
-      .replace(/^### (.*$)/gm, '<h3 class="text-xl sm:text-2xl font-semibold mt-8 mb-4 text-slate-900">$1</h3>')
-      .replace(/^## (.*$)/gm, '<h2 class="text-2xl sm:text-3xl font-bold mt-10 mb-6 text-slate-900 tracking-tight">$1</h2>')
-      .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mt-8 mb-6 text-slate-900 tracking-tight">$1</h1>');
+    const toc: { id: string; text: string }[] = [];
+    const faqs: { question: string; answer: string }[] = [];
 
-    /* -------------------------------
+    /* -----------------------------------
+    READING TIME + LAST UPDATED
+    ----------------------------------- */
+    const words = content.split(/\s+/).length;
+    const readingTime = Math.ceil(words / 200);
+
+    const lastUpdated = new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+    });
+
+    html =
+      `<p class="text-sm text-slate-500 mb-2">⏱ ${readingTime} min read</p>` +
+      `<p class="text-sm text-slate-500 mb-6">Last updated: ${lastUpdated}</p>` +
+      html;
+
+    /* -----------------------------------
+    IMAGES
+    ----------------------------------- */
+    html = html.replace(
+      /!\[([^\]]*)\]\(([^)]+)\)/g,
+      `<img src="$2" alt="$1" loading="lazy" class="rounded-2xl my-6 w-full" />`
+    );
+
+    /* -----------------------------------
+    LINKS
+    ----------------------------------- */
+    html = html.replace(
+      /\[([^\]]+)\]\(([^)]+)\)/g,
+      (_, text, link) => {
+        const isExternal = link.startsWith("http");
+        return `<a href="${link}" ${
+          isExternal ? 'target="_blank" rel="noopener noreferrer"' : ""
+        } class="text-blue-600 underline">${text}</a>`;
+      }
+    );
+
+    /* -----------------------------------
+    AUTO INTERNAL LINKS
+    ----------------------------------- */
+    const internalLinks: Record<string, string> = {
+      "uber eats calculator": "/uber-eats-calculator",
+      "grubhub calculator": "/grubhub-calculator",
+      "gig tax calculator": "/gig-tax-calculator",
+    };
+
+    Object.entries(internalLinks).forEach(([keyword, url]) => {
+      const regex = new RegExp(`\\b(${keyword})\\b`, "gi");
+      html = html.replace(
+        regex,
+        `<a href="${url}" class="text-blue-600 underline">$1</a>`
+      );
+    });
+
+    /* -----------------------------------
+    HEADINGS + TOC
+    ----------------------------------- */
+    html = html.replace(/^### (.*$)/gm, (_, text) => {
+      const id = slugify(text);
+      return `<h3 id="${id}" class="text-xl font-semibold mt-8 mb-4">${text}</h3>`;
+    });
+
+    html = html.replace(/^## (.*$)/gm, (_, text) => {
+      const id = slugify(text);
+      toc.push({ id, text });
+      return `<h2 id="${id}" class="text-2xl font-bold mt-10 mb-6">${text}</h2>`;
+    });
+
+    html = html.replace(/^# (.*$)/gm, (_, text) => {
+      const id = slugify(text);
+      return `<h1 id="${id}" class="text-3xl font-bold mt-8 mb-6">${text}</h1>`;
+    });
+
+    /* -----------------------------------
     BOLD / ITALIC
-    --------------------------------*/
+    ----------------------------------- */
     html = html
-      .replace(/\*\*(.*?)\*\*/g, "<strong class='font-semibold text-slate-900'>$1</strong>")
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
       .replace(/\*(.*?)\*/g, "<em>$1</em>");
 
-    /* -------------------------------
-    TABLES - FULLY MOBILE OPTIMIZED (No right cutoff)
-    --------------------------------*/
+    /* -----------------------------------
+    TABLES
+    ----------------------------------- */
     html = html.replace(/((\|.*\|[\r\n])+)/g, (match) => {
       const rows = match.trim().split("\n");
       if (rows.length < 2) return match;
 
-      const headers = rows[0]
-        .split("|")
-        .map((h) => h.trim())
-        .filter(Boolean);
+      const headers = rows[0].split("|").map((h) => h.trim()).filter(Boolean);
+      const bodyRows = rows.slice(2);
 
-      const bodyRows = rows.slice(2); // Skip header and separator row
+      let tableHTML = `<div class="overflow-x-auto my-6"><table class="w-full text-sm"><thead><tr>`;
 
-      let tableHTML = `
-<div class="overflow-x-auto my-8 rounded-3xl border border-slate-200 shadow-sm bg-white -mx-1 sm:-mx-0">
-  <table class="w-full min-w-[620px] divide-y divide-slate-200 text-sm">
-    <thead class="bg-slate-50">
-      <tr>
-        ${headers
-          .map(
-            (h) =>
-              `<th class="px-4 sm:px-6 py-4 text-left font-semibold text-slate-700 whitespace-nowrap border-b border-slate-200">${h}</th>`
-          )
-          .join("")}
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-slate-100 bg-white">
-      `;
+      tableHTML += headers.map((h) => `<th class="px-3 py-2 text-left">${h}</th>`).join("");
+
+      tableHTML += `</tr></thead><tbody>`;
 
       bodyRows.forEach((row) => {
-        const cols = row
-          .split("|")
-          .map((c) => c.trim())
-          .filter(Boolean);
-        if (cols.length === 0) return;
-
-        tableHTML += `
-          <tr class="hover:bg-slate-50 transition-colors duration-150">
-            ${cols
-              .map(
-                (c) =>
-                  `<td class="px-4 sm:px-6 py-4 text-slate-600 align-top leading-relaxed whitespace-normal break-words">${c}</td>`
-              )
-              .join("")}
-          </tr>`;
+        const cols = row.split("|").map((c) => c.trim()).filter(Boolean);
+        tableHTML += `<tr>${cols
+          .map((c) => `<td class="px-3 py-2">${c}</td>`)
+          .join("")}</tr>`;
       });
 
-      tableHTML += `
-          </tbody>
-        </table>
-      </div>`;
-
+      tableHTML += `</tbody></table></div>`;
       return tableHTML;
     });
 
-    /* -------------------------------
+    /* -----------------------------------
     LISTS
-    --------------------------------*/
+    ----------------------------------- */
     html = html
-      .replace(/^\- (.*$)/gm, '<li class="mb-2.5 text-slate-600">• $1</li>')
-      .replace(/^\d+\. (.*$)/gm, '<li class="mb-2.5 text-slate-600">$1</li>');
+      .replace(/^\- (.*$)/gm, "<li>$1</li>")
+      .replace(/^\d+\. (.*$)/gm, "<li>$1</li>");
 
-    // Wrap consecutive <li> into <ul> or <ol>
-    html = html.replace(
-      /((<li[^>]*>.*?<\/li>\s*)+)/g,
-      '<ul class="list-none mb-8 space-y-1 pl-2">$1</ul>'
-    );
+    html = html.replace(/((<li>.*<\/li>\s*)+)/g, "<ul>$1</ul>");
 
-    /* -------------------------------
-    CODE BLOCKS & INLINE CODE
-    --------------------------------*/
-    html = html.replace(
-      /```([\s\S]*?)```/g,
-      '<pre class="bg-slate-900 text-slate-100 p-6 rounded-2xl overflow-auto my-6 text-sm"><code>$1</code></pre>'
-    );
+    /* -----------------------------------
+    CODE
+    ----------------------------------- */
+    html = html.replace(/```([\s\S]*?)```/g, `<pre><code>$1</code></pre>`);
+    html = html.replace(/`([^`]+)`/g, `<code>$1</code>`);
 
-    html = html.replace(
-      /`([^`]+)`/g,
-      '<code class="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-sm text-orange-700">$1</code>'
-    );
-
-    /* -------------------------------
-    PARAGRAPHS (Final Step)
-    --------------------------------*/
+    /* -----------------------------------
+    PARAGRAPHS
+    ----------------------------------- */
     html = html
       .split("\n\n")
       .map((block) => {
-        const trimmed = block.trim();
+        const t = block.trim();
+
         if (
-          trimmed.startsWith("<h") ||
-          trimmed.startsWith("<div") ||
-          trimmed.startsWith("<ul") ||
-          trimmed.startsWith("<pre") ||
-          trimmed.startsWith("<table") ||
-          trimmed === "" ||
-          trimmed === "---"
+          t.startsWith("<h") ||
+          t.startsWith("<ul") ||
+          t.startsWith("<pre") ||
+          t.startsWith("<div") ||
+          t.startsWith("<img") ||
+          t === ""
         ) {
           return block;
         }
-        return `<p class="mb-6 leading-relaxed text-slate-600">${trimmed}</p>`;
+
+        return `<p>${t}</p>`;
       })
       .join("");
 
-    // Clean up empty paragraphs
     html = html.replace(/<p>\s*<\/p>/g, "");
 
-    return html;
-  } catch (error) {
-    console.error(`Error loading content for ${slug}:`, error);
-    return `
-      <p class="text-slate-600">
-        Detailed explanation and guide for this calculator is being prepared.
-      </p>
-    `;
+    /* -----------------------------------
+    FAQ EXTRACTION
+    ----------------------------------- */
+    /* -----------------------------------
+FAQ EXTRACTION (FIXED)
+----------------------------------- */
+const faqRegex = /<h3[^>]*>([\s\S]*?)<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/gi;
+
+let match;
+while ((match = faqRegex.exec(html)) !== null) {
+  const question = match[1].replace(/<[^>]+>/g, "").trim();
+  const answer = match[2].replace(/<[^>]+>/g, "").trim();
+
+  if (question.endsWith("?")) {
+    faqs.push({ question, answer });
   }
 }
 
-/**
- * Get list of all available tool content files
- */
+    return { html, toc, faqs };
+  } catch (error) {
+    console.error(error);
+    return {
+      html: `<p>Error loading content.</p>`,
+      toc: [],
+      faqs: [],
+    };
+  }
+}
+
+/* -----------------------------------
+OLD FUNCTION (NO CHANGE NEEDED)
+----------------------------------- */
+export function getToolContent(slug: string): string {
+  return parseContent(slug).html;
+}
+
+/* -----------------------------------
+ADVANCED FUNCTION
+----------------------------------- */
+export function getToolContentAdvanced(slug: string) {
+  return parseContent(slug);
+}
+
+/* -----------------------------------
+UTILS
+----------------------------------- */
 export function getAllToolSlugs(): string[] {
-  try {
-    if (!fs.existsSync(contentDir)) {
-      fs.mkdirSync(contentDir, { recursive: true });
-      return [];
-    }
-    return fs
-      .readdirSync(contentDir)
-      .filter((file) => file.endsWith(".md"))
-      .map((file) => file.replace(".md", ""));
-  } catch (error) {
-    console.error("Error reading tool slugs:", error);
-    return [];
-  }
+  if (!fs.existsSync(contentDir)) return [];
+
+  return fs
+    .readdirSync(contentDir)
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => file.replace(".md", ""));
 }
 
-/**
- * Check if content exists for a tool
- */
 export function hasToolContent(slug: string): boolean {
-  const filePath = path.join(contentDir, `${slug}.md`);
-  return fs.existsSync(filePath);
+  return fs.existsSync(path.join(contentDir, `${slug}.md`));
 }

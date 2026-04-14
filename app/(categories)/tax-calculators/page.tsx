@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { TrendingUp, Users, DollarSign, ShieldCheck, Award, MoveRight, CheckCircle2, Calculator } from "lucide-react";
 import ToolCard from "@/components/ui/ToolCard";
-import AdBanner from "@/components/common/AdBanner";
+
 import { taxTools } from "@/lib/tools";
 
 export const metadata = {
@@ -124,7 +124,7 @@ export default function TaxCalculatorsPage() {
         </div>
 
         <div className="my-20">
-          <AdBanner />
+          
         </div>
 
         {/* Scenario Cards */}
@@ -200,7 +200,7 @@ export default function TaxCalculatorsPage() {
               </div>
             </div>
 
-            <AdBanner />
+            
 
             {/* FAQ Section */}
             <div className="pt-8">
