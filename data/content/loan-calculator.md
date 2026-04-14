@@ -140,7 +140,9 @@ It depends on your tax slab, liquidity needs, and risk appetite. Government bond
 ### How do I decide between floating and fixed interest rates for home loans?
 Floating rates are usually lower initially and linked to RBI policy, but they can rise. Fixed rates give certainty but are often slightly higher.
 
-
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
 
 ## Professional Disclaimer
 

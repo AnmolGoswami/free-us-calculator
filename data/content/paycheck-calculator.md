@@ -170,6 +170,9 @@ Yes, completely free with no signup required and no ads interrupting your calcul
 - federal and state tax calculator USA
 - how much is 80000 salary after tax in California
 
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
 
 
 *This USA Paycheck Calculator 2026 is for estimation and educational purposes only. Tax laws can change, and actual withholdings depend on your specific W-4 form, deductions, credits, and employer settings. For precise tax planning, consult a certified tax professional or CPA. Always verify with official IRS and California FTB resources.*

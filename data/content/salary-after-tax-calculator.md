@@ -167,7 +167,9 @@ A: The calculator shows “(Est.)” and warns you. Full progressive brackets wi
 **Q: Can I copy the numbers to my spreadsheet?**  
 A: Yes — every major result has a copy button.
 
----
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
 
 ## 🔄 Last Updated
 **April 2026** – Based on latest IRS Revenue Procedure, SSA wage base, and state tax data.

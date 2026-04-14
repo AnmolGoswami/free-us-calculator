@@ -157,7 +157,9 @@ Absolutely. Just combine your incomes and debts for a joint calculation.
 - how much rent can I afford on $5000 a month
 - rent vs buy calculator 2026
 
-
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
 
 *This Rent Affordability Calculator 2026 is for educational and estimation purposes only. Actual affordability depends on your full financial picture, local rent prices, and personal spending habits. Always review your complete budget before signing a lease. For personalized financial advice, speak with a certified financial planner.*
 

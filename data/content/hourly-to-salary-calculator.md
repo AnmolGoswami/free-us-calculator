@@ -187,6 +187,11 @@ Absolutely. Many freelancers use it to decide their hourly rates or compare free
 
 
 
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
+
+
 ## Related Tools You Might Find Useful
 
 - Income Tax Calculator India 2026 (Old vs New Regime)

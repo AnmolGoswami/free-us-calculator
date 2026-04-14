@@ -193,6 +193,10 @@ If this **DoorDash earnings calculator 2026** helped you see the real numbers, d
 
 Drop your own numbers in the calculator above and tell me in the comments what your projected take-home pay looks like. I'm always updating this guide with fresh driver feedback.
 
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
+
 **Related Tools & Calculators:**
 - Uber Eats Earnings Calculator 2026
 - Grubhub Driver Pay Estimator

@@ -337,8 +337,9 @@ Here’s a clear comparison to help you understand the impact:
 
 
 
-**Written by Dr. Anmol**  
-Developer & Creator of Practical Financial Tools for Gig Workers and Small Businesses  
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022. 
 Last Updated: April 2026
 
 **Disclaimer**: This guide and all calculations are for informational and educational purposes only. Tax laws and rates can change. The content is not professional tax, legal, or financial advice. Always consult a licensed CPA or tax advisor for your specific situation. Verify the latest IRS rules and forms before filing.

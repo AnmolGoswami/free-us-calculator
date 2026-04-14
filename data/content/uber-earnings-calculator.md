@@ -216,14 +216,15 @@ A: Yes – just select tax year 2025 in advanced settings.
 A: 100% free forever. No email required.
 
 
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
+
 
 ## Ready to Know Your Real Uber Earnings?
 
 Stop driving blind. Use the **best Uber earnings calculator** on the web right now and discover exactly how much money you’re actually taking home.
 
-**Copy this entire page** into your website, blog, or Notion doc. It is fully SEO-optimized, mobile-friendly, and packed with long-tail keywords to rank #1 for “Uber earnings calculator”, “Uber driver earnings calculator”, and “Uber pay calculator”.
-
-Want me to generate the **HTML version** with embedded calculator form (ready to connect to your TypeScript function)? Or add more examples? Just say the word!
 
 **Last updated**: April 2025 – 2024 & 2025 tax rules fully supported.
 

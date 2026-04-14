@@ -159,7 +159,9 @@ It lowers your effective hourly rate significantly. Always calculate based on ac
 - annual salary to hourly converter 2026
 - what is $80,000 a year per hour
 
-
+**Written by:** Anmol Giri  
+**Gig Economy Analyst & Calculator Developer**  
+Experience: Financial tools and income modeling for gig workers since 2022.
 
 *This Salary to Hourly Calculator USA 2026 is for educational and estimation purposes only. Actual earnings depend on your tax situation, benefits, overtime rules (FLSA), location, and actual hours worked. For personalized career or tax advice, consult a professional advisor or use official government resources.*
 
