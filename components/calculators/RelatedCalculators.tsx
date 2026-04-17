@@ -15,52 +15,92 @@ interface RelatedCalculatorsProps {
 
 export default function RelatedCalculators({
   currentTool,
-  title = "Related Tools You Might Find Useful",
+  title = "Related Calculators You Might Find Useful",
   tools,
 }: RelatedCalculatorsProps) {
-  // If no tools passed, auto-suggest from registry
-  const relatedTools = tools || [
-    { slug: "uber-earnings-calculator", title: "Uber Earnings Calculator 2026", description: "Estimate real take-home pay as an Uber driver." },
-    { slug: "self-employment-tax-calculator-usa", title: "Self Employment Tax Calculator 2026", description: "Calculate your full SE tax accurately." },
-    { slug: "salary-after-tax-calculator", title: "Salary After Tax Calculator 2026", description: "See exact take-home pay after taxes." },
-    { slug: "rent-affordability-calculator", title: "Rent Affordability Calculator 2026", description: "Find out how much rent you can afford." },
+
+  const defaultTools: RelatedTool[] = [
+    {
+      slug: "salary-after-tax-calculator",
+      title: "Salary After Tax Calculator",
+      description: "Calculate your real take-home salary after taxes.",
+    },
+    {
+      slug: "paycheck-calculator",
+      title: "Paycheck Calculator",
+      description: "Estimate your exact paycheck after deductions.",
+    },
+    {
+      slug: "loan-calculator",
+      title: "Loan Calculator",
+      description: "Calculate EMI, total interest, and loan payments.",
+    },
+    {
+      slug: "rent-affordability-calculator",
+      title: "Rent Affordability Calculator",
+      description: "Find how much rent you can afford easily.",
+    },
   ];
 
-  return (
-    <div className="max-w-6xl mx-auto px-6 py-16 bg-gray-50">
-      <h2 className="text-3xl font-bold text-gray-900 text-center mb-10">
-        {title}
-      </h2>
+  const relatedTools = tools || defaultTools;
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+  return (
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      
+      {/* 🔥 Heading */}
+      <div className="text-center mb-12">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-blue-600 tracking-tight">
+          {title}
+        </h2>
+        <p className="text-slate-200 mt-3 text-sm sm:text-base">
+          Explore more tools to calculate smarter and plan better
+        </p>
+      </div>
+
+      {/* 🔥 Grid */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {relatedTools.map((tool) => {
           const toolData = getToolBySlug(tool.slug);
-          
+
           return (
-            <Link
+            <article
               key={tool.slug}
-              href={`/${tool.slug}`}
-              className="group bg-white border border-gray-200 hover:border-blue-500 rounded-3xl p-8 transition-all hover:shadow-lg hover:-translate-y-1"
+              className="group relative bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-blue-500"
             >
-              <div className="text-blue-600 font-medium text-sm mb-3">
-                {toolData?.category.toUpperCase() || "TOOL"}
+              {/* Glow Effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition duration-300 -z-10" />
+
+              {/* Category */}
+              <div className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3">
+                {toolData?.category?.toUpperCase() || "TOOL"}
               </div>
-              
-              <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-3">
-                {tool.title}
+
+              {/* Title */}
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-3 leading-snug">
+                <Link
+                  href={`/${tool.slug}`}
+                  className="hover:text-blue-600 transition-colors"
+                >
+                  {tool.title}
+                </Link>
               </h3>
-              
-              <p className="text-gray-600 text-[15px] leading-relaxed">
+
+              {/* Description */}
+              <p className="text-slate-600 text-sm sm:text-[15px] leading-relaxed mb-5">
                 {tool.description}
               </p>
 
-              <div className="mt-6 text-blue-600 text-sm font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
-                Use Calculator →
-              </div>
-            </Link>
+              {/* CTA */}
+              <Link
+                href={`/${tool.slug}`}
+                className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm hover:gap-3 transition-all"
+              >
+                Use {tool.title.toLowerCase()} →
+              </Link>
+            </article>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
