@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // ✅ Core Pages (ONLY if they exist)
   const corePages = [
-    "/calculators",
+    
     "/earning-calculators",
     "/tax-calculators",
     "/cost-calculators",
