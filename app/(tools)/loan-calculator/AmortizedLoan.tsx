@@ -96,7 +96,7 @@ Payoff Date: ${result.payoffDate}`;
     <div className="w-full max-w-full overflow-hidden py-6 px-3 sm:px-4">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header - Smaller on mobile */}
+        {/* Header */}
         <div className="text-center mb-10 md:mb-14">
           <div className="inline-flex items-center gap-3 px-5 py-2 bg-white rounded-2xl shadow-sm border border-slate-200 mb-6">
             <TrendingUp className="w-5 h-5 text-blue-600" />
@@ -235,7 +235,7 @@ Payoff Date: ${result.payoffDate}`;
             </div>
           </div>
 
-          {/* RESULTS SECTION - Compact & Responsive */}
+          {/* RESULTS SECTION */}
           <div className="lg:col-span-7 space-y-6">
             {!result ? (
               <div className="bg-white min-h-[420px] rounded-3xl shadow-sm border border-slate-200 flex items-center justify-center p-8 text-center">
@@ -246,7 +246,7 @@ Payoff Date: ${result.payoffDate}`;
               </div>
             ) : (
               <>
-                {/* Smaller Hero Payment Card */}
+                {/* Hero Payment Card */}
                 <div className="bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-3xl p-8 md:p-10 shadow-xl relative overflow-hidden">
                   <div className="absolute top-6 right-6">
                     <button
@@ -279,9 +279,8 @@ Payoff Date: ${result.payoffDate}`;
                   </div>
                 </div>
 
-                {/* Compact Quick Stats */}
+                {/* Quick Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {/* Principal Card */}
                   <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
@@ -296,7 +295,6 @@ Payoff Date: ${result.payoffDate}`;
                     </div>
                   </div>
 
-                  {/* Interest Card */}
                   <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center">
@@ -312,65 +310,84 @@ Payoff Date: ${result.payoffDate}`;
                   </div>
                 </div>
 
-                {/* Pie Chart Section - Fully Responsive */}
                 <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
-                  <button
-                    onClick={() => setIsDetailsOpen(!isDetailsOpen)}
-                    className="w-full px-7 py-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b"
-                  >
-                    <div className="flex items-center gap-4">
-                      <Wallet className="text-blue-600" size={26} />
-                      <div>
-                        <h3 className="font-semibold text-slate-900">Principal vs Interest Breakdown</h3>
-                        <p className="text-sm text-slate-500">Visual split of repayment</p>
-                      </div>
-                    </div>
-                    <ChevronDown className={`transition-transform ${isDetailsOpen ? "rotate-180" : ""}`} size={26} />
-                  </button>
+  <button
+    onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+    className="w-full px-5 md:px-7 py-5 md:py-6 flex items-center justify-between hover:bg-slate-50 transition-colors border-b"
+  >
+    <div className="flex items-center gap-3 md:gap-4">
+      <Wallet className="text-blue-600" size={24} />
+      <div className="text-left">
+        <h3 className="font-semibold text-slate-900 text-sm md:text-base">
+          Principal vs Interest Breakdown
+        </h3>
+        <p className="text-xs md:text-sm text-slate-500">
+          Visual split of repayment
+        </p>
+      </div>
+    </div>
+    <ChevronDown
+      className={`transition-transform ${isDetailsOpen ? "rotate-180" : ""}`}
+      size={22}
+    />
+  </button>
 
-                  {isDetailsOpen && (
-                    <div className="p-6 md:p-10">
-                      <div className="w-full min-w-0">
-                        <ResponsiveContainer width="100%" height={window.innerWidth < 640 ? 280 : 360}>
-                          <PieChart>
-                            <Pie
-                              data={[
-                                { name: "Principal", value: principal || 0 },
-                                { name: "Total Interest", value: result?.totalInterest || 0 },
-                              ]}
-                              cx="50%"
-                              cy="50%"
-                              innerRadius={75}
-                              outerRadius={110}
-                              paddingAngle={5}
-                              dataKey="value"
-                            >
-                              {COLORS.map((color, i) => (
-                                <Cell key={i} fill={color} />
-                              ))}
-                            </Pie>
+  {isDetailsOpen && (
+    <div className="p-4 md:p-8 overflow-hidden">
+      <div className="w-full max-w-[340px] sm:max-w-[380px] mx-auto">
+        
+        <ResponsiveContainer width="100%" height={260}>
+          <PieChart>
+            <Pie
+              data={[
+                { name: "Principal", value: principal || 0 },
+                { name: "Interest", value: result?.totalInterest || 0 },
+              ]}
+              cx="50%"
+              cy="45%"                 // 👈 move slightly up for legend space
+              innerRadius="55%"        // 👈 responsive instead of fixed px
+              outerRadius="80%"        // 👈 prevents overflow
+              paddingAngle={3}
+              dataKey="value"
+            >
+              {COLORS.map((color, i) => (
+                <Cell key={i} fill={color} />
+              ))}
+            </Pie>
 
-                            <Tooltip
-                              content={({ active, payload }) => {
-                                if (active && payload && payload.length) {
-                                  const data = payload[0];
-                                  return (
-                                    <div className="bg-white rounded-xl shadow px-4 py-3 border">
-                                      <p className="text-sm text-slate-500">{data.name}</p>
-                                      <p className="font-semibold">{formatFullCurrency(Number(data.value))}</p>
-                                    </div>
-                                  );
-                                }
-                                return null;
-                              }}
-                            />
-                            <Legend verticalAlign="bottom" iconType="circle" wrapperStyle={{ paddingTop: 20 }} />
-                          </PieChart>
-                        </ResponsiveContainer>
-                      </div>
+            <Tooltip
+              content={({ active, payload }) => {
+                if (active && payload?.length) {
+                  const data = payload[0];
+                  return (
+                    <div className="bg-white rounded-xl shadow px-3 py-2 border border-slate-200">
+                      <p className="text-xs text-slate-500">{data.name}</p>
+                      <p className="font-semibold text-slate-900 text-sm">
+                        {formatFullCurrency(Number(data.value))}
+                      </p>
                     </div>
-                  )}
-                </div>
+                  );
+                }
+                return null;
+              }}
+            />
+
+            <Legend
+              verticalAlign="bottom"
+              align="center"
+              iconType="circle"
+              wrapperStyle={{
+                fontSize: "12px",
+                paddingTop: 12,
+              }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+
+      </div>
+    </div>
+  )}
+</div>
 
                 {/* Financial Insights */}
                 <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-7 md:p-10">
