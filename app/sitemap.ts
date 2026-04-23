@@ -2,7 +2,8 @@ import { MetadataRoute } from "next";
 import { allTools } from "@/lib/tools";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://freeuscalculator.in";
+  // ✅ FIXED: use www version
+  const baseUrl = "https://www.freeuscalculator.in";
   const now = new Date();
 
   // ✅ Homepage
@@ -15,9 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // ✅ Core Pages (ONLY if they exist)
+  // ✅ Core Pages
   const corePages = [
-    
     "/earning-calculators",
     "/tax-calculators",
     "/cost-calculators",
@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // ✅ ALL Tool Pages (AUTO from your registry)
+  // ✅ Tool Pages
   const toolPages = allTools.map((tool) => ({
     url: `${baseUrl}/${tool.slug}`,
     lastModified: now,
@@ -43,16 +43,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         : 0.8,
   }));
 
-  // ✅ ONLY YOUR EXISTING BLOG PAGE
-  const blogPages = [
-    "/blog" // 👉 only include if this page exists
-  ].map((path) => ({
+  // ✅ Blog Page
+  const blogPages = ["/blog"].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
-  // ✅ FINAL
+  // ✅ Final Sitemap
   return [...home, ...corePages, ...toolPages, ...blogPages];
 }
