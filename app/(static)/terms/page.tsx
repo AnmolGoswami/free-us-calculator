@@ -7,16 +7,16 @@ export const metadata = {
   description: "Read the Terms of Service for using FreeUSCalculator. Our free 2026 financial calculators are provided as-is for estimation purposes only.",
   keywords: ["terms of service", "freeuscalculator terms", "calculator disclaimer", "legal terms"],
   alternates: {
-    canonical: "https://freeuscalculator.in/terms",
+    canonical: "https://www.freeuscalculator.in/terms",
   },
 };
 
 export default function TermsOfService() {
   const jsonLd = {
-    "@context": "https://schema.org",
+    "@context": "https://www.schema.org",
     "@type": "WebPage",
     name: "Terms of Service",
-    url: "https://freeuscalculator.in/terms",
+    url: "https://www.freeuscalculator.in/terms",
   };
 
   return (

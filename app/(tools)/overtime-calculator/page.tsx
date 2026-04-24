@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Free overtime pay calculator for 2026. Calculate time and a half (1.5x), double time (2x), and total overtime earnings instantly. Includes weekly, monthly, yearly pay breakdowns and tax estimates for accurate take-home pay.",
 
   alternates: {
-    canonical: "https://freeuscalculator.in/overtime-calculator",
+    canonical: "https://www.freeuscalculator.in/overtime-calculator",
   },
 
   keywords: [
@@ -138,7 +138,7 @@ export default function OvertimePage() {
           </div>
           <ShareButtons
             title="Professional Overtime Calculator 2026"
-            url="https://freeuscalculator.in/overtime-calculator"   // ← Clean URL
+            url="https://www.freeuscalculator.in/overtime-calculator"   // ← Clean URL
           />
         </div>
       </section>

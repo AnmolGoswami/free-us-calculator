@@ -9,7 +9,7 @@ export const metadata = {
   description: "Practical 2026 financial guides: self-employment tax, Uber & DoorDash earnings, salary after tax, rent affordability and more. All tools are free and updated for Tax Year 2026.",
   keywords: ["2026 tax guide", "gig economy taxes 2026", "self employment tax 2026", "uber earnings 2026", "salary after tax", "rent affordability 2026"],
   alternates: {
-    canonical: "https://freeuscalculator.in/blog",
+    canonical: "https://www.freeuscalculator.in/blog",
   },
 };
 
@@ -17,15 +17,15 @@ export const dynamic = "force-dynamic";
 
 export default function BlogPage() {
   const jsonLd = {
-    "@context": "https://schema.org",
+    "@context": "https://www.schema.org",
     "@type": "Blog",
     name: "FreeUSCalculator Blog",
-    url: "https://freeuscalculator.in/blog",
+    url: "https://www.freeuscalculator.in/blog",
     description: "Short practical guides on 2026 taxes, gig work earnings, loans, rent and savings using free calculators.",
     publisher: {
       "@type": "Organization",
       name: "FreeUSCalculator",
-      logo: "https://freeuscalculator.in/logo.png",
+      logo: "https://www.freeuscalculator.in/logo.png",
     },
   };
 

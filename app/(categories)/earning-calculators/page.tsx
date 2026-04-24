@@ -22,7 +22,7 @@ export const metadata = {
     "freelance income calculator",
   ],
   alternates: {
-    canonical: "https://freeuscalculator.in/earning-calculators",
+    canonical: "https://www.freeuscalculator.in/earning-calculators",
   },
   openGraph: {
     title: "Free Earnings Calculators 2026 | Uber, DoorDash & Salary Tools",

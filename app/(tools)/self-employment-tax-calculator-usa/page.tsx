@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Free self-employment tax calculator to estimate SE tax (15.3%), Social Security, Medicare, and quarterly taxes. Perfect for freelancers, 1099 workers, and small business owners in 2026.",
 
   alternates: {
-    canonical: "https://freeuscalculator.in/self-employment-tax-calculator-usa",
+    canonical: "https://www.freeuscalculator.in/self-employment-tax-calculator-usa",
   },
 
   keywords: [
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     title: "Self-Employment Tax Calculator 2026 – Estimate SE Tax & Quarterly Payments",
     description:
       "Calculate your self-employment tax, Social Security, Medicare, and quarterly taxes instantly. Built for freelancers and 1099 workers.",
-    url: "https://freeuscalculator.in/self-employment-tax-calculator-usa",
+    url: "https://www.freeuscalculator.in/self-employment-tax-calculator-usa",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -235,7 +235,7 @@ export default function SelfEmploymentTaxPage() {
                 <h4 className="text-xs font-black text-amber-900 uppercase tracking-widest mb-4 text-center">Share This Tool</h4>
                 <ShareButtons 
                   title="2026 Self-Employment Tax Calculator" 
-                  url="https://freeuscalculator.in/self-employment-tax-calculator-usa" 
+                  url="https://www.freeuscalculator.in/self-employment-tax-calculator-usa" 
                 />
               </div>
 

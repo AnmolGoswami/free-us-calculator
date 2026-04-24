@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "Free rent affordability calculator to estimate how much rent you can afford using the 30% rule, income, and debt. Calculate your apartment budget and monthly rent easily for 2026.",
 
   alternates: {
-    canonical: "https://freeuscalculator.in/rent-affordability-calculator",
+    canonical: "https://www.freeuscalculator.in/rent-affordability-calculator",
   },
 
   keywords: [
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     title: "Rent Affordability Calculator 2026 – Find Your Ideal Rent Budget",
     description:
       "Calculate how much rent you can afford using income, expenses, and the 30% rule. Plan your housing budget instantly.",
-    url: "https://freeuscalculator.in/rent-affordability-calculator",
+    url: "https://www.freeuscalculator.in/rent-affordability-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -246,7 +246,7 @@ export default function RentAffordabilityPage() {
                 <h4 className="text-xs font-black text-blue-900 uppercase tracking-[0.2em] mb-6">Help Others Budget</h4>
                 <ShareButtons 
                   title="2026 Rent Affordability Master" 
-                  url="https://freeuscalculator.in/rent-affordability-calculator" 
+                  url="https://www.freeuscalculator.in/rent-affordability-calculator" 
                 />
               </div>
 

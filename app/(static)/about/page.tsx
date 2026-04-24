@@ -16,22 +16,22 @@ export const metadata = {
     "why use freeuscalculator",
   ],
   alternates: {
-    canonical: "https://freeuscalculator.in/about",
+    canonical: "https://www.freeuscalculator.in/about",
   },
 };
 export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
   const jsonLd = {
-    "@context": "https://schema.org",
+    "@context": "https://www.schema.org",
     "@type": "AboutPage",
     name: "About FreeUSCalculator",
-    url: "https://freeuscalculator.in/about",
+    url: "https://www.freeuscalculator.in/about",
     description: "FreeUSCalculator offers 85+ free, accurate financial calculators updated for Tax Year 2026. Trusted by over 75,000 Americans.",
     publisher: {
       "@type": "Organization",
       name: "FreeUSCalculator",
-      logo: "https://freeuscalculator.in/logo.png",
+      logo: "https://www.freeuscalculator.in/logo.png",
     }
   };
 

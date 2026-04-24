@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "Free USA paycheck calculator for all 50 states. Calculate your take-home pay after federal, state, and FICA taxes with accurate 2026 salary and hourly breakdowns.",
 
   alternates: {
-    canonical: "https://freeuscalculator.in/paycheck-calculator",
+    canonical: "https://www.freeuscalculator.in/paycheck-calculator",
   },
 
   keywords: [
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: "USA Paycheck Calculator 2026 – Calculate Your Real Take Home Pay",
     description:
       "Estimate your take-home pay after federal, state, and FICA taxes for all 50 US states instantly.",
-    url: "https://freeuscalculator.in/paycheck-calculator",
+    url: "https://www.freeuscalculator.in/paycheck-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -236,7 +236,7 @@ export default function PaycheckCaliforniaPage() {
                 <h4 className="text-xs font-black text-amber-900 uppercase tracking-[0.2em] mb-6">Share This Tool</h4>
                 <ShareButtons 
                   title="California Paycheck Calculator 2026" 
-                  url="https://freeuscalculator.in/paycheck-calculator-california" 
+                  url="https://www.freeuscalculator.in/paycheck-calculator-california" 
                 />
               </div>
 

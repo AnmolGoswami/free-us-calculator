@@ -21,7 +21,7 @@ export const metadata = {
     "free loan affordability calculator",
   ],
   alternates: {
-    canonical: "https://freeuscalculator.in/cost-calculators",
+    canonical: "https://www.freeuscalculator.in/cost-calculators",
   },
   openGraph: {
     title: "Best Free Cost Calculators 2026 | EMI, Rent & Savings Tools",

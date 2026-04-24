@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "Free savings calculator to estimate compound interest, monthly contributions, and retirement goals. Plan how much to save and grow your money faster in 2026.",
 
   alternates: {
-    canonical: "https://freeuscalculator.in/savings-calculator",
+    canonical: "https://www.freeuscalculator.in/savings-calculator",
   },
 
   keywords: [
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     title: "Savings Calculator 2026 – Plan Your Money Growth with Compound Interest",
     description:
       "Estimate your savings growth, monthly contributions, and retirement goals with our free calculator.",
-    url: "https://freeuscalculator.in/savings-calculator",
+    url: "https://www.freeuscalculator.in/savings-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -234,7 +234,7 @@ export default function SavingsCalculatorPage() {
                 <h4 className="text-xs font-black text-emerald-900 uppercase tracking-widest mb-4 text-center">Share This Tool</h4>
                 <ShareButtons 
                   title="2026 Savings Goal Calculator" 
-                  url="https://freeuscalculator.in/savings-calculator" 
+                  url="https://www.freeuscalculator.in/savings-calculator" 
                 />
               </div>
 

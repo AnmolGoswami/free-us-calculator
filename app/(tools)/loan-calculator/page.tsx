@@ -23,14 +23,14 @@ export const metadata: Metadata = {
     "deferred payment calculator", "bond calculator", "loan interest calculator", "mortgage calculator 2026",
     // ... keep your full list
   ],
-  authors: [{ name: "FreeUSCalculator", url: "https://freeuscalculator.in" }],
+  authors: [{ name: "FreeUSCalculator", url: "https://www.freeuscalculator.in" }],
   creator: "FreeUSCalculator",
   publisher: "FreeUSCalculator",
-  alternates: { canonical: "https://freeuscalculator.in/loan-calculator" },
+  alternates: { canonical: "https://www.freeuscalculator.in/loan-calculator" },
   openGraph: {
     title: "Advanced Finance Calculator 2026 – Loans, Bonds, Amortization & Investment Tools",
     description: "All-in-one financial calculator for 2026. Compute EMI, amortization, deferred payments, bonds instantly.",
-    url: "https://freeuscalculator.in/loan-calculator",
+    url: "https://www.freeuscalculator.in/loan-calculator",
     siteName: "FreeUSCalculator",
     images: [{ url: "/images/finance-calculator-og.jpg", width: 1200, height: 630, alt: "Advanced Finance Calculator 2026" }],
   },
@@ -55,11 +55,11 @@ export default function LoanCalculatorPage() {
 
   // Structured Data (JSON-LD)
   const jsonLd = {
-    "@context": "https://schema.org",
+    "@context": "https://www.schema.org",
     "@type": "WebApplication",
     "name": "Loan Precision Scheduler 2026",
     "description": "Advanced EMI, amortization and financial calculator with institutional-grade accuracy.",
-    "url": "https://freeuscalculator.in/loan-calculator",
+    "url": "https://www.freeuscalculator.in/loan-calculator",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Any",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -67,7 +67,7 @@ export default function LoanCalculatorPage() {
   };
 
   const faqJsonLd = {
-    "@context": "https://schema.org",
+    "@context": "https://www.schema.org",
     "@type": "FAQPage",
     "mainEntity": faqs.map(f => ({
       "@type": "Question",
@@ -164,7 +164,7 @@ export default function LoanCalculatorPage() {
                 <Info size={20} className="text-blue-500" />
                 <span className="font-medium">Algorithm v2.6 — Institutional Grade</span>
               </div>
-              <ShareButtons title="Loan Precision Calculator 2026" url="https://freeuscalculator.in/loan-calculator" />
+              <ShareButtons title="Loan Precision Calculator 2026" url="https://www.freeuscalculator.in/loan-calculator" />
             </div>
           </div>
 

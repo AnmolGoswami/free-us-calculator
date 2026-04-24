@@ -27,19 +27,41 @@ export const allTools: Tool[] = [
   // ==================== EARNING TOOLS ====================
 
   {
-    slug: "hourly-to-salary-calculator",
-    title: "Hourly to Salary Calculator 2026",
-    shortTitle: "Hourly to Salary",
-    description: "Convert hourly wage to annual salary with overtime, benefits, and taxes.",
-    category: "earning",
-    metaTitle: "Hourly to Salary Calculator 2026 - Free Wage Converter",
-    metaDescription: "Convert your hourly rate to yearly, monthly, weekly salary including overtime and tax estimates for 2026.",
-    keywords: ["hourly to salary calculator", "hourly wage to salary", "hourly to annual salary", "2026 salary calculator"],
-    lastUpdated: "April 2026",
-    popularity: 9,
-    featured: true,
-    estimatedTime: "30 sec",
-  },
+  slug: "hourly-to-salary-calculator",
+
+  title: "Hourly to Salary Calculator – Convert Hourly Wage to Annual Salary Instantly",
+
+  shortTitle: "Hourly to Salary",
+
+  description: "Convert hourly wage to annual salary instantly. Calculate yearly, monthly, and weekly income with overtime, taxes, and real take-home estimates.",
+
+  category: "earning",
+
+  metaTitle: "Hourly to Salary Calculator (2026) – Convert Hourly Wage to Annual Salary",
+
+  metaDescription: "Free hourly to salary calculator. Convert hourly pay to yearly, monthly, and weekly income with overtime, taxes, and real take-home estimates. Fast & accurate.",
+
+  keywords: [
+    "hourly to salary calculator",
+    "hourly wage to annual salary",
+    "convert hourly to yearly salary",
+    "hourly to monthly salary calculator",
+    "hourly to weekly pay calculator",
+    "salary calculator hourly rate",
+    "convert hourly wage to salary",
+    "take home pay hourly to salary",
+    "overtime hourly to salary calculator",
+    "2026 salary calculator"
+  ],
+
+  lastUpdated: "April 2026",
+
+  popularity: 9,
+
+  featured: true,
+
+  estimatedTime: "30 sec",
+},
 
   {
     slug: "salary-to-hourly-calculator",

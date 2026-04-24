@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     "free us calculators", "2026 federal tax calculator"
   ],
   
-  authors: [{ name: "FreeUSCalculator", url: "https://freeuscalculator.in" }],
-  alternates: { canonical: "https://freeuscalculator.in" },
+  authors: [{ name: "FreeUSCalculator", url: "https://www.freeuscalculator.in" }],
+  alternates: { canonical: "https://www.freeuscalculator.in" },
   
   openGraph: {
     title: "FreeUSCalculator - Best Free 2026 US Tax & Earnings Calculators",

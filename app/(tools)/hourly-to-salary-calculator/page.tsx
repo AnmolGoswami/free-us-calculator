@@ -14,86 +14,22 @@ export const metadata: Metadata = {
     "Free hourly to salary calculator for 2026. Convert hourly wage to annual salary instantly. Includes overtime (1.5x), weekly, biweekly, monthly breakdowns, and tax estimates for accurate take-home pay.",
 
   alternates: {
-    canonical: "https://freeuscalculator.in/hourly-to-salary-calculator",
+    canonical: "https://www.freeuscalculator.in/hourly-to-salary-calculator",
   },
 
   keywords: [
-    // 🔥 PRIMARY (HIGH TRAFFIC)
-    "hourly to salary calculator",
-    "hourly wage to salary",
-    "convert hourly to annual salary",
-    "salary calculator from hourly",
-    "hourly rate calculator",
-
-    // ⚡ LONG-TAIL (FAST RANKING)
-    "hourly to yearly salary calculator 2026",
-    "convert hourly wage to annual income USA",
-    "hourly to monthly salary calculator",
-    "hourly to weekly pay calculator",
-    "hourly to biweekly salary calculator",
-
-    // 💰 HIGH INTENT (USER READY TO USE TOOL)
-    "how much is hourly wage per year",
-    "what is my yearly salary from hourly pay",
-    "calculate annual income from hourly rate",
-    "true salary from hourly wage",
-    "hourly income to yearly salary",
-
-    // 🚀 ULTRA LOW COMPETITION (FAST TRAFFIC)
-    "20 dollars an hour is how much a year",
-    "25 an hour salary per year full time",
-    "30 an hour yearly salary calculator",
-    "15 an hour monthly salary after tax",
-    "40 per hour annual salary calculator",
-
-    // 🧠 SEMANTIC SEO (AI + GOOGLE SGE)
-    "gross hourly vs net salary calculator",
-    "hourly wage after tax calculator",
-    "salary breakdown hourly to yearly",
-    "income conversion calculator",
-    "earnings calculator hourly to salary",
-
-    // 📈 FEATURE-BASED KEYWORDS (BOOST CTR)
-    "hourly to salary calculator with overtime",
-    "hourly to salary calculator with taxes",
-    "net hourly to annual salary calculator",
-    "salary estimator from hourly pay",
-    "hourly pay to yearly take home calculator",
-
-    // 🎯 NICHE TARGETING (EASY WINS)
-    "freelancer hourly to salary calculator",
-    "part time hourly to salary calculator",
-    "full time hourly wage to salary",
-    "remote job hourly salary calculator",
-    "gig worker hourly income calculator",
-
-    // 🔥 QUESTION-BASED (FEATURED SNIPPETS)
-    "how to convert hourly wage to salary",
-    "hourly to salary formula calculation",
-    "what is annual salary for hourly workers",
-    "how many hours per year for salary calculation",
-    "difference between hourly and salary pay",
-
-    // 🏆 BROAD TRAFFIC EXPANSION
-    "salary calculator",
-    "income calculator",
-    "earnings calculator",
-    "paycheck calculator",
-    "tax calculator",
-
-    // 🔥 LONG-TAIL CLUSTER (VERY POWERFUL)
-    "best hourly to salary calculator 2026 free online",
-    "convert hourly wage to annual salary with overtime and taxes",
-    "accurate hourly to yearly salary calculator with breakdown",
-    "real income calculator hourly to monthly weekly yearly",
-    "calculate full time salary from hourly wage step by step",
-  ],
+  "hourly to salary calculator",
+  "convert hourly to annual salary",
+  "hourly wage to yearly income",
+  "hourly to monthly salary",
+  "hourly to weekly pay"
+],
 
   openGraph: {
-    title: "Hourly to Salary Calculator 2026 – Convert Your Wage Instantly",
+    title: "Hourly to Salary Calculator (2026) – Convert Hourly Pay to Annual Salary Instantly",
     description:
       "Convert hourly pay to annual salary with overtime and tax estimates.",
-    url: "https://freeuscalculator.in/hourly-to-salary-calculator",
+    url: "https://www.freeuscalculator.in/hourly-to-salary-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
@@ -227,7 +163,7 @@ export default function HourlyToSalaryPage() {
               {/* Social Share Card */}
               <div className="bg-blue-50/50 rounded-[2rem] p-6 border border-blue-100/50">
                 <h4 className="text-xs font-black text-blue-900 uppercase tracking-widest mb-4 text-center">Share Engine</h4>
-                <ShareButtons title="2026 Hourly to Salary" url="https://freeuscalculator.in/hourly-to-salary-calculator" />
+                <ShareButtons title="2026 Hourly to Salary" url="https://www.freeuscalculator.in/hourly-to-salary-calculator" />
               </div>
 
             </aside>
