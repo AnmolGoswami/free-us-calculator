@@ -5,7 +5,8 @@ import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import DisclaimerToast from "@/components/common/DisclaimerToast";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,31 +21,50 @@ export const metadata: Metadata = {
   },
   description:
     "100% Free & accurate 2026 US calculators. Self-employment tax, salary after tax, California paycheck, Uber & DoorDash earnings, loan EMI, rent affordability & more. Instant results. No signup required.",
-  
+
   keywords: [
-    "free tax calculator 2026", "self employment tax calculator", "salary after tax calculator",
-    "california paycheck calculator", "uber earnings calculator", "doordash earnings calculator",
-    "loan emi calculator", "rent affordability calculator", "2026 tax brackets", "gig worker tax calculator",
-    "free us calculators", "2026 federal tax calculator"
+    "free tax calculator 2026",
+    "self employment tax calculator",
+    "salary after tax calculator",
+    "california paycheck calculator",
+    "uber earnings calculator",
+    "doordash earnings calculator",
+    "loan emi calculator",
+    "rent affordability calculator",
+    "2026 tax brackets",
+    "gig worker tax calculator",
+    "free us calculators",
+    "2026 federal tax calculator",
   ],
-  
-  authors: [{ name: "FreeUSCalculator", url: "https://www.freeuscalculator.in" }],
+
+  authors: [
+    { name: "FreeUSCalculator", url: "https://www.freeuscalculator.in" },
+  ],
   alternates: { canonical: "https://www.freeuscalculator.in" },
-  
+
   openGraph: {
     title: "FreeUSCalculator - Best Free 2026 US Tax & Earnings Calculators",
-    description: "Instant, accurate & completely free calculators for Americans updated for 2026 tax year.",
-    images: [{ url: "/images/hero-background.jpg", width: 1200, height: 630, alt: "Free US Calculators 2026" }],
+    description:
+      "Instant, accurate & completely free calculators for Americans updated for 2026 tax year.",
+    images: [
+      {
+        url: "/images/hero-background.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Free US Calculators 2026",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
-  
+
   twitter: {
     card: "summary_large_image",
     title: "Free 2026 US Tax & Earnings Calculators",
-    description: "Accurate paycheck, tax & gig work calculators. No signup needed.",
+    description:
+      "Accurate paycheck, tax & gig work calculators. No signup needed.",
   },
-  
+
   robots: { index: true, follow: true },
 };
 
@@ -55,12 +75,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      
+      {/* ✅ AdSense Script (CORRECT PLACEMENT) */}
+      <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6927869283378042"
+     crossOrigin="anonymous"></script>
+      </head>
+
       <body className={`${inter.variable} font-sans antialiased bg-gray-50`}>
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
-        <DisclaimerToast/>
-        <Analytics/>
+        <DisclaimerToast />
+        <Analytics />
       </body>
     </html>
   );
