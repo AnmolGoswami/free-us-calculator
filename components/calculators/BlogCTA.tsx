@@ -1,16 +1,5 @@
 "use client";
-/**
- * BlogCTA — Drop this anywhere in your DoorDash tool page.
- *
- * It creates a bidirectional SEO link between tool page ↔ blog page,
- * signals topical authority to Google (two URLs covering the same topic
- * from different angles), and gives users a reason to visit the blog post.
- *
- * Usage in DoorDashPage (page.tsx):
- *   import BlogCTA from "@/components/calculators/BlogCTA";
- *   // Place after the STATS BAR section or before the FAQ section:
- *   <BlogCTA />
- */
+
 
 import Link from "next/link";
 import { ArrowRight, BookOpen, Clock, CheckCircle2 } from "lucide-react";
