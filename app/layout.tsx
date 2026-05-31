@@ -181,6 +181,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Placing them here keeps them completely outside React's SSR head
           reconciliation, so there is zero risk of hydration mismatch.
         */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6927869283378042"
+          crossOrigin="anonymous"></script>
         <Script
           id="schema-organization"
           type="application/ld+json"
