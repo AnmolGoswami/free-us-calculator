@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getToolBySlug } from "@/lib/tools";
+import { allTools, getToolBySlug, Tool } from "@/lib/tools";
 
 interface RelatedTool {
   slug: string;
@@ -18,31 +18,46 @@ export default function RelatedCalculators({
   title = "Related Calculators You Might Find Useful",
   tools,
 }: RelatedCalculatorsProps) {
+  let relatedToolsData: Tool[] = [];
 
-  const defaultTools: RelatedTool[] = [
-    {
-      slug: "salary-after-tax-calculator",
-      title: "Salary After Tax Calculator",
-      description: "Calculate your real take-home salary after taxes.",
-    },
-    {
-      slug: "paycheck-calculator",
-      title: "Paycheck Calculator",
-      description: "Estimate your exact paycheck after deductions.",
-    },
-    {
-      slug: "loan-calculator",
-      title: "Loan Calculator",
-      description: "Calculate EMI, total interest, and loan payments.",
-    },
-    {
-      slug: "rent-affordability-calculator",
-      title: "Rent Affordability Calculator",
-      description: "Find how much rent you can afford easily.",
-    },
-  ];
+  // If tools are explicitly provided, use them.
+  if (tools && tools.length > 0) {
+    relatedToolsData = tools
+      .map((t) => getToolBySlug(t.slug))
+      .filter((t): t is Tool => t !== undefined);
+  } else {
+    // Dynamically find tools based on category
+    const currentToolData = getToolBySlug(currentTool);
 
-  const relatedTools = tools || defaultTools;
+    if (currentToolData) {
+      // Find tools in the same category, excluding the current one
+      let sameCategoryTools = allTools.filter(
+        (t) => t.category === currentToolData.category && t.slug !== currentTool
+      );
+
+      // Sort by popularity (descending)
+      sameCategoryTools.sort((a, b) => b.popularity - a.popularity);
+
+      // Take up to 3
+      relatedToolsData = sameCategoryTools.slice(0, 3);
+
+      // If we don't have enough, pad with popular tools from other categories
+      if (relatedToolsData.length < 3) {
+        const otherPopularTools = allTools
+          .filter((t) => t.category !== currentToolData.category && t.slug !== currentTool)
+          .sort((a, b) => b.popularity - a.popularity);
+
+        relatedToolsData = [...relatedToolsData, ...otherPopularTools].slice(0, 3);
+      }
+    } else {
+      // Fallback if current tool is not found
+      relatedToolsData = allTools
+        .sort((a, b) => b.popularity - a.popularity)
+        .slice(0, 3);
+    }
+  }
+
+  if (!relatedToolsData || relatedToolsData.length === 0) return null;
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -59,8 +74,11 @@ export default function RelatedCalculators({
 
       {/* 🔥 Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {relatedTools.map((tool) => {
-          const toolData = getToolBySlug(tool.slug);
+        {relatedToolsData.map((tool) => {
+          // If tools were explicitly passed, we might want to use their custom title/description
+          const explicitTool = tools?.find((t) => t.slug === tool.slug);
+          const displayTitle = explicitTool?.title || tool.shortTitle || tool.title;
+          const displayDescription = explicitTool?.description || tool.description;
 
           return (
             <article
@@ -72,7 +90,7 @@ export default function RelatedCalculators({
 
               {/* Category */}
               <div className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3">
-                {toolData?.category?.toUpperCase() || "TOOL"}
+                {tool.category?.toUpperCase() || "TOOL"}
               </div>
 
               {/* Title */}
@@ -81,13 +99,13 @@ export default function RelatedCalculators({
                   href={`/${tool.slug}`}
                   className="hover:text-blue-600 transition-colors"
                 >
-                  {tool.title}
+                  {displayTitle}
                 </Link>
               </h3>
 
               {/* Description */}
               <p className="text-slate-600 text-sm sm:text-[15px] leading-relaxed mb-5">
-                {tool.description}
+                {displayDescription}
               </p>
 
               {/* CTA */}
@@ -95,7 +113,7 @@ export default function RelatedCalculators({
                 href={`/${tool.slug}`}
                 className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm hover:gap-3 transition-all"
               >
-                Use {tool.title.toLowerCase()} →
+                Use {displayTitle.toLowerCase()} →
               </Link>
             </article>
           );

@@ -1,50 +1,60 @@
-// app/salary-after-tax-calculator/page.tsx
 import { Metadata } from "next";
 import Link from "next/link";
+import CalculatorContainer from "@/components/ui/CalculatorContainer";
+import FAQ from "@/components/calculators/FAQ";
+import ShareButtons from "@/components/calculators/ShareButtons";
+import RelatedCalculators from "@/components/calculators/RelatedCalculators";
+import SalaryToHourlyCalculator from "@/components/calculators/SalaryToHourlyCalculator";
 import {
-  ChevronRight, Star, CheckCircle2, ArrowRight,
-  Shield, Zap, Calculator, TrendingUp, Info,
-  BookOpen, BarChart3, Globe, DollarSign,
+  Sparkles,
+  Zap,
+  ShieldCheck,
+  RefreshCw,
+  BookOpen,
+  ChevronRight,
+  Clock,
+  Briefcase,
+  AlertCircle,
+  Calculator,
+  ArrowRight,
+  CheckCircle2,
+  DollarSign,
+  Globe,
+  TrendingUp
 } from "lucide-react";
-import SalaryAfterTaxClient from "../salary-after-tax-calculator/SalaryAfterTaxClient";
 
 export const dynamic = "force-dynamic";
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Salary After Tax Calculator 2026 – Take-Home Pay All 50 States",
+  title: "Salary to Hourly Calculator 2026 – See Your True Hourly Rate",
   description:
-    "Free salary after tax calculator for all 50 US states. Find your exact take-home pay after federal, state & FICA taxes. Includes 2026 IRS rates, 401(k), HSA deductions. Instant results.",
+    "Convert your annual salary into an hourly wage. Find out exactly how much you make per hour based on 2026 workweek standards. Perfect for contract negotiation.",
   alternates: {
-    canonical: "https://www.freeuscalculator.in/salary-after-tax-calculator",
+    canonical: "https://www.freeuscalculator.in/salary-to-hourly-calculator",
   },
   keywords: [
-    "salary after tax calculator",
-    "take home pay calculator",
-    "net salary calculator usa 2026",
-    "income after tax calculator",
-    "gross to net salary calculator",
-    "salary after tax all 50 states",
-    "60000 salary after tax usa",
-    "100000 salary after tax usa",
-    "take home pay after federal state fica taxes",
-    "salary calculator with 401k deductions",
-    "effective tax rate calculator 2026",
-    "california salary after tax calculator",
-    "texas salary after tax calculator",
-    "new york take home pay calculator",
+    "salary to hourly calculator",
+    "convert salary to hourly",
+    "annual salary to hourly wage",
+    "what is 100k a year hourly",
+    "60k salary to hourly",
+    "salary breakdown calculator",
+    "contractor rate vs salary",
+    "remote worker salary conversion"
   ],
   openGraph: {
-    title: "Salary After Tax Calculator 2026 – Real Take-Home Pay All 50 States",
+    title: "Salary to Hourly Calculator 2026 – See Your True Hourly Rate",
     description:
-      "Calculate your exact take-home pay after federal, state & FICA taxes. 2026 IRS rates. Free, all 50 states, instant results.",
-    url: "https://www.freeuscalculator.in/salary-after-tax-calculator",
+      "Instantly calculate your hourly, daily, and weekly wage from your annual salary.",
+    url: "https://www.freeuscalculator.in/salary-to-hourly-calculator",
+    siteName: "Free US Calculator",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Salary After Tax Calculator 2026 – All 50 States",
-    description: "Real take-home pay after all taxes. Free, instant, no signup.",
+    title: "Salary to Hourly Calculator – Find Your Wage",
+    description: "Convert your annual salary to an hourly rate instantly.",
   },
   robots: {
     index: true,
@@ -57,90 +67,46 @@ export const metadata: Metadata = {
 const SCHEMA_WEBAPP = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Salary After Tax Calculator 2026",
+  name: "Salary to Hourly Calculator 2026",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
-  description:
-    "Free salary after tax calculator for all 50 US states. Calculates take-home pay after 2026 federal income tax, state income tax, Social Security (6.2% on wages up to $176,100), Medicare (1.45%), and pre-tax deductions including 401(k) and HSA.",
-  url: "https://www.freeuscalculator.in/salary-after-tax-calculator",
+  description: "Converts annual salaries into equivalent hourly wages for employees and contractors.",
+  url: "https://www.freeuscalculator.in/salary-to-hourly-calculator",
   isAccessibleForFree: true,
-  dateModified: "2026-05-28",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    ratingCount: "12847",
-    bestRating: "5",
-  },
-  featureList: [
-    "All 50 US states + Washington D.C.",
-    "2026 federal income tax brackets",
-    "State income tax for all 50 states",
-    "Social Security (6.2%, wage base $176,100)",
-    "Medicare (1.45% + 0.9% surtax above $200K)",
-    "Pre-tax deductions: 401(k) $23,500 limit, HSA",
-    "Effective and marginal tax rate display",
-    "Annual, monthly, and biweekly breakdowns",
-  ],
 });
 
 const SCHEMA_BREADCRUMB = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home",             item: "https://www.freeuscalculator.in" },
-    { "@type": "ListItem", position: 2, name: "Tax Calculators",  item: "https://www.freeuscalculator.in/tax-calculators" },
-    { "@type": "ListItem", position: 3, name: "Salary After Tax", item: "https://www.freeuscalculator.in/salary-after-tax-calculator" },
-  ],
-});
-
-const SCHEMA_HOWTO = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  name: "How to Calculate Your Salary After Tax",
-  totalTime: "PT1M",
-  step: [
-    { "@type": "HowToStep", position: 1, name: "Enter gross salary",   text: "Type your annual salary or use the preset buttons ($40K–$150K). Drag the slider for quick adjustments." },
-    { "@type": "HowToStep", position: 2, name: "Select filing status", text: "Choose Single, Married Filing Jointly, Head of Household, or Married Separately. This affects your standard deduction and brackets." },
-    { "@type": "HowToStep", position: 3, name: "Choose your state",    text: "Pick your state. Tax ranges from 0% (TX, FL) to 13.3% top rate (CA). Results update instantly." },
-    { "@type": "HowToStep", position: 4, name: "Add deductions",       text: "Toggle Advanced Options to enter 401(k), HSA, or other pre-tax deductions to reduce taxable income." },
-    { "@type": "HowToStep", position: 5, name: "Read your results",    text: "See annual, monthly, and biweekly take-home with a full tax breakdown and donut chart." },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.freeuscalculator.in" },
+    { "@type": "ListItem", position: 2, name: "Salary Calculators", item: "https://www.freeuscalculator.in/salary-calculators" },
+    { "@type": "ListItem", position: 3, name: "Salary to Hourly", item: "https://www.freeuscalculator.in/salary-to-hourly-calculator" },
   ],
 });
 
 const FAQS_DATA = [
   {
-    q: "How much is a $60,000 salary after tax in the USA?",
-    a: "On a $60,000 salary (single, average state tax), take-home is approximately $47,000–$49,000/year ($3,900–$4,080/month). Federal tax takes ~$5,900, FICA takes ~$4,590, and state tax varies from $0 (Texas/Florida) to $4,000+ (California/New York). Use the calculator above for your exact state.",
+    q: "How do you calculate an hourly rate from a salary?",
+    a: "Divide your total annual salary by the number of hours you work in a year. A standard full-time year is 2,080 hours (40 hours/week × 52 weeks). So, a $50,000 salary ÷ 2,080 = $24.04 per hour."
   },
   {
-    q: "What is a $100,000 salary after tax in the USA?",
-    a: "On $100,000 (single filer), take-home is approximately $72,000–$76,000/year depending on state. Federal tax is ~$15,800 (effective rate ~15.8%), FICA takes $7,650. Texas/Florida nets ~$76,550. California nets ~$68,500 — an $8,050/year difference.",
+    q: "What is a $100,000 salary per hour?",
+    a: "Based on a 40-hour workweek and 52 weeks a year, $100,000 broken down into an hourly wage is exactly $48.08 an hour."
   },
   {
-    q: "What is the 2026 federal standard deduction?",
-    a: "The 2026 standard deduction is $15,000 for single filers and $30,000 for married filing jointly. This reduces your taxable income before brackets are applied. On a $75,000 salary (single), you pay federal tax on $60,000, not the full amount.",
+    q: "How much is $60,000 a year hourly?",
+    a: "A $60,000 annual salary converts to $28.85 an hour, assuming a standard 2,080 hour working year."
   },
   {
-    q: "What is the difference between effective and marginal tax rate?",
-    a: "Marginal rate is the rate on your next dollar of income. Effective rate is the percentage of your total income paid in tax. On $75,000 (single), your marginal rate is 22% but your effective federal rate is ~13.6% — because lower income is taxed at 10% and 12% first.",
+    q: "Does my salary cover unpaid overtime?",
+    a: "If you are an 'exempt' salaried employee in the US, your salary is meant to cover all hours worked, even if you work 50+ hours a week. This means your true hourly rate drops the more overtime you work. You can adjust the hours in our calculator to see your actual diminished hourly rate."
   },
   {
-    q: "How does a 401(k) reduce my take-home tax?",
-    a: "Traditional 401(k) contributions reduce federal and state taxable income. The 2026 limit is $23,500 (under 50). Contributing $10,000/year in the 22% federal bracket saves approximately $2,200 in federal tax, plus state tax savings on top.",
-  },
-  {
-    q: "Which states have no income tax in 2026?",
-    a: "Nine states have no wage income tax: Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington (no wage tax), and Wyoming. On a $100,000 salary, living in Texas vs California saves approximately $6,500–$8,000 per year in state income tax.",
-  },
-  {
-    q: "How is Social Security tax calculated in 2026?",
-    a: "Social Security tax is 6.2% on wages up to $176,100 (2026 wage base). Above this limit, SS tax stops. Medicare is 1.45% on all wages with no cap. An additional 0.9% Medicare surtax applies above $200,000 (single) or $250,000 (married). Maximum SS employee tax in 2026 is $10,918.",
-  },
-  {
-    q: "Can I use this for official tax filing?",
-    a: "This calculator is for estimation and planning only — not official tax filing. For your actual return, use IRS Free File or consult a licensed CPA. Results are estimates based on standard withholding tables and may not reflect your exact W-4 or employer-specific deductions.",
-  },
+    q: "If I become a contractor, should I use this exact hourly rate?",
+    a: "No. If you leave a salaried W-2 job to become a 1099 independent contractor doing the exact same work, you should multiply your calculated hourly rate by roughly 1.3x to 1.4x to cover the loss of benefits, health insurance, and paid time off."
+  }
 ];
 
 const SCHEMA_FAQ = JSON.stringify({
@@ -155,530 +121,359 @@ const SCHEMA_FAQ = JSON.stringify({
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const SALARY_TABLE = [
-  { salary: "$40,000", federal: "$2,568",  fica: "$3,060",  state: "$1,600", monthly: "$2,731", annual: "$32,772", eff: "18.1%" },
-  { salary: "$50,000", federal: "$4,068",  fica: "$3,825",  state: "$2,000", monthly: "$3,342", annual: "$40,107", eff: "19.8%" },
-  { salary: "$60,000", federal: "$5,918",  fica: "$4,590",  state: "$2,400", monthly: "$3,924", annual: "$47,092", eff: "21.5%" },
-  { salary: "$70,000", federal: "$7,918",  fica: "$5,355",  state: "$2,800", monthly: "$4,494", annual: "$53,927", eff: "23.0%" },
-  { salary: "$80,000", federal: "$10,294", fica: "$6,120",  state: "$3,200", monthly: "$5,032", annual: "$60,386", eff: "24.4%" },
-  { salary: "$100,000",federal: "$15,794", fica: "$7,650",  state: "$4,000", monthly: "$6,046", annual: "$72,556", eff: "27.4%" },
-  { salary: "$120,000",federal: "$21,294", fica: "$9,180",  state: "$4,800", monthly: "$7,061", annual: "$84,726", eff: "29.4%" },
-  { salary: "$150,000",federal: "$30,544", fica: "$11,475", state: "$6,000", monthly: "$8,582", annual: "$102,981",eff: "31.3%" },
-  { salary: "$200,000",federal: "$46,544", fica: "$14,505", state: "$8,000", monthly: "$10,996",annual: "$131,951",eff: "34.5%" },
+  { annual: "$40,000", hourly: "$19.23", weekly: "$769", daily: "$153" },
+  { annual: "$50,000", hourly: "$24.04", weekly: "$961", daily: "$192" },
+  { annual: "$60,000", hourly: "$28.85", weekly: "$1,153", daily: "$230" },
+  { annual: "$75,000", hourly: "$36.05", weekly: "$1,442", daily: "$288" },
+  { annual: "$90,000", hourly: "$43.26", weekly: "$1,730", daily: "$346" },
+  { annual: "$100,000", hourly: "$48.08", weekly: "$1,923", daily: "$384" },
+  { annual: "$120,000", hourly: "$57.69", weekly: "$2,307", daily: "$461" },
+  { annual: "$150,000", hourly: "$72.11", weekly: "$2,884", daily: "$576" },
 ];
 
-const STATE_TABLE = [
-  { flag: "🤠", state: "Texas",      rate: "0%",        tax: "$0",     annual: "$76,550", monthly: "$6,379", diff: "—"       },
-  { flag: "🏖️", state: "Florida",    rate: "0%",        tax: "$0",     annual: "$76,550", monthly: "$6,379", diff: "—"       },
-  { flag: "🌵", state: "Arizona",    rate: "2.5% flat", tax: "$1,875", annual: "$74,675", monthly: "$6,223", diff: "−$1,875" },
-  { flag: "🏔️", state: "Colorado",   rate: "4.4% flat", tax: "$3,300", annual: "$73,250", monthly: "$6,104", diff: "−$3,300" },
-  { flag: "🌸", state: "Georgia",    rate: "5.49%",     tax: "$4,118", annual: "$72,432", monthly: "$6,036", diff: "−$4,118" },
-  { flag: "🗽", state: "New York",   rate: "4–10.9%",   tax: "$5,820", annual: "$70,730", monthly: "$5,894", diff: "−$5,820" },
-  { flag: "🌉", state: "California", rate: "1–13.3%",   tax: "$6,500", annual: "$70,050", monthly: "$5,838", diff: "−$6,500" },
-];
-
-const RELATED = [
-  { href: "/paycheck-calculator",          label: "Paycheck Calculator",       desc: "Per-paycheck breakdown with W-4"        },
-  { href: "/hourly-to-salary-calculator",  label: "Hourly to Salary",          desc: "Convert hourly rate to annual salary"   },
-  { href: "/overtime-calculator",          label: "Overtime Pay Calculator",    desc: "1.5× and 2× overtime pay"               },
-  { href: "/self-employment-tax-calculator-usa", label: "Self-Employment Tax", desc: "15.3% SE tax with deductible portion"   },
-  { href: "/savings-calculator",           label: "Savings Calculator",         desc: "Compound interest & future value"       },
-  { href: "/rent-affordability-calculator",label: "Rent Affordability",         desc: "How much rent can you afford?"          },
-];
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
-export default function SalaryAfterTaxPage() {
+export default function SalaryToHourlyPage() {
   return (
-    <main className="bg-white min-h-screen">
-
-      {/* JSON-LD */}
+    <main className="bg-slate-50 min-h-screen font-sans selection:bg-emerald-200 selection:text-emerald-900">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_WEBAPP }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_BREADCRUMB }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_HOWTO }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_FAQ }} />
 
       {/* ════════════════════════════════════════════════════════════════════
           HERO
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-950 text-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-6">
+      <section className="bg-white border-b border-slate-200/60 pt-8 pb-32 px-4 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-emerald-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
 
+        <div className="max-w-7xl mx-auto">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap">
-            <Link href="/" className="hover:text-slate-300 transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-8 flex-wrap justify-center md:justify-start">
+            <Link href="/" className="hover:text-emerald-600 transition-colors">Home</Link>
             <ChevronRight size={11} />
-            <Link href="/tax-calculators" className="hover:text-slate-300 transition-colors">Tax Calculators</Link>
+            <Link href="/salary-calculators" className="hover:text-emerald-600 transition-colors">Calculators</Link>
             <ChevronRight size={11} />
-            <span className="text-slate-400">Salary After Tax</span>
+            <span className="text-slate-900 font-medium">Salary to Hourly</span>
           </nav>
 
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
-                          bg-emerald-500/15 border border-emerald-500/20
-                          text-emerald-300 text-[10px] font-black uppercase tracking-widest mb-5">
-            <Zap size={11} className="fill-emerald-400" />
-            2026 IRS Rates · All 50 States · Instant Results
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-widest mb-6">
+              <TrendingUp size={12} className="text-emerald-600" />
+              Find Your True Value
+            </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
+              Salary to Hourly{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
+                Calculator
+              </span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
+              Convert your annual salary into an exact hourly wage. See how unpaid overtime is eating into your true hourly rate.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+              {[
+                { icon: Zap, label: "Instant Math" },
+                { icon: Clock, label: "True Hourly Rate" },
+                { icon: RefreshCw, label: "Contractor Compare" },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-2 bg-slate-100/80 text-slate-600 px-4 py-2 rounded-full text-xs font-bold border border-slate-200/50">
+                  <Icon size={14} className="text-emerald-500" />
+                  {label}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* H1 */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight
-                         leading-[1.05] mb-4">
-            Salary After Tax{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-indigo-400
-                             bg-clip-text text-transparent">
-              Calculator
-            </span>
-          </h1>
-
-          <p className="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-6">
-            Find your real <strong className="text-white">take-home pay after federal, state, and FICA taxes</strong>.
-            Updated for 2026 — all 50 states, 401(k), HSA deductions. No signup. Instant.
-          </p>
-
-          {/* Trust chips */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {[
-              { icon: Star,         label: "4.9/5 · 12,847 users",    cls: "text-amber-400"  },
-              { icon: CheckCircle2, label: "All 50 States + DC",       cls: "text-emerald-400"},
-              { icon: Shield,       label: "No data stored",           cls: "text-indigo-400" },
-              { icon: CheckCircle2, label: "401(k) & HSA included",    cls: "text-emerald-400"},
-              { icon: CheckCircle2, label: "100% Free · No Login",     cls: "text-emerald-400"},
-            ].map(({ icon: Icon, label, cls }) => (
-              <span
-                key={label}
-                className="flex items-center gap-1.5 text-xs font-semibold
-                           bg-white/8 border border-white/10 px-3 py-1.5 rounded-full text-slate-300"
-              >
-                <Icon size={11} className={cls} />
-                {label}
-              </span>
-            ))}
+          <div className="max-w-5xl mx-auto -mb-40 relative z-20">
+            <CalculatorContainer
+              title="Salary to Hourly Calculator"
+              description="Calculate your exact hourly wage from your yearly salary."
+              category="Finance"
+              lastUpdated="2026"
+            >
+              <SalaryToHourlyCalculator />
+            </CalculatorContainer>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          CALCULATOR
-      ════════════════════════════════════════════════════════════════════ */}
-      <section id="calculator" className="scroll-mt-16 bg-slate-950">
-        <SalaryAfterTaxClient />
-      </section>
+      <div className="h-40" />
 
       {/* ════════════════════════════════════════════════════════════════════
-          2026 KEY NUMBERS STRIP
+          2026 FACTS STRIP
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-900 py-8 sm:py-10 border-y border-white/6">
+      <section className="bg-slate-900 py-10 sm:py-12 border-y border-slate-800 mb-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-center text-[10px] font-black uppercase tracking-widest
-                        text-slate-500 mb-6">
-            2026 IRS Key Numbers — Built Into Every Calculation
+          <p className="text-center text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8">
+            Salary Benchmarks (2026)
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { val: "$176,100", label: "SS Wage Base",           sub: "6.2% up to this limit" },
-              { val: "$15,000",  label: "Std Deduction (Single)", sub: "$30,000 married jointly" },
-              { val: "$23,500",  label: "401(k) Limit",           sub: "$31,000 age 50+"         },
-              { val: "15.3%",    label: "Self-Employment Tax",    sub: "SS + Medicare combined"  },
+              { val: "2,080", label: "Standard Work Hours", sub: "40 hrs/wk for 52 weeks" },
+              { val: "Exempt", label: "No Overtime", sub: "If salary is over $43,888" },
+              { val: "Diminished", label: "True Hourly Rate", sub: "Drops if working 50+ hrs" },
+              { val: "W-2", label: "Employee Tax Status", sub: "Company pays half FICA" },
             ].map(({ val, label, sub }) => (
-              <div key={label}>
-                <p className="text-2xl sm:text-3xl font-black text-emerald-400 tabular-nums mb-1">{val}</p>
-                <p className="text-xs font-bold text-white">{label}</p>
-                <p className="text-[10px] text-slate-500 mt-0.5">{sub}</p>
+              <div key={label} className="relative">
+                <p className="text-2xl sm:text-3xl font-black text-emerald-400 mb-2">{val}</p>
+                <p className="text-sm font-bold text-white mb-1">{label}</p>
+                <p className="text-[11px] text-slate-400 leading-tight">{sub}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
-
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-20 pb-20">
+        
         {/* ════════════════════════════════════════════════════════════════
             QUICK REFERENCE TABLE
         ════════════════════════════════════════════════════════════════ */}
         <section aria-labelledby="table-heading">
-          <div className="text-center mb-6">
-            <p className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2">
-              Featured Snippet · Most Searched
+          <div className="text-center mb-8">
+            <p className="text-xs font-black uppercase tracking-widest text-emerald-600 mb-2">
+              Featured Reference
             </p>
             <h2 id="table-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
-              Salary After Tax Quick Reference (2026)
+              Salary to Hourly Quick Conversion
             </h2>
             <p className="text-slate-500 text-sm mt-2">
-              Single filer · Standard deduction · ~4% average state tax · No pre-tax deductions
+              Based on a standard 40-hour workweek (2,080 hours per year).
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm -mx-1">
-            <table className="w-full text-xs sm:text-sm min-w-[560px]">
+          <div className="max-w-3xl mx-auto overflow-hidden rounded-[2rem] border border-slate-200/60 shadow-sm bg-white">
+            <table className="w-full text-sm text-left">
               <thead>
-                <tr className="bg-slate-900 text-white">
-                  {["Salary", "Federal Tax", "FICA", "~State Tax", "Monthly Net", "Annual Net", "Eff. Rate"].map((h) => (
-                    <th key={h} className="px-3 sm:px-4 py-3 text-left font-black text-[9px] uppercase tracking-widest">
-                      {h}
-                    </th>
-                  ))}
+                <tr className="bg-slate-50 border-b border-slate-100">
+                  <th className="py-4 px-4 sm:px-6 font-black text-slate-600 text-[10px] uppercase tracking-widest">
+                    Annual Salary
+                  </th>
+                  <th className="py-4 px-4 sm:px-6 font-black text-emerald-700 text-[10px] uppercase tracking-widest">
+                    Hourly Wage
+                  </th>
+                  <th className="py-4 px-4 sm:px-6 font-black text-slate-600 text-[10px] uppercase tracking-widest hidden sm:table-cell">
+                    Weekly
+                  </th>
+                  <th className="py-4 px-4 sm:px-6 font-black text-slate-600 text-[10px] uppercase tracking-widest hidden sm:table-cell">
+                    Daily (8hrs)
+                  </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-50">
                 {SALARY_TABLE.map((row, i) => (
-                  <tr
-                    key={row.salary}
-                    className={`${i % 2 === 0 ? "bg-white" : "bg-slate-50/60"}
-                                hover:bg-indigo-50/40 transition-colors`}
-                  >
-                    <td className="px-3 sm:px-4 py-3 font-black text-slate-900">{row.salary}</td>
-                    <td className="px-3 sm:px-4 py-3 font-semibold text-rose-600">{row.federal}</td>
-                    <td className="px-3 sm:px-4 py-3 text-orange-600">{row.fica}</td>
-                    <td className="px-3 sm:px-4 py-3 text-slate-500">{row.state}</td>
-                    <td className="px-3 sm:px-4 py-3 font-bold text-indigo-700">{row.monthly}</td>
-                    <td className="px-3 sm:px-4 py-3 font-black text-emerald-700">{row.annual}</td>
-                    <td className="px-3 sm:px-4 py-3 text-slate-400 text-xs">{row.eff}</td>
+                  <tr key={row.annual} className={`${i % 2 === 0 ? "bg-white" : "bg-slate-50/30"} hover:bg-emerald-50/50 transition-colors`}>
+                    <td className="py-4 px-4 sm:px-6 font-bold text-slate-900">{row.annual}</td>
+                    <td className="py-4 px-4 sm:px-6 font-black text-emerald-600">{row.hourly} / hr</td>
+                    <td className="py-4 px-4 sm:px-6 font-medium text-slate-500 hidden sm:table-cell">{row.weekly}</td>
+                    <td className="py-4 px-4 sm:px-6 font-medium text-slate-500 hidden sm:table-cell">{row.daily}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-[11px] text-slate-400 text-center mt-3">
-            FICA at $200K includes 0.9% Additional Medicare Tax. Use the calculator above for your exact state and deductions.
-          </p>
         </section>
 
         {/* ════════════════════════════════════════════════════════════════
-            STATE COMPARISON TABLE
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="state-heading">
-          <div className="text-center mb-6">
-            <p className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2">State Comparison</p>
-            <h2 id="state-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
-              $100,000 Salary After Tax by State (2026)
-            </h2>
-            <p className="text-slate-500 text-sm mt-2">
-              Single filer · Standard deduction · Federal + FICA constant across all states
-            </p>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm -mx-1">
-            <table className="w-full text-xs sm:text-sm min-w-[500px]">
-              <thead>
-                <tr className="bg-slate-900 text-white">
-                  {["State", "State Rate", "State Tax", "Annual Net", "Monthly Net", "vs Texas"].map((h) => (
-                    <th key={h} className="px-3 sm:px-4 py-3 text-left font-black text-[9px] uppercase tracking-widest">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {STATE_TABLE.map((row, i) => (
-                  <tr
-                    key={row.state}
-                    className={`${i % 2 === 0 ? "bg-white" : "bg-slate-50/60"} hover:bg-indigo-50/30 transition-colors`}
-                  >
-                    <td className="px-3 sm:px-4 py-3 font-bold text-slate-900">
-                      {row.flag} {row.state}
-                    </td>
-                    <td className="px-3 sm:px-4 py-3 font-bold text-emerald-700">{row.rate}</td>
-                    <td className="px-3 sm:px-4 py-3 text-rose-600 font-semibold">{row.tax}</td>
-                    <td className="px-3 sm:px-4 py-3 font-black text-emerald-700">{row.annual}</td>
-                    <td className="px-3 sm:px-4 py-3 font-bold text-indigo-700">{row.monthly}</td>
-                    <td className="px-3 sm:px-4 py-3 text-slate-500 text-xs font-medium">{row.diff}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-[11px] text-slate-400 text-center mt-3">
-            All figures before local/city taxes. NYC adds ~3.8% city tax on top of NY state tax.
-          </p>
-        </section>
-
-        {/* ════════════════════════════════════════════════════════════════
-            HOW IT WORKS — HowTo schema content
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="howto-heading">
-          <div className="text-center mb-8">
-            <p className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2">How to Use</p>
-            <h2 id="howto-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
-              How to Calculate Salary After Tax
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
-            {[
-              { n: "1", title: "Enter Gross Salary", body: "Type your annual salary or use preset buttons ($40K–$150K). The slider adjusts in $5K increments." },
-              { n: "2", title: "Filing Status",       body: "Single, MFJ, HOH, or MFS. This changes your standard deduction and tax brackets." },
-              { n: "3", title: "Select State",        body: "Tax ranges from 0% (TX/FL) to 13.3% top rate (CA). Results update instantly." },
-              { n: "4", title: "Add Deductions",      body: "401(k), HSA, and pre-tax deductions reduce your taxable income and tax bill." },
-              { n: "5", title: "Read Results",        body: "See annual, monthly, and biweekly take-home with a full donut chart breakdown." },
-            ].map(({ n, title, body }) => (
-              <div
-                key={n}
-                className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm
-                           hover:border-indigo-200 hover:shadow-md transition-all relative"
-              >
-                <span className="absolute -top-3 left-5 w-6 h-6 rounded-full bg-indigo-600
-                                 text-white text-xs font-black flex items-center justify-center">
-                  {n}
-                </span>
-                <h3 className="font-black text-slate-900 text-sm mt-1 mb-1.5">{title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ════════════════════════════════════════════════════════════════
-            GUIDE — Long-form SEO content
+            COMPREHENSIVE GUIDE WITH INTERNAL LINKS
         ════════════════════════════════════════════════════════════════ */}
         <section aria-labelledby="guide-heading">
-          <div className="flex flex-col lg:flex-row gap-8 items-start">
-
-            {/* Article */}
-            <article className="flex-1 min-w-0 space-y-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
-                  <BookOpen size={17} />
+          <div className="flex flex-col lg:flex-row gap-10 items-start max-w-6xl mx-auto">
+            
+            {/* Main Article */}
+            <article className="flex-1 min-w-0 space-y-10">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                  <BookOpen size={24} />
                 </div>
                 <div>
-                  <h2 id="guide-heading" className="text-xl sm:text-2xl font-black text-slate-900">
-                    How Salary After Tax Works — 2026 Guide
+                  <h2 id="guide-heading" className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                    Understanding Your True Hourly Value
                   </h2>
-                  <p className="text-xs text-slate-400">Federal brackets · FICA · Standard deduction · All 50 states</p>
+                  <p className="text-sm text-slate-500 font-medium mt-2">Salary Conversions · Unpaid Overtime · W-2 vs 1099</p>
                 </div>
               </div>
 
-              {[
-                {
-                  title: "The 2026 Federal Tax Brackets",
-                  body: `Federal income tax in 2026 is progressive — you pay different rates on different portions of income, not a flat rate on everything. For a single filer, the first $11,925 is taxed at 10%, income from $11,926 to $48,475 at 12%, and income from $48,476 to $103,350 at 22%. Before any bracket applies, you subtract your standard deduction ($15,000 for single filers in 2026), which means on a $75,000 salary, you only pay tax on $60,000.`,
-                },
-                {
-                  title: "FICA: Social Security and Medicare",
-                  body: `FICA taxes are separate from income tax. Social Security is 6.2% on wages up to $176,100 (the 2026 wage base) — above this, it stops completely. Medicare is 1.45% on all wages with no cap. An additional 0.9% Medicare surtax applies on wages above $200,000 (single). Your employer matches the 6.2% Social Security and 1.45% Medicare — the amounts shown in our calculator are the employee share only.`,
-                },
-                {
-                  title: "State Income Tax: The Hidden Variable",
-                  body: `State income tax is often overlooked — but it can cost more than federal tax at some income levels. California's top rate is 13.3%. New York reaches 10.9%. Meanwhile, Texas, Florida, Nevada, and six other states charge zero. On a $100,000 salary, the difference between living in Texas versus California is approximately $6,500–$8,050 per year in state income tax alone. Our calculator applies the correct rates for all 50 states.`,
-                },
-                {
-                  title: "How 401(k) Contributions Reduce Tax",
-                  body: `Traditional 401(k) contributions reduce your taxable income dollar-for-dollar. The 2026 contribution limit is $23,500 (under 50) or $31,000 (50 and older). If you contribute $10,000 on an $80,000 salary in the 22% federal bracket, you save $2,200 in federal tax immediately — plus state tax savings. That's free money. Use the Advanced Options in our calculator to see exactly how much deductions save you.`,
-                },
-              ].map(({ title, body }) => (
-                <div
-                  key={title}
-                  className="bg-white border border-slate-100 rounded-2xl p-5 sm:p-6 shadow-sm"
-                >
-                  <h3 className="font-black text-slate-900 mb-3 flex items-center gap-2">
-                    <CheckCircle2 size={15} className="text-indigo-500 shrink-0" />
-                    {title}
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{body}</p>
-                </div>
-              ))}
+              <div className="prose prose-slate prose-emerald max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:font-bold prose-a:text-emerald-600 hover:prose-a:text-emerald-700 prose-p:leading-loose">
+                
+                <p className="lead text-lg text-slate-700 font-medium bg-slate-50 border-l-4 border-emerald-500 p-6 rounded-r-2xl">
+                  A high annual salary looks great on paper, but if you are consistently working 50 to 60 hours a week, your actual hourly wage drops drastically. Calculating your salary to an hourly rate reveals how much your time is truly worth to your employer.
+                </p>
 
-              {/* 401k callout */}
-              <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-5">
-                <div className="flex items-start gap-3">
-                  <BarChart3 size={18} className="text-indigo-600 shrink-0 mt-0.5" />
+                <h3>How to Convert Salary to Hourly (The Math)</h3>
+                <p>
+                  To find your baseline hourly rate, you divide your annual gross salary by the total number of hours you work in a year. In the United States, a standard full-time schedule is considered 40 hours per week for 52 weeks a year.
+                </p>
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm my-6">
+                  <p className="font-mono text-emerald-700 font-bold mb-2">Formula:</p>
+                  <code className="text-lg bg-slate-100 px-3 py-1 rounded">40 hours × 52 weeks = 2,080 Total Yearly Hours</code><br/><br/>
+                  <code className="text-lg bg-slate-100 px-3 py-1 rounded">Annual Salary ÷ 2,080 = Hourly Rate</code>
+                </div>
+                <p>
+                  <strong>Example:</strong> If you are offered a $90,000 salary, your hourly breakdown is $90,000 ÷ 2,080 = <strong>$43.26 per hour</strong>.
+                </p>
+                
+                <h3>The "Unpaid Overtime" Trap for Salaried Workers</h3>
+                <p>
+                  If you are a salaried employee classified as "Exempt" under the FLSA, you are not legally entitled to <Link href="/time-and-half-calculator">Time and a Half</Link> for overtime. Your salary is a fixed amount meant to cover <em>all</em> hours you work, whether that's 40 hours or 60 hours.
+                </p>
+                <p>
+                  If you have a $90,000 salary but your company culture pressures you into working 55 hours a week, your true yearly hours jump to 2,860. Your actual hourly wage drops from $43.26 to <strong>$31.46 per hour</strong>. Use our calculator above to adjust the "Hours per Week" slider and see the devastating effect unpaid overtime has on your true hourly rate.
+                </p>
+
+                <div className="my-8 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4">
+                  <AlertCircle className="text-amber-600 shrink-0 mt-1" size={24} />
                   <div>
-                    <p className="font-black text-indigo-900 text-sm mb-2">
-                      401(k) Tax Savings at a Glance
+                    <h4 className="text-amber-900 font-bold mt-0 mb-2">Non-Exempt Salaried Workers</h4>
+                    <p className="text-amber-800 text-sm m-0 leading-relaxed">
+                      If you are salaried but classified as "Non-Exempt" (or your salary is below the $43,888 federal threshold), your employer <strong>must</strong> pay you overtime. They will calculate your hourly rate using the formula above, and then pay you 1.5x that rate for any hours worked over 40. Try our <Link href="/overtime-calculator">Overtime Calculator</Link> to see this math.
                     </p>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[
-                        { contrib: "$5,000/yr",  saving: "Saves $1,100–$1,750" },
-                        { contrib: "$10,000/yr", saving: "Saves $2,200–$3,500" },
-                        { contrib: "$15,000/yr", saving: "Saves $3,300–$5,250" },
-                        { contrib: "$23,500/yr", saving: "Saves $5,170–$8,225" },
-                      ].map(({ contrib, saving }) => (
-                        <div key={contrib} className="bg-white rounded-xl px-3 py-2.5 border border-indigo-100">
-                          <p className="text-xs text-slate-500">{contrib}</p>
-                          <p className="text-sm font-black text-emerald-700">{saving}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-[10px] text-indigo-600 mt-2">Based on 22–35% combined federal + state bracket</p>
                   </div>
                 </div>
+
+                <h3>Transitioning to Freelance or Contracting?</h3>
+                <p>
+                  Many professionals use a Salary to Hourly calculator when quitting a full-time W-2 job to become an independent contractor (1099) doing the same work. 
+                </p>
+                <p>
+                  <strong>Do not charge your exact salaried hourly rate as a contractor!</strong>
+                </p>
+                <p>
+                  When you are an employee, your company pays for your health insurance, paid time off, 401(k) matching, and half of your FICA payroll taxes. As a contractor, you bear all of these costs, including a 15.3% Self-Employment Tax. To take home the same amount of money and maintain your lifestyle, you must charge roughly 30% to 40% more than your W-2 hourly rate. 
+                </p>
+                <p>
+                  For example, if your salaried hourly rate is $45/hr, you should charge at least $60/hr as a freelancer. If you want to do the inverse math, use our <Link href="/hourly-to-salary-calculator">Hourly to Salary Calculator</Link>.
+                </p>
+                
+                <p>
+                  Finally, if you want to know what your final take-home pay is after all federal and state taxes are deducted from your salary, jump over to our <Link href="/salary-after-tax-calculator">Salary After Tax Calculator</Link>.
+                </p>
+
               </div>
             </article>
 
-            {/* Sticky sidebar */}
-            <aside className="w-full lg:w-56 flex-shrink-0 space-y-5 lg:sticky lg:top-20">
-
-              {/* No-tax states */}
-              <div className="bg-slate-900 text-white rounded-2xl p-5">
-                <Globe size={16} className="text-emerald-400 mb-3" />
-                <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-3">
-                  Zero State Income Tax
-                </p>
-                <div className="space-y-2">
-                  {["🤠 Texas", "🏖️ Florida", "❄️ Nevada", "🦅 Wyoming", "🌾 South Dakota", "🏔️ Alaska", "⛵ Tennessee", "🌲 Washington*"].map((s) => (
-                    <div key={s} className="text-xs text-slate-300 flex items-center gap-2">
-                      <CheckCircle2 size={11} className="text-emerald-400 shrink-0" />
-                      {s}
-                    </div>
-                  ))}
+            {/* Sticky Sidebar */}
+            <aside className="w-full lg:w-[340px] shrink-0 space-y-6 lg:sticky lg:top-24">
+              
+              {/* Quick Callout Card */}
+              <div className="bg-gradient-to-br from-emerald-900 to-teal-950 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Globe size={16} className="text-emerald-300" />
+                    <span className="text-xs font-black uppercase tracking-widest text-emerald-300">
+                      Tax Warning
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">Taxes Eat 20-30%</h3>
+                  <p className="text-sm text-emerald-100/80 leading-relaxed mb-6">
+                    A $100,000 salary ($48/hr) doesn't mean $48/hr goes into your bank. After federal, state, and FICA taxes, your net hourly rate drops significantly.
+                  </p>
+                  <Link href="/salary-after-tax-calculator" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-xl text-sm font-bold w-full justify-center">
+                    Calculate Net Pay <ArrowRight size={14} />
+                  </Link>
                 </div>
-                <p className="text-[9px] text-slate-600 mt-3">*No wage income tax. Saves $3K–$8K/yr on $100K salary.</p>
+                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500/20 rounded-full blur-2xl" />
               </div>
 
-              {/* Quick CTA */}
-              <div className="bg-indigo-600 rounded-2xl p-5 text-white text-center">
-                <Calculator size={20} className="mx-auto mb-2 text-indigo-200" />
-                <p className="font-black text-sm mb-1">Calculate Yours</p>
-                <p className="text-indigo-200 text-xs mb-3">Enter your salary above for your exact numbers</p>
-                <a
-                  href="#calculator"
-                  className="block bg-white text-indigo-700 font-black text-xs py-2 rounded-xl
-                             hover:bg-indigo-50 transition-colors"
-                >
-                  ↑ Go to Calculator
-                </a>
-              </div>
-
-              {/* Related tools */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-                <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-3">Related Tools</p>
-                <div className="space-y-2">
+              {/* Internal Related Links */}
+              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6">
+                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                  Popular Tools
+                </h4>
+                <div className="space-y-3">
                   {[
-                    { href: "/paycheck-calculator",   label: "Paycheck Calculator"  },
-                    { href: "/overtime-calculator",    label: "Overtime Pay"         },
-                    { href: "/hourly-to-salary-calculator", label: "Hourly to Salary" },
-                    { href: "/self-employment-tax-calculator-usa", label: "SE Tax"  },
-                  ].map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      className="flex items-center gap-1.5 text-xs text-indigo-600
-                                 hover:text-indigo-800 hover:underline transition-colors"
-                    >
-                      <ChevronRight size={11} />
-                      {l.label}
+                    { title: "Hourly to Salary", href: "/hourly-to-salary-calculator", icon: Clock },
+                    { title: "Salary After Tax", href: "/salary-after-tax-calculator", icon: DollarSign },
+                    { title: "Paycheck Calculator", href: "/paycheck-calculator", icon: Briefcase },
+                    { title: "Time and a Half", href: "/time-and-half-calculator", icon: Calculator },
+                  ].map((item) => (
+                    <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-emerald-50 border border-transparent hover:border-emerald-100 transition-colors group">
+                      <div className="bg-slate-100 p-2 rounded-lg group-hover:bg-emerald-200 group-hover:text-emerald-700 transition-colors text-slate-500">
+                        <item.icon size={16} />
+                      </div>
+                      <span className="font-semibold text-slate-700 group-hover:text-emerald-700 text-sm">{item.title}</span>
                     </Link>
                   ))}
                 </div>
               </div>
 
-              {/* AdSense placeholder — ready for when approved */}
-              <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl
-                              min-h-[120px] flex items-center justify-center">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300">
+              {/* Share */}
+              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6 text-center">
+                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                  Share This Tool
+                </h4>
+                <ShareButtons
+                  title="Salary to Hourly Calculator 2026"
+                  url="https://www.freeuscalculator.in/salary-to-hourly-calculator"
+                />
+              </div>
+
+              {/* AdSense Placeholder */}
+              <div className="bg-slate-50 border border-dashed border-slate-300 rounded-[2rem] h-[250px] flex items-center justify-center">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                   Advertisement
                 </span>
               </div>
+
             </aside>
           </div>
         </section>
 
         {/* ════════════════════════════════════════════════════════════════
+            RELATED CALCULATORS GRID (FULL WIDTH)
+        ════════════════════════════════════════════════════════════════ */}
+        <div className="pt-10">
+          <RelatedCalculators currentTool="salary-to-hourly-calculator" />
+        </div>
+
+        {/* ════════════════════════════════════════════════════════════════
             FAQ
         ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="faq-heading">
-          <div className="text-center mb-8">
-            <p className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2">FAQ</p>
-            <h2 id="faq-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
-              Salary After Tax — 2026 Questions Answered
+        <section aria-labelledby="faq-heading" className="pt-8">
+          <div className="text-center mb-10">
+            <p className="text-xs font-black uppercase tracking-widest text-emerald-600 mb-2">FAQ</p>
+            <h2 id="faq-heading" className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Salary Conversion Questions
             </h2>
-            <p className="text-slate-500 text-sm mt-2">
-              $60K take-home · $100K net pay · Standard deduction · FICA · State comparison
-            </p>
           </div>
-
-          <dl className="space-y-4">
+          
+          <div className="max-w-4xl mx-auto space-y-4">
             {FAQS_DATA.map(({ q, a }) => (
-              <div
-                key={q}
-                className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6
-                           hover:border-indigo-200 transition-colors shadow-sm"
-              >
-                <dt className="font-black text-slate-900 text-sm sm:text-base mb-2 flex items-start gap-2">
-                  <CheckCircle2 size={15} className="text-indigo-400 shrink-0 mt-0.5" />
+              <div key={q} className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 hover:border-emerald-300 transition-colors shadow-sm">
+                <dt className="font-black text-slate-900 text-base sm:text-lg mb-2 flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
                   {q}
                 </dt>
-                <dd className="text-slate-500 text-sm leading-relaxed pl-5">{a}</dd>
+                <dd className="text-slate-500 text-sm sm:text-base leading-relaxed pl-8">{a}</dd>
               </div>
-            ))}
-          </dl>
-        </section>
-
-        {/* ════════════════════════════════════════════════════════════════
-            RELATED CALCULATORS
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="related-heading">
-          <h2 id="related-heading" className="text-xl sm:text-2xl font-black text-slate-900 mb-6">
-            Related Calculators
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {RELATED.map(({ href, label, desc }) => (
-              <Link
-                key={href}
-                href={href}
-                className="group flex items-start gap-3 p-4 bg-white border border-slate-100
-                           rounded-2xl hover:border-indigo-300 hover:shadow-md transition-all"
-              >
-                <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-600
-                                flex items-center justify-center shrink-0
-                                group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                  <Calculator size={16} />
-                </div>
-                <div>
-                  <p className="font-black text-slate-900 text-sm group-hover:text-indigo-700 transition-colors">
-                    {label}
-                  </p>
-                  <p className="text-xs text-slate-500 mt-0.5">{desc}</p>
-                </div>
-              </Link>
             ))}
           </div>
         </section>
 
-        {/* ════════════════════════════════════════════════════════════════
-            DISCLAIMER
-        ════════════════════════════════════════════════════════════════ */}
-        <div className="flex items-start gap-3 bg-slate-50 border border-slate-200
-                        rounded-2xl px-5 py-4 text-xs text-slate-500">
-          <Info size={15} className="text-slate-400 shrink-0 mt-0.5" />
-          <p className="leading-relaxed">
-            Results are estimates based on 2026 IRS withholding tables and state tax rates.
-            Actual withholding may vary due to local taxes, credits, additional income, or
-            employer-specific W-4 settings. Not financial or tax advice.{" "}
-            <Link href="/disclaimer" className="underline hover:text-slate-700 transition-colors">
-              See full disclaimer
-            </Link>.
-          </p>
-        </div>
       </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           FINAL CTA
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="py-14 sm:py-16 bg-gradient-to-br from-indigo-700 to-violet-800 text-white text-center">
+      <section className="py-16 sm:py-24 bg-gradient-to-br from-slate-900 to-slate-950 text-white text-center border-t border-slate-800">
         <div className="max-w-xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-black uppercase tracking-widest text-indigo-300 mb-3">
-            Free · All 50 States · No Signup
+          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-4">
+            100% Free · Accurate Math
           </p>
-          <h2 className="text-2xl sm:text-3xl font-black mb-4">
-            Know Your Real Take-Home Pay
+          <h2 className="text-3xl sm:text-4xl font-black mb-6">
+            Know What Your Time Is Worth
           </h2>
-          <p className="text-indigo-200 text-sm mb-8 leading-relaxed">
-            Share this with anyone comparing job offers, planning a move, or negotiating salary.
+          <p className="text-slate-400 text-sm sm:text-base mb-10 leading-relaxed">
+            Stop letting unpaid overtime lower your real wage. Use our tool to calculate your true hourly rate before negotiating your next salary.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a
-              href="#calculator"
-              className="inline-flex items-center gap-2 bg-white text-indigo-700 font-black
-                         text-sm px-7 py-3.5 rounded-2xl hover:bg-amber-300 hover:text-indigo-900
-                         transition-all shadow-xl active:scale-95"
-            >
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="#" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm px-8 py-4 rounded-2xl transition-all shadow-xl shadow-emerald-900/50">
               <Calculator size={16} />
-              Calculate My Take-Home
+              Scroll to Calculator
             </a>
-            <Link
-              href="/tax-calculators"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20
-                         border border-white/20 text-white font-bold text-sm px-7 py-3.5
-                         rounded-2xl transition-all active:scale-95"
-            >
-              More Tax Tools <ArrowRight size={15} />
+            <Link href="/hourly-to-salary-calculator" className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm px-8 py-4 rounded-2xl transition-colors">
+              Convert Hourly to Salary
             </Link>
           </div>
         </div>
@@ -687,33 +482,25 @@ export default function SalaryAfterTaxPage() {
       {/* ════════════════════════════════════════════════════════════════════
           SEO FOOTER NAV
       ════════════════════════════════════════════════════════════════════ */}
-      <nav
-        aria-label="Related salary calculators"
-        className="bg-slate-950 py-8 border-t border-white/6"
-      >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+      <nav aria-label="Related calculators navigation" className="bg-slate-950 py-10 border-t border-slate-800/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-6">
             {[
+              { href: "/salary-after-tax-calculator",       label: "Salary After Tax"             },
               { href: "/paycheck-calculator",               label: "Paycheck Calculator"          },
               { href: "/hourly-to-salary-calculator",       label: "Hourly to Salary"             },
-              { href: "/overtime-calculator",               label: "Overtime Calculator"           },
-              { href: "/self-employment-tax-calculator-usa",label: "Self-Employment Tax"           },
-              { href: "/savings-calculator",                label: "Savings Calculator"            },
-              { href: "/loan-calculator",                   label: "Loan EMI Calculator"           },
-              { href: "/rent-affordability-calculator",     label: "Rent Affordability"            },
-              { href: "/doordash-earnings-calculator",      label: "DoorDash Earnings"             },
+              { href: "/overtime-calculator",               label: "Overtime Pay Calculator"      },
+              { href: "/self-employment-tax-calculator-usa",label: "Self-Employment Tax"          },
+              { href: "/savings-calculator",                label: "Savings Calculator"           },
+              { href: "/rent-affordability-calculator",     label: "Rent Affordability"           },
             ].map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-slate-500 hover:text-slate-300 transition-colors text-xs"
-              >
+              <Link key={l.href} href={l.href} className="text-slate-500 hover:text-emerald-400 transition-colors text-xs font-medium">
                 {l.label}
               </Link>
             ))}
           </div>
-          <p className="text-center text-[10px] text-slate-700 mt-4">
-            Salary After Tax Calculator · All 50 States · 2026 IRS Rates · FreeUSCalculator.in
+          <p className="text-center text-[10px] text-slate-700">
+            Salary to Hourly Calculator · FreeUSCalculator.in · 2026 Guidelines
           </p>
         </div>
       </nav>

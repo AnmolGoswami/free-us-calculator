@@ -1,94 +1,53 @@
 import { MetadataRoute } from "next";
 import { allTools } from "@/lib/tools";
+import fs from "fs";
+import path from "path";
+
+// Helper to get the actual file modification date from the filesystem
+function getFileLastModified(filePath: string): Date {
+  try {
+    const absolutePath = path.join(process.cwd(), filePath);
+    const stats = fs.statSync(absolutePath);
+    return stats.mtime;
+  } catch (error) {
+    console.error(`Could not find file for sitemap: ${filePath}`);
+    return new Date(); // Fallback
+  }
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // BLOG POST SLUGS
 // Add new blog posts here whenever you publish one.
-// Each entry maps to: /blog/<slug>
-// IMPORTANT: Update lastModified whenever you edit a post — this is what tells
-// Google to re-crawl that specific page.
+// The sitemap will automatically read the last modified date of the page.tsx file!
 // ─────────────────────────────────────────────────────────────────────────────
 const BLOG_POSTS: {
   slug: string;
   priority: number;
   changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
-  lastModified: Date;
 }[] = [
-  {
-    slug: "doordash-earnings-guide-2026",
-    priority: 0.85,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "paycheck-calculator-guide-2026",
-    priority: 0.85,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "salary-after-tax-guide-2026",
-    priority: 0.85,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "rent-affordability-guide-2026",
-    priority: 0.82,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "self-employment-tax-guide-2026",
-    priority: 0.82,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "savings-calculator-guide-2026",
-    priority: 0.82,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "loan-calculator-guide-2026",
-    priority: 0.80,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "hourly-to-salary-guide-2026",
-    priority: 0.80,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  {
-    slug: "india-salary-guide-2026",
-    priority: 0.78,
-    changeFrequency: "monthly",
-    lastModified: new Date("2026-05-01"),
-  },
-  // ── Add future blog posts below this line ─────────────────────────────────
-  // {
-  //   slug: "uber-eats-earnings-guide-2026",
-  //   priority: 0.80,
-  //   changeFrequency: "monthly",
-  //   lastModified: new Date("2026-05-01"),
-  // },
+  { slug: "doordash-earnings-guide-2026", priority: 0.85, changeFrequency: "monthly" },
+  { slug: "paycheck-calculator-guide-2026", priority: 0.85, changeFrequency: "monthly" },
+  { slug: "salary-after-tax-guide-2026", priority: 0.85, changeFrequency: "monthly" },
+  { slug: "rent-affordability-guide-2026", priority: 0.82, changeFrequency: "monthly" },
+  { slug: "self-employment-tax-guide-2026", priority: 0.82, changeFrequency: "monthly" },
+  { slug: "savings-calculator-guide-2026", priority: 0.82, changeFrequency: "monthly" },
+  { slug: "loan-calculator-guide-2026", priority: 0.80, changeFrequency: "monthly" },
+  { slug: "hourly-to-salary-guide-2026", priority: 0.80, changeFrequency: "monthly" },
+  { slug: "india-salary-guide-2026", priority: 0.78, changeFrequency: "monthly" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CORE PAGES
-// Update lastModified here whenever you make changes to these hub pages.
+// The sitemap will automatically read the last modified date of the page.tsx file!
 // ─────────────────────────────────────────────────────────────────────────────
 const CORE_PAGES: {
-  path: string;
-  lastModified: Date;
+  urlPath: string;
+  filePath: string;
   priority: number;
 }[] = [
-  { path: "/earning-calculators", lastModified: new Date("2026-04-01"), priority: 0.7 },
-  { path: "/tax-calculators",     lastModified: new Date("2026-04-01"), priority: 0.7 },
-  { path: "/cost-calculators",    lastModified: new Date("2026-04-01"), priority: 0.7 },
+  { urlPath: "/earning-calculators", filePath: "app/(categories)/earning-calculators/page.tsx", priority: 0.7 },
+  { urlPath: "/tax-calculators",     filePath: "app/(categories)/tax-calculators/page.tsx",     priority: 0.7 },
+  { urlPath: "/cost-calculators",    filePath: "app/(categories)/cost-calculators/page.tsx",    priority: 0.7 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -98,26 +57,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const home: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date("2026-05-28"), // ← bump this whenever homepage changes
+      lastModified: getFileLastModified("app/page.tsx"),
       changeFrequency: "daily",
       priority: 1.0,
     },
   ];
 
   // ── 2. Core category/hub pages ───────────────────────────────────────────────
-  const corePages: MetadataRoute.Sitemap = CORE_PAGES.map(({ path, lastModified, priority }) => ({
-    url: `${baseUrl}${path}`,
-    lastModified,                          // ← real date, not new Date()
+  const corePages: MetadataRoute.Sitemap = CORE_PAGES.map(({ urlPath, filePath, priority }) => ({
+    url: `${baseUrl}${urlPath}`,
+    lastModified: getFileLastModified(filePath),
     changeFrequency: "weekly" as const,
     priority,
   }));
 
   // ── 3. Calculator tool pages (dynamic from allTools) ─────────────────────────
-  // lastModified comes from each tool's lastModified field in tools.ts
-  // Just bump that field in tools.ts whenever you update a specific calculator.
   const toolPages: MetadataRoute.Sitemap = allTools.map((tool) => ({
     url: `${baseUrl}/${tool.slug}`,
-    lastModified: tool.lastModified,       // ← real per-tool date from tools.ts
+    // Automatically check the actual tool page file on disk
+    lastModified: getFileLastModified(`app/(tools)/${tool.slug}/page.tsx`),
     changeFrequency: "weekly" as const,
     priority:
       tool.popularity >= 10 ? 0.95 :
@@ -130,7 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const blogIndex: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/blog`,
-      lastModified: new Date("2026-05-01"), // ← bump when you add a new blog post
+      lastModified: getFileLastModified("app/(static)/blog/page.tsx"),
       changeFrequency: "weekly" as const,
       priority: 0.75,
     },
@@ -139,7 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // ── 5. Individual blog post pages ─────────────────────────────────────────────
   const blogPostPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.lastModified,       // ← real date per post
+    lastModified: getFileLastModified(`app/(static)/blog/${post.slug}/page.tsx`),
     changeFrequency: post.changeFrequency,
     priority: post.priority,
   }));

@@ -1,651 +1,577 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
-import SalaryCalculator from "../hourly-to-salary-calculator/SalaryCalculator";
+import TimeAndHalfCalculator from "@/components/calculators/TimeAndHalfCalculator";
+import {
+  Sparkles,
+  Zap,
+  ShieldCheck,
+  RefreshCw,
+  BookOpen,
+  ChevronRight,
+  Clock,
+  Briefcase,
+  AlertCircle,
+  Calculator,
+  ArrowRight,
+  CheckCircle2,
+  DollarSign,
+  Info,
+  Scale
+} from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// METADATA — worldwide targeting: US · UK · Canada · Australia
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  /*
-   * Title: primary KW front-loaded, year signals freshness, 58 chars = no truncation.
-   * "1.5x" captures numeric searchers ("time and a half 1.5x calculator").
-   * "USD GBP CAD AUD" signals multi-currency to crawlers.
-   */
-  title: "Time and a Half Calculator (2026) – Overtime Pay in USD, GBP, CAD & AUD",
-
-  /*
-   * Description: leads with pain ("know exactly"), ends with benefit + currency signal.
-   * 153 chars — fits SERP snippet perfectly.
-   */
+  title: "Time and a Half Calculator 2026 – Calculate 1.5x Overtime Pay",
   description:
-    "Calculate your exact overtime pay at 1.5× in USD, GBP, CAD, or AUD. Free time and a half calculator for hourly & salaried workers. Covers FLSA (US), Fair Work (AU), and UK labour law.",
-
+    "Instantly calculate time and a half (1.5x) overtime pay. See your exact weekly gross, hourly rate, and annual earnings based on the US FLSA 2026 guidelines.",
   alternates: {
-    canonical: "https://www.freeuscalculator.in/time-and-a-half-calculator",
-    // hreflang signals for Google to serve the right audience
-    languages: {
-      "en-US": "https://www.freeuscalculator.in/time-and-a-half-calculator",
-      "en-GB": "https://www.freeuscalculator.in/time-and-a-half-calculator",
-      "en-CA": "https://www.freeuscalculator.in/time-and-a-half-calculator",
-      "en-AU": "https://www.freeuscalculator.in/time-and-a-half-calculator",
-    },
+    canonical: "https://www.freeuscalculator.in/time-and-half-calculator",
   },
-
   keywords: [
-    // ── TIER 1: HEAD TERMS (US — highest volume) ────────────────────────
     "time and a half calculator",
-    "overtime pay calculator",
-    "time and a half pay calculator",
-    "1.5x overtime calculator",
-    "overtime calculator 2026",
-
-    // ── TIER 2: MEDIUM VOLUME, LOW COMPETITION ──────────────────────────
-    "time and a half calculator hourly",
-    "overtime pay calculator after tax",
-    "time and half calculator free",
-    "weekly overtime pay calculator",
-    "how to calculate time and a half",
-    "salaried overtime pay calculator",
-    "double time pay calculator",
-    "FLSA overtime calculator 2026",
-
-    // ── TIER 3: HIGH-INTENT LONG-TAIL (FASTEST RANKING) ─────────────────
-    "how much is time and a half for $20 an hour",
-    "how much is time and a half for $25 an hour",
-    "how much is time and a half for $15 an hour",
-    "time and a half for $18 an hour",
-    "overtime pay calculator after 40 hours",
-    "calculate overtime pay for salaried employees",
-    "time and a half calculator with taxes",
-    "what is time and a half of $17 an hour",
-    "overtime premium pay calculator",
-    "paycheck overtime estimator 2026",
-
-    // ── UK VARIANTS (GBP — high CPM) ───────────────────────────────────
-    "time and a half calculator uk",
-    "overtime pay calculator uk pounds",
-    "time and half pay uk gbp",
-    "uk overtime pay calculator 2026",
-    "overtime calculator uk £",
-
-    // ── CANADA VARIANTS (CAD — high CPM) ───────────────────────────────
-    "overtime pay calculator canada",
-    "time and a half calculator canada",
-    "overtime pay canada cad calculator",
-    "canadian overtime calculator 2026",
-
-    // ── AUSTRALIA VARIANTS (AUD — high CPM) ────────────────────────────
-    "overtime calculator australia",
-    "time and a half pay calculator australia",
-    "fair work overtime calculator",
-    "australia overtime pay 2026 aud",
-
-    // ── SEMANTIC / ENTITY TERMS ─────────────────────────────────────────
-    "FLSA overtime pay rules",
-    "non-exempt employee overtime calculator",
-    "holiday pay time and a half",
-    "double time pay calculator",
+    "1.5x pay calculator",
+    "calculate time and a half",
+    "how much is time and a half for $20",
+    "FLSA overtime calculator",
+    "time and a half overtime pay",
+    "what is time and a half for $15 an hour",
+    "time and a half rate",
+    "overtime pay laws 2026",
+    "california daily overtime calculator"
   ],
-
   openGraph: {
-    title: "Time and a Half Calculator 2026 – USD, GBP, CAD & AUD",
+    title: "Time and a Half Calculator 2026 – 1.5x Overtime Pay",
     description:
-      "Free overtime pay calculator for workers in the US, UK, Canada and Australia. Get your exact 1.5× pay instantly — no sign-up.",
-    url: "https://www.freeuscalculator.in/time-and-a-half-calculator",
+      "Find out exactly how much you earn when working overtime at time and a half. Free FLSA compliant calculator.",
+    url: "https://www.freeuscalculator.in/time-and-half-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "Time and a Half Calculator (2026) – Overtime Pay in 4 Currencies",
-    description:
-      "Calculate your 1.5× overtime pay in USD, GBP, CAD or AUD. Free, instant, no sign-up required.",
+    title: "Time and a Half Calculator – Calculate 1.5x Pay",
+    description: "Instantly calculate your time and a half overtime earnings.",
   },
-
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// JSON-LD STRUCTURED DATA
-// FAQPage → triggers accordion rich result in SERP (CTR +20–30%)
-// SoftwareApplication → enables star ratings in search results
-// ─────────────────────────────────────────────────────────────────────────────
-const jsonLd = {
+// ─── Static JSON-LD ───────────────────────────────────────────────────────────
+const SCHEMA_WEBAPP = JSON.stringify({
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "SoftwareApplication",
-      name: "Time and a Half Calculator 2026",
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "Web",
-      description:
-        "Free overtime pay calculator. Calculates time and a half (1.5×) and double time (2×) pay for hourly and salaried workers. Supports USD, GBP, CAD, and AUD. Covers US FLSA, UK Working Time Regulations, Canadian provincial law, and Australian Fair Work Act.",
-      url: "https://www.freeuscalculator.in/time-and-a-half-calculator",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        ratingCount: "2108",
-      },
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What is time and a half?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Time and a half means you are paid 1.5 times your regular hourly rate for overtime hours. If your normal rate is $20/hr, your time and a half rate is $30/hr. In the US, the FLSA requires this for non-exempt employees working more than 40 hours per week.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How do I calculate time and a half?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Multiply your regular hourly rate by 1.5 to get your overtime rate. Then multiply that by the number of overtime hours worked. Example: $20/hr × 1.5 = $30/hr overtime rate. 10 overtime hours × $30 = $300 in overtime pay.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How much is time and a half for $20 an hour?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Time and a half for $20/hr is $30/hr ($20 × 1.5 = $30). If you work 10 overtime hours at this rate, you earn $300 in overtime pay on top of your regular $800 (40 hours × $20), for a weekly total of $1,100.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Does the UK legally require time and a half for overtime?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "No. UK law (Working Time Regulations 1998) does not mandate a minimum overtime premium rate. Your right to time and a half comes from your employment contract, not legislation. However, your total average pay must not fall below the 2026 National Minimum Wage of £12.21/hr.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What is the overtime rule in Australia?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "In Australia, overtime is governed by the Fair Work Act and Modern Awards. Most awards pay time and a half (150%) for the first two overtime hours and double time (200%) after that. Full-time employees ordinarily work 38 hours per week — any reasonable additional hours beyond this may attract overtime rates.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What is the overtime threshold in Canada?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "In most Canadian provinces, overtime begins after 44 hours per week and is paid at 1.5× the regular rate. Quebec sets the threshold at 40 hours. British Columbia and Saskatchewan calculate overtime both daily (over 8 hours) and weekly (over 40 hours), whichever is greater.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is overtime pay taxed differently?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Overtime pay is taxed as regular income at your marginal rate — it is not a separate tax category. However, from the 2025 tax year through 2028, US workers can deduct the 'premium' portion of overtime pay (the extra 50%) up to $12,500 if single or $25,000 if married filing jointly, subject to income phase-outs.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What is double time pay?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Double time pay is 2× your regular hourly rate. It applies in specific situations: California requires double time for hours over 12 in a single day or the first 8 hours on a 7th consecutive workday. Australian Modern Awards often require double time after the first two overtime hours.",
-          },
-        },
-      ],
-    },
+  "@type": "WebApplication",
+  name: "Time and a Half Calculator 2026",
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Any",
+  description: "Calculate 1.5x overtime pay accurately according to US FLSA regulations.",
+  url: "https://www.freeuscalculator.in/time-and-half-calculator",
+  isAccessibleForFree: true,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+});
+
+const SCHEMA_BREADCRUMB = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.freeuscalculator.in" },
+    { "@type": "ListItem", position: 2, name: "Salary Calculators", item: "https://www.freeuscalculator.in/salary-calculators" },
+    { "@type": "ListItem", position: 3, name: "Time and a Half", item: "https://www.freeuscalculator.in/time-and-half-calculator" },
   ],
-};
+});
 
-// ─────────────────────────────────────────────────────────────────────────────
-// PAGE COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
+const SCHEMA_HOWTO = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Calculate Time and a Half",
+  step: [
+    { "@type": "HowToStep", position: 1, name: "Enter Regular Wage", text: "Input your standard hourly rate." },
+    { "@type": "HowToStep", position: 2, name: "Enter Work Hours", text: "Input total hours worked in the week, or explicitly separate regular and overtime hours." },
+    { "@type": "HowToStep", position: 3, name: "Review 1.5x Rate", text: "The calculator instantly multiplies your base rate by 1.5 to determine your overtime rate." },
+    { "@type": "HowToStep", position: 4, name: "See Gross Pay", text: "Review your total weekly compensation combining standard pay and time-and-a-half pay." }
+  ]
+});
+
+const FAQS_DATA = [
+  {
+    q: "What is time and a half?",
+    a: "Time and a half is the standard overtime pay rate mandated by the US FLSA. It is exactly 1.5 times your regular hourly wage. Employers must pay this rate to covered non-exempt employees for all hours worked over 40 in a single workweek."
+  },
+  {
+    q: "How much is time and a half for $20 an hour?",
+    a: "For a regular rate of $20 an hour, time and a half is $30.00 an hour. (Calculation: $20 × 1.5 = $30)."
+  },
+  {
+    q: "How much is time and a half for $15 an hour?",
+    a: "If your base pay is $15 an hour, your time and a half overtime rate is $22.50 an hour. (Calculation: $15 × 1.5 = $22.50)."
+  },
+  {
+    q: "How do you calculate time and a half from a salary?",
+    a: "To find the time and a half rate for a salaried employee, first determine the regular hourly rate by dividing the weekly salary by 40 (or the standard hours intended to be covered). Then, multiply that hourly rate by 1.5."
+  },
+  {
+    q: "Do independent contractors get time and a half?",
+    a: "No. The FLSA's overtime provisions strictly apply to employees. Independent contractors, freelancers, and 1099 workers are not legally entitled to time and a half unless it is specifically negotiated in their contract."
+  },
+  {
+    q: "Is double time the same as time and a half?",
+    a: "No. Time and a half is 1.5x your regular pay. Double time is 2.0x your regular pay. Double time is not federally mandated but is required in certain states (like California after 12 hours in a day) or offered as a company benefit for holidays."
+  }
+];
+
+const SCHEMA_FAQ = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS_DATA.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+});
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+const RATES_TABLE = [
+  { reg: "$10.00", ot: "$15.00" },
+  { reg: "$12.50", ot: "$18.75" },
+  { reg: "$15.00", ot: "$22.50" },
+  { reg: "$18.00", ot: "$27.00" },
+  { reg: "$20.00", ot: "$30.00" },
+  { reg: "$22.00", ot: "$33.00" },
+  { reg: "$25.00", ot: "$37.50" },
+  { reg: "$30.00", ot: "$45.00" },
+  { reg: "$35.00", ot: "$52.50" },
+  { reg: "$40.00", ot: "$60.00" },
+  { reg: "$50.00", ot: "$75.00" },
+];
+
 export default function TimeAndHalfPage() {
-  const faqs = [
-    {
-      q: "What is time and a half?",
-      a: "Time and a half means you're paid 1.5× your regular hourly rate for overtime hours. If your normal rate is $20/hr (or £20, CA$20, AU$20), your overtime rate is $30/hr. In the US, the FLSA requires this for non-exempt employees working more than 40 hours per week.",
-    },
-    {
-      q: "How much is time and a half for $20 an hour?",
-      a: "$20 × 1.5 = $30/hr. If you work 10 overtime hours at this rate, that's $300 in overtime pay on top of your regular $800 for 40 hours — a weekly total of $1,100 before tax.",
-    },
-    {
-      q: "How much is time and a half for $15, $17, $18, or $25 an hour?",
-      a: "$15/hr → $22.50 overtime. $17/hr → $25.50 overtime. $18/hr → $27.00 overtime. $25/hr → $37.50 overtime. The formula is always: hourly rate × 1.5.",
-    },
-    {
-      q: "Is overtime taxed at a higher rate?",
-      a: "No — overtime is taxed at your regular marginal income tax rate, not a special higher rate. It may push some of your income into the next tax bracket. From 2025–2028, US workers can also deduct the overtime 'premium' portion (the extra 0.5×) up to $12,500/year if single.",
-    },
-    {
-      q: "Does UK law require time and a half for overtime?",
-      a: "No. UK law (Working Time Regulations 1998) sets no minimum overtime premium. Your time and a half entitlement comes from your employment contract. However, your effective hourly rate across all hours must not fall below the 2026 National Minimum Wage of £12.21/hr.",
-    },
-    {
-      q: "What is the overtime rule in Australia?",
-      a: "Australia's Fair Work Act and Modern Awards set overtime at time and a half (150%) for the first two hours beyond ordinary hours, then double time (200%) after that. Standard ordinary hours for full-time employees are 38 per week.",
-    },
-    {
-      q: "What is Canada's overtime threshold?",
-      a: "Most Canadian provinces set overtime at 44 hours/week at 1.5× pay. Quebec uses 40 hours. British Columbia and Saskatchewan calculate overtime both daily (after 8 hours) and weekly (after 40), whichever produces the higher entitlement.",
-    },
-    {
-      q: "What is double time pay and when does it apply?",
-      a: "Double time is 2× your regular rate. California mandates it for hours over 12 in a single workday and for the first 8 hours on a 7th consecutive workday. Australian Modern Awards typically require double time after the first two overtime hours.",
-    },
-  ];
-
   return (
-    <div className="bg-[#F9FBFF] min-h-screen selection:bg-blue-100 selection:text-blue-900">
+    <main className="bg-slate-50 min-h-screen font-sans selection:bg-violet-200 selection:text-violet-900">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_WEBAPP }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_BREADCRUMB }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_HOWTO }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_FAQ }} />
 
-      {/* ── JSON-LD Structured Data ───────────────────────────────────────── */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {/* ════════════════════════════════════════════════════════════════════
+          HERO
+      ════════════════════════════════════════════════════════════════════ */}
+      <section className="bg-white border-b border-slate-200/60 pt-8 pb-32 px-4 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-violet-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
 
-      {/* ── HERO SECTION ─────────────────────────────────────────────────── */}
-      {/*
-       * H1 contains primary keyword "Time and a Half Calculator"
-       * + secondary signals "1.5×" and "Worldwide" for international SEO.
-       * Currency flags immediately communicate multi-currency support to users.
-       */}
-      <section className="relative py-12 md:py-20 px-4">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-blue-400/5 blur-[120px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-8 flex-wrap justify-center md:justify-start">
+            <Link href="/" className="hover:text-violet-600 transition-colors">Home</Link>
+            <ChevronRight size={11} />
+            <Link href="/salary-calculators" className="hover:text-violet-600 transition-colors">Calculators</Link>
+            <ChevronRight size={11} />
+            <span className="text-slate-900 font-medium">Time & Half</span>
+          </nav>
 
-        {/* Hero headline ABOVE the calculator — crawlable, keyword-rich */}
-        <div className="max-w-4xl mx-auto text-center mb-10">
-          {/* Freshness + currency badge */}
-          <div className="inline-flex flex-wrap justify-center items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest mb-6">
-            <span>🇺🇸 USD</span>
-            <span className="opacity-30">·</span>
-            <span>🇬🇧 GBP</span>
-            <span className="opacity-30">·</span>
-            <span>🇨🇦 CAD</span>
-            <span className="opacity-30">·</span>
-            <span>🇦🇺 AUD</span>
-            <span className="opacity-30">·</span>
-            <span>Updated April 2026</span>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-100 text-violet-800 text-[10px] font-black uppercase tracking-widest mb-6">
+              <Sparkles size={12} className="text-violet-600" />
+              1.5x Overtime Pay Tool
+            </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
+              Time and a Half{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-500">
+                Calculator
+              </span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
+              Find out exactly what your 1.5x overtime rate is and calculate your total weekly take-home under US FLSA rules.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+              {[
+                { icon: Zap, label: "Instant 1.5x Math" },
+                { icon: ShieldCheck, label: "FLSA Compliant" },
+                { icon: RefreshCw, label: "Multi-Currency" },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-2 bg-slate-100/80 text-slate-600 px-4 py-2 rounded-full text-xs font-bold border border-slate-200/50">
+                  <Icon size={14} className="text-violet-500" />
+                  {label}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/*
-           * H1: primary keyword "Time and a Half Calculator" + qualifier "Overtime Pay".
-           * Under 70 chars, front-loaded. Passes SERP title truncation check.
-           */}
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-4 leading-[1.1]">
-            Time and a Half{" "}
-            <span className="text-blue-600">Calculator</span>
-          </h1>
+          <div className="max-w-5xl mx-auto -mb-40 relative z-20">
+            <CalculatorContainer
+              title="Time and a Half Calculator"
+              description="Calculate your 1.5x overtime rate and weekly pay."
+              category="Finance"
+              lastUpdated="2026"
+            >
+              <TimeAndHalfCalculator />
+            </CalculatorContainer>
+          </div>
+        </div>
+      </section>
 
-          {/*
-           * Subheading naturally includes long-tail phrases:
-           * "overtime pay", "1.5x", "hourly and salaried", "US UK Canada Australia"
-           */}
-          <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Calculate your exact <strong className="text-slate-800">1.5× overtime pay</strong> for hourly and salaried workers.
-            Supports FLSA (US), Fair Work (AU), UK contract law, and Canadian provincial rules.
+      <div className="h-40" />
+
+      {/* ════════════════════════════════════════════════════════════════════
+          2026 FLSA RULES STRIP
+      ════════════════════════════════════════════════════════════════════ */}
+      <section className="bg-slate-900 py-10 sm:py-12 border-y border-slate-800 mb-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <p className="text-center text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8">
+            FLSA Overtime Rules & Facts (2026)
           </p>
-
-          {/* Trust signals — reduce bounce rate */}
-          <div className="flex flex-wrap justify-center gap-4 mt-5 text-sm text-slate-500 font-medium">
-            {["✓ 100% Free · No Sign-Up", "✓ Hourly & Salaried Workers", "✓ Works in USD, GBP, CAD, AUD", "✓ Double Time & Holiday Pay"].map((t) => (
-              <span key={t} className="text-emerald-600 font-semibold">{t}</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {[
+              { val: "1.5x", label: "Time and a Half", sub: "Standard Overtime Rate" },
+              { val: "40 hrs", label: "Weekly Threshold", sub: "When OT legally begins" },
+              { val: "Zero", label: "Weekend Mandates", sub: "Unless over 40 hours" },
+              { val: "$43,888", label: "Salary Threshold", sub: "Exempt status minimum" },
+            ].map(({ val, label, sub }) => (
+              <div key={label} className="relative">
+                <p className="text-2xl sm:text-3xl font-black text-violet-400 mb-2">{val}</p>
+                <p className="text-sm font-bold text-white mb-1">{label}</p>
+                <p className="text-[11px] text-slate-400 leading-tight">{sub}</p>
+              </div>
             ))}
           </div>
         </div>
-
-        {/* CALCULATOR WIDGET */}
-        <CalculatorContainer
-          title="Time and a Half Calculator 2026"
-          description="Instant 1.5× overtime pay · USD · GBP · CAD · AUD · Hourly & Salaried"
-          category="Earnings"
-          lastUpdated="April 2026"
-        >
-          <div className="w-full overflow-hidden break-all px-1">
-            <SalaryCalculator defaultMode="time-and-half" />
-          </div>
-        </CalculatorContainer>
       </section>
 
-      {/* ── QUICK REFERENCE: COMMON HOURLY RATES ──────────────────────────── */}
-      {/*
-       * SEO: This section directly answers the #1 long-tail queries:
-       * "how much is time and a half for $X an hour"
-       * Google frequently pulls tables like this into Featured Snippets.
-       */}
-      <section className="max-w-5xl mx-auto px-4 pb-16">
-        <h2 className="text-xl font-bold text-slate-800 mb-4 text-center">
-          Time and a Half Quick Reference — Common Hourly Rates (USD)
-        </h2>
-        <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-          <table className="w-full text-sm text-slate-700 bg-white">
-            <thead className="bg-blue-50 text-blue-800 font-bold text-xs uppercase tracking-wider">
-              <tr>
-                <th className="px-4 py-3 text-left">Regular Rate</th>
-                <th className="px-4 py-3 text-left">Time & Half (1.5×)</th>
-                <th className="px-4 py-3 text-left">Double Time (2×)</th>
-                <th className="px-4 py-3 text-left">10hr OT Weekly Total</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {[
-                ["$12.00/hr", "$18.00/hr", "$24.00/hr", "$660"],
-                ["$15.00/hr", "$22.50/hr", "$30.00/hr", "$825"],
-                ["$17.00/hr", "$25.50/hr", "$34.00/hr", "$935"],
-                ["$18.00/hr", "$27.00/hr", "$36.00/hr", "$990"],
-                ["$20.00/hr", "$30.00/hr", "$40.00/hr", "$1,100"],
-                ["$22.00/hr", "$33.00/hr", "$44.00/hr", "$1,210"],
-                ["$25.00/hr", "$37.50/hr", "$50.00/hr", "$1,375"],
-                ["$30.00/hr", "$45.00/hr", "$60.00/hr", "$1,650"],
-                ["$35.00/hr", "$52.50/hr", "$70.00/hr", "$1,925"],
-                ["$40.00/hr", "$60.00/hr", "$80.00/hr", "$2,200"],
-                ["$50.00/hr", "$75.00/hr", "$100.00/hr", "$2,750"],
-              ].map(([reg, half, dbl, total], i) => (
-                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50/50"}>
-                  <td className="px-4 py-3 font-semibold">{reg}</td>
-                  <td className="px-4 py-3 text-blue-600 font-bold">{half}</td>
-                  <td className="px-4 py-3 text-purple-600 font-bold">{dbl}</td>
-                  <td className="px-4 py-3 text-emerald-700 font-bold">{total}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-xs text-slate-400 text-center mt-3">
-          10hr OT weekly total = (40hrs × regular rate) + (10hrs × time and half rate). Before tax.
-        </p>
-      </section>
-
-      {/* ── FEATURE GRID ─────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-4 mb-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
-          {[
-            { label: "1.5× & 2× Rates", icon: "✓", desc: "Time and half + double time" },
-            { label: "4 Currencies", icon: "💱", desc: "USD · GBP · CAD · AUD" },
-            { label: "Tax Estimates", icon: "📊", desc: "See take-home after tax" },
-            { label: "Salaried Workers", icon: "💼", desc: "Converts salary to hourly" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="group bg-white border border-slate-200/60 rounded-2xl p-5 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="text-blue-600 mb-2 text-2xl">{item.icon}</div>
-              <div className="text-sm font-bold text-slate-800 mb-1">{item.label}</div>
-              <div className="text-xs text-slate-500">{item.desc}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── WORLDWIDE OVERTIME RULES SECTION ─────────────────────────────── */}
-      {/*
-       * SEO: Targets "overtime rules uk 2026", "overtime australia fair work",
-       * "canada overtime threshold", "FLSA overtime 40 hours" — all from one section.
-       * This is a featured-snippet magnet. Google loves structured country comparisons.
-       */}
-      <section className="max-w-5xl mx-auto px-4 pb-20">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">
-            Overtime Laws by Country — 2026
-          </h2>
-          <p className="text-slate-500 text-sm max-w-xl mx-auto">
-            Our calculator supports all four frameworks. Select your currency and the correct threshold applies.
-          </p>
-        </div>
-        <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-          <table className="w-full text-sm text-slate-700 bg-white">
-            <thead className="bg-slate-900 text-white text-xs uppercase tracking-wider">
-              <tr>
-                <th className="px-4 py-3 text-left">Country</th>
-                <th className="px-4 py-3 text-left">Currency</th>
-                <th className="px-4 py-3 text-left">OT Threshold</th>
-                <th className="px-4 py-3 text-left">Standard OT Rate</th>
-                <th className="px-4 py-3 text-left">Governing Law</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {[
-                ["🇺🇸 United States", "USD ($)", "40 hrs/week", "1.5× (time and a half)", "FLSA — Fair Labor Standards Act"],
-                ["🇬🇧 United Kingdom", "GBP (£)", "Contractual only", "Contractual (1× to 2×)", "Working Time Regulations 1998"],
-                ["🇨🇦 Canada (Ontario)", "CAD (CA$)", "44 hrs/week", "1.5× after threshold", "ESA — Employment Standards Act"],
-                ["🇨🇦 Canada (BC/Sask)", "CAD (CA$)", "8 hrs/day or 40 hrs/wk", "1.5× (daily or weekly)", "Provincial ESA"],
-                ["🇨🇦 Canada (Quebec)", "CAD (CA$)", "40 hrs/week", "1.5×", "Act Respecting Labour Standards"],
-                ["🇦🇺 Australia", "AUD (A$)", "38 hrs/week", "1.5× first 2hrs, then 2×", "Fair Work Act 2009"],
-                ["🇺🇸 California (US)", "USD ($)", "8 hrs/day or 40 hrs/wk", "1.5× daily; 2× over 12hrs/day", "California Labor Code §510"],
-              ].map(([country, currency, threshold, rate, law], i) => (
-                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50/40"}>
-                  <td className="px-4 py-3 font-semibold">{country}</td>
-                  <td className="px-4 py-3 text-blue-600 font-bold">{currency}</td>
-                  <td className="px-4 py-3">{threshold}</td>
-                  <td className="px-4 py-3 font-medium">{rate}</td>
-                  <td className="px-4 py-3 text-slate-400 text-xs">{law}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* ── EDUCATIONAL CONTENT + SIDEBAR ────────────────────────────────── */}
-      <section className="max-w-5xl mx-auto px-4 py-16 border-t border-slate-100">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-
-          {/* MAIN CONTENT */}
-          <div className="lg:col-span-8 prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-600 prose-headings:font-extrabold">
-
-            <h2>How to Calculate Time and a Half Pay — Step by Step</h2>
-            <p>
-              The calculation is the same in every country — only the threshold and currency change.
-              Use this formula for any hourly wage in USD, GBP, CAD, or AUD:
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-20 pb-20">
+        
+        {/* ════════════════════════════════════════════════════════════════
+            QUICK REFERENCE TABLE
+        ════════════════════════════════════════════════════════════════ */}
+        <section aria-labelledby="table-heading">
+          <div className="text-center mb-8">
+            <p className="text-xs font-black uppercase tracking-widest text-violet-600 mb-2">
+              Featured Reference
             </p>
-
-            <div className="my-6 p-6 bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl text-white not-prose shadow-xl">
-              <p className="text-blue-400 font-mono tracking-widest uppercase text-xs mb-3">Step 1 — Overtime Rate</p>
-              <p className="text-xl md:text-2xl font-light mb-4">Regular Rate × 1.5 = Time and Half Rate</p>
-              <p className="text-blue-400 font-mono tracking-widest uppercase text-xs mb-3">Step 2 — Overtime Pay</p>
-              <p className="text-xl md:text-2xl font-light mb-4">Time and Half Rate × Overtime Hours</p>
-              <p className="text-blue-400 font-mono tracking-widest uppercase text-xs mb-3">Step 3 — Weekly Total</p>
-              <p className="text-xl md:text-2xl font-light">(Regular Rate × 40) + Overtime Pay</p>
-            </div>
-
-            <h3>Example: $20/hr Worker, 10 Hours Overtime</h3>
-            <p>
-              Regular rate: $20/hr. Overtime rate: $20 × 1.5 = <strong>$30/hr</strong>. Overtime pay:
-              10hrs × $30 = <strong>$300</strong>. Regular pay: 40hrs × $20 = $800.
-              Weekly total: $800 + $300 = <strong>$1,100 before tax</strong>.
-            </p>
-
-            <h3>How to Calculate Overtime for Salaried Workers</h3>
-            <p>
-              Salaried non-exempt workers qualify for overtime under FLSA. To find their overtime rate:
-              divide weekly salary by standard hours (usually 40) to get hourly equivalent, then multiply by 1.5.
-              Example: $52,000/year ÷ 52 weeks = $1,000/week ÷ 40hrs = $25/hr regular rate.
-              Overtime rate: $25 × 1.5 = <strong>$37.50/hr</strong>.
-            </p>
-
-            <h2>The 2025–2028 Overtime Tax Deduction — New US Rule</h2>
-            <p>
-              Starting with the 2025 tax year (filing in 2026), US workers can deduct
-              the <strong>"overtime premium"</strong> — the extra 0.5× portion of overtime pay — from
-              their federal taxable income. The cap is $12,500 if single or $25,000 if married filing
-              jointly. Phase-outs begin at higher incomes. This is a legitimate and underused deduction
-              that reduces the effective tax burden on overtime earnings.
-            </p>
-
-            <h3>Holiday Pay — Is It Automatically Time and a Half?</h3>
-            <p>
-              In the <strong>United States</strong>, federal law does not require holiday premium pay.
-              It's entirely at the employer's discretion — though most offer it to attract and retain staff.
-              In <strong>Australia</strong>, public holiday rates under Modern Awards are typically 250%
-              (2.5×) of the ordinary rate. In <strong>Canada</strong>, public holiday pay must equal the
-              employee's regular rate for that day, plus the regular rate for any hours actually worked.
-              In the <strong>UK</strong>, holiday pay rules require your regular overtime to be reflected
-              in statutory holiday pay calculations following the 2014 Bear Scotland v Fulton ruling.
-            </p>
-
-            <h2>Double Time Pay — When Does It Apply?</h2>
-            <p>
-              Double time (2×) is less common than time and a half but applies in specific scenarios.
-              California mandates double time for any hours over 12 in a single workday and for the first
-              8 hours worked on a 7th consecutive workday. Australian Modern Awards commonly require double
-              time after the first two overtime hours. Some employers offer it voluntarily on Sundays or
-              public holidays regardless of legal requirement.
+            <h2 id="table-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
+              Common 1.5x Overtime Rates
+            </h2>
+            <p className="text-slate-500 text-sm mt-2">
+              Quickly see the time and a half conversion for standard hourly wages.
             </p>
           </div>
 
-          {/* SIDEBAR */}
-          <aside className="lg:col-span-4 space-y-6">
-            <div className="sticky top-24 space-y-6">
+          <div className="max-w-3xl mx-auto overflow-hidden rounded-[2rem] border border-slate-200/60 shadow-sm bg-white">
+            <table className="w-full text-sm text-left">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-100">
+                  <th className="py-4 px-6 font-black text-slate-600 text-[10px] uppercase tracking-widest">
+                    Regular Base Rate
+                  </th>
+                  <th className="py-4 px-6 font-black text-violet-700 text-[10px] uppercase tracking-widest">
+                    Time and a Half (1.5x) Rate
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {RATES_TABLE.map((row, i) => (
+                  <tr key={row.reg} className={`${i % 2 === 0 ? "bg-white" : "bg-slate-50/30"} hover:bg-violet-50/50 transition-colors`}>
+                    <td className="py-4 px-6 font-bold text-slate-900">{row.reg} / hr</td>
+                    <td className="py-4 px-6 font-black text-violet-600">{row.ot} / hr</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-              {/* GBP Quick Reference */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4 flex items-center gap-2">
-                  🇬🇧 UK Quick Reference (GBP)
-                </h3>
-                <div className="space-y-2 text-sm">
-                  {[
-                    ["£12.21/hr (NMW)", "£18.32/hr OT"],
-                    ["£15.00/hr", "£22.50/hr OT"],
-                    ["£20.00/hr", "£30.00/hr OT"],
-                    ["£25.00/hr", "£37.50/hr OT"],
-                  ].map(([base, ot]) => (
-                    <div key={base} className="flex justify-between border-b border-slate-100 pb-2">
-                      <span className="text-slate-600">{base}</span>
-                      <span className="font-bold text-blue-600">{ot}</span>
-                    </div>
-                  ))}
+        {/* ════════════════════════════════════════════════════════════════
+            HOW IT WORKS — HowTo schema content
+        ════════════════════════════════════════════════════════════════ */}
+        <section aria-labelledby="howto-heading">
+          <div className="text-center mb-10">
+            <p className="text-xs font-black uppercase tracking-widest text-violet-600 mb-2">How to Use</p>
+            <h2 id="howto-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
+              Calculating Time and a Half
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              { n: "1", title: "Enter Regular Wage", body: "Input your standard hourly rate before overtime applies." },
+              { n: "2", title: "Add Work Hours", body: "Type in your total hours for the week. The calculator separates regular vs overtime automatically." },
+              { n: "3", title: "See the 1.5x Rate", body: "We instantly multiply your base rate by 1.5 to show your time and a half wage." },
+              { n: "4", title: "Review Total Pay", body: "See a complete breakdown of regular earnings, overtime premium, and gross weekly pay." },
+            ].map(({ n, title, body }) => (
+              <div key={n} className="bg-white border border-slate-200/60 rounded-[2rem] p-6 shadow-sm relative pt-10">
+                <span className="absolute -top-4 left-6 w-10 h-10 rounded-2xl bg-violet-600 text-white font-black flex items-center justify-center shadow-lg shadow-violet-600/30">
+                  {n}
+                </span>
+                <h3 className="font-black text-slate-900 mb-2">{title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════════════════════════════════
+            COMPREHENSIVE GUIDE WITH INTERNAL LINKS
+        ════════════════════════════════════════════════════════════════ */}
+        <section aria-labelledby="guide-heading">
+          <div className="flex flex-col lg:flex-row gap-10 items-start max-w-6xl mx-auto">
+            
+            {/* Main Article */}
+            <article className="flex-1 min-w-0 space-y-10">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-violet-100 text-violet-600 flex items-center justify-center shrink-0">
+                  <Scale size={24} />
                 </div>
-                <p className="text-xs text-slate-400 mt-3">NMW 2026 = £12.21/hr. OT rate set by your contract.</p>
+                <div>
+                  <h2 id="guide-heading" className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                    The Complete Guide to Time and a Half (2026 Rules)
+                  </h2>
+                  <p className="text-sm text-slate-500 font-medium mt-2">FLSA laws · Independent Contractors · Overtime Rules · Salary Exemptions</p>
+                </div>
               </div>
 
-              {/* CAD Quick Reference */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4 flex items-center gap-2">
-                  🇨🇦 Canada Quick Reference (CAD)
-                </h3>
-                <div className="space-y-2 text-sm">
-                  {[
-                    ["CA$17.20/hr (ON min)", "CA$25.80/hr OT"],
-                    ["CA$20.00/hr", "CA$30.00/hr OT"],
-                    ["CA$25.00/hr", "CA$37.50/hr OT"],
-                    ["CA$30.00/hr", "CA$45.00/hr OT"],
-                  ].map(([base, ot]) => (
-                    <div key={base} className="flex justify-between border-b border-slate-100 pb-2">
-                      <span className="text-slate-600">{base}</span>
-                      <span className="font-bold text-blue-600">{ot}</span>
-                    </div>
-                  ))}
+              <div className="prose prose-slate prose-violet max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:font-bold prose-a:text-violet-600 hover:prose-a:text-violet-700 prose-p:leading-loose">
+                
+                <p className="lead text-lg text-slate-700 font-medium bg-slate-50 border-l-4 border-violet-500 p-6 rounded-r-2xl">
+                  "Time and a half" is the standard overtime pay rate mandated by the US federal government under the Fair Labor Standards Act (FLSA). It means that for every hour of overtime worked, you are paid your regular hourly rate ("time") plus an additional 50% of that rate ("and a half"). 
+                </p>
+
+                <h3>How to Calculate Time and a Half (Formula & Examples)</h3>
+                <p>
+                  Calculating time and a half is straightforward mathematics. You simply take your standard hourly wage and multiply it by <strong>1.5</strong>.
+                </p>
+                <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm my-6">
+                  <p className="font-mono text-violet-700 font-bold mb-2">Formula:</p>
+                  <code className="text-lg bg-slate-100 px-3 py-1 rounded">Regular Hourly Rate × 1.5 = Overtime Rate</code>
                 </div>
-                <p className="text-xs text-slate-400 mt-3">Ontario minimum wage 2026 = CA$17.20/hr. OT after 44hrs/week.</p>
+                <p>
+                  <strong>Example 1:</strong> If you make <strong>$18.00 per hour</strong>, your time and a half rate is $18.00 × 1.5 = <strong>$27.00 per hour</strong>.<br />
+                  <strong>Example 2:</strong> If you make <strong>$25.00 per hour</strong>, your time and a half rate is $25.00 × 1.5 = <strong>$37.50 per hour</strong>.
+                </p>
+                <p>
+                  If you want to estimate your total weekly paycheck after these overtime rules are applied and taxes are deducted, our comprehensive <Link href="/paycheck-calculator">Paycheck Calculator</Link> is highly recommended. It factors in federal, state, and FICA taxes on top of your overtime pay.
+                </p>
+
+                <h3>The 40-Hour Workweek Rule (FLSA Mandate)</h3>
+                <p>
+                  Under the FLSA, covered non-exempt employees must receive overtime pay for hours worked <strong>over 40 in a single workweek</strong>. A workweek is defined as a fixed and regularly recurring period of 168 hours (seven consecutive 24-hour periods). 
+                </p>
+                <p>
+                  It's important to note that the FLSA does not average hours over two weeks. If you work 50 hours one week and 30 hours the next, you are entitled to 10 hours of overtime for the first week, even though you averaged 40 hours over the two weeks.
+                </p>
+
+                <div className="my-8 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4">
+                  <AlertCircle className="text-amber-600 shrink-0 mt-1" size={24} />
+                  <div>
+                    <h4 className="text-amber-900 font-bold mt-0 mb-2">No Weekend or Holiday Mandate</h4>
+                    <p className="text-amber-800 text-sm m-0 leading-relaxed">
+                      The FLSA <strong>does not</strong> require employers to pay time and a half for working on weekends, holidays, or regular days of rest, unless those hours push the total hours worked in the workweek past 40. Double time and holiday pay are strictly matters of agreement between an employer and employee. If you're looking for double-time calculations, you can use our <Link href="/overtime-calculator">Overtime Pay Calculator</Link>.
+                    </p>
+                  </div>
+                </div>
+
+                <h3>State by State Daily Overtime Exceptions</h3>
+                <p>
+                  While federal law only looks at the 40-hour weekly threshold, several states have stricter labor laws that benefit the employee by enforcing <strong>daily overtime rules</strong>. 
+                </p>
+                <ul>
+                  <li><strong>California:</strong> Time and a half must be paid for hours worked over 8 in a single workday, and for the first 8 hours worked on the seventh consecutive day of work in a workweek. (They also mandate double time after 12 hours).</li>
+                  <li><strong>Alaska & Nevada:</strong> Time and a half applies for any hours worked over 8 in a 24-hour period.</li>
+                  <li><strong>Colorado:</strong> Time and a half is required after 12 hours in a single workday or shift.</li>
+                </ul>
+                <p>
+                  Always check your local state department of labor for the most up-to-date daily overtime regulations.
+                </p>
+
+                <h3>Are Salaried Employees Entitled to 1.5x Pay? (Exempt vs Non-Exempt)</h3>
+                <p>
+                  A common myth is that salaried employees never get overtime. This is false. Your eligibility depends on whether you are classified as <strong>Exempt</strong> or <strong>Non-Exempt</strong>.
+                </p>
+                <p>
+                  If you are a <strong>non-exempt salaried employee</strong>, you are legally entitled to time and a half for overtime. To calculate this, your employer determines your regular hourly rate by dividing your weekly salary by 40 (or the standard hours your salary covers), then multiplies that by 1.5. If you want to see what your exact hourly rate is based on your annual salary, try our <Link href="/hourly-to-salary-calculator">Hourly to Salary Calculator</Link>.
+                </p>
+                <p>
+                  In 2026, the minimum salary threshold for exempt workers is strictly enforced. If your salary falls below this threshold (currently set at $43,888 annually, though subject to updates), you must be paid overtime, regardless of your job title or duties.
+                </p>
+
+                <h3>How Bonuses and Commissions Affect Your Overtime Rate</h3>
+                <p>
+                  Many workers are surprised to learn that non-discretionary bonuses (like performance bonuses, attendance bonuses, or shift differentials) must be included in their "regular rate of pay" before calculating time and a half. 
+                </p>
+                <p>
+                  For example, if you earn $20/hr, work 50 hours, and get a $100 performance bonus that week, your base pay for the week isn't just $1,000 ($20 × 50). The $100 bonus increases your regular hourly rate for that specific week to $22/hr ($1,100 total / 50 hours). Your time and a half rate for the 10 overtime hours is calculated based on the new $22 rate, meaning your overtime rate is $33/hr, not $30/hr.
+                </p>
+
+                <h3>The Freelancer & Remote Worker Exception</h3>
+                <p>
+                  If you are an independent contractor, freelancer, or a foreign remote worker acting as a contractor (often using a W-8BEN form for tax purposes), FLSA rules <strong>do not apply to you</strong>. 
+                </p>
+                <p>
+                  Time and a half only applies to traditional employer-employee relationships (W-2 employees) covered by US labor laws. As an independent contractor, you run your own business in the eyes of the law. Your overtime rate is dictated entirely by your contract. If you don't write an overtime clause into your freelance agreement, you aren't legally owed 1.5x pay.
+                </p>
+
+              </div>
+            </article>
+
+            {/* Sticky Sidebar */}
+            <aside className="w-full lg:w-[340px] shrink-0 space-y-6 lg:sticky lg:top-24">
+              
+              {/* Quick Callout Card */}
+              <div className="bg-gradient-to-br from-violet-900 to-indigo-950 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Clock size={16} className="text-violet-300" />
+                    <span className="text-xs font-black uppercase tracking-widest text-violet-300">
+                      Did You Know?
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">Double Time Pay</h3>
+                  <p className="text-sm text-violet-100/80 leading-relaxed mb-6">
+                    "Double Time" (2.0x your regular rate) is rarely required by federal law, but is mandated in places like California for hours worked beyond 12 in a single day.
+                  </p>
+                  <Link href="/overtime-calculator" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-3 rounded-xl text-sm font-bold w-full justify-center">
+                    Calculate 2.0x Pay <ArrowRight size={14} />
+                  </Link>
+                </div>
+                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-violet-500/20 rounded-full blur-2xl" />
               </div>
 
-              {/* AUD Quick Reference */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-4 flex items-center gap-2">
-                  🇦🇺 Australia Quick Reference (AUD)
-                </h3>
-                <div className="space-y-2 text-sm">
+              {/* Internal Related Links - Replaces the old wide RelatedCalculators component */}
+              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6">
+                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                  Popular Tools
+                </h4>
+                <div className="space-y-3">
                   {[
-                    ["A$24.10/hr (min wage)", "A$36.15/hr OT"],
-                    ["A$28.00/hr", "A$42.00/hr OT"],
-                    ["A$35.00/hr", "A$52.50/hr OT"],
-                    ["A$40.00/hr", "A$60.00/hr OT"],
-                  ].map(([base, ot]) => (
-                    <div key={base} className="flex justify-between border-b border-slate-100 pb-2">
-                      <span className="text-slate-600">{base}</span>
-                      <span className="font-bold text-blue-600">{ot}</span>
-                    </div>
+                    { title: "Salary After Tax", href: "/salary-after-tax-calculator", icon: DollarSign },
+                    { title: "Paycheck Calculator", href: "/paycheck-calculator", icon: Briefcase },
+                    { title: "Hourly to Salary", href: "/hourly-to-salary-calculator", icon: Clock },
+                    { title: "Overtime Calculator", href: "/overtime-calculator", icon: Calculator },
+                  ].map((item) => (
+                    <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 border border-transparent hover:border-violet-100 transition-colors group">
+                      <div className="bg-slate-100 p-2 rounded-lg group-hover:bg-violet-200 group-hover:text-violet-700 transition-colors text-slate-500">
+                        <item.icon size={16} />
+                      </div>
+                      <span className="font-semibold text-slate-700 group-hover:text-violet-700 text-sm">{item.title}</span>
+                    </Link>
                   ))}
                 </div>
-                <p className="text-xs text-slate-400 mt-3">National minimum wage 2026 = A$24.10/hr. OT after 38hrs/week.</p>
               </div>
 
-              {/* Ad placeholder */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-center">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block">
+              {/* Share */}
+              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6 text-center">
+                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
+                  Share This Tool
+                </h4>
+                <ShareButtons
+                  title="Time and a Half Calculator 2026"
+                  url="https://www.freeuscalculator.in/time-and-half-calculator"
+                />
+              </div>
+
+              {/* AdSense Placeholder */}
+              <div className="bg-slate-50 border border-dashed border-slate-300 rounded-[2rem] h-[250px] flex items-center justify-center">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                   Advertisement
                 </span>
               </div>
-            </div>
-          </aside>
-        </div>
-      </section>
 
-      {/* ── SHARE SECTION ─────────────────────────────────────────────────── */}
-      <section className="max-w-4xl mx-auto px-4 mb-12 flex justify-center">
-        <div className="w-full bg-white rounded-2xl p-4 border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm font-medium text-slate-500 italic">
-            Found this useful? Share it with your team or union rep:
-          </p>
-          <ShareButtons
-            title="Free Time and a Half Calculator 2026 – USD, GBP, CAD & AUD"
-            url="https://www.freeuscalculator.in/time-and-a-half-calculator"
-          />
-        </div>
-      </section>
-
-      {/* ── FAQ SECTION ──────────────────────────────────────────────────── */}
-      {/*
-       * FAQs map directly to real search queries.
-       * Combined with FAQPage JSON-LD above → triggers rich result accordion.
-       * Each question is a standalone indexed query Google can rank for.
-       */}
-      <section className="bg-slate-50 py-20 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-blue-600 font-black text-xs uppercase tracking-widest">
-              Frequently Asked Questions
-            </span>
-            {/* H2 with secondary keyword "overtime pay questions" */}
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mt-3">
-              Time and a Half — Common Questions
-            </h2>
-            <p className="text-slate-500 mt-2 text-sm">
-              Real answers for workers in the US, UK, Canada, and Australia.
-            </p>
+            </aside>
           </div>
-          <FAQ title="" faqs={faqs} />
+        </section>
+
+        {/* ════════════════════════════════════════════════════════════════
+            RELATED CALCULATORS GRID (FULL WIDTH)
+        ════════════════════════════════════════════════════════════════ */}
+        <div className="pt-10">
+          <RelatedCalculators currentTool="time-and-half-calculator" />
+        </div>
+
+        {/* ════════════════════════════════════════════════════════════════
+            FAQ
+        ════════════════════════════════════════════════════════════════ */}
+        <section aria-labelledby="faq-heading" className="pt-8">
+          <div className="text-center mb-10">
+            <p className="text-xs font-black uppercase tracking-widest text-violet-600 mb-2">FAQ</p>
+            <h2 id="faq-heading" className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Time and a Half Questions
+            </h2>
+          </div>
+          
+          <div className="max-w-4xl mx-auto space-y-4">
+            {FAQS_DATA.map(({ q, a }) => (
+              <div key={q} className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 hover:border-violet-300 transition-colors shadow-sm">
+                <dt className="font-black text-slate-900 text-base sm:text-lg mb-2 flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-violet-500 shrink-0 mt-0.5" />
+                  {q}
+                </dt>
+                <dd className="text-slate-500 text-sm sm:text-base leading-relaxed pl-8">{a}</dd>
+              </div>
+            ))}
+          </div>
+        </section>
+
+      </div>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          FINAL CTA
+      ════════════════════════════════════════════════════════════════════ */}
+      <section className="py-16 sm:py-24 bg-gradient-to-br from-slate-900 to-slate-950 text-white text-center border-t border-slate-800">
+        <div className="max-w-xl mx-auto px-4 sm:px-6">
+          <p className="text-[10px] font-black uppercase tracking-widest text-violet-400 mb-4">
+            100% Free · FLSA Compliant
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-black mb-6">
+            Ensure You're Paid Fairly
+          </h2>
+          <p className="text-slate-400 text-sm sm:text-base mb-10 leading-relaxed">
+            Whether you're tracking your own hours or running payroll, our time and a half calculator gives you exact, reliable figures. 
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="#" className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-black text-sm px-8 py-4 rounded-2xl transition-all shadow-xl shadow-violet-900/50">
+              <Calculator size={16} />
+              Scroll to Calculator
+            </a>
+            <Link href="/overtime-calculator" className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm px-8 py-4 rounded-2xl transition-colors">
+              Try Overtime Calculator
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── RELATED TOOLS ────────────────────────────────────────────────── */}
-      {/*
-       * Internal links distribute page authority.
-       * H2 contains "overtime pay tools" — a semantic topic cluster signal.
-       */}
-      <section className="max-w-6xl mx-auto px-4 py-20">
-        <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-2xl font-bold text-slate-800 whitespace-nowrap">
-            More Pay & Earnings Calculators
-          </h2>
-          <div className="h-px flex-1 bg-slate-200" />
+      {/* ════════════════════════════════════════════════════════════════════
+          SEO FOOTER NAV
+      ════════════════════════════════════════════════════════════════════ */}
+      <nav aria-label="Related calculators navigation" className="bg-slate-950 py-10 border-t border-slate-800/50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-6">
+            {[
+              { href: "/salary-after-tax-calculator",       label: "Salary After Tax"             },
+              { href: "/paycheck-calculator",               label: "Paycheck Calculator"          },
+              { href: "/hourly-to-salary-calculator",       label: "Hourly to Salary"             },
+              { href: "/overtime-calculator",               label: "Overtime Pay Calculator"      },
+              { href: "/self-employment-tax-calculator-usa",label: "Self-Employment Tax"          },
+              { href: "/savings-calculator",                label: "Savings Calculator"           },
+              { href: "/rent-affordability-calculator",     label: "Rent Affordability"           },
+            ].map((l) => (
+              <Link key={l.href} href={l.href} className="text-slate-500 hover:text-violet-400 transition-colors text-xs font-medium">
+                {l.label}
+              </Link>
+            ))}
+          </div>
+          <p className="text-center text-[10px] text-slate-700">
+            Time and a Half Calculator · FreeUSCalculator.in · 2026 Guidelines
+          </p>
         </div>
-        <RelatedCalculators currentTool="time-and-half" />
-      </section>
-    </div>
+      </nav>
+    </main>
   );
 }

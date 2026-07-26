@@ -165,7 +165,7 @@ function Slider({ label, hint, value, min, max, step, onChange, display }: Slide
         {/* Visible thumb */}
         <div
           className="absolute w-[18px] h-[18px] rounded-full bg-white border-2 border-blue-600
-                     shadow-[0_2px_8px_rgba(37,99,235,0.35)] pointer-events-none
+                     shadow-md shadow-blue-600/35 pointer-events-none
                      transition-transform duration-100 group-hover/sl:scale-110
                      group-active/sl:scale-95"
           style={{ left: `calc(${pct}% - 9px)` }}

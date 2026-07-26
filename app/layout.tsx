@@ -1,20 +1,10 @@
-// app/layout.tsx
 import type { Metadata } from "next";
-import { Sora } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import DisclaimerToast from "@/components/common/DisclaimerToast";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
-
-// ─── Font ─────────────────────────────────────────────────────────────────────
-const sora = Sora({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sora",
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
 
 // ─── Site-wide Metadata ───────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -174,7 +164,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         all hydration mismatch issues.
       */}
 
-      <body className={`${sora.variable} font-sans antialiased bg-white`}>
+      <body className={`font-sans antialiased bg-white`}>
         {/*
           JSON-LD schema in <body> via Next.js <Script strategy="afterInteractive">.
           Google reads JSON-LD in <body> identically to <head>.

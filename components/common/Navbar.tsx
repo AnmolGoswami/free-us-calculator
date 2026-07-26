@@ -108,7 +108,7 @@ export default function Navbar() {
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-xl shadow-[0_1px_0_0_#e2e8f0,0_4px_24px_-4px_rgba(0,0,0,0.08)]"
+            ? "bg-white/95 backdrop-blur-xl shadow-sm border-b border-slate-200/50"
             : "bg-white border-b border-slate-100"
         }`}
         role="banner"
