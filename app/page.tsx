@@ -82,6 +82,15 @@ const CATEGORIES = [
     tag: "22+ Tools",
     popular: ["Loan EMI", "Rent Affordability", "Savings Calculator"],
   },
+  {
+    href: "/retirement-calculators",
+    title: "Retirement & FIRE",
+    desc: "Plan your future with our FIRE calculator, Roth IRA growth estimator, and 401(k) match tools.",
+    gradient: "from-fuchsia-500 to-rose-600",
+    accent: "bg-fuchsia-50 border-fuchsia-100 hover:border-fuchsia-300",
+    tag: "3+ Tools",
+    popular: ["FIRE Calculator", "Roth IRA", "401(k) Calculator"],
+  },
 ];
 
 // ─── Why choose us features ────────────────────────────────────────────────────

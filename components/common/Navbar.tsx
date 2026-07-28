@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Calculator, ChevronDown, TrendingUp, Receipt, DollarSign, BookOpen, Zap } from "lucide-react";
+import { Menu, X, Calculator, ChevronDown, TrendingUp, Receipt, DollarSign, BookOpen, Zap, Target } from "lucide-react";
 
 // ─── Nav structure with rich dropdown data ────────────────────────────────────
 const NAV_ITEMS = [
@@ -15,6 +15,7 @@ const NAV_ITEMS = [
     bg: "bg-blue-50",
     tools: [
       { label: "Self-Employment Tax", href: "/self-employment-tax-calculator-usa", desc: "SE tax + Medicare" },
+      { label: "Capital Gains Tax",   href: "/capital-gains-tax-calculator",       desc: "Stocks & Crypto" },
       { label: "Salary After Tax",    href: "/salary-after-tax-calculator",        desc: "Net take-home pay" },
       { label: "Paycheck Calculator", href: "/paycheck-calculator",                desc: "Federal + state" },
     ],
@@ -39,9 +40,23 @@ const NAV_ITEMS = [
     color: "text-amber-600",
     bg: "bg-amber-50",
     tools: [
+      { label: "Mortgage Calculator", href: "/mortgage-calculator",          desc: "PITI + PMI estimates" },
+      { label: "Auto Loan Calculator", href: "/auto-loan-calculator",        desc: "Out-the-door price" },
       { label: "Loan EMI",           href: "/loan-calculator",               desc: "Monthly payments" },
       { label: "Rent Affordability", href: "/rent-affordability-calculator",  desc: "30% rule + budget" },
-      { label: "Savings Calculator", href: "/savings-calculator",             desc: "Compound interest" },
+    ],
+  },
+  {
+    label: "Retirement",
+    href: "/retirement-calculators",
+    icon: Target,
+    color: "text-fuchsia-600",
+    bg: "bg-fuchsia-50",
+    tools: [
+      { label: "Retirement Calculator", href: "/retirement-calculator",      desc: "401k & IRA planning" },
+      { label: "Compound Interest",    href: "/compound-interest-calculator", desc: "Investment growth" },
+      { label: "401k Calculator",      href: "/401k-calculator",             desc: "Employer match" },
+      { label: "Roth IRA Calculator",  href: "/roth-ira-calculator",         desc: "Tax-free growth" },
     ],
   },
   {

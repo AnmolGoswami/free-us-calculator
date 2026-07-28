@@ -6,7 +6,7 @@ import { useState } from "react";
 import {
   ShieldCheck, Mail, Heart, Calculator, TrendingUp,
   Receipt, DollarSign, BookOpen, ArrowRight, CheckCircle2,
-  Zap, Lock, ExternalLink, MessageSquare,
+  Zap, Lock, ExternalLink, MessageSquare, Target
 } from "lucide-react";
 
 // ─── Static data ──────────────────────────────────────────────────────────────
@@ -26,6 +26,7 @@ const CATEGORY_LINKS = [
   { label: "Tax Calculators",      href: "/tax-calculators",     icon: Receipt,    color: "text-blue-400"    },
   { label: "Earnings Calculators", href: "/earning-calculators", icon: TrendingUp, color: "text-emerald-400" },
   { label: "Cost & Planning",      href: "/cost-calculators",    icon: DollarSign, color: "text-amber-400"   },
+  { label: "Retirement Tools",     href: "/retirement-calculators", icon: Target,  color: "text-fuchsia-400" },
   { label: "Blog & Insights",      href: "/blog",                icon: BookOpen,   color: "text-violet-400"  },
 ];
 

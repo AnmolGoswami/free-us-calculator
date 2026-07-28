@@ -48,6 +48,7 @@ const CORE_PAGES: {
   { urlPath: "/earning-calculators", filePath: "app/(categories)/earning-calculators/page.tsx", priority: 0.7 },
   { urlPath: "/tax-calculators",     filePath: "app/(categories)/tax-calculators/page.tsx",     priority: 0.7 },
   { urlPath: "/cost-calculators",    filePath: "app/(categories)/cost-calculators/page.tsx",    priority: 0.7 },
+  { urlPath: "/retirement-calculators", filePath: "app/(categories)/retirement-calculators/page.tsx", priority: 0.7 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
