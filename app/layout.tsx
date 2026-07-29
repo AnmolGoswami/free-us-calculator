@@ -72,7 +72,7 @@ const organizationSchema = JSON.stringify({
   "@type": "Organization",
   name: "FreeUSCalculator",
   url: "https://www.freeuscalculator.in",
-  logo: "https://www.freeuscalculator.in/logo.png",
+  logo: "https://www.freeuscalculator.in/logo.jpg",
   description:
     "Free, accurate 2026 US financial calculators for tax, earnings, paycheck, loans, and rent.",
   sameAs: [],
