@@ -301,6 +301,18 @@ export default function HourlyToSalaryPage() {
                   If you live outside the US and have secured a remote role with an American company, you'll likely be hired as an independent contractor (signing a W-8BEN form) rather than a W-2 employee. This means understanding how to convert an offered US annual salary into a fair hourly rate is critical.
                 </p>
 
+                <h3>How to Use the Hourly to Salary Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/hourly-to-salary-calculator-screenshot.jpg" 
+                    alt="Hourly to Salary Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Hourly Rate</strong>, the number of <strong>Hours per Week</strong> you plan to work, and the total <strong>Weeks per Year</strong>. The calculator instantly breaks down your equivalent gross Annual Salary, Monthly Income, and Weekly Income so you can negotiate the absolute best contract.
+                </p>
+
                 <h3>Why US Companies Hire Global Contractors</h3>
                 <p>
                   US tech startups and agencies increasingly hire global talent. For the company, hiring an international contractor means they completely avoid US payroll taxes (Social Security and Medicare), health insurance premiums, 401(k) matching, and complex HR compliance. 

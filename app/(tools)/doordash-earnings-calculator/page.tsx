@@ -288,6 +288,18 @@ export default function DoordashEarningsCalculatorPage() {
                   The number DoorDash shows in your app is not what you keep. After fuel, vehicle depreciation, maintenance, and self-employment tax, the median Dasher nets just $7–$12 per hour — a far cry from the $18–$25 DoorDash advertises.
                 </p>
 
+                <h3>How to Use the DoorDash Earnings Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/doordash-earnings-calculator-screenshot.jpg" 
+                    alt="DoorDash Earnings Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  To get an accurate picture of your take-home pay, simply enter your <strong>Base Pay per Delivery</strong>, <strong>Peak Pay</strong>, and average <strong>Tip per Delivery</strong>. Then, input the number of deliveries you completed and your total active hours. The calculator will instantly show your gross Total Earnings and your true Hourly Rate.
+                </p>
+
                 <h3>How DoorDash Pay Is Structured</h3>
                 <p>
                   Every completed DoorDash order pays you from three sources: Base Pay, Promotions, and Tips.

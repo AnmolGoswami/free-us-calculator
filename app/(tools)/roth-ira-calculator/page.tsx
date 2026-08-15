@@ -228,6 +228,18 @@ export default function RothIraPage() {
                   A Roth IRA is considered one of the ultimate retirement accounts for one simple reason: <strong>you will never pay taxes on the growth.</strong> Because you fund it with money that has already been taxed (your <Link href="/salary-after-tax-calculator">after-tax salary</Link>), the IRS cannot touch your profits when you withdraw them in retirement.
                 </p>
 
+                <h3>How to Use the Roth IRA Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/roth-ira-calculator-screenshot.jpg" 
+                    alt="Roth IRA Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Starting Balance</strong>, your planned <strong>Annual Contribution</strong>, how many <strong>Years to Grow</strong> you have left, and your <strong>Expected Return</strong>. The calculator will instantly reveal your massive Final Tax-Free Balance, clearly separating the money you contributed from the pure tax-free growth!
+                </p>
+
                 <h3>Why You Should Max It Out Every Year</h3>
                 <p>
                   As you can see in our calculator, investing $7,000 every year for 30 or 40 years results in a massive snowball of wealth. In fact, if you start early enough, the amount of money you make from <em>pure investment growth</em> will far eclipse the actual money you put in. 

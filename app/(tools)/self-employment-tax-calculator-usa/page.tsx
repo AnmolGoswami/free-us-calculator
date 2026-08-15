@@ -300,6 +300,18 @@ export default function SelfEmploymentTaxPage() {
                   If you drive for Uber, deliver for DoorDash, or run your own freelance business, your taxes are vastly different from a standard employee's. Because you don't have an employer withholding taxes from your paycheck, you are fully responsible for the dreaded 15.3% Self-Employment Tax.
                 </p>
 
+                <h3>How to Use the SE Tax Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/self-employment-tax-calculator-screenshot.jpg" 
+                    alt="Self Employment Tax Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your expected <strong>Gross Income</strong> and any <strong>Business Expenses</strong>. The calculator will instantly determine your Net Profit and calculate exactly how much you owe for the 15.3% SE tax, including the deductible portion for your 1040!
+                </p>
+
                 <h3>Why is SE Tax So High?</h3>
                 <p>
                   When you work a W-2 job, the IRS requires your employer to pay 7.65% in payroll taxes on your behalf, and they deduct the other 7.65% directly from your <Link href="/paycheck-calculator">paycheck</Link>. 

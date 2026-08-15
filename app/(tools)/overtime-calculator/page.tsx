@@ -299,6 +299,18 @@ export default function OvertimePage() {
                   Working overtime can massively increase your weekly paycheck. Whether you are a W-2 employee navigating strict FLSA laws or an international contractor negotiating a retainer, understanding how overtime translates into real money is crucial.
                 </p>
 
+                <h3>How to Use the Overtime Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/overtime-calculator-screenshot.jpg" 
+                    alt="Overtime Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Regular Hourly Rate</strong> and the total <strong>Regular Hours</strong> worked. Then, enter any <strong>1.5x Overtime Hours</strong> and (if applicable in your state) <strong>2.0x Double Time Hours</strong>. The calculator will instantly sum your base pay and your premium rates so you can verify your exact paycheck amount!
+                </p>
+
                 <h3>How Overtime is Actually Calculated in the US</h3>
                 <p>
                   The Fair Labor Standards Act (FLSA) sets the federal baseline: any covered non-exempt employee who works more than 40 hours in a 168-hour workweek must be paid <Link href="/time-and-half-calculator">Time and a Half</Link> (1.5x) for those excess hours.

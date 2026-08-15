@@ -1,43 +1,39 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import CalculatorContainer from "@/components/ui/CalculatorContainer";
-import FAQ from "@/components/calculators/FAQ";
-import ShareButtons from "@/components/calculators/ShareButtons";
-import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import AutoLoanCalculator from "@/components/calculators/AutoLoanCalculator";
 import {
-  Car,
-  ChevronRight,
-  Calculator,
-  ArrowRight,
   CheckCircle2,
+  AlertCircle,
+  Calculator,
+  HelpCircle,
+  FileText,
   DollarSign,
-  Zap,
+  TrendingUp,
+  Landmark,
   BookOpen,
-  Building,
-  Key
+  Car
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Auto Loan Calculator with Taxes & Fees | 2026 Car Payment",
-  description: "Calculate your true out-the-door monthly car payment. Includes trade-in tax savings, dealership fees, and amortization schedules for car buyers.",
+  title: "Auto Loan Calculator 2026 - Car Payment & Interest Estimator",
+  description: "Free auto loan calculator. Estimate your monthly car payments, total interest, and total cost of ownership including taxes and trade-ins.",
   alternates: {
     canonical: "https://www.freeuscalculator.in/auto-loan-calculator",
   },
-  keywords: ["auto loan calculator", "car payment calculator", "out the door car price", "car loan tax and fees", "trade in tax savings"],
+  keywords: ["auto loan calculator", "car payment calculator", "vehicle loan calculator", "car interest calculator", "auto finance calculator"],
   openGraph: {
     title: "Auto Loan Calculator 2026",
-    description: "Calculate your true out-the-door monthly car payment including trade-ins, sales tax, and dealership fees.",
+    description: "Estimate your monthly car payments, total interest, and total cost.",
     url: "https://www.freeuscalculator.in/auto-loan-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Auto Loan Calculator (2026)",
-    description: "Calculate your true out-the-door monthly car payment including trade-ins, sales tax, and dealership fees.",
+    title: "Auto Loan Calculator 2026",
+    description: "Estimate your monthly car payments and total interest.",
   },
 };
 
@@ -48,7 +44,7 @@ const SCHEMA_WEBAPP = JSON.stringify({
   name: "Auto Loan Calculator 2026",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
-  description: "Calculates monthly car payments including the impact of trade-ins, sales tax, and dealership fees.",
+  description: "Calculates monthly car payments, total interest, and total cost including taxes and trade-ins.",
   url: "https://www.freeuscalculator.in/auto-loan-calculator",
   isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -59,27 +55,26 @@ const SCHEMA_BREADCRUMB = JSON.stringify({
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://www.freeuscalculator.in" },
-    { "@type": "ListItem", position: 2, name: "Cost Tools", item: "https://www.freeuscalculator.in/cost-calculators" },
-    { "@type": "ListItem", position: 3, name: "Auto Loan Calculator", item: "https://www.freeuscalculator.in/auto-loan-calculator" },
+    { "@type": "ListItem", position: 2, name: "Auto Loan Calculator", item: "https://www.freeuscalculator.in/auto-loan-calculator" },
   ],
 });
 
 const FAQS_DATA = [
   {
-    q: "Does a trade-in reduce my sales tax?",
-    a: "In most US states, yes! If you buy a $30,000 car and trade in a $10,000 car, you only pay sales tax on the $20,000 difference. This is a massive hidden benefit of trading in your car at the dealership rather than selling it privately.",
+    q: "How much should I put down on a car?",
+    a: "Experts traditionally recommend putting down 20% of the vehicle's purchase price. This helps offset initial depreciation (the 'drive-off-the-lot' drop in value) and ensures you don't end up 'upside down' (owing more than the car is worth) on your loan."
   },
   {
-    q: "What is an 'Out-The-Door' price?",
-    a: "The Out-The-Door (OTD) price is the absolute final total you will pay to drive the car off the lot. It includes the negotiated price of the car, plus state sales tax, title/registration fees, and dealership documentation fees, minus your trade-in value.",
+    q: "What is a good auto loan interest rate?",
+    a: "Auto loan rates vary heavily based on your credit score and whether the car is new or used. For excellent credit (780+), you might see rates around 5-6% for new cars in 2026. For lower credit scores, rates can easily exceed 10-15%."
   },
   {
-    q: "Should I take a 72 or 84 month loan?",
-    a: "Financial experts strongly recommend against loans longer than 60 months. While a 72 or 84-month loan lowers your monthly payment, the interest rate is usually much higher. More importantly, cars depreciate quickly, meaning you risk being 'upside down' (owing more than the car is worth) for years.",
+    q: "Does a longer loan term save me money?",
+    a: "No. A longer loan term (like 72 or 84 months) will lower your monthly payment, making the car feel more affordable month-to-month. However, you will pay significantly more in total interest over the life of the loan. Aim for 48 to 60 months if possible."
   },
   {
-    q: "What are dealership 'Doc Fees'?",
-    a: "Documentation fees (Doc Fees) are what the dealership charges to process the paperwork for your sale. Some states legally cap this fee (e.g., California caps it at $85), while in other states (like Florida), dealerships routinely charge $800 to $1,200.",
+    q: "How does sales tax affect my loan?",
+    a: "In most states, sales tax is calculated on the price of the car (often minus the value of your trade-in). If you don't pay the tax out-of-pocket in cash, it is rolled into your total loan amount, meaning you will pay interest on the tax for the next 5 years."
   }
 ];
 
@@ -95,254 +90,279 @@ const SCHEMA_FAQ = JSON.stringify({
 
 export default function AutoLoanPage() {
   return (
-    <main className="bg-slate-50 min-h-screen font-sans selection:bg-blue-200 selection:text-blue-900">
+    <main className="bg-slate-50 min-h-screen font-sans selection:bg-indigo-200 selection:text-indigo-900 pb-24">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_WEBAPP }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_BREADCRUMB }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_FAQ }} />
 
-      {/* ════════════════════════════════════════════════════════════════════
-          HERO
-      ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white border-b border-slate-200/60 pt-8 pb-32 px-4 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-blue-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
-
-        <div className="max-w-7xl mx-auto">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-8 flex-wrap justify-center md:justify-start">
-            <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-            <ChevronRight size={11} />
-            <Link href="/cost-calculators" className="hover:text-blue-600 transition-colors">Cost Tools</Link>
-            <ChevronRight size={11} />
-            <span className="text-slate-900 font-medium">Auto Loan</span>
-          </nav>
-
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-100 text-blue-800 text-[10px] font-black uppercase tracking-widest mb-6">
-              <Car size={12} className="text-blue-600" />
-              Automotive & Finance
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
-              Auto Loan{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-500">
-                Calculator
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
-              Calculate your true out-the-door monthly car payment including trade-in tax savings, sales tax, and dealership fees.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-              {[
-                { icon: Key, label: "Out-The-Door Price" },
-                { icon: DollarSign, label: "Trade-in Tax Savings" },
-                { icon: Calculator, label: "Dealership Fees" },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-2 bg-slate-100/80 text-slate-600 px-4 py-2 rounded-full text-xs font-bold border border-slate-200/50">
-                  <Icon size={14} className="text-blue-500" />
-                  {label}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="max-w-5xl mx-auto -mb-40 relative z-20">
-            <CalculatorContainer
-              title="Advanced Car Payment Estimator"
-              description="Calculate the true cost of financing a vehicle."
-              category="Auto Finance"
-              lastUpdated="2026"
-            >
-              <AutoLoanCalculator />
-            </CalculatorContainer>
-          </div>
+      {/* 1. H1 & Intro */}
+      <section className="bg-white border-b border-slate-200/60 pt-16 pb-32 px-4 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-indigo-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-6 flex items-center justify-center gap-4">
+            <Car size={48} className="text-indigo-600 hidden md:block" />
+            Auto Loan Calculator
+          </h1>
+          <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Find out exactly how much that new car will cost you. Estimate your monthly payment, total interest, and final cost of ownership before heading to the dealership.
+          </p>
         </div>
       </section>
 
-      <div className="h-40" />
+      {/* 2. Calculator Tool */}
+      <section className="max-w-6xl mx-auto px-4 -mt-20 relative z-20 mb-24">
+        <div className="shadow-2xl shadow-indigo-900/10 rounded-[2rem]">
+           <AutoLoanCalculator />
+        </div>
+      </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          FACTS STRIP
-      ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-900 py-10 sm:py-12 border-y border-slate-800 mb-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-center text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8">
-            Car Buying Rules of Thumb
+      {/* SEO Content Sections */}
+      <section className="max-w-4xl mx-auto px-4 space-y-20">
+        
+        {/* 3. What is the Calculator? */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">What is an Auto Loan?</h2>
+          <p>
+            An auto loan allows you to borrow money from a lender (like a bank, credit union, or dealership) to purchase a vehicle. You agree to pay back the borrowed amount, plus interest, over a set period of time—usually between 36 and 72 months.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              { val: "20%", label: "Ideal Down Payment", sub: "Prevents being underwater" },
-              { val: "60 Mo", label: "Max Loan Term", sub: "Avoid 72+ month loans" },
-              { val: "10%", label: "Transportation Rule", sub: "Max % of income for car+ins" },
-              { val: "Pre-Approval", label: "Dealer Leverage", sub: "Bring your own bank rate" },
-            ].map(({ val, label, sub }) => (
-              <div key={label} className="relative">
-                <p className="text-2xl sm:text-3xl font-black text-blue-400 mb-2">{val}</p>
-                <p className="text-sm font-bold text-white mb-1">{label}</p>
-                <p className="text-[11px] text-slate-400 leading-tight">{sub}</p>
+          <p>
+            When financing a car, the vehicle itself serves as collateral. This means if you fail to make your monthly payments, the lender has the legal right to repossess the car. 
+          </p>
+          <ul className="space-y-4">
+            <li>
+              <strong>Principal:</strong> The actual price of the vehicle minus your down payment and trade-in value, plus any taxes or fees you choose to roll into the loan.
+            </li>
+            <li>
+              <strong>Interest Rate (APR):</strong> The cost of borrowing the money, expressed as an annual percentage.
+            </li>
+          </ul>
+        </div>
+
+        {/* 4. How to use */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">How to Use the Auto Loan Calculator</h2>
+          
+          <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+            <img 
+              src="/auto-loan-calculator-screenshot.jpg" 
+              alt="Auto Loan Calculator Interface" 
+              className="w-full h-auto object-cover"
+            />
+          </figure>
+
+          <ol className="space-y-4">
+            <li><strong>Vehicle Price:</strong> Enter the negotiated or sticker price of the car you want to buy.</li>
+            <li><strong>Down Payment & Trade-In:</strong> Input any cash you plan to put down, and the estimated value of your current car if you plan to trade it in.</li>
+            <li><strong>Loan Term:</strong> Select how many months you plan to pay off the loan (e.g., 48, 60, or 72 months).</li>
+            <li><strong>Interest Rate:</strong> Enter the APR you qualify for. (Check your bank or credit union for current pre-approval rates).</li>
+            <li><strong>Sales Tax:</strong> Enter your local state/county sales tax rate.</li>
+          </ol>
+        </div>
+
+        {/* 5. Formula */}
+        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-6">The Auto Loan Formula</h2>
+          <p className="text-slate-600 mb-6 leading-loose">Car loans are amortized, meaning you pay a fixed amount every month, but the portion going toward interest versus principal changes over time. The monthly payment formula is:</p>
+          
+          <div className="bg-indigo-50 text-indigo-900 font-mono p-5 rounded-2xl font-bold text-center mb-8 border border-indigo-100 text-lg sm:text-xl">
+            M = P [ r(1 + r)^n ] / [ (1 + r)^n - 1 ]
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-[500px]">
+              <thead>
+                <tr className="border-b-2 border-slate-200">
+                  <th className="py-4 px-4 font-black text-slate-900 uppercase text-xs tracking-wider">Variable</th>
+                  <th className="py-4 px-4 font-black text-slate-900 uppercase text-xs tracking-wider">Meaning</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-600 text-sm">
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">M</td>
+                  <td className="py-4 px-4 leading-relaxed">Your fixed Monthly Payment.</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">P</td>
+                  <td className="py-4 px-4 leading-relaxed">The Principal loan amount (Price - Down Payment - Trade-in + Taxes).</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">r</td>
+                  <td className="py-4 px-4 leading-relaxed">The monthly interest rate (Annual rate divided by 12).</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">n</td>
+                  <td className="py-4 px-4 leading-relaxed">The total number of months (e.g., 60).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* 6. Step-by-step example */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Example Auto Loan Calculation</h2>
+          <p>Let's walk through exactly how the math works for buying a <strong>$35,000</strong> car with a <strong>$5,000</strong> down payment, financed over <strong>60 months</strong> at <strong>6.5% interest</strong> with a <strong>7% sales tax</strong>.</p>
+          
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 1: Calculate the Total Loan Amount (Principal)</h4>
+          <p>First, subtract your down payment and add the taxes. The 7% sales tax on $35,000 is $2,450.</p>
+          <div className="bg-slate-50 p-4 rounded-xl font-mono text-sm border border-slate-200 text-slate-700 space-y-2">
+            <div>Car Price: $35,000</div>
+            <div>- Down Payment: $5,000</div>
+            <div>+ Sales Tax: $2,450</div>
+            <div className="font-bold">Total Loan Amount (P) = $32,450</div>
+          </div>
+
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 2: Calculate the Monthly Payment</h4>
+          <p>Using the amortization formula with our Principal ($32,450), monthly rate (6.5% / 12 = 0.005416), and term (60 months), we find the fixed monthly payment.</p>
+          
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 3: Total Cost Breakdown</h4>
+          <div className="bg-emerald-50 p-5 rounded-2xl font-mono text-sm border border-emerald-100 space-y-3 shadow-sm">
+            <div className="text-slate-700">Total Loan Amount: <strong className="text-slate-900">$32,450.00</strong></div>
+            <div className="text-slate-700">Monthly Payment: <strong className="text-slate-900">$634.93</strong></div>
+            <div className="text-emerald-800 font-bold text-lg pt-3 border-t border-emerald-200/60">
+              Total Interest Paid: $5,645.74
+            </div>
+            <div className="text-slate-900 font-black text-2xl pt-2">
+              Total Cost of Vehicle = $43,095.74
+            </div>
+            <div className="text-slate-600 text-xs font-sans mt-2">
+              (Includes Down Payment, Principal, Tax, and Interest)
+            </div>
+          </div>
+        </div>
+
+        {/* 7. Understanding the result */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Understanding Your Results</h2>
+          <p>
+            It is very common for buyers to only look at the "Monthly Payment" and ignore everything else. Dealerships know this, and will often try to sell you a car based entirely on getting your monthly payment to a certain number.
+          </p>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-2xl my-8">
+            <h4 className="text-blue-900 font-bold mt-0 mb-2">The "Total Cost" Trap</h4>
+            <p className="text-blue-800 text-sm m-0 leading-relaxed">
+              If you tell a dealer "I can only afford $400 a month", they might give you a $400 payment by extending your loan to 84 months (7 years). While the payment fits your budget, you will end up paying thousands of extra dollars in interest, and you will likely owe more on the car than it is worth for many years. Always negotiate based on the Total Cost of the Vehicle, not the monthly payment.
+            </p>
+          </div>
+        </div>
+
+        {/* 10. Important Assumptions and Limitations */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 sm:p-8">
+          <h2 className="text-xl font-black text-amber-900 mb-4 flex items-center gap-3">
+            <AlertCircle size={24} className="shrink-0" /> Important Limitations
+          </h2>
+          <p className="text-amber-800 leading-relaxed mb-0">
+            This calculator provides a highly accurate estimate based on standard amortization, but it cannot predict every dealer fee. Dealerships often tack on "Document Fees", "Destination Charges", or mandatory warranties that can add $500 to $2,000 to the loan amount. Always ask for an "Out-the-Door" price breakdown before signing.
+          </p>
+        </div>
+
+        {/* 11. Common Mistakes */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Common Auto Financing Mistakes</h2>
+          <div className="space-y-6 mt-8">
+            <div>
+              <h4 className="font-bold text-lg mb-2">1. Financing your taxes and fees</h4>
+              <p className="m-0">When you roll your sales tax and dealer fees into the loan, you are paying interest on those taxes for the next 5 years. Always try to pay your taxes and fees in cash on the day of purchase.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-lg mb-2">2. Not getting pre-approved</h4>
+              <p className="m-0">Never walk into a dealership without financing already lined up. Go to your local credit union or bank and get a pre-approval letter. You can use this as leverage to force the dealer to beat your rate.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-lg mb-2">3. Rolling over negative equity</h4>
+              <p className="m-0">If you owe $15,000 on your current car, but the dealer only gives you a $10,000 trade-in credit, you have $5,000 in "negative equity". Rolling that $5,000 debt into your new car loan guarantees you will be severely upside-down on the new vehicle the moment you drive it away.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* 12. FAQ */}
+        <div>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-8 text-center sm:text-left">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            {FAQS_DATA.map((faq, i) => (
+              <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm hover:border-indigo-200 transition-colors">
+                <h3 className="font-black text-slate-900 text-lg mb-3 flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-indigo-500 shrink-0 mt-1" />
+                  {faq.q}
+                </h3>
+                <p className="text-slate-600 leading-relaxed pl-8 m-0">{faq.a}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-20 pb-20">
-        
-        {/* ════════════════════════════════════════════════════════════════
-            COMPREHENSIVE GUIDE WITH INTERNAL LINKS
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="guide-heading">
-          <div className="flex flex-col lg:flex-row gap-10 items-start max-w-6xl mx-auto">
-            
-            {/* Main Article */}
-            <article className="flex-1 min-w-0 space-y-10">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
-                  <BookOpen size={24} />
-                </div>
-                <div>
-                  <h2 id="guide-heading" className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                    Never Negotiate the Monthly Payment
-                  </h2>
-                  <p className="text-sm text-slate-500 font-medium mt-2">Trade-Ins · Taxes · Out-The-Door Prices</p>
-                </div>
-              </div>
-
-              <div className="prose prose-slate prose-blue max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-700 prose-p:leading-loose">
-                
-                <p className="lead text-lg text-slate-700 font-medium bg-slate-50 border-l-4 border-blue-500 p-6 rounded-r-2xl">
-                  The biggest mistake you can make at a dealership is answering the question: "What monthly payment are you looking for?" Dealerships use the "Four Square" method to manipulate loan terms, interest rates, and trade-in values to hit your monthly payment, usually resulting in you paying thousands more for the car.
-                </p>
-
-                <h3>Always Negotiate the "Out-The-Door" Price</h3>
-                <p>
-                  You should only negotiate one number: the <strong>Out-The-Door (OTD) price</strong>. This is the final amount required to buy the car, including the negotiated car price, your trade-in, state sales tax, title fees, and the dealership's doc fee.
-                </p>
-
-                <ul className="grid sm:grid-cols-2 gap-4 list-none pl-0 mt-6">
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-blue-100">
-                    <CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Get Pre-Approved:</strong> Bring an interest rate from your local bank or credit union before walking into the dealership.</span>
-                  </li>
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-blue-100">
-                    <CheckCircle2 size={18} className="text-blue-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Separate the Trade:</strong> Negotiate the price of the new car <em>first</em>, then discuss your trade-in.</span>
-                  </li>
-                </ul>
-
-                <div className="my-8 bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex gap-4">
-                  <Zap className="text-emerald-600 shrink-0 mt-1" size={24} />
-                  <div>
-                    <h4 className="text-emerald-900 font-bold mt-0 mb-2">The Hidden Trade-In Tax Advantage</h4>
-                    <p className="text-emerald-800 text-sm m-0 leading-relaxed">
-                      In over 40 US states, trading in your vehicle at the dealership provides a massive tax break. You only pay sales tax on the <em>difference</em> between the new car price and your trade-in. For example, trading in a $10,000 car with a 7% state tax rate saves you $700 in pure cash. Our calculator automatically factors this in!
-                    </p>
-                  </div>
-                </div>
-
-                <h3>The Trap of 72 and 84-Month Loans</h3>
-                <p>
-                  To keep monthly payments low on increasingly expensive cars, dealerships now push 72 and 84-month (7-year) loans. This is extremely dangerous. Cars depreciate quickly. If you take out a 7-year loan with a small down payment, you will likely be "upside down" (owing more than the car is worth) by year two. If the car is totaled or you want to sell it, you will have to write a massive check to the bank just to get rid of it.
-                </p>
-                <p>
-                  Aim to follow the <strong>20/4/10 Rule</strong>: Put 20% down, finance for no longer than 4 years (48 months), and keep total car expenses (payment + insurance) under 10% of your gross income.
-                </p>
-
-              </div>
-            </article>
-
-            {/* Sticky Sidebar */}
-            <aside className="w-full lg:w-[340px] shrink-0 space-y-6 lg:sticky lg:top-24">
-              
-              {/* Quick Callout Card */}
-              <div className="bg-gradient-to-br from-blue-900 to-indigo-950 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Building size={16} className="text-blue-300" />
-                    <span className="text-xs font-black uppercase tracking-widest text-blue-300">
-                      Housing vs Cars
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">Buying a House?</h3>
-                  <p className="text-sm text-blue-100/80 leading-relaxed mb-6">
-                    A large car payment will significantly reduce the amount of mortgage you can qualify for. Check your housing budget first.
-                  </p>
-                  <Link href="/mortgage-calculator" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-xl text-sm font-bold w-full justify-center">
-                    Mortgage Calculator <ArrowRight size={14} />
-                  </Link>
-                </div>
-                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl" />
-              </div>
-
-              {/* Internal Related Links */}
-              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6">
-                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
-                  Popular Tools
-                </h4>
-                <div className="space-y-3">
-                  {[
-                    { title: "Mortgage Calculator", href: "/mortgage-calculator", icon: Building },
-                    { title: "Loan EMI", href: "/loan-calculator", icon: DollarSign },
-                    { title: "Rent Affordability", href: "/rent-affordability-calculator", icon: Key },
-                    { title: "Salary After Tax", href: "/salary-after-tax-calculator", icon: Calculator },
-                  ].map((item) => (
-                    <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 border border-transparent hover:border-blue-100 transition-colors group">
-                      <div className="bg-slate-100 p-2 rounded-lg group-hover:bg-blue-200 group-hover:text-blue-700 transition-colors text-slate-500">
-                        <item.icon size={16} />
-                      </div>
-                      <span className="font-semibold text-slate-700 group-hover:text-blue-700 text-sm">{item.title}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Share */}
-              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6 text-center">
-                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
-                  Share This Tool
-                </h4>
-                <ShareButtons
-                  title="Auto Loan Calculator 2026"
-                  url="https://www.freeuscalculator.in/auto-loan-calculator"
-                />
-              </div>
-            </aside>
+        {/* 13. & 14. Related Tools and Guides */}
+        <div className="grid md:grid-cols-2 gap-6 pt-8 border-t border-slate-200">
+          <div className="bg-slate-100/80 border border-slate-200 rounded-3xl p-8">
+            <h3 className="font-black text-slate-900 mb-6 flex items-center gap-2">
+              <Calculator size={20} className="text-indigo-600" />
+              Related Calculators
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <Link href="/paycheck-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Paycheck Calculator (Can you afford this loan?)
+                </Link>
+              </li>
+              <li>
+                <Link href="/salary-after-tax-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Salary After Tax Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/1099-tax-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  1099 Tax Calculator
+                </Link>
+              </li>
+            </ul>
           </div>
-        </section>
-
-        {/* ════════════════════════════════════════════════════════════════
-            RELATED CALCULATORS GRID (FULL WIDTH)
-        ════════════════════════════════════════════════════════════════ */}
-        <div className="pt-10">
-          <RelatedCalculators currentTool="auto-loan-calculator" />
+          <div className="bg-slate-100/80 border border-slate-200 rounded-3xl p-8">
+            <h3 className="font-black text-slate-900 mb-6 flex items-center gap-2">
+              <BookOpen size={20} className="text-indigo-600" />
+              Related Guides
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  How to Negotiate a Car Price
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Should I Buy or Lease a Car?
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Understanding Gap Insurance
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* ════════════════════════════════════════════════════════════════
-            FAQ
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="faq-heading" className="pt-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-black uppercase tracking-widest text-blue-600 mb-2">FAQ</p>
-            <h2 id="faq-heading" className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Auto Financing Questions
-            </h2>
+        {/* 16. Author & 17. Sources & 18. Last Updated */}
+        <div className="border-t border-slate-200 pt-10 text-sm text-slate-500 space-y-6 pb-12">
+          <p><strong>Author / Reviewer:</strong> Anmol Giri</p>
+          
+          <div>
+            <strong className="block mb-2 text-slate-700">Sources & References:</strong>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><a href="https://consumer.ftc.gov/articles/financing-or-leasing-car" target="_blank" rel="nofollow noreferrer" className="hover:text-indigo-600 transition-colors">FTC: Financing a Car</a></li>
+              <li><a href="https://www.consumerfinance.gov/consumer-tools/auto-loans/" target="_blank" rel="nofollow noreferrer" className="hover:text-indigo-600 transition-colors">CFPB: Auto Loans Guide</a></li>
+            </ul>
           </div>
           
-          <div className="max-w-4xl mx-auto space-y-4">
-            {FAQS_DATA.map(({ q, a }) => (
-              <div key={q} className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 hover:border-blue-300 transition-colors shadow-sm">
-                <dt className="font-black text-slate-900 text-base sm:text-lg mb-2 flex items-start gap-3">
-                  <CheckCircle2 size={20} className="text-blue-500 shrink-0 mt-0.5" />
-                  {q}
-                </dt>
-                <dd className="text-slate-500 text-sm sm:text-base leading-relaxed pl-8">{a}</dd>
-              </div>
-            ))}
-          </div>
-        </section>
+          <p className="inline-block bg-slate-100 px-3 py-1.5 rounded-lg font-medium">Last updated: August 2026</p>
+        </div>
 
-      </div>
+      </section>
     </main>
   );
 }

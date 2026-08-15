@@ -215,6 +215,18 @@ export default function MortgageCalculatorPage() {
                   When you buy a home, your monthly mortgage payment consists of much more than just the loan amount. A basic calculator that only looks at "Principal and Interest" will severely underestimate your actual monthly costs. You need to calculate PITI.
                 </p>
 
+                <h3>How to Use the Mortgage Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/mortgage-calculator-screenshot.jpg" 
+                    alt="Mortgage Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Home Price</strong>, <strong>Down Payment</strong>, <strong>Interest Rate</strong>, and <strong>Loan Term</strong>. The calculator will automatically estimate your Property Taxes, Homeowners Insurance, and even calculate Private Mortgage Insurance (PMI) if your down payment is below 20%. You get a perfect breakdown of your exact monthly cost!
+                </p>
+
                 <h3>What is PITI?</h3>
                 <p>
                   PITI is an acronym that stands for <strong>Principal, Interest, Taxes, and Insurance</strong>. Lenders use this figure to determine if you can afford the loan.

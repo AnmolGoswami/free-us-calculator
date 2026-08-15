@@ -519,6 +519,13 @@ export default function HourlyToSalaryGuidePage() {
 
           {/* ── ARTICLE ── */}
           <article className="flex-1 min-w-0 w-full text-[15px] leading-relaxed text-slate-700">
+            <figure className="mb-10 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+              <img 
+                src="/hourly-to-salary-calculator-screenshot.jpg" 
+                alt="Hourly to Salary Calculator Interface" 
+                className="w-full h-auto object-cover"
+              />
+            </figure>
 
             {/* TOC */}
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 mb-10">

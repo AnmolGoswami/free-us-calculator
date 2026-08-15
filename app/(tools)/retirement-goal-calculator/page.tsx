@@ -229,6 +229,18 @@ export default function RetirementGoalPage() {
                   The scariest question in personal finance is: "Do I have enough money to stop working?" Thanks to the FIRE (Financial Independence, Retire Early) movement and the Trinity Study, we now have a mathematical framework to answer that exact question.
                 </p>
 
+                <h3>How to Use the Retirement Goal Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/retirement-goal-calculator-screenshot.jpg" 
+                    alt="Retirement Goal Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Desired Annual Income</strong> in retirement, how many <strong>Years Until Retirement</strong> you have left, and adjust the <strong>Inflation Rate</strong> and <strong>Safe Withdrawal Rate</strong> to match your risk tolerance. The calculator will instantly reveal your exact FIRE Number (the size of the nest egg you need) and the monthly savings required to get there!
+                </p>
+
                 <h3>What is the 4% Rule?</h3>
                 <p>
                   In the 1990s, three professors at Trinity University looked at historical stock and bond market returns. They wanted to know: how much money can a retiree withdraw from their portfolio every year, adjusting for inflation, without ever running out of money over a 30-year period?

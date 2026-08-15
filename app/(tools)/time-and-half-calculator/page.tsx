@@ -300,6 +300,14 @@ export default function TimeAndHalfPage() {
             </h2>
           </div>
 
+          <figure className="max-w-4xl mx-auto my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+            <img 
+              src="/time-and-half-calculator-screenshot.jpg" 
+              alt="Time and a Half Calculator Interface" 
+              className="w-full h-auto object-cover"
+            />
+          </figure>
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               { n: "1", title: "Enter Regular Wage", body: "Input your standard hourly rate before overtime applies." },

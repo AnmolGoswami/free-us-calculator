@@ -297,6 +297,18 @@ export default function PaycheckCalculatorPage() {
                   Getting a job offer and wondering what you'll actually bring home? The gap between your gross salary and your net take-home pay trips up millions of Americans every year — and in high-tax states like California or New York, that gap can be genuinely shocking.
                 </p>
 
+                <h3>How to Use the Paycheck Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/paycheck-calculator-screenshot.jpg" 
+                    alt="Paycheck Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Gross Salary</strong>, select your <strong>State</strong>, and choose your <strong>Filing Status</strong>. The calculator automatically pulls the latest 2026 IRS tax brackets and state-specific tax laws to reveal exactly how much you will take home per year, per month, and per bi-weekly paycheck!
+                </p>
+
                 <h3>How Your Paycheck is Calculated</h3>
                 <p>
                   Every paycheck follows the same basic equation. It's not complicated once you see it laid out clearly:

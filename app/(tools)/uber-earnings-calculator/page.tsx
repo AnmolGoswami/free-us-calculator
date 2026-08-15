@@ -301,6 +301,18 @@ export default function UberEarningsCalculatorPage() {
                   There's a specific kind of disappointment that hits drivers when they do the math. Your weekly deposit is revenue, not income. What you actually keep — after fuel, wear, taxes, and Uber's cut — is a different and smaller number.
                 </p>
 
+                <h3>How to Use the Uber Earnings Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-black flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/uber-earnings-calculator-screenshot.jpg" 
+                    alt="Uber Earnings Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Total Weekly Payout</strong> from the Uber app, the <strong>Total Miles Driven</strong> (including empty miles!), and how many hours you drove. The calculator strips away the hidden costs of driving—like fuel and depreciation—and factors in self-employment taxes to reveal your <strong>True Net Hourly Wage</strong>.
+                </p>
+
                 <h3>What Uber Actually Pays You</h3>
                 <p>
                   Uber takes a service fee on every ride. The general range in 2026 is **20–28%** of the total fare. So if a rider pays $28, you might receive $20.16. You are starting the profitability calculation from a number that's already smaller than what the rider paid.

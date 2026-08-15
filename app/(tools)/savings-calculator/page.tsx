@@ -374,6 +374,14 @@ export default function SavingsCalculatorPage() {
             </h2>
           </div>
 
+          <figure className="max-w-4xl mx-auto my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+            <img 
+              src="/savings-calculator-screenshot.jpg" 
+              alt="Savings Calculator Interface" 
+              className="w-full h-auto object-cover"
+            />
+          </figure>
+
           <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
             {[
               { n: "1", title: "Set Your Goal",         body: "Enter your target — emergency fund, down payment, or retirement. Use presets or type any amount." },

@@ -383,6 +383,13 @@ export default function LoanCalculatorGuidePage() {
 
           {/* ── ARTICLE ────────────────────────────────────────────────── */}
           <article className="flex-1 min-w-0 w-full text-slate-700 text-sm sm:text-[15px] leading-relaxed">
+            <figure className="mb-10 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+              <img 
+                src="/loan-calculator-screenshot.jpg" 
+                alt="Loan Calculator Interface" 
+                className="w-full h-auto object-cover"
+              />
+            </figure>
 
             {/* Table of Contents */}
             <nav aria-label="Table of contents" className="rounded-2xl bg-slate-50 border border-slate-200 p-4 sm:p-6 mb-10">

@@ -1,42 +1,36 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import CalculatorContainer from "@/components/ui/CalculatorContainer";
-import FAQ from "@/components/calculators/FAQ";
-import ShareButtons from "@/components/calculators/ShareButtons";
-import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import CompoundInterestCalculator from "@/components/calculators/CompoundInterestCalculator";
 import {
-  TrendingUp,
-  ChevronRight,
-  Calculator,
-  ArrowRight,
   CheckCircle2,
-  DollarSign,
-  Zap,
-  Target,
-  BookOpen
+  AlertCircle,
+  Calculator,
+  TrendingUp,
+  Landmark,
+  BookOpen,
+  LineChart
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Compound Interest Calculator 2026 – Investment Growth Estimator",
-  description: "Free compound interest calculator. Discover how your investments will grow over time with regular contributions and the power of compounding.",
+  title: "Compound Interest Calculator 2026 - Watch Your Money Grow",
+  description: "Free compound interest calculator. Calculate future value, total interest earned, and see the exact power of daily, monthly, or annual compounding over time.",
   alternates: {
     canonical: "https://www.freeuscalculator.in/compound-interest-calculator",
   },
-  keywords: ["compound interest calculator", "investment calculator", "future value calculator", "wealth calculator", "Rule of 72 calculator 2026"],
+  keywords: ["compound interest calculator", "investment calculator", "interest calculator", "future value calculator", "compound growth"],
   openGraph: {
     title: "Compound Interest Calculator 2026",
-    description: "Calculate how your money can grow over time with the power of compound interest. See the impact of regular contributions and returns.",
+    description: "Calculate future value, total interest earned, and watch your money grow.",
     url: "https://www.freeuscalculator.in/compound-interest-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Compound Interest Calculator (2026)",
-    description: "Calculate how your money can grow over time with the power of compound interest.",
+    title: "Compound Interest Calculator 2026",
+    description: "Calculate future value, total interest earned, and watch your money grow.",
   },
 };
 
@@ -47,7 +41,7 @@ const SCHEMA_WEBAPP = JSON.stringify({
   name: "Compound Interest Calculator 2026",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
-  description: "Calculates the future value of investments based on initial balance, regular contributions, and annual compound interest.",
+  description: "Calculates the future value of investments over time, highlighting the effects of compound interest and regular contributions.",
   url: "https://www.freeuscalculator.in/compound-interest-calculator",
   isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -58,27 +52,26 @@ const SCHEMA_BREADCRUMB = JSON.stringify({
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://www.freeuscalculator.in" },
-    { "@type": "ListItem", position: 2, name: "Retirement Tools", item: "https://www.freeuscalculator.in/retirement-calculators" },
-    { "@type": "ListItem", position: 3, name: "Compound Interest Calculator", item: "https://www.freeuscalculator.in/compound-interest-calculator" },
+    { "@type": "ListItem", position: 2, name: "Compound Interest Calculator", item: "https://www.freeuscalculator.in/compound-interest-calculator" },
   ],
 });
 
 const FAQS_DATA = [
   {
-    q: "What is Compound Interest?",
-    a: "Compound interest is the interest on savings calculated on both the initial principal and the accumulated interest from previous periods. Put simply, it's 'interest on interest,' and it is the most powerful force in building long-term wealth.",
+    q: "What is compound interest?",
+    a: "Compound interest is the interest you earn on both your original money (the principal) and on the interest you've already earned. It's why investments grow exponentially over time rather than linearly."
   },
   {
-    q: "What is the Rule of 72?",
-    a: "The Rule of 72 is a quick mental math trick to determine how long an investment will take to double. You simply divide 72 by your expected annual rate of return. For example, at an 8% return, your money will double every 9 years (72 / 8 = 9).",
+    q: "How often should interest compound?",
+    a: "The more frequently interest compounds, the faster your money grows. Daily compounding is better than monthly compounding, which is better than annual compounding. However, the most critical factor is the amount of time you leave the money invested."
   },
   {
-    q: "What is a realistic rate of return?",
-    a: "Historically, the S&P 500 (the 500 largest US companies) has returned an average of about 10% annually before inflation. Adjusting for inflation, a realistic long-term rate of return for a stock-heavy portfolio is typically estimated between 7% and 8%.",
+    q: "What is a realistic interest rate to use?",
+    a: "Historically, the U.S. stock market (S&P 500) has returned an average of around 9-10% annually before inflation. For conservative estimates, financial advisors often recommend using 6% or 7% to account for inflation and market volatility."
   },
   {
-    q: "Does contribution frequency matter?",
-    a: "Yes! Contributing monthly rather than annually puts your money into the market faster, allowing it to start compounding sooner. Over a 30-year period, contributing $500 monthly will result in significantly more wealth than contributing $6,000 once a year.",
+    q: "Does starting early really make a big difference?",
+    a: "Absolutely. Time is the most important variable in the compound interest formula. Investing $100 a month starting at age 20 will yield significantly more wealth at retirement than investing $500 a month starting at age 40."
   }
 ];
 
@@ -94,258 +87,268 @@ const SCHEMA_FAQ = JSON.stringify({
 
 export default function CompoundInterestPage() {
   return (
-    <main className="bg-slate-50 min-h-screen font-sans selection:bg-emerald-200 selection:text-emerald-900">
+    <main className="bg-slate-50 min-h-screen font-sans selection:bg-indigo-200 selection:text-indigo-900 pb-24">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_WEBAPP }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_BREADCRUMB }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_FAQ }} />
 
-      {/* ════════════════════════════════════════════════════════════════════
-          HERO
-      ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white border-b border-slate-200/60 pt-8 pb-32 px-4 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-emerald-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
-
-        <div className="max-w-7xl mx-auto">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-8 flex-wrap justify-center md:justify-start">
-            <Link href="/" className="hover:text-emerald-600 transition-colors">Home</Link>
-            <ChevronRight size={11} />
-            <Link href="/retirement-calculators" className="hover:text-emerald-600 transition-colors">Retirement</Link>
-            <ChevronRight size={11} />
-            <span className="text-slate-900 font-medium">Compound Interest</span>
-          </nav>
-
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-widest mb-6">
-              <Target size={12} className="text-emerald-600" />
-              Wealth & Investing
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
-              Compound Interest{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500">
-                Calculator
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
-              Discover how your money can grow over time. Calculate the future value of your investments with the power of compounding.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-              {[
-                { icon: Zap, label: "Visual Growth Curve" },
-                { icon: TrendingUp, label: "Investment Tracking" },
-                { icon: Calculator, label: "Monthly vs Annual" },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-2 bg-slate-100/80 text-slate-600 px-4 py-2 rounded-full text-xs font-bold border border-slate-200/50">
-                  <Icon size={14} className="text-emerald-500" />
-                  {label}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="max-w-5xl mx-auto -mb-40 relative z-20">
-            <CalculatorContainer
-              title="Interactive Growth Calculator"
-              description="Estimate the future value of your portfolio for 2026 and beyond."
-              category="Wealth"
-              lastUpdated="2026"
-            >
-              <CompoundInterestCalculator />
-            </CalculatorContainer>
-          </div>
+      {/* 1. H1 & Intro */}
+      <section className="bg-white border-b border-slate-200/60 pt-16 pb-32 px-4 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-indigo-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-6 flex items-center justify-center gap-4">
+            <LineChart size={48} className="text-indigo-600 hidden md:block" />
+            Compound Interest Calculator
+          </h1>
+          <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Discover the magic of compound interest. See exactly how your initial investment and monthly contributions can grow into life-changing wealth over time.
+          </p>
         </div>
       </section>
 
-      <div className="h-40" />
+      {/* 2. Calculator Tool */}
+      <section className="max-w-6xl mx-auto px-4 -mt-20 relative z-20 mb-24">
+        <div className="shadow-2xl shadow-indigo-900/10 rounded-[2rem]">
+           <CompoundInterestCalculator />
+        </div>
+      </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          FACTS STRIP
-      ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-900 py-10 sm:py-12 border-y border-slate-800 mb-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-center text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8">
-            Investing Rules of Thumb
+      {/* SEO Content Sections */}
+      <section className="max-w-4xl mx-auto px-4 space-y-20">
+        
+        {/* 3. What is the Calculator? */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">What is Compound Interest?</h2>
+          <p>
+            Albert Einstein famously called compound interest the "eighth wonder of the world," stating: <em>"He who understands it, earns it; he who doesn't, pays it."</em>
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              { val: "10%", label: "S&P 500 Average", sub: "Historical annual return" },
-              { val: "Rule of 72", label: "Doubling Time", sub: "72 / rate = years to double" },
-              { val: "Time", label: "The Secret Weapon", sub: "Start as early as possible" },
-              { val: "Taxes", label: "Erode Returns", sub: "Use Roth IRAs to avoid them" },
-            ].map(({ val, label, sub }) => (
-              <div key={label} className="relative">
-                <p className="text-2xl sm:text-3xl font-black text-emerald-400 mb-2">{val}</p>
-                <p className="text-sm font-bold text-white mb-1">{label}</p>
-                <p className="text-[11px] text-slate-400 leading-tight">{sub}</p>
+          <p>
+            When you invest money, you earn interest on your principal balance. In the next period, you earn interest on your principal <strong>plus</strong> the interest you just earned. This creates a snowball effect where your wealth grows exponentially, allowing ordinary people to become millionaires over a lifetime of consistent investing.
+          </p>
+        </div>
+
+        {/* 4. How to use */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">How to Use the Compound Interest Calculator</h2>
+          
+          <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+            <img 
+              src="/compound-interest-calculator-screenshot.jpg" 
+              alt="Compound Interest Calculator Interface" 
+              className="w-full h-auto object-cover"
+            />
+          </figure>
+
+          <ol className="space-y-4">
+            <li><strong>Initial Investment:</strong> Enter the starting amount you currently have saved or intend to invest right now.</li>
+            <li><strong>Monthly Contribution:</strong> Enter how much you plan to consistently add to the account every month.</li>
+            <li><strong>Years to Grow:</strong> The time horizon you plan to leave the money invested without touching it. (e.g., 20 or 30 years).</li>
+            <li><strong>Estimated Interest Rate:</strong> The annual percentage yield (APY) you expect to earn. A diversified index fund typically aims for 7-10% long-term.</li>
+          </ol>
+        </div>
+
+        {/* 5. Formula */}
+        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-6">The Compound Interest Formula</h2>
+          <p className="text-slate-600 mb-6 leading-loose">To calculate future value with both an initial principal and regular monthly contributions, the math gets slightly complex. It combines the compound interest formula with the future value of an annuity formula.</p>
+          
+          <div className="bg-indigo-50 text-indigo-900 font-mono p-5 rounded-2xl font-bold text-center mb-8 border border-indigo-100 text-lg sm:text-xl overflow-x-auto">
+            A = P(1 + r/n)^(nt) + PMT × {'{[(1 + r/n)^(nt) - 1] / (r/n)}'}
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-[500px]">
+              <thead>
+                <tr className="border-b-2 border-slate-200">
+                  <th className="py-4 px-4 font-black text-slate-900 uppercase text-xs tracking-wider">Variable</th>
+                  <th className="py-4 px-4 font-black text-slate-900 uppercase text-xs tracking-wider">Meaning</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-600 text-sm">
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">A</td>
+                  <td className="py-4 px-4 leading-relaxed">The total Future Value of the investment.</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">P</td>
+                  <td className="py-4 px-4 leading-relaxed">The Principal (Initial Investment).</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">PMT</td>
+                  <td className="py-4 px-4 leading-relaxed">The monthly contribution amount.</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">r & n & t</td>
+                  <td className="py-4 px-4 leading-relaxed">Annual interest rate (r), times compounded per year (n), and total years (t).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* 6. Step-by-step example */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Example Compound Growth Projection</h2>
+          <p>Let's see exactly how powerful consistency is. Imagine you start with <strong>$10,000</strong> today, and you contribute just <strong>$500 every month</strong> for <strong>20 years</strong>. You achieve an average historical market return of <strong>8% annually</strong>.</p>
+          
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 1: Calculate Your Contributions</h4>
+          <p>Over 20 years, you make 240 monthly payments of $500, plus your initial $10,000.</p>
+          <div className="bg-slate-50 p-4 rounded-xl font-mono text-sm border border-slate-200 text-slate-700 space-y-2">
+            <div>Initial Savings: $10,000</div>
+            <div>+ Added Over Time: $120,000 ($500 × 240 months)</div>
+            <div className="font-bold">Total Money Out of Pocket = $130,000</div>
+          </div>
+
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 2: Add Compound Interest Magic</h4>
+          <p>Because your money was invested at 8% and continuously reinvested, the interest snowball completely overtakes your principal contributions.</p>
+          
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 3: Final Breakdown</h4>
+          <div className="bg-emerald-50 p-5 rounded-2xl font-mono text-sm border border-emerald-100 space-y-3 shadow-sm">
+            <div className="text-slate-700">Total Contributions: <strong className="text-slate-900">$130,000</strong></div>
+            <div className="text-emerald-800 font-bold text-lg pt-3 border-t border-emerald-200/60">
+              Total Interest Earned: $213,778
+            </div>
+            <div className="text-slate-900 font-black text-2xl pt-2">
+              Total Final Value = $343,778
+            </div>
+            <div className="text-slate-600 text-xs font-sans mt-2">
+              (Notice that your interest earned is almost double what you actually contributed!)
+            </div>
+          </div>
+        </div>
+
+        {/* 7. Understanding the result */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Understanding Your Results</h2>
+          <p>
+            When you look at your results chart, you will notice that the growth curve starts out relatively flat, but bends upward sharply in the later years. This is the defining characteristic of exponential growth. 
+          </p>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-2xl my-8">
+            <h4 className="text-blue-900 font-bold mt-0 mb-2">The Cost of Waiting</h4>
+            <p className="text-blue-800 text-sm m-0 leading-relaxed">
+              If you wait just 5 years to start investing, you don't just miss out on 5 years of growth—you miss out on the <em>most profitable</em> 5 years of compounding at the very end of your time horizon. Time in the market is vastly more important than timing the market.
+            </p>
+          </div>
+        </div>
+
+        {/* 10. Important Assumptions and Limitations */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 sm:p-8">
+          <h2 className="text-xl font-black text-amber-900 mb-4 flex items-center gap-3">
+            <AlertCircle size={24} className="shrink-0" /> Important Limitations
+          </h2>
+          <p className="text-amber-800 leading-relaxed mb-0">
+            This calculator assumes a constant, fixed interest rate. In the real world, the stock market is highly volatile—you might lose 20% one year and gain 30% the next. Furthermore, this calculator does not account for inflation, which will reduce the purchasing power of your future wealth.
+          </p>
+        </div>
+
+        {/* 11. Common Mistakes */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Common Investing Mistakes</h2>
+          <div className="space-y-6 mt-8">
+            <div>
+              <h4 className="font-bold text-lg mb-2">1. Keeping cash under the mattress</h4>
+              <p className="m-0">With inflation historically averaging 3% a year, leaving your savings in a 0% interest checking account guarantees that your money is losing value every single day.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-lg mb-2">2. Interrupting compounding unnecessarily</h4>
+              <p className="m-0">The late Charlie Munger famously said, "The first rule of compounding: Never interrupt it unnecessarily." Pulling your money out of the market out of fear resets your compounding curve.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-lg mb-2">3. Underestimating fees</h4>
+              <p className="m-0">A 2% management fee from a financial advisor doesn't sound like much, but over 30 years, that tiny fee can literally eat up 40% of your total potential wealth. Stick to low-cost index funds when possible.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* 12. FAQ */}
+        <div>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-8 text-center sm:text-left">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            {FAQS_DATA.map((faq, i) => (
+              <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm hover:border-indigo-200 transition-colors">
+                <h3 className="font-black text-slate-900 text-lg mb-3 flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-indigo-500 shrink-0 mt-1" />
+                  {faq.q}
+                </h3>
+                <p className="text-slate-600 leading-relaxed pl-8 m-0">{faq.a}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-20 pb-20">
-        
-        {/* ════════════════════════════════════════════════════════════════
-            COMPREHENSIVE GUIDE WITH INTERNAL LINKS
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="guide-heading">
-          <div className="flex flex-col lg:flex-row gap-10 items-start max-w-6xl mx-auto">
-            
-            {/* Main Article */}
-            <article className="flex-1 min-w-0 space-y-10">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                  <BookOpen size={24} />
-                </div>
-                <div>
-                  <h2 id="guide-heading" className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                    The Power of Compound Interest
-                  </h2>
-                  <p className="text-sm text-slate-500 font-medium mt-2">Albert Einstein called it the 8th wonder of the world.</p>
-                </div>
-              </div>
-
-              <div className="prose prose-slate prose-emerald max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:font-bold prose-a:text-emerald-600 hover:prose-a:text-emerald-700 prose-p:leading-loose">
-                
-                <p className="lead text-lg text-slate-700 font-medium bg-slate-50 border-l-4 border-emerald-500 p-6 rounded-r-2xl">
-                  "Compound interest is the eighth wonder of the world. He who understands it, earns it... he who doesn't... pays it." Whether Einstein actually said this or not, the math holds true. It is the single most important concept in personal finance.
-                </p>
-
-                <h3>How Does It Work?</h3>
-                <p>
-                  Imagine you invest $10,000 and it grows by 10% in the first year. You now have $11,000. 
-                  In year two, if it grows by 10% again, you don't just earn another $1,000. You earn 10% on the new balance of $11,000, giving you $1,100 in interest. 
-                </p>
-                <p>
-                  This snowball effect continues. By year 30, that same 10% growth isn't generating $1,000 a year—it's generating <strong>$15,000+ a year</strong> in pure interest, without you lifting a finger.
-                </p>
-
-                <ul className="grid sm:grid-cols-2 gap-4 list-none pl-0 mt-6">
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-emerald-100">
-                    <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Start Early:</strong> Time is more important than money in compounding.</span>
-                  </li>
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-emerald-100">
-                    <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Be Consistent:</strong> Automate your monthly contributions.</span>
-                  </li>
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-emerald-100">
-                    <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Reinvest:</strong> Never withdraw the dividends; reinvest them.</span>
-                  </li>
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-emerald-100">
-                    <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Avoid Fees:</strong> High expense ratios eat your compound growth.</span>
-                  </li>
-                </ul>
-
-                <div className="my-8 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4">
-                  <TrendingUp className="text-amber-600 shrink-0 mt-1" size={24} />
-                  <div>
-                    <h4 className="text-amber-900 font-bold mt-0 mb-2">The Danger of Debt</h4>
-                    <p className="text-amber-800 text-sm m-0 leading-relaxed">
-                      Compound interest works both ways. When you carry a balance on a credit card, the credit card company is compounding interest <em>against</em> you. This is why credit card debt is so hard to escape. Always pay off high-interest debt before investing!
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-            </article>
-
-            {/* Sticky Sidebar */}
-            <aside className="w-full lg:w-[340px] shrink-0 space-y-6 lg:sticky lg:top-24">
-              
-              {/* Quick Callout Card */}
-              <div className="bg-gradient-to-br from-emerald-900 to-slate-900 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Target size={16} className="text-emerald-300" />
-                    <span className="text-xs font-black uppercase tracking-widest text-emerald-300">
-                      Tax Free Growth
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">Protect Your Wealth</h3>
-                  <p className="text-sm text-emerald-100/80 leading-relaxed mb-6">
-                    If you invest in a standard brokerage, you will pay taxes on your gains. Use a Roth IRA to ensure your compound growth is 100% tax-free forever.
-                  </p>
-                  <Link href="/roth-ira-calculator" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-xl text-sm font-bold w-full justify-center">
-                    Roth IRA Calculator <ArrowRight size={14} />
-                  </Link>
-                </div>
-                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500/20 rounded-full blur-2xl" />
-              </div>
-
-              {/* Internal Related Links */}
-              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6">
-                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
-                  Popular Tools
-                </h4>
-                <div className="space-y-3">
-                  {[
-                    { title: "Retirement Calculator", href: "/retirement-calculator", icon: Target },
-                    { title: "Roth IRA Growth", href: "/roth-ira-calculator", icon: TrendingUp },
-                    { title: "401(k) Match", href: "/401k-calculator", icon: DollarSign },
-                    { title: "FIRE Calculator", href: "/retirement-goal-calculator", icon: Zap },
-                  ].map((item) => (
-                    <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-emerald-50 border border-transparent hover:border-emerald-100 transition-colors group">
-                      <div className="bg-slate-100 p-2 rounded-lg group-hover:bg-emerald-200 group-hover:text-emerald-700 transition-colors text-slate-500">
-                        <item.icon size={16} />
-                      </div>
-                      <span className="font-semibold text-slate-700 group-hover:text-emerald-700 text-sm">{item.title}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Share */}
-              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6 text-center">
-                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
-                  Share This Tool
-                </h4>
-                <ShareButtons
-                  title="Compound Interest Calculator 2026"
-                  url="https://www.freeuscalculator.in/compound-interest-calculator"
-                />
-              </div>
-            </aside>
+        {/* 13. & 14. Related Tools and Guides */}
+        <div className="grid md:grid-cols-2 gap-6 pt-8 border-t border-slate-200">
+          <div className="bg-slate-100/80 border border-slate-200 rounded-3xl p-8">
+            <h3 className="font-black text-slate-900 mb-6 flex items-center gap-2">
+              <Calculator size={20} className="text-indigo-600" />
+              Related Calculators
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <Link href="/retirement-goal-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Retirement Goal Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/401k-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  401(k) Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/roth-ira-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Roth IRA Calculator
+                </Link>
+              </li>
+            </ul>
           </div>
-        </section>
-
-        {/* ════════════════════════════════════════════════════════════════
-            RELATED CALCULATORS GRID (FULL WIDTH)
-        ════════════════════════════════════════════════════════════════ */}
-        <div className="pt-10">
-          <RelatedCalculators currentTool="compound-interest-calculator" />
+          <div className="bg-slate-100/80 border border-slate-200 rounded-3xl p-8">
+            <h3 className="font-black text-slate-900 mb-6 flex items-center gap-2">
+              <BookOpen size={20} className="text-indigo-600" />
+              Related Guides
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  How the Rule of 72 Works
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Understanding Index Funds
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  The Impact of Inflation on Savings
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* ════════════════════════════════════════════════════════════════
-            FAQ
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="faq-heading" className="pt-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-black uppercase tracking-widest text-emerald-600 mb-2">FAQ</p>
-            <h2 id="faq-heading" className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Wealth & Investing Questions
-            </h2>
+        {/* 16. Author & 17. Sources & 18. Last Updated */}
+        <div className="border-t border-slate-200 pt-10 text-sm text-slate-500 space-y-6 pb-12">
+          <p><strong>Author / Reviewer:</strong> Anmol Giri</p>
+          
+          <div>
+            <strong className="block mb-2 text-slate-700">Sources & References:</strong>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><a href="https://www.investor.gov/financial-tools-calculators/calculators/compound-interest-calculator" target="_blank" rel="nofollow noreferrer" className="hover:text-indigo-600 transition-colors">SEC.gov: Compound Interest Guidelines</a></li>
+              <li><a href="https://www.fdic.gov/resources/consumers/consumer-news/2021-04.html" target="_blank" rel="nofollow noreferrer" className="hover:text-indigo-600 transition-colors">FDIC: The Power of Compounding</a></li>
+            </ul>
           </div>
           
-          <div className="max-w-4xl mx-auto space-y-4">
-            {FAQS_DATA.map(({ q, a }) => (
-              <div key={q} className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 hover:border-emerald-300 transition-colors shadow-sm">
-                <dt className="font-black text-slate-900 text-base sm:text-lg mb-2 flex items-start gap-3">
-                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
-                  {q}
-                </dt>
-                <dd className="text-slate-500 text-sm sm:text-base leading-relaxed pl-8">{a}</dd>
-              </div>
-            ))}
-          </div>
-        </section>
+          <p className="inline-block bg-slate-100 px-3 py-1.5 rounded-lg font-medium">Last updated: August 2026</p>
+        </div>
 
-      </div>
+      </section>
     </main>
   );
 }

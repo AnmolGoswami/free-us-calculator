@@ -301,6 +301,18 @@ export default function SalaryToHourlyPage() {
                   A high annual salary looks great on paper, but if you are consistently working 50 to 60 hours a week, your actual hourly wage drops drastically. Calculating your salary to an hourly rate reveals how much your time is truly worth to your employer.
                 </p>
 
+                <h3>How to Use the Salary to Hourly Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/salary-to-hourly-calculator-screenshot.jpg" 
+                    alt="Salary to Hourly Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Annual Salary</strong> and adjust the <strong>Hours per Week</strong> slider if you work more or less than the standard 40 hours. The calculator will instantly break down your salary into an exact hourly wage, daily rate, and weekly rate.
+                </p>
+
                 <h3>How to Convert Salary to Hourly (The Math)</h3>
                 <p>
                   To find your baseline hourly rate, you divide your annual gross salary by the total number of hours you work in a year. In the United States, a standard full-time schedule is considered 40 hours per week for 52 weeks a year.

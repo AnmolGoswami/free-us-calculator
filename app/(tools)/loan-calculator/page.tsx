@@ -290,6 +290,18 @@ export default function LoanCalculatorPage() {
                   A low monthly payment doesn't mean a loan is affordable. It just means the pain is stretched out over a longer period, quietly racking up thousands in interest behind the scenes. Our tools expose these hidden costs.
                 </p>
 
+                <h3>How to Use the Loan Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/loan-calculator-screenshot.jpg" 
+                    alt="Loan Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Loan Amount</strong>, your fixed <strong>Interest Rate</strong>, and the total <strong>Loan Term</strong> (in years or months). The calculator will instantly reveal your exact Monthly Payment (EMI), alongside the shocking <strong>Total Interest</strong> you will pay the bank over the lifetime of the loan.
+                </p>
+
                 <h3>What Is an Amortization Schedule?</h3>
                 <p>
                   An amortization schedule is a month-by-month table showing every single payment split into its interest and principal components, plus your remaining loan balance. In Month 1 of a 30-year mortgage, your payment is almost entirely interest. In Month 360, it is almost entirely principal. This is not the bank cheating you; it's just math.

@@ -292,6 +292,18 @@ export default function RentAffordabilityPage() {
                   Most people look at what they <em>can</em> technically pay rather than what they <em>should</em> pay. You might be able to swing $2,000 a month, but after student loans, car payments, and groceries, you might be drowning.
                 </p>
 
+                <h3>How to Use the Rent Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/rent-affordability-calculator-screenshot.jpg" 
+                    alt="Rent Affordability Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  Simply enter your <strong>Annual Gross Income</strong> and your total <strong>Monthly Debt Payments</strong> (like student loans and car payments). The calculator will instantly reveal the maximum rent you can safely afford based on landlord approval criteria, alongside a more conservative debt-adjusted target to keep your budget healthy.
+                </p>
+
                 <h3>The 30% Rule Explained</h3>
                 <p>
                   The 30% rule says you should spend no more than 30% of your gross monthly income on rent. This is the baseline landlords use when checking your application (often phrased as "income must be 3x the rent"). 

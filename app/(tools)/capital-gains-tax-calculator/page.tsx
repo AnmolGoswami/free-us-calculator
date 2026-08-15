@@ -1,43 +1,37 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import CalculatorContainer from "@/components/ui/CalculatorContainer";
-import FAQ from "@/components/calculators/FAQ";
-import ShareButtons from "@/components/calculators/ShareButtons";
-import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import CapitalGainsCalculator from "@/components/calculators/CapitalGainsCalculator";
 import {
-  Banknote,
-  ChevronRight,
-  Calculator,
-  ArrowRight,
   CheckCircle2,
-  DollarSign,
+  AlertCircle,
+  Calculator,
+  HelpCircle,
   TrendingUp,
+  Landmark,
   BookOpen,
-  PieChart as PieChartIcon,
-  AlertCircle
+  PieChart
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Capital Gains Tax Calculator 2026 | Stock & Crypto Tax Estimator",
-  description: "Calculate your 2026 short-term and long-term capital gains tax. Estimate taxes on stocks, cryptocurrency, and real estate investments.",
+  title: "Capital Gains Tax Calculator 2026 - Estimate Your Profit Taxes",
+  description: "Free capital gains tax calculator. Estimate your taxes on stocks, real estate, and crypto profits. Supports both short-term and long-term capital gains rates.",
   alternates: {
     canonical: "https://www.freeuscalculator.in/capital-gains-tax-calculator",
   },
-  keywords: ["capital gains tax calculator", "crypto tax calculator", "stock tax calculator", "short term vs long term capital gains", "real estate capital gains"],
+  keywords: ["capital gains tax calculator", "stock tax calculator", "real estate tax calculator", "short term capital gains", "long term capital gains"],
   openGraph: {
     title: "Capital Gains Tax Calculator 2026",
-    description: "Calculate your short-term and long-term capital gains tax for stocks, crypto, and real estate investments.",
+    description: "Estimate your taxes on stocks, real estate, and crypto profits.",
     url: "https://www.freeuscalculator.in/capital-gains-tax-calculator",
     siteName: "Free US Calculator",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Capital Gains Tax Calculator (2026)",
-    description: "Calculate your short-term and long-term capital gains tax for stocks, crypto, and real estate investments.",
+    title: "Capital Gains Tax Calculator 2026",
+    description: "Estimate your taxes on stocks, real estate, and crypto profits.",
   },
 };
 
@@ -48,7 +42,7 @@ const SCHEMA_WEBAPP = JSON.stringify({
   name: "Capital Gains Tax Calculator 2026",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
-  description: "Calculates estimated taxes on investment gains based on hold duration, filing status, and annual income.",
+  description: "Calculates estimated taxes on investment profits based on holding period and income bracket.",
   url: "https://www.freeuscalculator.in/capital-gains-tax-calculator",
   isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -59,27 +53,26 @@ const SCHEMA_BREADCRUMB = JSON.stringify({
   "@type": "BreadcrumbList",
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://www.freeuscalculator.in" },
-    { "@type": "ListItem", position: 2, name: "Tax Tools", item: "https://www.freeuscalculator.in/tax-calculators" },
-    { "@type": "ListItem", position: 3, name: "Capital Gains Tax Calculator", item: "https://www.freeuscalculator.in/capital-gains-tax-calculator" },
+    { "@type": "ListItem", position: 2, name: "Capital Gains Tax Calculator", item: "https://www.freeuscalculator.in/capital-gains-tax-calculator" },
   ],
 });
 
 const FAQS_DATA = [
   {
-    q: "What is the difference between Short-Term and Long-Term Capital Gains?",
-    a: "Short-term capital gains apply to assets held for one year or less and are taxed at your standard ordinary income tax rate (up to 37%). Long-term capital gains apply to assets held for more than one year and benefit from significantly lower tax rates (0%, 15%, or 20%).",
+    q: "What is the difference between short-term and long-term capital gains?",
+    a: "Short-term capital gains apply to assets held for one year or less. These profits are taxed at your ordinary income tax rate. Long-term capital gains apply to assets held for more than one year, and benefit from much lower tax rates (usually 0%, 15%, or 20%)."
   },
   {
-    q: "Do I have to pay taxes on Crypto?",
-    a: "Yes. The IRS treats cryptocurrency as property for tax purposes. This means every time you sell, trade, or dispose of crypto at a profit, you owe capital gains tax. Exchanging one cryptocurrency for another (e.g., trading Bitcoin for Ethereum) is considered a taxable event.",
+    q: "Do I have to pay capital gains tax if I don't sell the asset?",
+    a: "No. You only realize a capital gain (and owe tax on it) when you actually sell the asset for a profit. If your stocks go up in value but you hold onto them, you do not owe taxes on those 'unrealized' gains."
   },
   {
-    q: "What is the Net Investment Income Tax (NIIT)?",
-    a: "The NIIT is an additional 3.8% tax applied to investment income for high earners. It generally applies if your Modified Adjusted Gross Income (MAGI) exceeds $200,000 for single filers or $250,000 for married couples filing jointly.",
+    q: "Can I offset my gains with losses?",
+    a: "Yes. This strategy is called tax-loss harvesting. If you sell one stock for a $5,000 profit, but sell another for a $2,000 loss, you only pay capital gains tax on the net $3,000 profit. You can also use up to $3,000 of excess losses to offset ordinary income."
   },
   {
-    q: "Can I offset my capital gains with losses?",
-    a: "Yes! This strategy is called Tax-Loss Harvesting. You can use your capital losses to offset your capital gains. If your losses exceed your gains, you can use up to $3,000 of those losses to offset ordinary income, and carry the rest forward to future years.",
+    q: "Does this calculator apply to real estate?",
+    a: "Yes, but with caveats. If you sell your primary residence, you may qualify for the Section 121 exclusion, which allows you to exclude up to $250,000 (single) or $500,000 (married) of capital gains from taxes, provided you lived in the home for 2 of the last 5 years."
   }
 ];
 
@@ -95,249 +88,271 @@ const SCHEMA_FAQ = JSON.stringify({
 
 export default function CapitalGainsPage() {
   return (
-    <main className="bg-slate-50 min-h-screen font-sans selection:bg-violet-200 selection:text-violet-900">
+    <main className="bg-slate-50 min-h-screen font-sans selection:bg-indigo-200 selection:text-indigo-900 pb-24">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_WEBAPP }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_BREADCRUMB }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_FAQ }} />
 
-      {/* ════════════════════════════════════════════════════════════════════
-          HERO
-      ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white border-b border-slate-200/60 pt-8 pb-32 px-4 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-violet-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
-
-        <div className="max-w-7xl mx-auto">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-8 flex-wrap justify-center md:justify-start">
-            <Link href="/" className="hover:text-violet-600 transition-colors">Home</Link>
-            <ChevronRight size={11} />
-            <Link href="/tax-calculators" className="hover:text-violet-600 transition-colors">Tax Tools</Link>
-            <ChevronRight size={11} />
-            <span className="text-slate-900 font-medium">Capital Gains Tax</span>
-          </nav>
-
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-100 text-violet-800 text-[10px] font-black uppercase tracking-widest mb-6">
-              <Banknote size={12} className="text-violet-600" />
-              Investment Taxes
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
-              Capital Gains{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">
-                Calculator
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
-              Calculate your tax liability on stocks, crypto, and real estate. See exactly how much you can save by holding long-term.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-              {[
-                { icon: TrendingUp, label: "Stocks & Crypto" },
-                { icon: Calculator, label: "Short vs Long Term" },
-                { icon: DollarSign, label: "NIIT Included" },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-2 bg-slate-100/80 text-slate-600 px-4 py-2 rounded-full text-xs font-bold border border-slate-200/50">
-                  <Icon size={14} className="text-violet-500" />
-                  {label}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="max-w-5xl mx-auto -mb-40 relative z-20">
-            <CalculatorContainer
-              title="Capital Gains Tax Estimator"
-              description="Calculate taxes based on 2025/2026 tax brackets."
-              category="Tax"
-              lastUpdated="2026"
-            >
-              <CapitalGainsCalculator />
-            </CalculatorContainer>
-          </div>
+      {/* 1. H1 & Intro */}
+      <section className="bg-white border-b border-slate-200/60 pt-16 pb-32 px-4 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-indigo-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-6 flex items-center justify-center gap-4">
+            <PieChart size={48} className="text-indigo-600 hidden md:block" />
+            Capital Gains Tax Calculator
+          </h1>
+          <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Estimate how much tax you'll owe when selling stocks, crypto, or real estate. See how holding your assets for over a year can drastically reduce your tax bill.
+          </p>
         </div>
       </section>
 
-      <div className="h-40" />
+      {/* 2. Calculator Tool */}
+      <section className="max-w-6xl mx-auto px-4 -mt-20 relative z-20 mb-24">
+        <div className="shadow-2xl shadow-indigo-900/10 rounded-[2rem]">
+           <CapitalGainsCalculator />
+        </div>
+      </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          FACTS STRIP
-      ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-slate-900 py-10 sm:py-12 border-y border-slate-800 mb-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <p className="text-center text-[10px] font-black uppercase tracking-widest text-slate-500 mb-8">
-            Capital Gains Rules of Thumb
+      {/* SEO Content Sections */}
+      <section className="max-w-4xl mx-auto px-4 space-y-20">
+        
+        {/* 3. What is the Calculator? */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">What is Capital Gains Tax?</h2>
+          <p>
+            Whenever you sell a capital asset (like stocks, bonds, cryptocurrency, or real estate) for more than you paid for it, the profit you make is called a <strong>capital gain</strong>. The IRS requires you to pay taxes on this profit.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              { val: "1 Year", label: "The Magic Number", sub: "Hold longer to drop your rate" },
-              { val: "0, 15, 20%", label: "Long-Term Rates", sub: "Massively lower than income tax" },
-              { val: "3.8%", label: "NIIT Surtax", sub: "Applies to high earners" },
-              { val: "$3,000", label: "Loss Deduction", sub: "Max net loss deducted against income" },
-            ].map(({ val, label, sub }) => (
-              <div key={label} className="relative">
-                <p className="text-2xl sm:text-3xl font-black text-violet-400 mb-2">{val}</p>
-                <p className="text-sm font-bold text-white mb-1">{label}</p>
-                <p className="text-[11px] text-slate-400 leading-tight">{sub}</p>
+          <p>
+            The amount of tax you owe depends heavily on one crucial factor: <strong>How long did you own the asset before selling it?</strong>
+          </p>
+          <ul className="space-y-4">
+            <li>
+              <strong>Short-Term Gains:</strong> Assets held for 1 year or less. These are taxed at your standard ordinary income tax rate (up to 37%).
+            </li>
+            <li>
+              <strong>Long-Term Gains:</strong> Assets held for more than 1 year. These are taxed at much lower, preferential rates (0%, 15%, or 20% depending on your income).
+            </li>
+          </ul>
+        </div>
+
+        {/* 4. How to use */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">How to Use the Capital Gains Calculator</h2>
+          
+          <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+            <img 
+              src="/capital-gains-calculator-screenshot.jpg" 
+              alt="Capital Gains Tax Calculator Interface" 
+              className="w-full h-auto object-cover"
+            />
+          </figure>
+
+          <ol className="space-y-4">
+            <li><strong>Purchase Price (Cost Basis):</strong> Enter the total amount you originally paid for the asset, including any fees or commissions.</li>
+            <li><strong>Sale Price:</strong> Enter the total amount you sold the asset for, minus any selling fees.</li>
+            <li><strong>Asset Holding Period:</strong> Select whether you owned the asset for more than 1 year, or 1 year or less. This determines your tax bracket.</li>
+            <li><strong>Filing Status:</strong> Choose your IRS tax filing status (e.g., Single, Married Filing Jointly).</li>
+            <li><strong>Annual Taxable Income:</strong> Enter your estimated total income for the year from your job or business. This determines your exact capital gains tax rate.</li>
+          </ol>
+        </div>
+
+        {/* 5. Formula */}
+        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-6">The Capital Gains Formula</h2>
+          <p className="text-slate-600 mb-6 leading-loose">Calculating your estimated tax involves finding your net profit and then applying the correct tax rate bracket based on your income and holding period.</p>
+          
+          <div className="bg-indigo-50 text-indigo-900 font-mono p-5 rounded-2xl font-bold text-center mb-8 border border-indigo-100 text-lg sm:text-xl">
+            Tax = (Sale Price - Purchase Price) × Tax Rate
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-[500px]">
+              <thead>
+                <tr className="border-b-2 border-slate-200">
+                  <th className="py-4 px-4 font-black text-slate-900 uppercase text-xs tracking-wider">Variable</th>
+                  <th className="py-4 px-4 font-black text-slate-900 uppercase text-xs tracking-wider">Meaning</th>
+                </tr>
+              </thead>
+              <tbody className="text-slate-600 text-sm">
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">Sale Price</td>
+                  <td className="py-4 px-4 leading-relaxed">The final selling price minus commissions.</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">Purchase Price</td>
+                  <td className="py-4 px-4 leading-relaxed">Also known as the Cost Basis. What you initially paid.</td>
+                </tr>
+                <tr className="border-b border-slate-100">
+                  <td className="py-4 px-4 font-bold text-slate-800">Tax Rate</td>
+                  <td className="py-4 px-4 leading-relaxed">Determined by your holding period (Short vs Long) and your total taxable income bracket.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* 6. Step-by-step example */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Example Capital Gains Calculation</h2>
+          <p>Let's look at the math for a single filer who makes <strong>$80,000</strong> a year. They bought stocks for <strong>$10,000</strong> and sold them years later for <strong>$25,000</strong>.</p>
+          
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 1: Calculate Net Capital Gain</h4>
+          <p>We find the pure profit by subtracting the initial investment from the final sale amount.</p>
+          <div className="bg-slate-50 p-4 rounded-xl font-mono text-sm border border-slate-200 text-slate-700 space-y-2">
+            <div>Sale Price: $25,000</div>
+            <div>- Purchase Price: $10,000</div>
+            <div className="font-bold border-t border-slate-200 pt-2 mt-2">Net Capital Gain = $15,000</div>
+          </div>
+
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 2: Determine Tax Rate</h4>
+          <p>Because they held the stock for <em>more than one year</em>, this is a <strong>Long-Term</strong> capital gain. For a Single filer making $80,000, the long-term capital gains tax bracket is <strong>15%</strong>.</p>
+          
+          <h4 className="font-bold text-lg mt-8 mb-2 text-slate-800">Step 3: Calculate Final Tax</h4>
+          <div className="bg-emerald-50 p-5 rounded-2xl font-mono text-sm border border-emerald-100 space-y-3 shadow-sm">
+            <div className="text-slate-700">Net Profit: <strong className="text-slate-900">$15,000</strong></div>
+            <div className="text-slate-700">Tax Rate (Long-Term): <strong className="text-slate-900">15%</strong></div>
+            <div className="text-emerald-800 font-bold text-lg pt-3 border-t border-emerald-200/60">
+              Tax Due: $15,000 × 0.15 = $2,250
+            </div>
+            <div className="text-slate-900 font-black text-2xl pt-2">
+              Total Estimated Tax = $2,250
+            </div>
+          </div>
+        </div>
+
+        {/* 7. Understanding the result */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Understanding Your Results</h2>
+          <p>
+            The estimated tax is the amount you will likely owe the IRS when tax season arrives. Note that if you are trading stocks on an app like Robinhood, they generally do <em>not</em> withhold capital gains taxes for you automatically. You are responsible for paying this out of pocket.
+          </p>
+          
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-2xl my-8">
+            <h4 className="text-blue-900 font-bold mt-0 mb-2">The One-Year Rule</h4>
+            <p className="text-blue-800 text-sm m-0 leading-relaxed">
+              If the investor in our example had sold their stock after only 11 months instead of holding it for over a year, their $15,000 profit would be taxed as <em>ordinary income</em> at 22%. They would owe $3,300 in taxes instead of $2,250. Simply waiting a few extra weeks to sell can save you thousands of dollars!
+            </p>
+          </div>
+        </div>
+
+        {/* 10. Important Assumptions and Limitations */}
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 sm:p-8">
+          <h2 className="text-xl font-black text-amber-900 mb-4 flex items-center gap-3">
+            <AlertCircle size={24} className="shrink-0" /> Important Limitations
+          </h2>
+          <p className="text-amber-800 leading-relaxed mb-0">
+            This calculator estimates federal taxes based on standard tax brackets. It does not account for state capital gains taxes, which vary wildly (from 0% in states like Texas and Florida to 13.3% in California). Furthermore, high earners may be subject to the 3.8% Net Investment Income Tax (NIIT).
+          </p>
+        </div>
+
+        {/* 11. Common Mistakes */}
+        <div className="prose prose-slate prose-indigo max-w-none prose-headings:font-black prose-p:leading-loose">
+          <h2 className="text-3xl tracking-tight text-slate-900">Common Capital Gains Mistakes</h2>
+          <div className="space-y-6 mt-8">
+            <div>
+              <h4 className="font-bold text-lg mb-2">1. Forgetting to deduct capital losses</h4>
+              <p className="m-0">Always remember to offset your winning trades with your losing trades before calculating your final tax bill. This is essential for day traders and crypto investors.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-lg mb-2">2. Selling immediately for a quick profit</h4>
+              <p className="m-0">Day trading guarantees you will pay the absolute highest tax rates possible (short-term ordinary income). Buy-and-hold investing utilizes the long-term tax rates, which are significantly lower.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-lg mb-2">3. Not tracking cost basis correctly</h4>
+              <p className="m-0">If you bought Bitcoin in 10 different transactions over 3 years, tracking your exact "purchase price" when you sell a fraction of a coin can be a nightmare. Use tax software to track your cost basis automatically.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* 12. FAQ */}
+        <div>
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-8 text-center sm:text-left">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            {FAQS_DATA.map((faq, i) => (
+              <div key={i} className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm hover:border-indigo-200 transition-colors">
+                <h3 className="font-black text-slate-900 text-lg mb-3 flex items-start gap-3">
+                  <CheckCircle2 size={20} className="text-indigo-500 shrink-0 mt-1" />
+                  {faq.q}
+                </h3>
+                <p className="text-slate-600 leading-relaxed pl-8 m-0">{faq.a}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-20 pb-20">
-        
-        {/* ════════════════════════════════════════════════════════════════
-            COMPREHENSIVE GUIDE WITH INTERNAL LINKS
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="guide-heading">
-          <div className="flex flex-col lg:flex-row gap-10 items-start max-w-6xl mx-auto">
-            
-            {/* Main Article */}
-            <article className="flex-1 min-w-0 space-y-10">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-violet-100 text-violet-600 flex items-center justify-center shrink-0">
-                  <BookOpen size={24} />
-                </div>
-                <div>
-                  <h2 id="guide-heading" className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                    Understanding Investment Taxes
-                  </h2>
-                  <p className="text-sm text-slate-500 font-medium mt-2">Stocks · Crypto · Real Estate</p>
-                </div>
-              </div>
-
-              <div className="prose prose-slate prose-violet max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:font-bold prose-a:text-violet-600 hover:prose-a:text-violet-700 prose-p:leading-loose">
-                
-                <p className="lead text-lg text-slate-700 font-medium bg-slate-50 border-l-4 border-violet-500 p-6 rounded-r-2xl">
-                  The moment you click "sell" on a profitable stock or crypto trade, you trigger a taxable event. Understanding the difference between short-term and long-term capital gains can literally save you thousands of dollars at tax time.
-                </p>
-
-                <h3>The "One Year" Rule</h3>
-                <p>
-                  The IRS heavily rewards long-term investors. If you buy an asset and sell it in <strong>365 days or less</strong>, any profit is considered a Short-Term Capital Gain. This is taxed identically to your normal salary from a job—at ordinary income tax rates, which can be as high as 37%.
-                </p>
-                <p>
-                  If you hold that exact same asset for <strong>366 days or more</strong>, it becomes a Long-Term Capital Gain. The tax brackets drop significantly to either 0%, 15%, or 20% (depending on your total income). For most middle-class Americans, the long-term capital gains tax rate is 15%.
-                </p>
-
-                <ul className="grid sm:grid-cols-2 gap-4 list-none pl-0 mt-6">
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-violet-100">
-                    <CheckCircle2 size={18} className="text-violet-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Crypto Swaps:</strong> Trading Bitcoin for Ethereum is a taxable event, even if you never convert it to cash.</span>
-                  </li>
-                  <li className="flex items-start gap-2 m-0 p-3 bg-white rounded-xl border border-violet-100">
-                    <CheckCircle2 size={18} className="text-violet-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-semibold text-slate-700"><strong>Real Estate:</strong> Selling a home has special exemptions if it was your primary residence for 2 of the last 5 years.</span>
-                  </li>
-                </ul>
-
-                <div className="my-8 bg-rose-50 border border-rose-200 rounded-2xl p-6 flex gap-4">
-                  <AlertCircle className="text-rose-600 shrink-0 mt-1" size={24} />
-                  <div>
-                    <h4 className="text-rose-900 font-bold mt-0 mb-2">The Day Trading Trap</h4>
-                    <p className="text-rose-800 text-sm m-0 leading-relaxed">
-                      Many new day traders make thousands of dollars in the stock or crypto market, reinvest it, and then lose it all later in the year. If they don't hold back cash for taxes on those early profitable trades, they can end up owing massive tax bills to the IRS on money they no longer have. Always set aside ~30% of short-term trading profits for taxes!
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-            </article>
-
-            {/* Sticky Sidebar */}
-            <aside className="w-full lg:w-[340px] shrink-0 space-y-6 lg:sticky lg:top-24">
-              
-              {/* Quick Callout Card */}
-              <div className="bg-gradient-to-br from-violet-900 to-indigo-950 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
-                <div className="relative z-10">
-                  <div className="flex items-center gap-2 mb-4">
-                    <TrendingUp size={16} className="text-violet-300" />
-                    <span className="text-xs font-black uppercase tracking-widest text-violet-300">
-                      Tax Free Growth
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">Avoid Taxes Entirely</h3>
-                  <p className="text-sm text-violet-100/80 leading-relaxed mb-6">
-                    If you trade stocks or ETFs inside a Roth IRA, you pay $0 in capital gains taxes, ever. It is the ultimate legal tax shelter.
-                  </p>
-                  <Link href="/roth-ira-calculator" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-xl text-sm font-bold w-full justify-center">
-                    Roth IRA Calculator <ArrowRight size={14} />
-                  </Link>
-                </div>
-                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-violet-500/20 rounded-full blur-2xl" />
-              </div>
-
-              {/* Internal Related Links */}
-              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6">
-                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
-                  Popular Tools
-                </h4>
-                <div className="space-y-3">
-                  {[
-                    { title: "Self-Employment Tax", href: "/self-employment-tax-calculator-usa", icon: Calculator },
-                    { title: "Paycheck Calculator", href: "/paycheck-calculator", icon: DollarSign },
-                    { title: "Compound Interest", href: "/compound-interest-calculator", icon: TrendingUp },
-                    { title: "Salary After Tax", href: "/salary-after-tax-calculator", icon: PieChartIcon },
-                  ].map((item) => (
-                    <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 border border-transparent hover:border-violet-100 transition-colors group">
-                      <div className="bg-slate-100 p-2 rounded-lg group-hover:bg-violet-200 group-hover:text-violet-700 transition-colors text-slate-500">
-                        <item.icon size={16} />
-                      </div>
-                      <span className="font-semibold text-slate-700 group-hover:text-violet-700 text-sm">{item.title}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Share */}
-              <div className="bg-white border border-slate-200/60 shadow-sm rounded-[2rem] p-6 text-center">
-                <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-4">
-                  Share This Tool
-                </h4>
-                <ShareButtons
-                  title="Capital Gains Tax Calculator 2026"
-                  url="https://www.freeuscalculator.in/capital-gains-tax-calculator"
-                />
-              </div>
-            </aside>
+        {/* 13. & 14. Related Tools and Guides */}
+        <div className="grid md:grid-cols-2 gap-6 pt-8 border-t border-slate-200">
+          <div className="bg-slate-100/80 border border-slate-200 rounded-3xl p-8">
+            <h3 className="font-black text-slate-900 mb-6 flex items-center gap-2">
+              <Calculator size={20} className="text-indigo-600" />
+              Related Calculators
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <Link href="/1099-tax-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  1099 Tax Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/paycheck-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Paycheck Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/salary-after-tax-calculator" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Salary After Tax Calculator
+                </Link>
+              </li>
+            </ul>
           </div>
-        </section>
-
-        {/* ════════════════════════════════════════════════════════════════
-            RELATED CALCULATORS GRID (FULL WIDTH)
-        ════════════════════════════════════════════════════════════════ */}
-        <div className="pt-10">
-          <RelatedCalculators currentTool="capital-gains-tax-calculator" />
+          <div className="bg-slate-100/80 border border-slate-200 rounded-3xl p-8">
+            <h3 className="font-black text-slate-900 mb-6 flex items-center gap-2">
+              <BookOpen size={20} className="text-indigo-600" />
+              Related Guides
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  What is Tax-Loss Harvesting?
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Understanding the Net Investment Income Tax
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-indigo-700 font-bold hover:text-indigo-500 transition-colors flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  Real Estate Capital Gains Exemptions
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* ════════════════════════════════════════════════════════════════
-            FAQ
-        ════════════════════════════════════════════════════════════════ */}
-        <section aria-labelledby="faq-heading" className="pt-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-black uppercase tracking-widest text-violet-600 mb-2">FAQ</p>
-            <h2 id="faq-heading" className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              Investment Tax Questions
-            </h2>
+        {/* 16. Author & 17. Sources & 18. Last Updated */}
+        <div className="border-t border-slate-200 pt-10 text-sm text-slate-500 space-y-6 pb-12">
+          <p><strong>Author / Reviewer:</strong> Anmol Giri</p>
+          
+          <div>
+            <strong className="block mb-2 text-slate-700">Sources & References:</strong>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><a href="https://www.irs.gov/taxtopics/tc409" target="_blank" rel="nofollow noreferrer" className="hover:text-indigo-600 transition-colors">IRS: Topic No. 409, Capital Gains and Losses</a></li>
+              <li><a href="https://www.irs.gov/publications/p550" target="_blank" rel="nofollow noreferrer" className="hover:text-indigo-600 transition-colors">IRS Publication 550 - Investment Income and Expenses</a></li>
+            </ul>
           </div>
           
-          <div className="max-w-4xl mx-auto space-y-4">
-            {FAQS_DATA.map(({ q, a }) => (
-              <div key={q} className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 hover:border-violet-300 transition-colors shadow-sm">
-                <dt className="font-black text-slate-900 text-base sm:text-lg mb-2 flex items-start gap-3">
-                  <CheckCircle2 size={20} className="text-violet-500 shrink-0 mt-0.5" />
-                  {q}
-                </dt>
-                <dd className="text-slate-500 text-sm sm:text-base leading-relaxed pl-8">{a}</dd>
-              </div>
-            ))}
-          </div>
-        </section>
+          <p className="inline-block bg-slate-100 px-3 py-1.5 rounded-lg font-medium">Last updated: August 2026</p>
+        </div>
 
-      </div>
+      </section>
     </main>
   );
 }

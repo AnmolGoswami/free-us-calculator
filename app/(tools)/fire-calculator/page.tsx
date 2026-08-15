@@ -230,6 +230,18 @@ export default function FirePage() {
                   Financial Independence, Retire Early (FIRE) is a movement of people who refuse to wait until age 65 to start living their lives. By saving a massive percentage of their income and investing it in index funds, they are able to buy back their time decades early.
                 </p>
 
+                <h3>How to Use the FIRE Calculator</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/fire-calculator-screenshot.jpg" 
+                    alt="FIRE Calculator Interface" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  To find your FIRE age, simply input your <strong>Current Age</strong>, <strong>Current Savings</strong>, <strong>Annual Income</strong>, and <strong>Annual Expenses</strong>. The calculator will automatically determine your savings rate, calculate your 25x Target FIRE Number, and chart your net worth until you hit financial independence!
+                </p>
+
                 <h3>Why Savings Rate is Everything</h3>
                 <p>
                   In traditional finance, advisors tell you to save 10% or 15% of your income. In the FIRE movement, people regularly save 40%, 50%, or even 70% of their <Link href="/salary-after-tax-calculator">after-tax income</Link>.
