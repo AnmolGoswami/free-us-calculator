@@ -7,14 +7,25 @@ import {
   Shield, Zap, Calculator, TrendingUp, Info,
   BookOpen, BarChart3, Globe, DollarSign,
 } from "lucide-react";
+import {
+  SS_WAGE_BASE,
+  SS_RATE,
+  MEDICARE_RATE,
+  STANDARD_DEDUCTION,
+  RETIREMENT_LIMITS
+} from "@/constants/taxData";
+
+const fmtDollar = (num: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+const fmtNum = (num: number) => new Intl.NumberFormat('en-US').format(num);
+
 
 export const dynamic = "force-dynamic";
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Salary After Tax Calculator 2026 – Take-Home Pay All 50 States",
+  title: "Salary After Tax Calculator 2026 – Take-Home Pay by State",
   description:
-    "Free salary after tax calculator for all 50 US states. Find your exact take-home pay after federal, state & FICA taxes. Includes 2026 IRS rates, 401(k), HSA deductions. Instant results.",
+    "Free salary after tax calculator for 2026. Estimate your take-home pay after federal, state, and FICA taxes for all 50 states. Includes standard deductions and 401(k).",
   alternates: {
     canonical: "https://www.freeuscalculator.in/salary-after-tax-calculator",
   },
@@ -37,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Salary After Tax Calculator 2026 – Real Take-Home Pay All 50 States",
     description:
-      "Calculate your exact take-home pay after federal, state & FICA taxes. 2026 IRS rates. Free, all 50 states, instant results.",
+      "Calculate your estimated take-home pay after federal, state & FICA taxes. 2026 IRS rates. Free, all 50 states, instant results.",
     url: "https://www.freeuscalculator.in/salary-after-tax-calculator",
     type: "website",
   },
@@ -61,7 +72,7 @@ const SCHEMA_WEBAPP = JSON.stringify({
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
   description:
-    "Free salary after tax calculator for all 50 US states. Calculates take-home pay after 2026 federal income tax, state income tax, Social Security (6.2% on wages up to $176,100), Medicare (1.45%), and pre-tax deductions including 401(k) and HSA.",
+    "Free salary after tax calculator for all 50 US states. Calculates take-home pay after 2026 federal income tax, state income tax, Social Security (${(SS_RATE * 100).toFixed(1)}% on wages up to ${fmtDollar(SS_WAGE_BASE)}), Medicare (${(MEDICARE_RATE * 100).toFixed(2)}%), and pre-tax deductions including 401(k) and HSA.",
   url: "https://www.freeuscalculator.in/salary-after-tax-calculator",
   isAccessibleForFree: true,
   dateModified: "2026-05-28",
@@ -76,9 +87,9 @@ const SCHEMA_WEBAPP = JSON.stringify({
     "All 50 US states + Washington D.C.",
     "2026 federal income tax brackets",
     "State income tax for all 50 states",
-    "Social Security (6.2%, wage base $176,100)",
-    "Medicare (1.45% + 0.9% surtax above $200K)",
-    "Pre-tax deductions: 401(k) $23,500 limit, HSA",
+    "Social Security (${(SS_RATE * 100).toFixed(1)}%, wage base ${fmtDollar(SS_WAGE_BASE)})",
+    "Medicare (${(MEDICARE_RATE * 100).toFixed(2)}% + 0.9% surtax above $200K)",
+    "Pre-tax deductions: 401(k) ${fmtDollar(RETIREMENT_LIMITS['401k_under_50'])} limit, HSA",
     "Effective and marginal tax rate display",
     "Annual, monthly, and biweekly breakdowns",
   ],
@@ -88,8 +99,8 @@ const SCHEMA_BREADCRUMB = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home",             item: "https://www.freeuscalculator.in" },
-    { "@type": "ListItem", position: 2, name: "Tax Calculators",  item: "https://www.freeuscalculator.in/tax-calculators" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.freeuscalculator.in" },
+    { "@type": "ListItem", position: 2, name: "Tax Calculators", item: "https://www.freeuscalculator.in/tax-calculators" },
     { "@type": "ListItem", position: 3, name: "Salary After Tax", item: "https://www.freeuscalculator.in/salary-after-tax-calculator" },
   ],
 });
@@ -100,11 +111,11 @@ const SCHEMA_HOWTO = JSON.stringify({
   name: "How to Calculate Your Salary After Tax",
   totalTime: "PT1M",
   step: [
-    { "@type": "HowToStep", position: 1, name: "Enter gross salary",   text: "Type your annual salary or use the preset buttons ($40K–$150K). Drag the slider for quick adjustments." },
+    { "@type": "HowToStep", position: 1, name: "Enter gross salary", text: "Type your annual salary or use the preset buttons ($40K–$150K). Drag the slider for quick adjustments." },
     { "@type": "HowToStep", position: 2, name: "Select filing status", text: "Choose Single, Married Filing Jointly, Head of Household, or Married Separately. This affects your standard deduction and brackets." },
-    { "@type": "HowToStep", position: 3, name: "Choose your state",    text: "Pick your state. Tax ranges from 0% (TX, FL) to 13.3% top rate (CA). Results update instantly." },
-    { "@type": "HowToStep", position: 4, name: "Add deductions",       text: "Toggle Advanced Options to enter 401(k), HSA, or other pre-tax deductions to reduce taxable income." },
-    { "@type": "HowToStep", position: 5, name: "Read your results",    text: "See annual, monthly, and biweekly take-home with a full tax breakdown and donut chart." },
+    { "@type": "HowToStep", position: 3, name: "Choose your state", text: "Pick your state. Tax ranges from 0% (TX, FL) to 13.3% top rate (CA). Results update instantly." },
+    { "@type": "HowToStep", position: 4, name: "Add deductions", text: "Toggle Advanced Options to enter 401(k), HSA, or other pre-tax deductions to reduce taxable income." },
+    { "@type": "HowToStep", position: 5, name: "Read your results", text: "See annual, monthly, and biweekly take-home with a full tax breakdown and donut chart." },
   ],
 });
 
@@ -119,7 +130,7 @@ const FAQS_DATA = [
   },
   {
     q: "What is the 2026 federal standard deduction?",
-    a: "The 2026 standard deduction is $15,000 for single filers and $30,000 for married filing jointly. This reduces your taxable income before brackets are applied. On a $75,000 salary (single), you pay federal tax on $60,000, not the full amount.",
+    a: "The 2026 standard deduction is ${fmtDollar(STANDARD_DEDUCTION.single)} for single filers and ${fmtDollar(STANDARD_DEDUCTION.marriedJoint)} for married filing jointly. This reduces your taxable income before brackets are applied. On a $75,000 salary (single), you pay federal tax on $60,000, not the full amount.",
   },
   {
     q: "What is the difference between effective and marginal tax rate?",
@@ -127,7 +138,7 @@ const FAQS_DATA = [
   },
   {
     q: "How does a 401(k) reduce my take-home tax?",
-    a: "Traditional 401(k) contributions reduce federal and state taxable income. The 2026 limit is $23,500 (under 50). Contributing $10,000/year in the 22% federal bracket saves approximately $2,200 in federal tax, plus state tax savings on top.",
+    a: "Traditional 401(k) contributions reduce federal and state taxable income. The 2026 limit is ${fmtDollar(RETIREMENT_LIMITS['401k_under_50'])} (under 50). Contributing $10,000/year in the 22% federal bracket saves approximately $2,200 in federal tax, plus state tax savings on top.",
   },
   {
     q: "Which states have no income tax in 2026?",
@@ -135,7 +146,7 @@ const FAQS_DATA = [
   },
   {
     q: "How is Social Security tax calculated in 2026?",
-    a: "Social Security tax is 6.2% on wages up to $176,100 (2026 wage base). Above this limit, SS tax stops. Medicare is 1.45% on all wages with no cap. An additional 0.9% Medicare surtax applies above $200,000 (single) or $250,000 (married). Maximum SS employee tax in 2026 is $10,918.",
+    a: "Social Security tax is 6.2% on wages up to ${fmtDollar(SS_WAGE_BASE)} (2026 wage base). Above this limit, SS tax stops. Medicare is 1.45% on all wages with no cap. An additional 0.9% Medicare surtax applies above $200,000 (single) or $250,000 (married). Maximum SS employee tax in 2026 is ${fmtDollar(SS_WAGE_BASE * SS_RATE)}.",
   },
   {
     q: "Can I use this for official tax filing?",
@@ -155,34 +166,34 @@ const SCHEMA_FAQ = JSON.stringify({
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const SALARY_TABLE = [
-  { salary: "$40,000", federal: "$2,568",  fica: "$3,060",  state: "$1,600", monthly: "$2,731", annual: "$32,772", eff: "18.1%" },
-  { salary: "$50,000", federal: "$4,068",  fica: "$3,825",  state: "$2,000", monthly: "$3,342", annual: "$40,107", eff: "19.8%" },
-  { salary: "$60,000", federal: "$5,918",  fica: "$4,590",  state: "$2,400", monthly: "$3,924", annual: "$47,092", eff: "21.5%" },
-  { salary: "$70,000", federal: "$7,918",  fica: "$5,355",  state: "$2,800", monthly: "$4,494", annual: "$53,927", eff: "23.0%" },
-  { salary: "$80,000", federal: "$10,294", fica: "$6,120",  state: "$3,200", monthly: "$5,032", annual: "$60,386", eff: "24.4%" },
-  { salary: "$100,000",federal: "$15,794", fica: "$7,650",  state: "$4,000", monthly: "$6,046", annual: "$72,556", eff: "27.4%" },
-  { salary: "$120,000",federal: "$21,294", fica: "$9,180",  state: "$4,800", monthly: "$7,061", annual: "$84,726", eff: "29.4%" },
-  { salary: "$150,000",federal: "$30,544", fica: "$11,475", state: "$6,000", monthly: "$8,582", annual: "$102,981",eff: "31.3%" },
-  { salary: "$200,000",federal: "$46,544", fica: "$14,505", state: "$8,000", monthly: "$10,996",annual: "$131,951",eff: "34.5%" },
+  { salary: "$40,000", federal: "$2,568", fica: "$3,060", state: "$1,600", monthly: "$2,731", annual: "$32,772", eff: "18.1%" },
+  { salary: "$50,000", federal: "$4,068", fica: "$3,825", state: "$2,000", monthly: "$3,342", annual: "$40,107", eff: "19.8%" },
+  { salary: "$60,000", federal: "$5,918", fica: "$4,590", state: "$2,400", monthly: "$3,924", annual: "$47,092", eff: "21.5%" },
+  { salary: "$70,000", federal: "$7,918", fica: "$5,355", state: "$2,800", monthly: "$4,494", annual: "$53,927", eff: "23.0%" },
+  { salary: "$80,000", federal: "$10,294", fica: "$6,120", state: "$3,200", monthly: "$5,032", annual: "$60,386", eff: "24.4%" },
+  { salary: "$100,000", federal: "$15,794", fica: "$7,650", state: "$4,000", monthly: "$6,046", annual: "$72,556", eff: "27.4%" },
+  { salary: "$120,000", federal: "$21,294", fica: "$9,180", state: "$4,800", monthly: "$7,061", annual: "$84,726", eff: "29.4%" },
+  { salary: "$150,000", federal: "$30,544", fica: "$11,475", state: "$6,000", monthly: "$8,582", annual: "$102,981", eff: "31.3%" },
+  { salary: "$200,000", federal: "$46,544", fica: "$14,505", state: "$8,000", monthly: "$10,996", annual: "$131,951", eff: "34.5%" },
 ];
 
 const STATE_TABLE = [
-  { flag: "🤠", state: "Texas",      rate: "0%",        tax: "$0",     annual: "$76,550", monthly: "$6,379", diff: "—"       },
-  { flag: "🏖️", state: "Florida",    rate: "0%",        tax: "$0",     annual: "$76,550", monthly: "$6,379", diff: "—"       },
-  { flag: "🌵", state: "Arizona",    rate: "2.5% flat", tax: "$1,875", annual: "$74,675", monthly: "$6,223", diff: "−$1,875" },
-  { flag: "🏔️", state: "Colorado",   rate: "4.4% flat", tax: "$3,300", annual: "$73,250", monthly: "$6,104", diff: "−$3,300" },
-  { flag: "🌸", state: "Georgia",    rate: "5.49%",     tax: "$4,118", annual: "$72,432", monthly: "$6,036", diff: "−$4,118" },
-  { flag: "🗽", state: "New York",   rate: "4–10.9%",   tax: "$5,820", annual: "$70,730", monthly: "$5,894", diff: "−$5,820" },
-  { flag: "🌉", state: "California", rate: "1–13.3%",   tax: "$6,500", annual: "$70,050", monthly: "$5,838", diff: "−$6,500" },
+  { flag: "🤠", state: "Texas", rate: "0%", tax: "$0", annual: "$76,550", monthly: "$6,379", diff: "—" },
+  { flag: "🏖️", state: "Florida", rate: "0%", tax: "$0", annual: "$76,550", monthly: "$6,379", diff: "—" },
+  { flag: "🌵", state: "Arizona", rate: "2.5% flat", tax: "$1,875", annual: "$74,675", monthly: "$6,223", diff: "−$1,875" },
+  { flag: "🏔️", state: "Colorado", rate: "4.4% flat", tax: "$3,300", annual: "$73,250", monthly: "$6,104", diff: "−$3,300" },
+  { flag: "🌸", state: "Georgia", rate: "5.49%", tax: "$4,118", annual: "$72,432", monthly: "$6,036", diff: "−$4,118" },
+  { flag: "🗽", state: "New York", rate: "4–10.9%", tax: "$5,820", annual: "$70,730", monthly: "$5,894", diff: "−$5,820" },
+  { flag: "🌉", state: "California", rate: "1–13.3%", tax: "$6,500", annual: "$70,050", monthly: "$5,838", diff: "−$6,500" },
 ];
 
 const RELATED = [
-  { href: "/paycheck-calculator",          label: "Paycheck Calculator",       desc: "Per-paycheck breakdown with W-4"        },
-  { href: "/hourly-to-salary-calculator",  label: "Hourly to Salary",          desc: "Convert hourly rate to annual salary"   },
-  { href: "/overtime-calculator",          label: "Overtime Pay Calculator",    desc: "1.5× and 2× overtime pay"               },
-  { href: "/self-employment-tax-calculator-usa", label: "Self-Employment Tax", desc: "15.3% SE tax with deductible portion"   },
-  { href: "/savings-calculator",           label: "Savings Calculator",         desc: "Compound interest & future value"       },
-  { href: "/rent-affordability-calculator",label: "Rent Affordability",         desc: "How much rent can you afford?"          },
+  { href: "/paycheck-calculator", label: "Paycheck Calculator", desc: "Per-paycheck breakdown with W-4" },
+  { href: "/hourly-to-salary-calculator", label: "Hourly to Salary", desc: "Convert hourly rate to annual salary" },
+  { href: "/overtime-calculator", label: "Overtime Pay Calculator", desc: "1.5× and 2× overtime pay" },
+  { href: "/self-employment-tax-calculator-usa", label: "Self-Employment Tax", desc: "15.3% SE tax with deductible portion" },
+  { href: "/savings-calculator", label: "Savings Calculator", desc: "Compound interest & future value" },
+  { href: "/rent-affordability-calculator", label: "Rent Affordability", desc: "How much rent can you afford?" },
 ];
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -230,18 +241,18 @@ export default function SalaryAfterTaxPage() {
           </h1>
 
           <p className="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-6">
-            Find your real <strong className="text-white">take-home pay after federal, state, and FICA taxes</strong>.
-            Updated for 2026 — all 50 states, 401(k), HSA deductions. No signup. Instant.
+            Estimate your <strong className="text-white">take-home pay after federal, state, and FICA taxes</strong>.
+            Updated for 2026 with all 50 states, 401(k), and HSA deductions. Enter your salary, state, and filing status to see a breakdown of your estimated net pay.
           </p>
 
           {/* Trust chips */}
           <div className="flex flex-wrap gap-2 mb-8">
             {[
-              { icon: Star,         label: "4.9/5 · 12,847 users",    cls: "text-amber-400"  },
-              { icon: CheckCircle2, label: "All 50 States + DC",       cls: "text-emerald-400"},
-              { icon: Shield,       label: "No data stored",           cls: "text-indigo-400" },
-              { icon: CheckCircle2, label: "401(k) & HSA included",    cls: "text-emerald-400"},
-              { icon: CheckCircle2, label: "100% Free · No Login",     cls: "text-emerald-400"},
+              { icon: Star, label: "4.9/5 · 12,847 users", cls: "text-amber-400" },
+              { icon: CheckCircle2, label: "All 50 States + DC", cls: "text-emerald-400" },
+              { icon: Shield, label: "No data stored", cls: "text-indigo-400" },
+              { icon: CheckCircle2, label: "401(k) & HSA included", cls: "text-emerald-400" },
+              { icon: CheckCircle2, label: "100% Free · No Login", cls: "text-emerald-400" },
             ].map(({ icon: Icon, label, cls }) => (
               <span
                 key={label}
@@ -274,10 +285,10 @@ export default function SalaryAfterTaxPage() {
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             {[
-              { val: "$176,100", label: "SS Wage Base",           sub: "6.2% up to this limit" },
-              { val: "$15,000",  label: "Std Deduction (Single)", sub: "$30,000 married jointly" },
-              { val: "$23,500",  label: "401(k) Limit",           sub: "$31,000 age 50+"         },
-              { val: "15.3%",    label: "Self-Employment Tax",    sub: "SS + Medicare combined"  },
+              { val: fmtDollar(SS_WAGE_BASE), label: "SS Wage Base", sub: `${(SS_RATE * 100).toFixed(1)}% up to this limit` },
+              { val: fmtDollar(STANDARD_DEDUCTION.single), label: "Std Deduction (Single)", sub: `${fmtDollar(STANDARD_DEDUCTION.marriedJoint)} married jointly` },
+              { val: "$23,500", label: "401(k) Limit", sub: "$31,000 age 50+" },
+              { val: "15.3%", label: "Self-Employment Tax", sub: "SS + Medicare combined" },
             ].map(({ val, label, sub }) => (
               <div key={label}>
                 <p className="text-2xl sm:text-3xl font-black text-emerald-400 tabular-nums mb-1">{val}</p>
@@ -401,9 +412,9 @@ export default function SalaryAfterTaxPage() {
           </div>
 
           <figure className="max-w-4xl mx-auto my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
-            <img 
-              src="/salary-after-tax-calculator-screenshot.jpg" 
-              alt="Salary After Tax Calculator Interface" 
+            <img
+              src="/salary-after-tax-calculator-screenshot.jpg"
+              alt="Salary after tax calculator interface showing gross salary input, filing status, state selection, and estimated take-home pay breakdown"
               className="w-full h-auto object-cover"
             />
           </figure>
@@ -411,10 +422,10 @@ export default function SalaryAfterTaxPage() {
           <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
             {[
               { n: "1", title: "Enter Gross Salary", body: "Type your annual salary or use preset buttons ($40K–$150K). The slider adjusts in $5K increments." },
-              { n: "2", title: "Filing Status",       body: "Single, MFJ, HOH, or MFS. This changes your standard deduction and tax brackets." },
-              { n: "3", title: "Select State",        body: "Tax ranges from 0% (TX/FL) to 13.3% top rate (CA). Results update instantly." },
-              { n: "4", title: "Add Deductions",      body: "401(k), HSA, and pre-tax deductions reduce your taxable income and tax bill." },
-              { n: "5", title: "Read Results",        body: "See annual, monthly, and biweekly take-home with a full donut chart breakdown." },
+              { n: "2", title: "Filing Status", body: "Single, MFJ, HOH, or MFS. This changes your standard deduction and tax brackets." },
+              { n: "3", title: "Select State", body: "Tax ranges from 0% (TX/FL) to 13.3% top rate (CA). Results update instantly." },
+              { n: "4", title: "Add Deductions", body: "401(k), HSA, and pre-tax deductions reduce your taxable income and tax bill." },
+              { n: "5", title: "Read Results", body: "See annual, monthly, and biweekly take-home with a full donut chart breakdown." },
             ].map(({ n, title, body }) => (
               <div
                 key={n}
@@ -429,6 +440,45 @@ export default function SalaryAfterTaxPage() {
                 <p className="text-xs text-slate-500 leading-relaxed">{body}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════════════════════════════════
+            ADVANCED FEATURES — SEO content for 401(k), deductions
+        ════════════════════════════════════════════════════════════════ */}
+        <section aria-labelledby="advanced-heading">
+          <div className="text-center mb-8">
+            <p className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2">Advanced Options</p>
+            <h2 id="advanced-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
+              Advanced Salary After Tax Calculator
+            </h2>
+            <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
+              Calculate net pay with benefits, 401(k) limits, HSA contributions, and custom tax credits.
+            </p>
+          </div>
+
+          <figure className="max-w-4xl mx-auto my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+            <img
+              src="/salary-after-tax-calculator-screenshot-advance.jpg"
+              alt="Advanced salary after tax calculator interface highlighting pre-tax deductions, 401(k), HSA, and tax credit estimators"
+              className="w-full h-auto object-cover"
+            />
+          </figure>
+
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm text-sm text-slate-600 space-y-5 mb-12">
+            <h3 className="text-lg font-bold text-slate-900">How do pre-tax deductions affect take home pay?</h3>
+            <p>
+              When using a <strong>take home pay calculator with 401(k) and HSA</strong> options, you'll notice a powerful benefit: pre-tax deductions lower your taxable income before federal and state taxes are applied. This means your tax bill shrinks. 
+            </p>
+            <ul className="list-disc pl-5 space-y-2 text-slate-700">
+              <li><strong>401(k) Contributions:</strong> For 2026, the employee contribution limit is {fmtDollar(RETIREMENT_LIMITS['401k_under_50'])}. Every dollar contributed reduces your adjusted gross income dollar-for-dollar.</li>
+              <li><strong>HSA (Health Savings Account):</strong> Pre-tax HSA contributions are completely exempt from federal income tax, state income tax (in most states), and even FICA taxes if deducted through payroll.</li>
+              <li><strong>Paycheck tax deductions:</strong> By tweaking your pre-tax inputs in our advanced settings, you can find the "sweet spot" where you maximize your retirement savings while maintaining a comfortable monthly cash flow.</li>
+            </ul>
+            <h3 className="text-lg font-bold text-slate-900 mt-6">Tax Credit Estimators</h3>
+            <p>
+              If you have children or qualifying dependents, you can also input anticipated tax credits. Tax credits directly reduce your tax liability dollar-for-dollar, significantly boosting your final take-home pay estimate. 
+            </p>
           </div>
         </section>
 
@@ -455,11 +505,11 @@ export default function SalaryAfterTaxPage() {
               {[
                 {
                   title: "The 2026 Federal Tax Brackets",
-                  body: `Federal income tax in 2026 is progressive — you pay different rates on different portions of income, not a flat rate on everything. For a single filer, the first $11,925 is taxed at 10%, income from $11,926 to $48,475 at 12%, and income from $48,476 to $103,350 at 22%. Before any bracket applies, you subtract your standard deduction ($15,000 for single filers in 2026), which means on a $75,000 salary, you only pay tax on $60,000.`,
+                  body: `Federal income tax in 2026 is progressive — you pay different rates on different portions of income, not a flat rate on everything. For a single filer, the first $11,925 is taxed at 10%, income from $11,926 to $48,475 at 12%, and income from $48,476 to $103,350 at 22%. Before any bracket applies, you subtract your standard deduction (${fmtDollar(STANDARD_DEDUCTION.single)} for single filers in 2026), which means on a $75,000 salary, you only pay tax on $60,000.`,
                 },
                 {
                   title: "FICA: Social Security and Medicare",
-                  body: `FICA taxes are separate from income tax. Social Security is 6.2% on wages up to $176,100 (the 2026 wage base) — above this, it stops completely. Medicare is 1.45% on all wages with no cap. An additional 0.9% Medicare surtax applies on wages above $200,000 (single). Your employer matches the 6.2% Social Security and 1.45% Medicare — the amounts shown in our calculator are the employee share only.`,
+                  body: `FICA taxes are separate from income tax. Social Security is 6.2% on wages up to ${fmtDollar(SS_WAGE_BASE)} (the 2026 wage base) — above this, it stops completely. Medicare is 1.45% on all wages with no cap. An additional 0.9% Medicare surtax applies on wages above $200,000 (single). Your employer matches the 6.2% Social Security and 1.45% Medicare — the amounts shown in our calculator are the employee share only.`,
                 },
                 {
                   title: "State Income Tax: The Hidden Variable",
@@ -467,7 +517,7 @@ export default function SalaryAfterTaxPage() {
                 },
                 {
                   title: "How 401(k) Contributions Reduce Tax",
-                  body: `Traditional 401(k) contributions reduce your taxable income dollar-for-dollar. The 2026 contribution limit is $23,500 (under 50) or $31,000 (50 and older). If you contribute $10,000 on an $80,000 salary in the 22% federal bracket, you save $2,200 in federal tax immediately — plus state tax savings. That's free money. Use the Advanced Options in our calculator to see exactly how much deductions save you.`,
+                  body: `Traditional 401(k) contributions reduce your taxable income dollar-for-dollar. The 2026 contribution limit is ${fmtDollar(RETIREMENT_LIMITS['401k_under_50'])} (under 50) or ${fmtDollar(RETIREMENT_LIMITS['401k_50_and_over'])} (50 and older). If you contribute $10,000 on an $80,000 salary in the 22% federal bracket, you save $2,200 in federal tax immediately — plus state tax savings. That's free money. Use the Advanced Options in our calculator to see exactly how much deductions save you.`,
                 },
               ].map(({ title, body }) => (
                 <div
@@ -492,10 +542,10 @@ export default function SalaryAfterTaxPage() {
                     </p>
                     <div className="grid grid-cols-2 gap-2">
                       {[
-                        { contrib: "$5,000/yr",  saving: "Saves $1,100–$1,750" },
+                        { contrib: "$5,000/yr", saving: "Saves $1,100–$1,750" },
                         { contrib: "$10,000/yr", saving: "Saves $2,200–$3,500" },
                         { contrib: "$15,000/yr", saving: "Saves $3,300–$5,250" },
-                        { contrib: "$23,500/yr", saving: "Saves $5,170–$8,225" },
+                        { contrib: "${fmtDollar(RETIREMENT_LIMITS['401k_under_50'])}/yr", saving: "Saves $5,170–$8,225" },
                       ].map(({ contrib, saving }) => (
                         <div key={contrib} className="bg-white rounded-xl px-3 py-2.5 border border-indigo-100">
                           <p className="text-xs text-slate-500">{contrib}</p>
@@ -548,10 +598,10 @@ export default function SalaryAfterTaxPage() {
                 <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-3">Related Tools</p>
                 <div className="space-y-2">
                   {[
-                    { href: "/paycheck-calculator",   label: "Paycheck Calculator"  },
-                    { href: "/overtime-calculator",    label: "Overtime Pay"         },
+                    { href: "/paycheck-calculator", label: "Paycheck Calculator" },
+                    { href: "/overtime-calculator", label: "Overtime Pay" },
                     { href: "/hourly-to-salary-calculator", label: "Hourly to Salary" },
-                    { href: "/self-employment-tax-calculator-usa", label: "SE Tax"  },
+                    { href: "/self-employment-tax-calculator-usa", label: "SE Tax" },
                   ].map((l) => (
                     <Link
                       key={l.href}
@@ -576,6 +626,63 @@ export default function SalaryAfterTaxPage() {
             </aside>
           </div>
         </section>
+
+
+        {/* ════════════════════════════════════════════════════════════════
+            METHODOLOGY & WORKED EXAMPLES
+        ════════════════════════════════════════════════════════════════ */}
+        <section aria-labelledby="methodology-heading">
+          <div className="text-center mb-8">
+            <p className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2">Methodology</p>
+            <h2 id="methodology-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
+              How We Calculate Your Result
+            </h2>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm text-sm text-slate-600 space-y-6">
+            <p>
+              This calculator provides take-home pay estimates using published IRS, SSA, and state tax data with documented calculation methods. Here is how the calculation works:
+            </p>
+            <ol className="list-decimal pl-5 space-y-3 font-medium text-slate-700">
+              <li><strong>Gross Income:</strong> Start with your annual salary.</li>
+              <li><strong>Pre-Tax Deductions:</strong> Subtract any 401(k), HSA, or pre-tax health premiums to find your <em>Adjusted Gross Income</em>.</li>
+              <li><strong>Taxable Income:</strong> Subtract the applicable standard deduction ({fmtDollar(STANDARD_DEDUCTION.single)} for Single, {fmtDollar(STANDARD_DEDUCTION.marriedJoint)} for Married Filing Jointly in 2026) to find your federal taxable income.</li>
+              <li><strong>Federal Income Tax:</strong> Apply the 2026 progressive federal tax brackets to your taxable income.</li>
+              <li><strong>FICA (Social Security & Medicare):</strong> Calculate Social Security tax ({SS_RATE * 100}% on wages up to {fmtDollar(SS_WAGE_BASE)}) and Medicare tax ({MEDICARE_RATE * 100}% on all wages, plus an additional 0.9% for high earners).</li>
+              <li><strong>State Income Tax:</strong> Apply your selected state's 2026 income tax brackets or flat rate.</li>
+              <li><strong>Estimated Take-Home Pay:</strong> Gross Income − Federal Tax − FICA − State Tax − Deductions.</li>
+            </ol>
+            <p className="text-xs italic mt-4 text-slate-500">
+              Note: This calculator assumes you are taking the standard deduction and does not account for local/city taxes, state-specific deductions, or individual tax credits unless explicitly entered.
+            </p>
+          </div>
+
+          <div className="mt-12 mb-8">
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-6 text-center">Worked Examples (Single Filer, 2026)</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { gross: "$50,000", fed: "$4,068", fica: "$3,825", state: "$0", net: "$42,107", loc: "Texas (0% State Tax)" },
+                { gross: "$75,000", fed: "$9,018", fica: "$5,738", state: "$2,642", net: "$57,602", loc: "Colorado (Flat 4.4% roughly)" },
+                { gross: "$100,000", fed: "$15,794", fica: "$7,650", state: "$6,500", net: "$70,056", loc: "California (Progressive)" }
+              ].map((ex, i) => (
+                <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-1">{ex.loc}</p>
+                  <p className="text-2xl font-black text-slate-900 mb-4">{ex.gross} Salary</p>
+                  <ul className="space-y-2 text-sm text-slate-600 mb-4">
+                    <li className="flex justify-between"><span>Federal Tax:</span> <span className="font-semibold text-rose-600">-{ex.fed}</span></li>
+                    <li className="flex justify-between"><span>FICA Tax:</span> <span className="font-semibold text-purple-600">-{ex.fica}</span></li>
+                    <li className="flex justify-between"><span>State Tax:</span> <span className="font-semibold text-orange-600">-{ex.state}</span></li>
+                  </ul>
+                  <div className="pt-3 border-t border-slate-200 flex justify-between items-center">
+                    <span className="font-bold text-slate-900">Take-Home:</span>
+                    <span className="text-xl font-black text-emerald-600">{ex.net}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
 
         {/* ════════════════════════════════════════════════════════════════
             FAQ
@@ -639,6 +746,7 @@ export default function SalaryAfterTaxPage() {
           </div>
         </section>
 
+
         {/* ════════════════════════════════════════════════════════════════
             DISCLAIMER
         ════════════════════════════════════════════════════════════════ */}
@@ -646,14 +754,15 @@ export default function SalaryAfterTaxPage() {
                         rounded-2xl px-5 py-4 text-xs text-slate-500">
           <Info size={15} className="text-slate-400 shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            Results are estimates based on 2026 IRS withholding tables and state tax rates.
-            Actual withholding may vary due to local taxes, credits, additional income, or
-            employer-specific W-4 settings. Not financial or tax advice.{" "}
+            FreeUSCalculator provides estimates for informational and planning purposes only. Actual tax liability, withholding, and take-home pay may differ based on your individual circumstances, deductions, credits, employer payroll settings, local taxes, and other factors. This calculator uses 2026 data but is not a substitute for professional tax advice or official tax filing tools.{" "}
             <Link href="/disclaimer" className="underline hover:text-slate-700 transition-colors">
               See full disclaimer
             </Link>.
+            <br /><br />
+            Last updated: September 2026 | Tax year: 2026
           </p>
         </div>
+
       </div>
 
       {/* ════════════════════════════════════════════════════════════════════
@@ -702,14 +811,14 @@ export default function SalaryAfterTaxPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             {[
-              { href: "/paycheck-calculator",               label: "Paycheck Calculator"          },
-              { href: "/hourly-to-salary-calculator",       label: "Hourly to Salary"             },
-              { href: "/overtime-calculator",               label: "Overtime Calculator"           },
-              { href: "/self-employment-tax-calculator-usa",label: "Self-Employment Tax"           },
-              { href: "/savings-calculator",                label: "Savings Calculator"            },
-              { href: "/loan-calculator",                   label: "Loan EMI Calculator"           },
-              { href: "/rent-affordability-calculator",     label: "Rent Affordability"            },
-              { href: "/doordash-earnings-calculator",      label: "DoorDash Earnings"             },
+              { href: "/paycheck-calculator", label: "Paycheck Calculator" },
+              { href: "/hourly-to-salary-calculator", label: "Hourly to Salary" },
+              { href: "/overtime-calculator", label: "Overtime Calculator" },
+              { href: "/self-employment-tax-calculator-usa", label: "Self-Employment Tax" },
+              { href: "/savings-calculator", label: "Savings Calculator" },
+              { href: "/loan-calculator", label: "Loan EMI Calculator" },
+              { href: "/rent-affordability-calculator", label: "Rent Affordability" },
+              { href: "/doordash-earnings-calculator", label: "DoorDash Earnings" },
             ].map((l) => (
               <Link
                 key={l.href}

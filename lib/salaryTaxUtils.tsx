@@ -1,4 +1,12 @@
 import { ALL_US_STATES } from "@/constants/taxBrackets";
+import { 
+  SS_WAGE_BASE, 
+  SS_RATE, 
+  MEDICARE_RATE, 
+  ADDITIONAL_MEDICARE_RATE, 
+  STANDARD_DEDUCTION, 
+  ADDITIONAL_MEDICARE_THRESHOLD 
+} from "@/constants/taxData";
 
 // ==================== TYPES ====================
 export interface TaxCalculationResult {
@@ -74,12 +82,7 @@ function getMarginalRate(
 }
 
 // ==================== CONSTANTS (ESTIMATED 2026) ====================
-const STANDARD_DEDUCTION: Record<FilingStatus, number> = {
-  single: 14600,
-  marriedJoint: 29200,
-  headOfHousehold: 21900,
-  marriedSeparate: 14600,
-};
+// Standard Deductions and FICA now imported from @/constants/taxData
 
 // Based on latest IRS brackets (adjust slightly yearly if needed)
 const FEDERAL_BRACKETS: Record<
@@ -124,18 +127,7 @@ const FEDERAL_BRACKETS: Record<
   ],
 };
 
-const SS_RATE = 0.062;
-const SS_CAP = 168600;
-
-const MEDICARE_RATE = 0.0145;
-const ADD_MEDICARE_RATE = 0.009;
-
-const ADD_MEDICARE_THRESHOLD: Record<FilingStatus, number> = {
-  single: 200000,
-  marriedJoint: 250000,
-  headOfHousehold: 200000,
-  marriedSeparate: 125000,
-};
+// FICA rates now imported from @/constants/taxData
 
 // ==================== MAIN ====================
 export function calculateSalaryAfterTax(
@@ -168,12 +160,12 @@ export function calculateSalaryAfterTax(
   const marginalRate = getMarginalRate(taxableIncome, brackets);
 
   // ==================== FICA ====================
-  const socialSecurity = Math.min(annualSalary, SS_CAP) * SS_RATE;
+  const socialSecurity = Math.min(annualSalary, SS_WAGE_BASE) * SS_RATE;
   const medicare = annualSalary * MEDICARE_RATE;
   const additionalMedicare =
     clamp(
-      annualSalary - ADD_MEDICARE_THRESHOLD[filingStatus]
-    ) * ADD_MEDICARE_RATE;
+      annualSalary - ADDITIONAL_MEDICARE_THRESHOLD[filingStatus]
+    ) * ADDITIONAL_MEDICARE_RATE;
 
   const fica = socialSecurity + medicare + additionalMedicare;
 

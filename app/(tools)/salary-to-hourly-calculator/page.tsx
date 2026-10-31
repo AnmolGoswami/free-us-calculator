@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import CalculatorContainer from "@/components/ui/CalculatorContainer";
 import FAQ from "@/components/calculators/FAQ";
 import ShareButtons from "@/components/calculators/ShareButtons";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
@@ -29,7 +28,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Salary to Hourly Calculator 2026 – See Your True Hourly Rate",
   description:
-    "Convert your annual salary into an hourly wage. Find out exactly how much you make per hour based on 2026 workweek standards. Perfect for contract negotiation.",
+    "Convert your annual salary into an hourly wage. Find out how much you make per hour based on 2026 workweek standards. Perfect for contract negotiation.",
   alternates: {
     canonical: "https://www.freeuscalculator.in/salary-to-hourly-calculator",
   },
@@ -133,72 +132,69 @@ const SALARY_TABLE = [
 
 export default function SalaryToHourlyPage() {
   return (
-    <main className="bg-slate-50 min-h-screen font-sans selection:bg-emerald-200 selection:text-emerald-900">
+    <main className="bg-white min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_WEBAPP }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_BREADCRUMB }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: SCHEMA_FAQ }} />
 
+      
       {/* ════════════════════════════════════════════════════════════════════
           HERO
       ════════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white border-b border-slate-200/60 pt-8 pb-32 px-4 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-emerald-50/50 to-transparent rounded-full blur-3xl -z-10 opacity-70" />
-
-        <div className="max-w-7xl mx-auto">
+      <section className="bg-slate-950 text-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 pb-6">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-8 flex-wrap justify-center md:justify-start">
-            <Link href="/" className="hover:text-emerald-600 transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap">
+            <Link href="/" className="hover:text-slate-300 transition-colors">Home</Link>
             <ChevronRight size={11} />
-            <Link href="/salary-calculators" className="hover:text-emerald-600 transition-colors">Calculators</Link>
+            <Link href="/salary-calculators" className="hover:text-slate-300 transition-colors">Calculators</Link>
             <ChevronRight size={11} />
-            <span className="text-slate-900 font-medium">Salary to Hourly</span>
+            <span className="text-slate-400 font-medium">Salary to Hourly</span>
           </nav>
 
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase tracking-widest mb-6">
-              <TrendingUp size={12} className="text-emerald-600" />
-              Find Your True Value
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
-              Salary to Hourly{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
-                Calculator
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-slate-500 leading-relaxed">
-              Convert your annual salary into an exact hourly wage. See how unpaid overtime is eating into your true hourly rate.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-              {[
-                { icon: Zap, label: "Instant Math" },
-                { icon: Clock, label: "True Hourly Rate" },
-                { icon: RefreshCw, label: "Contractor Compare" },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-2 bg-slate-100/80 text-slate-600 px-4 py-2 rounded-full text-xs font-bold border border-slate-200/50">
-                  <Icon size={14} className="text-emerald-500" />
-                  {label}
-                </div>
-              ))}
-            </div>
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
+                          bg-indigo-500/15 border border-indigo-500/20
+                          text-indigo-300 text-[10px] font-black uppercase tracking-widest mb-5">
+            <Zap size={11} className="fill-indigo-400" />
+            True Hourly Rate · Free · Instant Results
           </div>
 
-          <div className="max-w-5xl mx-auto -mb-40 relative z-20">
-            <CalculatorContainer
-              title="Salary to Hourly Calculator"
-              description="Calculate your exact hourly wage from your yearly salary."
-              category="Finance"
-              lastUpdated="2026"
-            >
-              <SalaryToHourlyCalculator />
-            </CalculatorContainer>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] mb-4">
+            Salary to Hourly{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-violet-400">
+              Calculator
+            </span>
+          </h1>
+
+          <p className="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed mb-6">
+            Convert your annual salary into an hourly wage. See how <strong className="text-white">unpaid overtime is eating into your true hourly rate</strong> and compare contractor vs employee wages.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-2 mb-8">
+            {[
+              { icon: Zap, label: "Instant Math", cls: "text-amber-400" },
+              { icon: Clock, label: "True Hourly Rate", cls: "text-indigo-400" },
+              { icon: ShieldCheck, label: "No data stored", cls: "text-indigo-400" },
+              { icon: CheckCircle2, label: "100% Free", cls: "text-emerald-400" },
+            ].map(({ icon: Icon, label, cls }) => (
+              <span key={label} className="flex items-center gap-1.5 text-xs font-semibold bg-white/8 border border-white/10 px-3 py-1.5 rounded-full text-slate-300">
+                <Icon size={11} className={cls} />
+                {label}
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
-      <div className="h-40" />
+      {/* ════════════════════════════════════════════════════════════════════
+          CALCULATOR
+      ════════════════════════════════════════════════════════════════════ */}
+      <section id="calculator" className="scroll-mt-16 bg-slate-950 pb-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+          <SalaryToHourlyCalculator />
+        </div>
+      </section>
 
       {/* ════════════════════════════════════════════════════════════════════
           2026 FACTS STRIP
@@ -216,7 +212,7 @@ export default function SalaryToHourlyPage() {
               { val: "W-2", label: "Employee Tax Status", sub: "Company pays half FICA" },
             ].map(({ val, label, sub }) => (
               <div key={label} className="relative">
-                <p className="text-2xl sm:text-3xl font-black text-emerald-400 mb-2">{val}</p>
+                <p className="text-2xl sm:text-3xl font-black text-indigo-400 mb-2">{val}</p>
                 <p className="text-sm font-bold text-white mb-1">{label}</p>
                 <p className="text-[11px] text-slate-400 leading-tight">{sub}</p>
               </div>
@@ -232,7 +228,7 @@ export default function SalaryToHourlyPage() {
         ════════════════════════════════════════════════════════════════ */}
         <section aria-labelledby="table-heading">
           <div className="text-center mb-8">
-            <p className="text-xs font-black uppercase tracking-widest text-emerald-600 mb-2">
+            <p className="text-xs font-black uppercase tracking-widest text-indigo-600 mb-2">
               Featured Reference
             </p>
             <h2 id="table-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
@@ -250,7 +246,7 @@ export default function SalaryToHourlyPage() {
                   <th className="py-4 px-4 sm:px-6 font-black text-slate-600 text-[10px] uppercase tracking-widest">
                     Annual Salary
                   </th>
-                  <th className="py-4 px-4 sm:px-6 font-black text-emerald-700 text-[10px] uppercase tracking-widest">
+                  <th className="py-4 px-4 sm:px-6 font-black text-indigo-700 text-[10px] uppercase tracking-widest">
                     Hourly Wage
                   </th>
                   <th className="py-4 px-4 sm:px-6 font-black text-slate-600 text-[10px] uppercase tracking-widest hidden sm:table-cell">
@@ -263,9 +259,9 @@ export default function SalaryToHourlyPage() {
               </thead>
               <tbody className="divide-y divide-slate-50">
                 {SALARY_TABLE.map((row, i) => (
-                  <tr key={row.annual} className={`${i % 2 === 0 ? "bg-white" : "bg-slate-50/30"} hover:bg-emerald-50/50 transition-colors`}>
+                  <tr key={row.annual} className={`${i % 2 === 0 ? "bg-white" : "bg-slate-50/30"} hover:bg-indigo-50/50 transition-colors`}>
                     <td className="py-4 px-4 sm:px-6 font-bold text-slate-900">{row.annual}</td>
-                    <td className="py-4 px-4 sm:px-6 font-black text-emerald-600">{row.hourly} / hr</td>
+                    <td className="py-4 px-4 sm:px-6 font-black text-indigo-600">{row.hourly} / hr</td>
                     <td className="py-4 px-4 sm:px-6 font-medium text-slate-500 hidden sm:table-cell">{row.weekly}</td>
                     <td className="py-4 px-4 sm:px-6 font-medium text-slate-500 hidden sm:table-cell">{row.daily}</td>
                   </tr>
@@ -278,13 +274,62 @@ export default function SalaryToHourlyPage() {
         {/* ════════════════════════════════════════════════════════════════
             COMPREHENSIVE GUIDE WITH INTERNAL LINKS
         ════════════════════════════════════════════════════════════════ */}
+        
+        {/* ════════════════════════════════════════════════════════════════
+            METHODOLOGY & WORKED EXAMPLES
+        ════════════════════════════════════════════════════════════════ */}
+        <section aria-labelledby="methodology-heading" className="mb-20">
+          <div className="text-center mb-8">
+            <p className="text-xs font-black uppercase tracking-widest text-indigo-500 mb-2">Methodology</p>
+            <h2 id="methodology-heading" className="text-2xl sm:text-3xl font-black text-slate-900">
+              How We Calculate Your Result
+            </h2>
+          </div>
+          
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm text-sm text-slate-600 space-y-6">
+            <p>
+              This calculator provides estimated hourly conversions using standard US labor practices. Here is how the calculation works:
+            </p>
+            <ol className="list-decimal pl-5 space-y-3 font-medium text-slate-700">
+              <li><strong>Determine Total Annual Hours:</strong> The standard US full-time work year is 2,080 hours (40 hours/week × 52 weeks).</li>
+              <li><strong>Calculate Gross Hourly Rate:</strong> We divide your annual salary by your total annual hours.</li>
+              <li><strong>Adjust for Overtime (Optional):</strong> If you work more than 40 hours per week and are not paid extra (Exempt), your total annual hours increase, lowering your true hourly rate.</li>
+              <li><strong>Calculate Estimated Taxes (Optional):</strong> If using the tax estimator, we apply standard deductions, federal progressive brackets, and FICA to show your net take-home pay per hour.</li>
+            </ol>
+          </div>
+
+          <div className="mt-12 mb-8">
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-6 text-center">Worked Examples (Standard 2,080 Hours)</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { gross: "$50,000", hourly: "$24.04", weekly: "$961", net: "$20.35/hr est." },
+                { gross: "$75,000", hourly: "$36.05", weekly: "$1,442", net: "$28.80/hr est." },
+                { gross: "$100,000", hourly: "$48.08", weekly: "$1,923", net: "$36.20/hr est." }
+              ].map((ex, i) => (
+                <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 shadow-sm">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-1">Example {i+1}</p>
+                  <p className="text-2xl font-black text-slate-900 mb-4">{ex.gross} Salary</p>
+                  <ul className="space-y-2 text-sm text-slate-600 mb-4">
+                    <li className="flex justify-between"><span>Gross Hourly:</span> <span className="font-semibold text-slate-900">{ex.hourly}</span></li>
+                    <li className="flex justify-between"><span>Weekly:</span> <span className="font-semibold text-slate-900">{ex.weekly}</span></li>
+                  </ul>
+                  <div className="pt-3 border-t border-slate-200 flex justify-between items-center">
+                    <span className="font-bold text-slate-900">Estimated Net:</span>
+                    <span className="text-xl font-black text-emerald-600">{ex.net}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section aria-labelledby="guide-heading">
           <div className="flex flex-col lg:flex-row gap-10 items-start max-w-6xl mx-auto">
             
             {/* Main Article */}
             <article className="flex-1 min-w-0 space-y-10">
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
                   <BookOpen size={24} />
                 </div>
                 <div>
@@ -295,9 +340,9 @@ export default function SalaryToHourlyPage() {
                 </div>
               </div>
 
-              <div className="prose prose-slate prose-emerald max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:font-bold prose-a:text-emerald-600 hover:prose-a:text-emerald-700 prose-p:leading-loose">
+              <div className="prose prose-slate prose-emerald max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:font-bold prose-a:text-indigo-600 hover:prose-a:text-indigo-700 prose-p:leading-loose">
                 
-                <p className="lead text-lg text-slate-700 font-medium bg-slate-50 border-l-4 border-emerald-500 p-6 rounded-r-2xl">
+                <p className="lead text-lg text-slate-700 font-medium bg-slate-50 border-l-4 border-indigo-500 p-6 rounded-r-2xl">
                   A high annual salary looks great on paper, but if you are consistently working 50 to 60 hours a week, your actual hourly wage drops drastically. Calculating your salary to an hourly rate reveals how much your time is truly worth to your employer.
                 </p>
 
@@ -318,7 +363,7 @@ export default function SalaryToHourlyPage() {
                   To find your baseline hourly rate, you divide your annual gross salary by the total number of hours you work in a year. In the United States, a standard full-time schedule is considered 40 hours per week for 52 weeks a year.
                 </p>
                 <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm my-6">
-                  <p className="font-mono text-emerald-700 font-bold mb-2">Formula:</p>
+                  <p className="font-mono text-indigo-700 font-bold mb-2">Formula:</p>
                   <code className="text-lg bg-slate-100 px-3 py-1 rounded">40 hours × 52 weeks = 2,080 Total Yearly Hours</code><br/><br/>
                   <code className="text-lg bg-slate-100 px-3 py-1 rounded">Annual Salary ÷ 2,080 = Hourly Rate</code>
                 </div>
@@ -344,6 +389,27 @@ export default function SalaryToHourlyPage() {
                   </div>
                 </div>
 
+                <h3>Flat Tax vs. Progressive Tax: What's the Difference?</h3>
+                <figure className="my-8 rounded-3xl overflow-hidden border border-slate-200 shadow-lg bg-slate-100 flex items-center justify-center min-h-[200px]">
+                  <img 
+                    src="/salary-to-hourly-prograsive-calculator-screenshot.jpg" 
+                    alt="Progressive tax vs flat tax hourly calculator setting highlighting effective tax rates and net take-home pay" 
+                    className="w-full h-auto object-cover"
+                  />
+                </figure>
+                <p>
+                  When calculating your true hourly wage after taxes, you'll notice our calculator offers two distinct settings: <strong>Flat Tax Estimate</strong> and <strong>Progressive US Tax</strong>.
+                </p>
+                <p>
+                  A <strong>flat tax</strong> applies a single, straightforward percentage to your entire gross income. While this is helpful for a quick back-of-the-napkin estimate (for example, assuming a flat 20% across the board), it rarely reflects reality.
+                </p>
+                <p>
+                  The United States uses a <strong>progressive tax</strong> system. This means your income is divided into chunks (or tax brackets), and each chunk is taxed at a progressively higher rate. For instance, in 2026, your first few thousand dollars might be taxed at 10%, the next chunk at 12%, and so on. 
+                </p>
+                <p>
+                  By toggling our calculator to the Progressive US Tax setting, it applies the standard IRS federal tax brackets to give you a much more accurate representation of your <strong>effective tax rate</strong>—revealing exactly how much you are actually taking home per hour after the IRS takes its cut.
+                </p>
+
                 <h3>Transitioning to Freelance or Contracting?</h3>
                 <p>
                   Many professionals use a Salary to Hourly calculator when quitting a full-time W-2 job to become an independent contractor (1099) doing the same work. 
@@ -363,29 +429,43 @@ export default function SalaryToHourlyPage() {
                 </p>
 
               </div>
+            
+        {/* ════════════════════════════════════════════════════════════════
+            DISCLAIMER
+        ════════════════════════════════════════════════════════════════ */}
+        <div className="flex items-start gap-3 bg-slate-50 border border-slate-200
+                        rounded-2xl px-5 py-4 text-xs text-slate-500 mb-12">
+          <div className="mt-0.5"><AlertCircle size={15} className="text-slate-400" /></div>
+          <p className="leading-relaxed">
+            FreeUSCalculator provides estimates for informational and planning purposes only. Actual take-home pay and tax withholding may differ based on your individual circumstances, state and local taxes, and employer payroll settings.
+            <br/><br/>
+            Last updated: September 2026 | Tax year: 2026
+          </p>
+        </div>
+
             </article>
 
             {/* Sticky Sidebar */}
             <aside className="w-full lg:w-[340px] shrink-0 space-y-6 lg:sticky lg:top-24">
               
               {/* Quick Callout Card */}
-              <div className="bg-gradient-to-br from-emerald-900 to-teal-950 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
+              <div className="bg-gradient-to-br from-indigo-900 to-teal-950 rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden">
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 mb-4">
-                    <Globe size={16} className="text-emerald-300" />
-                    <span className="text-xs font-black uppercase tracking-widest text-emerald-300">
+                    <Globe size={16} className="text-indigo-300" />
+                    <span className="text-xs font-black uppercase tracking-widest text-indigo-300">
                       Tax Warning
                     </span>
                   </div>
                   <h3 className="text-xl font-bold mb-3">Taxes Eat 20-30%</h3>
-                  <p className="text-sm text-emerald-100/80 leading-relaxed mb-6">
+                  <p className="text-sm text-indigo-100/80 leading-relaxed mb-6">
                     A $100,000 salary ($48/hr) doesn't mean $48/hr goes into your bank. After federal, state, and FICA taxes, your net hourly rate drops significantly.
                   </p>
                   <Link href="/salary-after-tax-calculator" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-xl text-sm font-bold w-full justify-center">
                     Calculate Net Pay <ArrowRight size={14} />
                   </Link>
                 </div>
-                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500/20 rounded-full blur-2xl" />
+                <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-500/20 rounded-full blur-2xl" />
               </div>
 
               {/* Internal Related Links */}
@@ -400,11 +480,11 @@ export default function SalaryToHourlyPage() {
                     { title: "Paycheck Calculator", href: "/paycheck-calculator", icon: Briefcase },
                     { title: "Time and a Half", href: "/time-and-half-calculator", icon: Calculator },
                   ].map((item) => (
-                    <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-emerald-50 border border-transparent hover:border-emerald-100 transition-colors group">
-                      <div className="bg-slate-100 p-2 rounded-lg group-hover:bg-emerald-200 group-hover:text-emerald-700 transition-colors text-slate-500">
+                    <Link key={item.href} href={item.href} className="flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-50 border border-transparent hover:border-indigo-100 transition-colors group">
+                      <div className="bg-slate-100 p-2 rounded-lg group-hover:bg-indigo-200 group-hover:text-indigo-700 transition-colors text-slate-500">
                         <item.icon size={16} />
                       </div>
-                      <span className="font-semibold text-slate-700 group-hover:text-emerald-700 text-sm">{item.title}</span>
+                      <span className="font-semibold text-slate-700 group-hover:text-indigo-700 text-sm">{item.title}</span>
                     </Link>
                   ))}
                 </div>
@@ -444,7 +524,7 @@ export default function SalaryToHourlyPage() {
         ════════════════════════════════════════════════════════════════ */}
         <section aria-labelledby="faq-heading" className="pt-8">
           <div className="text-center mb-10">
-            <p className="text-xs font-black uppercase tracking-widest text-emerald-600 mb-2">FAQ</p>
+            <p className="text-xs font-black uppercase tracking-widest text-indigo-600 mb-2">FAQ</p>
             <h2 id="faq-heading" className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
               Salary Conversion Questions
             </h2>
@@ -452,9 +532,9 @@ export default function SalaryToHourlyPage() {
           
           <div className="max-w-4xl mx-auto space-y-4">
             {FAQS_DATA.map(({ q, a }) => (
-              <div key={q} className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 hover:border-emerald-300 transition-colors shadow-sm">
+              <div key={q} className="bg-white border border-slate-200/60 rounded-2xl p-5 sm:p-6 hover:border-indigo-300 transition-colors shadow-sm">
                 <dt className="font-black text-slate-900 text-base sm:text-lg mb-2 flex items-start gap-3">
-                  <CheckCircle2 size={20} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 size={20} className="text-indigo-500 shrink-0 mt-0.5" />
                   {q}
                 </dt>
                 <dd className="text-slate-500 text-sm sm:text-base leading-relaxed pl-8">{a}</dd>
@@ -470,8 +550,8 @@ export default function SalaryToHourlyPage() {
       ════════════════════════════════════════════════════════════════════ */}
       <section className="py-16 sm:py-24 bg-gradient-to-br from-slate-900 to-slate-950 text-white text-center border-t border-slate-800">
         <div className="max-w-xl mx-auto px-4 sm:px-6">
-          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-4">
-            100% Free · Accurate Math
+          <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-4">
+            100% Free · Real-Time Estimates
           </p>
           <h2 className="text-3xl sm:text-4xl font-black mb-6">
             Know What Your Time Is Worth
@@ -480,7 +560,7 @@ export default function SalaryToHourlyPage() {
             Stop letting unpaid overtime lower your real wage. Use our tool to calculate your true hourly rate before negotiating your next salary.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#" className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm px-8 py-4 rounded-2xl transition-all shadow-xl shadow-emerald-900/50">
+            <a href="#" className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-sm px-8 py-4 rounded-2xl transition-all shadow-xl shadow-indigo-900/50">
               <Calculator size={16} />
               Scroll to Calculator
             </a>
@@ -506,7 +586,7 @@ export default function SalaryToHourlyPage() {
               { href: "/savings-calculator",                label: "Savings Calculator"           },
               { href: "/rent-affordability-calculator",     label: "Rent Affordability"           },
             ].map((l) => (
-              <Link key={l.href} href={l.href} className="text-slate-500 hover:text-emerald-400 transition-colors text-xs font-medium">
+              <Link key={l.href} href={l.href} className="text-slate-500 hover:text-indigo-400 transition-colors text-xs font-medium">
                 {l.label}
               </Link>
             ))}

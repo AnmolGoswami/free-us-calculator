@@ -79,7 +79,7 @@ const ACTIVE_ICON_BG: Record<TabKey, string> = {
   deferred:  "bg-orange-50 text-orange-500",
   bond:      "bg-emerald-50 text-emerald-600",
 };
-const INACTIVE_ICON_BG = "bg-slate-200/60 text-slate-400";
+const INACTIVE_ICON_BG = "bg-white/10 text-slate-400";
 const PILL_BG: Record<TabKey, string> = {
   amortized: "bg-blue-50   text-blue-700   border-blue-100",
   deferred:  "bg-orange-50 text-orange-700 border-orange-100",
@@ -113,11 +113,11 @@ export default function LoanCalculatorClient() {
            * "Loan & Yield Calculator" = broad KW umbrella covering all 3 tabs.
            * Sub-line lists all 3 loan types for crawler entity recognition.
            */}
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter text-slate-900 leading-tight">
-            Loan <span className="text-blue-600">&amp;</span> Yield{" "}
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter text-white leading-tight">
+            Loan <span className="text-blue-500">&amp;</span> Yield{" "}
             <span className="text-blue-600">Calculator</span>
           </h1>
-          <p className="text-sm md:text-base text-slate-500 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm md:text-base text-slate-400 max-w-xl mx-auto leading-relaxed">
             Amortized EMI · Deferred balloon payment · Bond present value &amp; yield —
             three calculators, one tool
           </p>
@@ -152,8 +152,8 @@ export default function LoanCalculatorClient() {
           <div
             role="tablist"
             aria-label="Loan calculator types"
-            className="flex p-1 bg-slate-100/80 rounded-2xl md:rounded-[2rem] border border-slate-200/60
-                       max-w-2xl mx-auto backdrop-blur-sm overflow-x-auto
+            className="flex p-1 bg-white/5 rounded-2xl md:rounded-[2rem] border border-white/10
+                       max-w-2xl mx-auto backdrop-blur-md overflow-x-auto
                        scrollbar-hide snap-x snap-mandatory"
           >
             {TABS.map((item) => {
@@ -172,7 +172,7 @@ export default function LoanCalculatorClient() {
                     transition-all duration-300 min-w-[100px] snap-start
                     ${isActive
                       ? ACTIVE_BG[item.key]
-                      : "text-slate-500 hover:text-slate-700 active:bg-slate-50"
+                      : "text-slate-400 hover:text-white active:bg-white/10"
                     }
                   `}
                 >

@@ -64,17 +64,17 @@ export default function UberEarningsClient() {
     }, [result, totalExpenses]);
 
     return (
-        <div className="min-h-screen bg-slate-50/50 text-slate-900 py-10 px-4 md:px-6">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl rounded-[2.5rem] overflow-hidden p-6 md:p-10">
             <div className="max-w-7xl mx-auto">
                 {/* HEADER */}
                 <header className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-200 text-amber-700 text-[10px] font-bold uppercase tracking-widest mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[10px] font-bold uppercase tracking-widest mb-4">
                             <Car size={14} /> Rideshare Intelligence
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+                        <h2 className="text-3xl md:text-4xl font-black tracking-tight text-white">
                             Uber <span className="text-amber-500">Earnings</span>
-                        </h1>
+                        </h2>
                     </div>
 
                     <div className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
