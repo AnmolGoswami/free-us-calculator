@@ -815,6 +815,7 @@ export default function SalaryAfterTaxPage() {
               { href: "/hourly-to-salary-calculator", label: "Hourly to Salary" },
               { href: "/overtime-calculator", label: "Overtime Calculator" },
               { href: "/self-employment-tax-calculator-usa", label: "Self-Employment Tax" },
+              { href: "/1099-tax-calculator", label: "1099 Tax Calculator" },
               { href: "/savings-calculator", label: "Savings Calculator" },
               { href: "/loan-calculator", label: "Loan EMI Calculator" },
               { href: "/rent-affordability-calculator", label: "Rent Affordability" },

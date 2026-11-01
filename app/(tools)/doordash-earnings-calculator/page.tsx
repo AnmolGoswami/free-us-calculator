@@ -333,7 +333,7 @@ export default function DoordashEarningsCalculatorPage() {
 
                 <h3>Self-Employment Tax on DoorDash</h3>
                 <p>
-                  As a Dasher, you pay the full 15.3% Self-Employment Tax (Social Security and Medicare) on your net profit. This catches many first-year Dashers off guard when they file their taxes in April. You should check out our <Link href="/self-employment-tax-calculator-usa">Self Employment Tax Calculator</Link> for an exact breakdown.
+                  As a Dasher, you pay the full 15.3% Self-Employment Tax (Social Security and Medicare) on your net profit. This catches many first-year Dashers off guard when they file their taxes in April. You should check out our <Link href="/self-employment-tax-calculator-usa">Self Employment Tax Calculator</Link> and <Link href="/1099-tax-calculator">1099 Tax Calculator</Link> for an exact breakdown of your take-home pay and quarterly tax vouchers.
                 </p>
 
                 <h3>The Best Strategy for 2026</h3>
@@ -476,6 +476,7 @@ export default function DoordashEarningsCalculatorPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-6">
             {[
+              { href: "/1099-tax-calculator",               label: "1099 Tax Calculator"          },
               { href: "/uber-earnings-calculator",          label: "Uber Calculator"              },
               { href: "/self-employment-tax-calculator-usa",label: "Self-Employment Tax"          },
               { href: "/paycheck-calculator",               label: "Paycheck Calculator"          },

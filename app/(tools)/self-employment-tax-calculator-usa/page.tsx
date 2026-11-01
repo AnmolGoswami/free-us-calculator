@@ -20,7 +20,8 @@ import {
   DollarSign,
   TrendingUp,
   MapPin,
-  Landmark
+  Landmark,
+  Receipt
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -361,7 +362,7 @@ export default function SelfEmploymentTaxPage() {
 
                 <h3>The S-Corp Strategy</h3>
                 <p>
-                  Once your freelance business is netting over $80,000 to $100,000 a year, you should consult a CPA about electing S-Corporation status. As an S-Corp, you can pay yourself a "reasonable salary" (which is subject to the 15.3% SE tax) and take the rest of the profit as an "owner's draw" or distribution (which is <strong>exempt</strong> from SE tax, saving you thousands of dollars).
+                  Once your freelance business is netting over $80,000 to $100,000 a year, you should consult a CPA about electing S-Corporation status. As an S-Corp, you can pay yourself a "reasonable salary" (which is subject to the 15.3% SE tax) and take the rest of the profit as an "owner's draw" or distribution (which is <strong>exempt</strong> from SE tax, saving you thousands of dollars). You can test different net take-home and state tax scenarios on our dedicated <Link href="/1099-tax-calculator" className="font-bold text-amber-600 underline">1099 Tax Calculator</Link>.
                 </p>
 
               </div>
@@ -397,6 +398,7 @@ export default function SelfEmploymentTaxPage() {
                 </h4>
                 <div className="space-y-3">
                   {[
+                    { title: "1099 Tax Calculator", href: "/1099-tax-calculator", icon: Receipt },
                     { title: "Salary After Tax", href: "/salary-after-tax-calculator", icon: DollarSign },
                     { title: "Hourly to Salary", href: "/hourly-to-salary-calculator", icon: Briefcase },
                     { title: "Paycheck Calculator", href: "/paycheck-calculator", icon: Landmark },

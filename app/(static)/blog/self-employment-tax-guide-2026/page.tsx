@@ -1202,10 +1202,11 @@ export default function SelfEmploymentTaxGuidePage() {
                              text-slate-500 mb-3">Related Calculators</p>
               <div className="space-y-2">
                 {[
+                  { label: "1099 Tax Calculator",          href: "/1099-tax-calculator" },
                   { label: "Salary After Tax Calculator",  href: "/salary-after-tax-calculator" },
                   { label: "Paycheck Calculator",          href: "/paycheck-calculator" },
                   { label: "DoorDash Earnings Calculator", href: "/doordash-earnings-calculator" },
-                  { label: "Income Tax Calculator",        href: "/tax-calculator" },
+                  { label: "Tax Calculators Hub",          href: "/tax-calculators" },
                   { label: "Savings Calculator",           href: "/savings-calculator" },
                 ].map((l) => (
                   <Link

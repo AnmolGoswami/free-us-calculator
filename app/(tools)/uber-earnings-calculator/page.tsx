@@ -168,7 +168,7 @@ export default function UberEarningsCalculatorPage() {
                 Don't Forget the 15.3% SE Tax!
               </h3>
               <p className="text-amber-800 text-base leading-relaxed m-0">
-                Because Uber drivers are classified as 1099 Independent Contractors, you are responsible for paying the <strong>Self-Employment (SE) tax</strong>. This tax covers both the employer and employee portions of Medicare and Social Security, totaling <strong>15.3%</strong> of your net profit. Our calculator automatically estimates this tax burden so you aren't surprised when you file your taxes next year.
+                Because Uber drivers are classified as <Link href="/1099-tax-calculator" className="font-bold underline hover:text-amber-950">1099 Independent Contractors</Link>, you are responsible for paying the <strong>Self-Employment (SE) tax</strong>. This tax covers both the employer and employee portions of Medicare and Social Security, totaling <strong>15.3%</strong> of your net profit. You can also model your full federal brackets, state taxes, and quarterly payment vouchers using our dedicated <Link href="/1099-tax-calculator" className="font-bold underline hover:text-amber-950">1099 Tax Calculator</Link>.
               </p>
             </div>
           </article>
